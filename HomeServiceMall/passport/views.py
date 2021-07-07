@@ -1,16 +1,15 @@
 from django.shortcuts import render, redirect
+from django.views import View
 
-
-# Create your views here.
-def login_view(request):
-    if request.method == "GET":
+# 登录页面视图
+class login_view(View):
+    def get(self, request):
         return render(request, "login.html")
-    else:
+
+    def post(self, request):
         user = request.POST.get("user")
         pwd = request.POST.get("pwd")
-
         if user == "hofee" and pwd == "123123":
-            # suc
             return redirect("http://www.baidu.com")
         elif len(user) == 0 or len(pwd) == 0:
             if len(user) == 0:
@@ -22,8 +21,8 @@ def login_view(request):
 
 
 def register_view(request):
-    return render(request,"register.html")
+    return render(request, "register.html")
 
 
 def retrieve_view(request):
-    return render(request,"retrieve.html")
+    return render(request, "retrieve.html")

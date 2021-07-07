@@ -30,7 +30,7 @@ account_patterns = [
 
 # passport urls
 passport_patterns = [
-    path("login/", passport_views.login_view),
+    path("login/", passport_views.login_view.as_view()),
     path("register/", passport_views.register_view),
     path("retrieve/", passport_views.retrieve_view),
 ]
