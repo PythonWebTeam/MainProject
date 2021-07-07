@@ -1,9 +1,16 @@
+from django.db import connection
 from django.shortcuts import render
 
 # Create your views here.
 
 
 def user_info_manage_view(request):
+    db = connection.cursor()
+    db.execute("show tables")
+    data = db.fetchall()
+    print("ffff")
+    for x in data:
+        print(x)
     return render(request,"user_info_manage.html")
 
 
