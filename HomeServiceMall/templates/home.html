@@ -48,54 +48,8 @@
 </head>
 
 <body>
-<!--    &lt;!&ndash; Header Area start  &ndash;&gt;-->
-<!--    <div class="header section">-->
-<!--        &lt;!&ndash; Header Top Message Start &ndash;&gt;-->
-<!--        <div class="header-top section-fluid bg-black">-->
-<!--            <div class="container">-->
-<!--                <div class="row row-cols-lg-2 align-items-center">-->
-<!--                    &lt;!&ndash; Header Top Message Start &ndash;&gt;-->
-<!--                    <div class="col text-center text-lg-left">-->
-<!--                        <div class="header-top-massege">-->
-<!--                            <p>Default Welcome Message </p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; Header Top Message End &ndash;&gt;-->
-<!--                    &lt;!&ndash; Header Top Language Currency &ndash;&gt;-->
-<!--                    <div class="col d-none d-lg-block">-->
-<!--                        <div class="header-top-set-lan-curr d-flex justify-content-end">-->
-<!--                            &lt;!&ndash; Single Wedge Start &ndash;&gt;-->
-<!--                            <div class="header-top-curr dropdown">-->
-<!--                                <button class="dropdown-toggle" data-bs-toggle="dropdown"> Language : (ENG) <i-->
-<!--                                        class="ion-ios-arrow-down"></i></button>-->
-<!--                                <ul class="dropdown-menu dropdown-menu-right">-->
-<!--                                    <li><a class="dropdown-item" href="#">English</a></li>-->
-<!--                                    <li><a class="dropdown-item" href="#">Italiano</a></li>-->
-<!--                                    <li><a class="dropdown-item" href="#">Français</a></li>-->
-<!--                                    <li><a class="dropdown-item" href="#">Filipino</a></li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; Single Wedge End &ndash;&gt;-->
-<!--                            &lt;!&ndash; Single Wedge Start &ndash;&gt;-->
-<!--                            <div class="header-top-curr dropdown">-->
-<!--                                <button class="dropdown-toggle pr-0 border-0" data-bs-toggle="dropdown">Currency : (USD)-->
-<!--                                    <i class="ion-ios-arrow-down"></i></button>-->
-<!--                                <ul class="dropdown-menu dropdown-menu-right">-->
-<!--                                    <li><a class="dropdown-item" href="#">USD $</a></li>-->
-<!--                                    <li><a class="dropdown-item" href="#">EUR €</a></li>-->
-<!--                                    <li><a class="dropdown-item" href="#">POUND £</a></li>-->
-<!--                                    <li><a class="dropdown-item" href="#">FRANC ₣</a></li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; Single Wedge End &ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; Header Top Language Currency &ndash;&gt;-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!-- Header Top  End -->
-<!-- Header Bottom  Start -->
+
+
 <div class="header-bottom d-none d-lg-block">
     <div class="container position-relative">
         <div class="row align-self-center">
@@ -108,7 +62,7 @@
             </div>
             <!-- Header Logo End -->
 
-            <!--                Search     -->
+            <!-- Search     -->
 
             <!-- Header Action Start -->
             <div class="col align-self-center">
@@ -135,16 +89,17 @@
                                 <form action="account/" method="GET"><a class="single-link" href="account/">我的账户</a>
                                 </form>
                             </li>
-                            </li>
+
                             <li>
-                                <form action="" method="GET"><a class="single-link" href="">注销</a></form>
+
+                                <form action="" method="GET"><a class="single-link" href="" onclick="logout()">注销</a></form>
                             </li>
-                            </li>
+
                             <li>
                                 <form action="passport/" method="GET"><a class="single-link" href="passport/">登录/注册</a>
                                 </form>
                             </li>
-                            </li>
+
 
 
                         </ul>
@@ -1741,7 +1696,7 @@
 <!--                                            }-->
 <!--                                        </script>-->
                                         <form action="" method="POST">
-                                            <li class="li"><a class="single-link" href="" onclick="logoff()">注销</a></li>
+                                            <li class="li"><a class="single-link" href="" onclick="logout()">注销</a></li>
                                         </form>
                                     </ul>
                                 </div>
@@ -1924,16 +1879,12 @@
     </div>
 </div>
 <!-- Modal end -->
-
-
-
-
-<!-- Use the minified version files listed below for better performance and remove the files listed above -->
 <script src="../static/JavaScript/vendor/vendor.min.js"></script>
 <script src="../static/JavaScript/plugins/plugins.min.js"></script>
 
 <!-- Main Js -->
 <script src="../static/JavaScript/main.js"></script>
+
 </body>
 
 </html>
