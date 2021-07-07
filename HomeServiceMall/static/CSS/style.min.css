@@ -2051,11 +2051,11 @@ progress {
 
 .form-control {
     display: block;
-    width: 100%;
+    width: 50px;
     min-height: 38px;
-    padding: 6px 12px;
+    padding: 6px 5px;
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 50;
     line-height: 1.5;
     color: #495057;
     background-color: #fff;
@@ -2093,7 +2093,7 @@ progress {
 
 .form-control-plaintext {
     display: block;
-    width: 100%;
+    width: 50px;
     padding: 6px 0;
     margin-bottom: 0;
     line-height: 1.5;
