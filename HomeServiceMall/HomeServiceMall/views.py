@@ -4,4 +4,4 @@ from django.db import connection
 
 def home_view(request):
 
-    return render(request, "test.html")
+    return render(request, "home.html")
