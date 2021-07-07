@@ -210,12 +210,7 @@
         },
     });
 
-    /*
-logout
- */
-    function logoff() {
-        alert("注销成功");
-    }
+
 
 
 
@@ -514,3 +509,8 @@ logout
 
 
 })(jQuery);
+
+
+function logout(){
+    alert("注销成功！");
+}
