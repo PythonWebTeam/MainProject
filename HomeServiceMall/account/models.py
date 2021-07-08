@@ -1,57 +1,102 @@
 from django.db import models
 
 # Create your models here.
+
 """
 创建学生信息表模型
 """
+
 from django.db import models
 
-"""
- 该类是用来生成数据库的 必须要继承models.Model
-"""
-class Student(models.Model):
-    """
-    创建如下几个表的字段
-    """
-    # 学号 primary_key=True: 该字段为主键
-    studentNum = models.CharField('学号', primary_key=True, max_length=15)
-    # 姓名 字符串 最大长度20
-    name = models.CharField('姓名', max_length=20)
-    # 年龄 整数 null=False, 表示该字段不能为空
-    age = models.IntegerField('年龄', null=False)
-    # 性别 布尔类型 默认True: 男生 False:女生
-    sex = models.BooleanField('性别', default=True)
-    # 手机 unique=True 该字段唯一
-    mobile = models.CharField('手机', unique=True, max_length=15)
-    # 创建时间 auto_now_add：只有在新增的时候才会生效
-    createTime = models.DateTimeField(auto_now_add=True)
-    # 修改时间 auto_now： 添加和修改都会改变时间
-    modifyTime = models.DateTimeField(auto_now=True)
 
-    # 指定表名 不指定默认APP名字——类名(app_demo_Student)
-    class Meta:
-        db_table = 'student'
-
-
-"""
-学生社团信息表
-"""
-class studentUnion(models.Model):
-    # 自增主键, 这里不能设置default属性，负责执行save的时候就不会新增而是修改元素
-    id = models.IntegerField(primary_key=True)
-    # 社团名称
-    unionName = models.CharField('社团名称', max_length=20)
-    # 社团人数
-    unionNum = models.IntegerField('人数', default=0)
-    # 社团负责人 关联Student的主键 即studentNum学号 一对一的关系,on__delete 属性在django2.0之后为必填属性后面会介绍
-    # unionRoot = models.OneToOneField(Student, on_delete=None)
+class Cart(models.Model):
+    service = models.ForeignKey('Service', on_delete=models.CASCADE)  # 联接Service表
+    user = models.ForeignKey('User', on_delete=models.CASCADE)  # 联接User表
 
     class Meta:
-        db_table = 'student_union'
+        db_table = 'Cart'
+
+    def __str__(self):
+        return "服务:" + str(self.service) + " 用户:" + str(self.user.username)
 
 
-"""
-OneToOneField： 一对一
-ForeignKey: 一对多
-ManyToManyField： 多对多(没有ondelete 属性)
-"""
+class User(models.Model):
+    username = models.CharField('用户名', max_length=32, unique=True)
+    password = models.CharField('密码', max_length=32)
+    email = models.EmailField('用户邮箱', unique=True, blank=True, null=True)
+    phone = models.CharField('用户电话', max_length=32, unique=True, blank=True, null=True)
+    ban = models.BooleanField('用户账号状态')
+    country = models.CharField('国家', max_length=32)
+    province = models.CharField('省份', max_length=32)
+    district = models.CharField('区县', max_length=32)
+    details = models.CharField('详细地址', max_length=255)
+    role = models.ForeignKey('Role', on_delete=models.CASCADE)  # 联接Role表
+
+    def __str__(self):
+        cart_info=""
+        carts=self.get_cart()
+        for cart in carts:
+            cart_info+="服务:{} 用户:{}".format(cart.service,cart.user)
+        return "id:{} 姓名:{} 密码:{} 邮箱:{} 电话:{} 状态:{} 国家:{} 省份:{} 区县:{} 详细地址:{} 类别:{}\n\t购物车:".format( \
+            self.id, self.username, self.password, self.email, self.phone, \
+            self.ban, self.country, self.province, self.district, self.details, self.role.permission
+        ) + self.get_cart()
+
+    def get_cart(self):
+        return Cart.objects.filter(user_id=self.id)
+
+    class Meta:
+        db_table = 'User'
+
+
+class Role(models.Model):
+    permission = models.CharField('用户权限', max_length=32)
+
+    class Meta:
+        db_table = 'Role'
+
+
+class Order(models.Model):
+    service = models.ForeignKey('Service', null=True, blank=True, on_delete=models.SET_NULL)  # 联接Service表
+    user = models.ForeignKey('User', null=True, blank=True, on_delete=models.SET_NULL)  # 联接User表
+    create_time = models.DateTimeField('订单创建时间')
+    start_time = models.DateTimeField('订单开始时间')
+    end_time = models.DateTimeField('订单结束时间')
+    pay_status = models.BooleanField('订单支付状态')
+
+    class Meta:
+        db_table = 'Order'
+
+
+class Shop(models.Model):
+    name = models.CharField('店铺名称', max_length=32, unique=True)
+    create_time = models.DateTimeField('店铺创建时间')
+    status = models.BooleanField('店铺状态')
+    user = models.ForeignKey('User', on_delete=models.CASCADE)  # 联接User表
+
+    class Meta:
+        db_table = 'Shop'
+
+
+class Type(models.Model):
+    name = models.CharField('服务种类名称', max_length=32)
+
+    class Meta:
+        db_table = 'Type'
+
+
+class Service(models.Model):
+    name = models.CharField('服务名称', max_length=32)
+    price = models.DecimalField('服务价格', max_digits=10, decimal_places=2)
+    status = models.BooleanField('服务状态')
+    img = models.CharField('服务图片位置', max_length=255, unique=True, blank=True, null=True)
+    intro = models.CharField('服务简介', max_length=255, unique=True, blank=True, null=True)
+    shop = models.ForeignKey('Shop', on_delete=models.CASCADE)  # 联接Shop表
+    sort = models.ForeignKey('Type', on_delete=models.CASCADE)  # 联接Type表
+
+    def __str__(self):
+        return "id:{} 姓名:{} 价格:{} 状态:{} 简介:{} 所属店铺:{} 类别:{} imgurl:{}".format( \
+            self.id, self.name, self.price, self.status, self.intro, self.shop.name, self.sort.name, self.img)
+
+    class Meta:
+        db_table = 'Service'

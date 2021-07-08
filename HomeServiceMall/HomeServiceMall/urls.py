@@ -8,6 +8,8 @@ from services import views as services_views
 from shop import views as shop_views
 
 # users urls
+from .views import test_view
+
 users_patterns = [
     path("user_info_manage/", account_views.user_info_manage_view),
     path("order_info_manage/", account_views.order_info_manage_view),
@@ -58,4 +60,5 @@ urlpatterns = [
     path("services/", include(services_patterns)),
     path("other/", include(other_patterns)),
     path("admin/", admin.site.urls),
+    path("test/",test_view)
 ]

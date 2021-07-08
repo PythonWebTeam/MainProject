@@ -173,7 +173,7 @@
                         <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 <li><a href="404.html">{{services_sort.0}}</a></li>
-                                <li><a href="privacy-policy.html">{{services_sort.1}}</a></li>
+                                <li><a href="privacy_policy.html">{{services_sort.1}}</a></li>
                                 <li><a href="faq.html">{{services_sort.2}}</a></li>
                                 <li><a href="coming-soon.html">{{services_sort.3}}</a></li>
                             </ul>
@@ -181,7 +181,7 @@
                         <li class="dropdown"><a href="#">常见问题 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 <li><a href="404.html">{{services_sort.0}}</a></li>
-                                <li><a href="privacy-policy.html">{{services_sort.1}}</a></li>
+                                <li><a href="privacy_policy.html">{{services_sort.1}}</a></li>
                                 <li><a href="faq.html">{{services_sort.2}}</a></li>
                                 <li><a href="coming-soon.html">{{services_sort.3}}</a></li>
                             </ul>
@@ -340,12 +340,14 @@
             </div>
             <!-- Tab End -->
         </div>
+
         <div class="row">
             <div class="col">
                 <div class="tab-content">
                     <!-- 1st tab start -->
                     <div class="tab-pane fade show active" id="tab-product-new-arrivals">
                         <div class="row">
+                            {%  for service in top_service %}
                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6" data-aos="fade-up"
                                  data-aos-delay="200">
                                 <!-- Single Prodect -->
@@ -364,199 +366,18 @@
                                         </button>
                                     </div>
                                     <div class="content">
-                                        <h5 class="title"><a href="shop-left-sidebar.html">张三（家电维修）</a>
+                                        <h5 class="title"><a href="shop-left-sidebar.html">{{service.name}}({{service.sort}})</a>
                                         </h5>
                                         <span class="price">
-                                                <span class="new">50元/次</span>
+                                                <span class="new">{{ service.price }}元/次</span>
                                             </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6" data-aos="fade-up"
-                                 data-aos-delay="400">
-                                <!-- Single Prodect -->
-                                <div class="product">
-                                    <div class="thumb">
-                                        <a href="shop-left-sidebar.html" class="image">
-                                            <img src="../static/Images/product-image/3.jpg" alt="Product"/>
-                                            <img class="hover-image" src="../static/Images/product-image/4.jpg"
-                                                 alt="Product"/>
-                                        </a>
-                                        <span class="badges">
-                                                <span class="sale">-10%</span>
-                                            <span class="new">New</span>
-                                            </span>
-
-                                        <button title="Add To Cart" class=" add-to-cart">选购服务
-                                        </button>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="shop-left-sidebar.html">李四（除害虫）</a></h5>
-                                        <span class="price">
-                                                <span class="new">60元/次</span>
-                                            </span>
-                                    </div>
-                                </div>
-                                <!-- Single Prodect -->
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6" data-aos="fade-up"
-                                 data-aos-delay="600">
-                                <!-- Single Prodect -->
-                                <div class="product">
-                                    <div class="thumb">
-                                        <a href="shop-left-sidebar.html" class="image">
-                                            <img src="../static/Images/product-image/5.jpg" alt="Product"/>
-                                            <img class="hover-image" src="../static/Images/product-image/6.jpg"
-                                                 alt="Product"/>
-                                        </a>
-                                        <span class="badges">
-                                                <span class="sale">-7%</span>
-                                            </span>
-
-                                        <button title="Add To Cart" class=" add-to-cart">选购服务
-                                        </button>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="shop-left-sidebar.html">王麻子（房屋维修）</a>
-                                        </h5>
-                                        <span class="price">
-                                                <span class="new">150元/次</span>
-                                            </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6" data-aos="fade-up"
-                                 data-aos-delay="800">
-                                <!-- Single Prodect -->
-                                <div class="product">
-                                    <div class="thumb">
-                                        <a href="shop-left-sidebar.html" class="image">
-                                            <img src="../static/Images/product-image/7.jpg" alt="Product"/>
-                                            <img class="hover-image" src="../static/Images/product-image/8.jpg"
-                                                 alt="Product"/>
-                                        </a>
-                                        <span class="badges">
-                                                <span class="new">New</span>
-                                            </span>
-                                        <button title="Add To Cart" class=" add-to-cart">选购服务
-                                        </button>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="shop-left-sidebar.html">Linda（涉外保姆）</a>
-                                        </h5>
-                                        <span class="price">
-                                                <span class="new">16800元/月</span>
-                                            </span>
-                                    </div>
-                                </div>
-                                <!-- Single Prodect -->
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-md-30px mb-lm-30px" data-aos="fade-up"
-                                 data-aos-delay="200">
-                                <!-- Single Prodect -->
-                                <div class="product">
-                                    <div class="thumb">
-                                        <a href="shop-left-sidebar.html" class="image">
-                                            <img src="../static/Images/product-image/9.jpg" alt="Product"/>
-                                            <img class="hover-image" src="../static/Images/product-image/10.jpg"
-                                                 alt="Product"/>
-                                        </a>
-                                        <span class="badges">
-                                                <span class="sale">-5%</span>
-                                            <span class="new">New</span>
-                                            </span>
-
-                                        <button title="Add To Cart" class=" add-to-cart">选购服务
-                                        </button>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="shop-left-sidebar.html">韩梅梅（育婴早教）</a>
-                                        </h5>
-                                        <span class="price">
-                                                <span class="new">15000元/月</span>
-                                            </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6  mb-md-30px mb-lm-30px" data-aos="fade-up"
-                                 data-aos-delay="400">
-                                <!-- Single Prodect -->
-                                <div class="product">
-                                    <div class="thumb">
-                                        <a href="shop-left-sidebar.html" class="image">
-                                            <img src="../static/Images/product-image/11.jpg" alt="Product"/>
-                                            <img class="hover-image" src="../static/Images/product-image/12.jpg"
-                                                 alt="Product"/>
-                                        </a>
-                                        <span class="badges">
-                                            </span>
-
-                                        <button title="Add To Cart" class=" add-to-cart">选购服务
-                                        </button>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="shop-left-sidebar.html">李华（玻璃清洗）</a></h5>
-                                        <span class="price">
-                                                <span class="new">150元/次</span>
-                                            </span>
-                                    </div>
-                                </div>
-                                <!-- Single Prodect -->
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-es-30px" data-aos="fade-up"
-                                 data-aos-delay="600">
-                                <!-- Single Prodect -->
-                                <div class="product">
-                                    <div class="thumb">
-                                        <a href="shop-left-sidebar.html" class="image">
-                                            <img src="../static/Images/product-image/13.jpg" alt="Product"/>
-                                            <img class="hover-image" src="../static/Images/product-image/14.jpg"
-                                                 alt="Product"/>
-                                        </a>
-                                        <span class="badges">
-                                            </span>
-
-                                        <button title="Add To Cart" class=" add-to-cart">选购服务
-                                        </button>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="shop-left-sidebar.html">小明（抽油烟机清洗）</a>
-                                        </h5>
-                                        <span class="price">
-                                                <span class="new">100元/次</span>
-                                            </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 " data-aos="fade-up" data-aos-delay="800">
-                                <!-- Single Prodect -->
-                                <div class="product">
-                                    <div class="thumb">
-                                        <a href="shop-left-sidebar.html" class="image">
-                                            <img src="../static/Images/product-image/15.jpg" alt="Product"/>
-                                            <img class="hover-image" src="../static/Images/product-image/16.jpg"
-                                                 alt="Product"/>
-                                        </a>
-                                        <span class="badges">
-                                                <span class="new">New</span>
-                                            </span>
-
-                                        <button title="Add To Cart" class=" add-to-cart">选购服务
-                                        </button>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title"><a href="shop-left-sidebar.html">小红（钟点服务）</a>
-                                        </h5>
-                                        <span class="price">
-                                                <span class="new">150元/小时</span>
-                                            </span>
-                                    </div>
-                                </div>
-                                <!-- Single Prodect -->
-
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
+
                     <!-- 4th tab end -->
                 </div>
             </div>
@@ -599,8 +420,8 @@
                                             <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>
                                         </form>
                                         <!--                                            <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>-->
-                                        <form action="other/privacy-policy/" method="GET">
-                                            <li class="li"><a class="single-link" href="other/privacy-policy/">隐私政策</a>
+                                        <form action="other/privacy_policy/" method="GET">
+                                            <li class="li"><a class="single-link" href="other/privacy_policy/">隐私政策</a>
                                             </li>
                                         </form>
                                         <!--                                            <li class="li"><a class="single-link" href="other/privacy-policy/">隐私政策</a></li>-->
