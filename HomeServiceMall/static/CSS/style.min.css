@@ -14932,12 +14932,12 @@ body.offcanvas-open {
 
 @media only screen and (max-width: 575px) {
     .shop-category-area .shop-top-bar {
-        padding: 15px 10px 5px 30px
+        padding: 20px 15px 10px 40x
     }
 }
 
 .shop-category-area .shop-top-bar p {
-    margin: 0
+    margin: 10px;
 }
 
 @media only screen and (max-width: 575px) {
