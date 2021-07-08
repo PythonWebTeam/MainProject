@@ -1,9 +1,11 @@
+from django.db import connection
 from django.shortcuts import render
 
 # Create your views here.
 
 
 def user_info_manage_view(request):
+
     return render(request,"user_info_manage.html")
 
 
