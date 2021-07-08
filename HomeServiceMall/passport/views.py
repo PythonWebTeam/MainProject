@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 # 登录页面视图
-class login_view(View):
+class Login_view(View):
     def get(self, request):
         return render(request, "login.html")
 
