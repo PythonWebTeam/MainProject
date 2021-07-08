@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+
+from utils.data import test_view
 from . import views
 from account import views as account_views
 from other import views as other_views
@@ -8,7 +10,7 @@ from services import views as services_views
 from shop import views as shop_views
 
 # users urls
-from .views import test_view
+
 
 users_patterns = [
     path("user_info_manage/", account_views.user_info_manage_view),
@@ -32,9 +34,9 @@ account_patterns = [
 
 # passport urls
 passport_patterns = [
-    path("login/", passport_views.Login_view.as_view()),
-    path("register/", passport_views.register_view),
-    path("retrieve/", passport_views.retrieve_view),
+    path("login/", passport_views.LoginView.as_view()),
+    path("register/", passport_views.RegisterView.as_view()),
+    path("retrieve/", passport_views.RetrieveView.as_view()),
 ]
 # services urls
 services_patterns = [

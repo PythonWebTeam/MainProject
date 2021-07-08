@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views import View
 
+
 # 登录页面视图
-class Login_view(View):
+class LoginView(View):
     def get(self, request):
         return render(request, "login.html")
 
@@ -20,9 +21,11 @@ class Login_view(View):
             return render(request, 'login.html', {"msg": "用户名或密码错误"})
 
 
-def register_view(request):
-    return render(request, "register.html")
+class RegisterView(View):
+    def get(self, request):
+        return render(request, "register.html")
 
 
-def retrieve_view(request):
-    return render(request, "retrieve.html")
+class RetrieveView(View):
+    def get(self, request):
+        return render(request, "retrieve.html")

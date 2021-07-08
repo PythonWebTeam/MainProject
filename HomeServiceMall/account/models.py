@@ -33,14 +33,11 @@ class User(models.Model):
     role = models.ForeignKey('Role', on_delete=models.CASCADE)  # 联接Role表
 
     def __str__(self):
-        cart_info=""
-        carts=self.get_cart()
-        for cart in carts:
-            cart_info+="服务:{} 用户:{}".format(cart.service,cart.user)
-        return "id:{} 姓名:{} 密码:{} 邮箱:{} 电话:{} 状态:{} 国家:{} 省份:{} 区县:{} 详细地址:{} 类别:{}\n\t购物车:".format( \
+       
+        return "id:{} 姓名:{} 密码:{} 邮箱:{} 电话:{} 状态:{} 国家:{} 省份:{} 区县:{} 详细地址:{} 类别:{}".format( \
             self.id, self.username, self.password, self.email, self.phone, \
             self.ban, self.country, self.province, self.district, self.details, self.role.permission
-        ) + self.get_cart()
+        )
 
     def get_cart(self):
         return Cart.objects.filter(user_id=self.id)
@@ -91,12 +88,13 @@ class Service(models.Model):
     status = models.BooleanField('服务状态')
     img = models.CharField('服务图片位置', max_length=255, unique=True, blank=True, null=True)
     intro = models.CharField('服务简介', max_length=255, unique=True, blank=True, null=True)
+    sales = models.IntegerField("销量", default=0)
     shop = models.ForeignKey('Shop', on_delete=models.CASCADE)  # 联接Shop表
     sort = models.ForeignKey('Type', on_delete=models.CASCADE)  # 联接Type表
 
     def __str__(self):
-        return "id:{} 姓名:{} 价格:{} 状态:{} 简介:{} 所属店铺:{} 类别:{} imgurl:{}".format( \
-            self.id, self.name, self.price, self.status, self.intro, self.shop.name, self.sort.name, self.img)
+        return "id:{} 姓名:{} 价格:{} 状态:{} 简介:{} 所属店铺:{} 类别:{} 销量:{} imgurl:{}".format( \
+            self.id, self.name, self.price, self.status, self.intro, self.shop.name, self.sort.name, self.sales,self.img)
 
     class Meta:
         db_table = 'Service'
