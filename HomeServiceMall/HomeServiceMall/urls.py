@@ -55,7 +55,7 @@ other_patterns = [
 ]
 # main urls
 urlpatterns = [
-    path("", views.Home_view.as_view()),
+    path("", views.HomeView.as_view()),
     path("account/", include(account_patterns)),
     path("passport/", include(passport_patterns)),
     path("shop/", include(shop_patterns)),

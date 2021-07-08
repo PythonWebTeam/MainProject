@@ -3,14 +3,17 @@ from django.shortcuts import render, redirect
 from django.db import connection
 from django.views import View
 from account.models import Service, User
-import random
 
 
-class Home_view(View):
+class HomeView(View):
     def get(self, request):
-        service_sales=Service.objects.order_by("sales")
-        top_service=service_sales[:8]
-        return render(request, "home.html", {"services_sort":1 , "top_service": top_service})
+        services_sales = Service.objects.order_by("sales")
+        top_service = services_sales[:8]
+        services_sort = []
+        for service in services_sales:
+            if service.sort not in services_sort:
+                services_sort.append(service.sort)
+        return render(request, "home.html", {"services_sort": services_sort, "top_service": top_service})
 
     def post(self, request):
         pass

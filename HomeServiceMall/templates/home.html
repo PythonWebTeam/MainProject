@@ -172,20 +172,12 @@
                         </li>
                         <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="404.html">{{services_sort.0}}</a></li>
-                                <li><a href="privacy_policy.html">{{services_sort.1}}</a></li>
-                                <li><a href="faq.html">{{services_sort.2}}</a></li>
-                                <li><a href="coming-soon.html">{{services_sort.3}}</a></li>
+                                {% for service in services_sort %}
+                                <li><a href="">{{service.name}}</a></li>
+                                {% endfor %}
                             </ul>
                         </li>
-                        <li class="dropdown"><a href="#">常见问题 <i class="ion-ios-arrow-down"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="404.html">{{services_sort.0}}</a></li>
-                                <li><a href="privacy_policy.html">{{services_sort.1}}</a></li>
-                                <li><a href="faq.html">{{services_sort.2}}</a></li>
-                                <li><a href="coming-soon.html">{{services_sort.3}}</a></li>
-                            </ul>
-                        </li>
+
                         <li>
                             <form action="other/about/" method="GET"><a class="single-link" href="other/about/">关于我们</a>
                             </form>
@@ -359,14 +351,14 @@
                                                  alt="Product"/>
                                         </a>
                                         <span class="badges">
-                                                <span class="new" style="color:orangered">hot</span>
+                                                <span class="new" style="background-color:orangered">hot</span>
                                             </span>
 
                                         <button title="Add To Cart" class=" add-to-cart">选购服务
                                         </button>
                                     </div>
                                     <div class="content">
-                                        <h5 class="title"><a href="shop-left-sidebar.html">{{service.name}}({{service.sort}})</a>
+                                        <h5 class="title"><a href="shop-left-sidebar.html">{{service.name}}({{service.sort.name}})</a>
                                         </h5>
                                         <span class="price">
                                                 <span class="new">{{service.price}}元/次</span>
