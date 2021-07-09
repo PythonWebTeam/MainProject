@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
@@ -30,9 +31,18 @@ class LoginView(View):
 
 class RegisterView(View):
     def get(self, request):
-        return render(request, "register.html")
+        return HttpResponse("404 not found")
+
+    def post(self, request):
+        # TODO:将注册post数据写入数据库
+        data = request.POST
+        username = data.get("user-name")
+        password = data.get("user-password")
+        print(username, password)
+        user = User.objects.create_user(username=username, password=password)
+        return redirect("../../passport/login/")
 
 
 class RetrieveView(View):
-    def get(self, request):
-        return render(request, "retrieve.html")
+    def post(self, request):
+        return redirect(request, "passport/login/")
