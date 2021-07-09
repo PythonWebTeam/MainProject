@@ -276,7 +276,7 @@
                                         <input type="password" name="user-password" maxlength="12" minlength="6" placeholder="密码" />
                                         <input type="text" oninput = "value=value.replace(/[^\d]/g,'')" maxlength="11" minlength="11" name="phone-number" placeholder="手机号">
                                         <input type="email" name="user-email" placeholder="邮箱"/>
-                                        <input type="text" name="address" placeholder="地址">
+
 
                                         <script>
                                             $(function () {
@@ -364,18 +364,17 @@
                                         <select id="prov" name="prov" onchange="showCity(this)">
                                             <option>省份</option>
                                         </select>
-                                        <!-- 城市选择 -->
-                                        <select id="city" onchange="showCountry(this)">
-                                            <option>城市</option>
-                                        </select>
+
+
                                         <!-- 区县选择 -->
-                                        <select id="country" onchange="selectCountry(this)">
+                                        <select id="county" name="county" onchange="selectCountry(this)">
                                             <option>县区</option>
                                         </select>
                                         <div>
                                             <br>
                                             <br>
                                         </div>
+                                        <input type="text" name="address" placeholder="地址">
                                         <div class="button-box">
                                             <form action="../../passport/register/" method="post"><button type="submit"><span>注册</span></button></form>
                                         </div>

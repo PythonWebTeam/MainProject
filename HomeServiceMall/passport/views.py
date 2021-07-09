@@ -45,7 +45,7 @@ class RegisterView(View):
     def post(self, request):
         # TODO:将注册post数据写入数据库
         data = request.POST
-
+        print(data)
         username = data.get("user-name")
         password = data.get("user-password")
         phone_number = data.get("phone-number")
@@ -55,12 +55,14 @@ class RegisterView(View):
         county = data.get("county")
         msg = "注册成功"
 
-        if not User.objects.filter(username=username):
-            return render("login.html", {"msg": "用户名已被注册!"})
+        print(User.objects.filter(username=username))
+        if User.objects.filter(username=username):
+            print('用户名已被注册')
+            return render(request,"login.html", {"msg": "用户名已被注册!"})
 
         user = User.objects.create_user(username=username, password=password, phone=phone_number, email=email,
                                         province=prov, district=county, details=addr)
-        return redirect("../../passport/register/")
+        return redirect("../../passport/login/")
 
 
 class RetrieveView(View):
