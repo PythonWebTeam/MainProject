@@ -244,8 +244,8 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form action="#" method="post">
-                                        <input type="text" name="user-name" placeholder="用户名" />
-                                        <input type="password" name="user-password" placeholder="密码" />
+                                        <input type="text" name="user-name" maxlength="12" minlength="3" placeholder="用户名" />
+                                        <input type="password" name="user-password" placeholder="密码" maxlength="12" minlength="6" />
                                         <label style="color:red">{{ msg }}</label>
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
@@ -263,8 +263,8 @@
                         <div id="lg2" class="tab-pane">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="../../passport/login/" method="post">
-                                        <input type="text" name="user-name" minlength="3" placeholder="用户名" />
+                                    <form action="../../passport/register/" method="post">
+                                        <input type="text" name="user-name" minlength="3" maxlength="12" placeholder="用户名" />
                                         <label style="color: red">{{ is_registered }}</label>
                                         <input type="password" name="user-password" maxlength="12" minlength="6" placeholder="密码" />
                                         <input type="text" oninput = "value=value.replace(/[^\d]/g,'')" maxlength="11" minlength="11" name="phone-number" placeholder="手机号">
