@@ -1,19 +1,16 @@
-from django.contrib.auth.models import User
 from django.db import models
-# Create your models here.
+from django.contrib.auth.models import AbstractUser
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    phone = models.CharField('用户电话', max_length=32, unique=True, blank=True, null=True)
-    country = models.CharField('国家', max_length=32)
-    province = models.CharField('省份', max_length=32)
-    district = models.CharField('区县', max_length=32)
-    details = models.CharField('详细地址', max_length=255)
-    mod_date = models.DateTimeField('Last modified', auto_now=True)
+class User(AbstractUser):
+    phone = models.CharField(verbose_name='用户电话', max_length=32, unique=True, blank=True, null=True)
+    province = models.CharField(verbose_name='省份', max_length=32, blank=True, null=True)
+    district = models.CharField(verbose_name='区县', max_length=32, blank=True, null=True)
+    details = models.CharField(verbose_name='详细地址', max_length=255, blank=True, null=True)
+    mod_date = models.DateTimeField(verbose_name='Last modified', null=True, auto_now=True)
 
     class Meta:
-        db_table = 'UserProfile'
+        db_table = 'auth_user'
 
 
 class Cart(models.Model):
