@@ -12,6 +12,7 @@ from shop import views as shop_views
 # users urls
 
 
+
 users_patterns = [
     path("user_info_manage/", account_views.user_info_manage_view),
     path("order_info_manage/", account_views.order_info_manage_view),
