@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
+from account.models import Service
+from utils.util import Util
+
 User = get_user_model()
 
 
@@ -13,7 +16,7 @@ class LoginView(View):
     def get(self, request):
         if request.session.get("username"):
             return HttpResponse("用户 " + request.session.get("username") + ",您已登录")
-        return render(request, "login.html")
+        return Util.get_page(request,"login.html")
 
     def post(self, request):
 
@@ -52,14 +55,8 @@ class RegisterView(View):
         county = data.get("county")
         msg = "注册成功"
 
-        if not username:
-            return render("login.html", {"msg": "用户名不能为空!"})
-        elif not User.objects.filter(username=username):
+        if not User.objects.filter(username=username):
             return render("login.html", {"msg": "用户名已被注册!"})
-        elif not password:
-            return render("login.html", {"msg": "电话号码不能为空!"})
-        elif not email:
-            return render("login.html", {"msg": "邮箱不能为空!"})
 
         user = User.objects.create_user(username=username, password=password, phone=phone_number, email=email,
                                         province=prov, district=county, details=addr)
