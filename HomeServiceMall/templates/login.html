@@ -239,13 +239,12 @@
             <div class="col-lg-7 col-md-12 ml-auto mr-auto">
                 <div class="login-register-wrapper">
                     <div class="login-register-tab-list nav">
-                        <a class="active" data-bs-toggle="tab" href="../login">
+                        <a class="active" data-bs-toggle="tab" href="#lg1">
                             <h4>登录</h4>
                         </a>
-                        <form name="to_login" method="get" action="../register">                        <a data-bs-toggle="tab" href="../register">
+                        <a data-bs-toggle="tab" href="#lg2">
                             <h4>注册</h4>
-                        </a></form>
-
+                        </a>
                     </div>
                     <div class="tab-content">
                         <div id="lg1" class="tab-pane active">
@@ -361,25 +360,25 @@
                                             }
                                         </script>
                                         <script src="/static/JavaScript/province.js"></script>
-                                        <form action="../../passport/register/" method="post">                                      <!-- 省份选择 -->
+                                      <!-- 省份选择 -->
                                         <select id="prov" name="prov" onchange="showCity(this)">
                                             <option>省份</option>
                                         </select>
-
+                                        <!-- 城市选择 -->
+                                        <select id="city" onchange="showCountry(this)">
+                                            <option>城市</option>
+                                        </select>
                                         <!-- 区县选择 -->
-                                        <select id="country" name="county" onchange="selectCountry(this)">
+                                        <select id="country" onchange="selectCountry(this)">
                                             <option>县区</option>
                                         </select>
-
                                         <div>
                                             <br>
                                             <br>
                                         </div>
-
                                         <div class="button-box">
-                                            <button type="submit" onclick="alert({{ msg }})"><span>注册</span></button>
+                                            <form action="../../passport/register/" method="post"><button type="submit"><span>注册</span></button></form>
                                         </div>
-                                            </form>
                                     </form>
                                 </div>
                             </div>

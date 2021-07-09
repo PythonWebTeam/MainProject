@@ -60,7 +60,7 @@ class RegisterView(View):
 
         user = User.objects.create_user(username=username, password=password, phone=phone_number, email=email,
                                         province=prov, district=county, details=addr)
-        return redirect("../../passport/login/")
+        return redirect("../../passport/register/")
 
 
 class RetrieveView(View):
