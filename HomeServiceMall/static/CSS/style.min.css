@@ -18132,7 +18132,7 @@ body.offcanvas-open {
 
 .product .thumb .image img.hover-image {
     position: absolute;
-    z-index: 2;
+    z-index: 0;
     top: 0;
     left: 0;
     opacity: 0

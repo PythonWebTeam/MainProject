@@ -1,10 +1,661 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zxx">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Let's购 信息修改</title>
+    <meta name="description"
+          content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world." />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Furns - Responsive eCommerce HTML Template" />
+    <meta property="og:url" content="PAGE_URL" />
+    <meta property="og:site_name" content="Furns - Responsive eCommerce HTML Template" />
+    <!-- For the og:image content, replace the # with a link of an image -->
+    <meta property="og:image" content="#" />
+    <meta property="og:description" content="Furns - Responsive eCommerce HTML Template" />
+    <meta name="robots" content="noindex, follow" />
+    <!-- Add site Favicon -->
+    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="32x32" />
+    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/static/Images/favicon/favicon.png" />
+    <meta name="msapplication-TileImage" content="/static/Images/favicon/favicon.png" />
+    <!-- CSS
+    ============================================ -->
+
+    <!-- Vendor CSS (Contain Bootstrap, Icon Fonts) -->
+    <!-- <link rel="stylesheet" href="/static/CSS/vendor/font-awesome.min.css"/> -->
+    <!-- <link rel="stylesheet" href="/static/CSS/vendor/Pe-icon-7-stroke.css"/> -->
+
+    <!-- Plugin CSS (Global Plugins Files) -->
+    <!-- <link rel="stylesheet" href="/static/CSS/plugins/animate.css"> -->
+    <!-- <link rel="stylesheet" href="/static/CSS/plugins/jquery-ui.min.css"> -->
+    <!-- <link rel="stylesheet" href="/static/CSS/plugins/swiper-bundle.min.css"> -->
+    <!-- <link rel="stylesheet" href="/static/CSS/plugins/nice-select.css"> -->
+    <!-- <link rel="stylesheet" href="/static/CSS/plugins/magnific-popup.min.css"/> -->
+    <link rel="stylesheet" href="/static/CSS/vendor/vendor.min.css" />
+    <link rel="stylesheet" href="/static/CSS/plugins/plugins.min.css" />
+    <link rel="stylesheet" href="/static/CSS/style.min.css">
+    <link rel="stylesheet" href="/static/CSS/layui.css"  />
+    <script src="/static/JavaScript/layui.js" type="text/javascript"></script>
+    <script src="/static/JavaScript/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/JavaScript/area.js" type="text/javascript"></script>
+    <script src="/static/JavaScript/selectMore.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../../js/demo.js"></script>
+    <!-- Minify Version -->
+    <link rel="stylesheet" href="/static/CSS/vendor/vendor.min1.css">
+    <link rel="stylesheet" href="/static/CSS/plugins/plugins.min1.css">
+
+    <!-- Style CSS -->
+    <!-- <link rel="stylesheet" href="/static/CSS/style.css"> -->
+    <link rel="stylesheet" href="/static/CSS/style.min1.css">
+
 </head>
+
 <body>
-<h1>user_info_manage</h1>
+
+<div class="main-wrapper">
+
+
+    <div class="header-bottom d-none d-lg-block">
+    <div class="container position-relative">
+        <div class="row align-self-center">
+            <!-- Header Logo Start -->
+            <div class="col-auto align-self-center">
+                <div class="header-logo">
+                    <form action="../../../" method="GET"><a href="../../../"><img src="/static/Images/logo/logo.png"></a></form>
+
+                </div>
+            </div>
+            <!-- Header Logo End -->
+
+
+
+            <!-- Header Action Start -->
+            <div class="col align-self-center">
+                <label class="header-actions">
+                    <!-- Search Begin -->
+                    <div class="dropdown_search">
+                        <form class="action-form" action="../../../services/<str:service_class>/">
+                            <input class="form-control" placeholder="输入要搜索的服务" type="text">
+                            <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
+                        </form>
+                    </div>
+                    <!-- Search End -->
+                    <!-- User Begin -->
+                    <div class="header-bottom-set dropdown">
+                        <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i
+                                class="icon-user" style="margin-top: 10px;"></i></button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            {% if is_login %}
+                            <li>
+                                <form action="account/users/user_info_manage/" method="GET"><a class="dropdown-item" href="account/users/user_info_manage/">我的账户{{username}}</a>
+                                </form>
+                            </li>
+
+                            <li>
+
+                                <form action="account/logout/" method="POST"><a name="logout" class="dropdown-item" href="account/logout/" onclick="logout()">注销</a>
+                                </form>
+                            </li>
+
+                            {% else %}
+                            <li>
+                                <form action="../../../passport/login/" method="GET"><a class="dropdown-item" href="../../../passport/login/">登录/注册</a>
+                                </form>
+                            </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                    <!-- User End -->
+                    <!-- Cart Begin -->
+                    {% if is_login %}
+
+                    <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
+                        <i class="icon-handbag" style="margin-top: 10px;"></i>
+
+                    </a>
+                    {% else %}
+
+                        <label style="margin-left: 10px;margin-top: 10px">您好,请<a href="/passport/login">登录</a></label>
+
+                    {% endif %}
+                    <!-- Cart End -->
+                    <a href="#offcanvas-mobile-menu"
+                       class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
+                        <i class="icon-menu"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Header Bottom  Start -->
+    <div class="header-bottom d-lg-none sticky-nav bg-white">
+            <div class="container position-relative">
+                <div class="row align-self-center">
+                    <!-- Header Logo Start -->
+                    <div class="col-auto align-self-center">
+                        <div class="header-logo">
+                            <a href="../../../"><img src="/static/Images/logo/logo.png" alt="Site Logo" /></a>
+                        </div>
+                    </div>
+                    <!-- Header Logo End -->
+
+                    <!-- Header Action Start -->
+                    <div class="col align-self-center">
+                        <div class="header-actions">
+                            <div class="header_account_list">
+                                <a href="javascript:void(0)" class="header-action-btn search-btn"><i
+                                        class="icon-magnifier"></i></a>
+                                <div class="dropdown_search">
+                                    <form class="action-form" action="#">
+                                        <input class="form-control" placeholder="Enter your search key" type="text">
+                                        <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Single Wedge Start -->
+                            <div class="header-bottom-set dropdown">
+                                <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i
+                                        class="icon-user" style="margin-top: 10px;"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a class="dropdown-item" href="my-account.html">My account</a></li>
+                                    <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
+                                    <li><a class="dropdown-item" href="login.html">Sign in</a></li>
+                                </ul>
+                            </div>
+                            <!-- Single Wedge End -->
+                            <a href="#offcanvas-cart"
+                                class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
+                                <i class="icon-handbag" style="margin-top: 10px;"></i>
+                                <span class="header-action-num">01</span>
+                                <!-- <span class="cart-amount">€30.00</span> -->
+                            </a>
+                            <a href="#offcanvas-mobile-menu"
+                                class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
+                                <i class="icon-menu"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Header Action End -->
+                </div>
+            </div>
+        </div>
+    <!-- Header Bottom  End -->
+    <!-- Main Menu Start -->
+    <div class="bg-black d-none d-lg-block sticky-nav">
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-md-12 align-self-center">
+                    <div class="main-menu">
+                        <ul>
+                            <li>
+                                <form action="../../../" method="GET"><a class="single-link" href="../../../">首页</a></form>
+                            </li>
+                            <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
+                                <ul class="sub-menu">
+                                    <li><a href="404.html">{{services_sort.0}}</a></li>
+                                    <li><a href="privacy-policy.html">{{services_sort.1}}</a></li>
+                                    <li><a href="faq.html">{{services_sort.2}}</a></li>
+                                    <li><a href="coming-soon.html">{{services_sort.3}}</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><a href="../../../other/Q&A/">常见问题 <i class="ion-ios-arrow-down"></i></a>
+                                <ul class="sub-menu">
+                                    <li><a href="404.html">{{services_sort.0}}</a></li>
+                                    <li><a href="privacy-policy.html">{{services_sort.1}}</a></li>
+                                    <li><a href="faq.html">{{services_sort.2}}</a></li>
+                                    <li><a href="coming-soon.html">{{services_sort.3}}</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <form action="../../../other/about/" method="GET"><a class="single-link" href="../../../other/about/">关于我们</a>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Menu End -->
+
+    <!-- OffCanvas Cart Start -->
+    <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
+        <div class="inner">
+            <div class="head">
+                <span class="title">购物车</span>
+                <button class="offcanvas-close">×</button>
+            </div>
+            <div class="body customScroll">
+                <ul class="minicart-product-list">
+                    <li>
+                        <a href="single-product.html" class="image"><img src="/static/Images/product-image/1.jpg"
+                                                                         alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="single-product.html" class="title">Walnut Cutting Board</a>
+                            <span class="quantity-price">1 x <span class="amount">$91.86</span></span>
+                            <a href="#" class="remove">×</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="single-product.html" class="image"><img src="/static/Images/product-image/2.jpg"
+                                                                         alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="single-product.html" class="title">Lucky Wooden Elephant</a>
+                            <span class="quantity-price">1 x <span class="amount">$453.28</span></span>
+                            <a href="#" class="remove">×</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="single-product.html" class="image"><img src="/static/Images/product-image/3.jpg"
+                                                                         alt="Cart product Image"></a>
+                        <div class="content">
+                            <a href="single-product.html" class="title">Fish Cut Out Set</a>
+                            <span class="quantity-price">1 x <span class="amount">$87.34</span></span>
+                            <a href="#" class="remove">×</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="foot">
+                <div class="sub-total">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td class="text-left">总计 :</td>
+                            <td class="text-right theme-color">$632.48</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="buttons">
+                    <!--                    <a href="cart.html" class="btn btn-dark btn-hover-primary mb-6">查看购物车详情</a>-->
+                    <form action="account/users/shop_cart" method="GET">
+                        <li class="li"><a class="btn btn-dark btn-hover-primary mb-6"
+                                          href="account/users/shop_cart">查看购物车详情</a></li>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- OffCanvas Cart End -->
+
+
+    <div class="offcanvas-overlay"></div>
+
+    <!-- Begin Main Content Area -->
+    <main class="main-content">
+        <div class="account-page-area section-space-y-axis-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <ul class="nav myaccount-tab-trigger" id="account-page-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="account-dashboard-tab" data-bs-toggle="tab" href="#account-dashboard" role="tab" aria-controls="account-dashboard" aria-selected="true">个人信息</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="account-orders-tab" data-bs-toggle="tab" href="#account-orders" role="tab" aria-controls="account-orders" aria-selected="false">全部订单</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="account-address-tab" data-bs-toggle="tab" href="#account-address" role="tab" aria-controls="account-address" aria-selected="false">修改密码</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="account-logout-tab" href="../../../account/users/shop_cart" role="tab" aria-selected="false">购物车</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="tab-content myaccount-tab-content" id="account-page-tab-content">
+                            <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel" aria-labelledby="account-dashboard-tab">
+                                <div class="myaccount-dashboard">
+                                    <form method="post" action="../../account/users/user_info_manage" class="myaccount-form">
+                                        <div class="myaccount-form-inner">
+                                            <div class="single-input single-input-half">
+                                                <label>用户名</label>
+                                                <input type="text"  placeholder="{{User_username}}">
+                                            </div>
+                                            <div class="single-input single-input-half">
+                                                <label>用户ID</label>
+                                                <input type="text" placeholder="{{User_u_id}}" disabled="true">
+                                            </div>
+                                            <div class="single-input">
+                                                <label>邮箱</label>
+                                                <input type="email" placeholder="{{User_email}}">
+                                            </div>
+                                            <div class="single-input">
+                                                <label>手机号</label>
+                                                <input type="number" name="phone-number" placeholder="手机号">
+                                            </div>
+                                            <div class="single-input">
+                                                <label>用户地址</label>
+                                                <input type="text" name="address" placeholder="地址">
+                                                <script>
+                                                    $(function () {
+                                                        var current_prov;
+                                                        var current_city;
+                                                        var current_country;
+                                                        /* 自动加载省份列表 */
+                                                        showPro();
+                                                    });
+                                                    function showPro(){
+                                                        $(".btn").disabled = true;
+                                                        var len = province.length;
+                                                        for(var i = 0; i < len; i++) {
+                                                            var provOpt = document.createElement("option");
+                                                            provOpt.innerText = province[i]['name'];
+                                                            provOpt.value = i;
+                                                            prov.appendChild(provOpt);
+                                                        }
+                                                    };
+                                                    /*根据所选的省份来显示城市列表*/
+                                                    function showCity(obj) {
+                                                        var val = obj.options[obj.selectedIndex].value;
+                                                        current_prov = val;
+                                                        if (val >=0) {
+                                                            city.style.display = 'inline-block';
+                                                            country.style.display = 'none';
+                                                        } else {
+                                                            city.style.display = 'none';
+                                                            country.style.display = 'none';
+                                                        }
+                                                        if (val != null) {
+                                                            city.length = 1;
+                                                            if (province[val]) {
+                                                                var cityLen = province[val]["city"].length;
+                                                            }
+                                                            for (var j = 0; j < cityLen; j++) {
+                                                                var cityOpt = document.createElement('option');
+                                                                cityOpt.innerText = province[val]["city"][j].name;
+                                                                cityOpt.value = j;
+                                                                city.appendChild(cityOpt);
+                                                            }
+                                                        }
+                                                    };
+                                                    /*根据所选的城市来显示县区列表*/
+                                                    function showCountry(obj) {
+                                                        var val = obj.options[obj.selectedIndex].value;
+                                                        if (val >=0) {
+                                                            country.style.display = 'inline-block';
+                                                        } else {
+                                                            country.style.display = 'none';
+                                                        }
+                                                        current_city = val;
+                                                        if (val != null) {
+                                                            country.length = 1;
+                                                            if (province[current_prov]["city"][val]) {
+                                                                var countryLen = province[current_prov]["city"][val].districtAndCounty.length;
+                                                            }
+                                                            if(countryLen == 0){
+                                                                addrShow.value = province[current_prov].name + '-' + province[current_prov]["city"][val].name;
+                                                                return;
+                                                            }
+                                                            for (var n = 0; n < countryLen; n++) {
+                                                                var countryOpt = document.createElement('option');
+                                                                countryOpt.innerText = province[current_prov]["city"][val].districtAndCounty[n];
+                                                                countryOpt.value = n;
+                                                                country.appendChild(countryOpt);
+                                                            }
+                                                        }
+                                                    };
+
+                                                    function selectCountry(obj) {
+                                                        current_country = obj.options[obj.selectedIndex].value;
+                                                        $(".btn").disabled = false;
+
+                                                    };
+                                                    function showAddr() {
+                                                        var ss = province[current_prov].name + "|" +
+                                                            province[current_prov]['city'][current_city].name + "|" +
+                                                            province[current_prov]['city'][current_city]['districtAndCounty'][current_country];
+                                                        $("#addr-show").val(ss);
+                                                    }
+                                                </script>
+                                                <script src="/static/JavaScript/province.js"></script>
+                                                <!-- 省份选择 -->
+                                                <select id="prov" name="prov" onchange="showCity(this)">
+                                                    <option>省份</option>
+                                                </select>
+                                                <!-- 城市选择 -->
+                                                <select id="city" name="city" onchange="showCountry(this)">
+                                                    <option>城市</option>
+                                                </select>
+                                                <!-- 区县选择 -->
+                                                <select id="country" name="county" onchange="selectCountry(this)">
+                                                    <option>县区</option>
+                                                </select>
+                                            </div>
+                                            <div class="single-input">
+                                                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit">
+                                                    <span>保存改变</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account-orders" role="tabpanel" aria-labelledby="account-orders-tab">
+                                <div class="myaccount-orders">
+                                    <h4 class="small-title">正在进行中的订单</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover">
+                                            <tbody>
+                                            <tr>
+                                                <th>订单号</th>
+                                                <th>服务名称</th>
+                                                <th>订单开始时间</th>
+                                                <th>订单结束时间</th>
+                                                <th>订单状态</th>
+                                                <th>查看订单</th>
+                                            </tr>
+                                            <tr>
+                                                <td>{{Order_o_id}}</td>
+                                                <td>{{Order_service}}</td>
+                                                <td>{{start_time}}</td>
+                                                <td>{{end_time}}</td>
+                                                <td>{{order_state}}</td>
+                                                <td><a href="account/users/order_info_manage.html" class="btn btn-secondary btn-primary-hover"><span>查看</span></a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account-address" role="tabpanel" aria-labelledby="account-address-tab">
+                                <div class="myaccount-address">
+                                    <form method="post" action="../../account/users/user_info_manage" class="myaccount-form" >
+                                        <div class="myaccount-form-inner">
+                                            <div class="single-input">
+                                                <label>当前密码(若空白则保持不修改)</label>
+                                                <input type="password">
+                                            </div>
+                                            <div class="single-input">
+                                                <label>新密码(若空白则保持不修改)</label>
+                                                <input type="password">
+                                            </div>
+                                            <div class="single-input">
+                                                <label>验证密码</label>
+                                                <input type="password">
+                                            </div>
+                                            <div class="single-input">
+                                                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit">
+                                                    <span>保存改变</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+    <!-- Main Content Area End Here -->
+
+    <!-- Footer Area Start -->
+<div class="footer-area">
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Start single blog -->
+                    <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="200">
+                        <div class="single-wedge">
+                            <form action="../../../other/about/" method="GET">
+                                <li class="li"><a class="single-link" href="../../../other/about/">关于我们</a></li>
+                            </form>
+                            <p class="about-text"> 公司简介简介简介</p>
+
+                        </div>
+                    </div>
+                    <!-- End single blog -->
+
+                    <!-- Start single blog -->
+                    <div class="col-md-6 col-sm-6 col-lg-3 mb-md-30px mb-lm-30px" data-aos="fade-up"
+                         data-aos-delay="400">
+                        <div class="single-wedge">
+                            <h4 class="footer-herading">其他</h4>
+                            <div class="footer-links">
+                                <div class="footer-row">
+                                    <ul class="align-items-center">
+                                        <form action="../../../other/Q&A/" method="GET">
+                                            <li class="li"><a class="single-link" href="../../../other/Q&A/">常见问题</a></li>
+                                        </form>
+                                        <!--                                            <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>-->
+                                        <form action="../../../other/privacy_policy/" method="GET">
+                                            <li class="li"><a class="single-link" href="../../../other/privacy_policy/">隐私政策</a>
+                                            </li>
+                                        </form>
+                                        <!--                                            <li class="li"><a class="single-link" href="other/privacy-policy/">隐私政策</a></li>-->
+                                        <form action="../../../admin/" method="GET">
+                                            <li class="li"><a class="single-link" href="../../../admin/">管理员登陆</a></li>
+                                        </form>
+                                        <!--                                            <li class="li"><a class="single-link" href="admin/">管理员登陆</a></li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End single blog -->
+
+                    <!-- Start single blog -->
+                    <div class="col-md-6 col-lg-2 col-sm-6 mb-lm-30px" data-aos="fade-up" data-aos-delay="600">
+                        <div class="single-wedge">
+                            <h4 class="footer-herading">账户</h4>
+                            <div class="footer-links">
+                                <div class="footer-row">
+                                    <ul class="align-items-center">
+                                        {% if is_login %}
+                                        <form action="../../../account/users/user_info_manage" method="GET">
+                                            <li class="li"><a class="single-link" href="../../../account/users/user_info_manage">我的账户</a></li>
+                                        </form>
+                                        <form action="../../../account/users/shop_cart" method="GET">
+                                            <li class="li"><a class="single-link" href="../../../account/users/shop_cart">购物车</a>
+                                            </li>
+                                        </form>
+                                        <form action="../../../passport/logout" method="POST">
+                                            <li class="li"><a class="single-link" href="../../../passport/logout" onclick="logout()">注销</a></li>
+                                        </form>
+
+                                        <!--                                        <script>-->
+                                        <!--                                            function logout() {-->
+                                        <!--                                                alert("注销成功!")-->
+                                        <!--                                            }-->
+                                        <!--                                        </script>-->
+                                        {% else %}
+                                        <form action="../../../passport/login/" method="GET">
+                                            <li class="li"><a class="single-link" href="../../../passport/login/">登录</a></li>
+                                        </form>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End single blog -->
+                    <!-- Start single blog -->
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="800">
+                        <div class="single-wedge">
+                            <div class="footer-links">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End single blog -->
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row flex-sm-row-reverse">
+                    <div class="col-md-6 text-right">
+                        <div class="payment-link">
+                            <img src="/static/Images/icons/payment.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-left">
+                        <p class="copy-text">Copyright&copy; Let's购 2021. &nbsp;All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Footer Area End -->
+
+    <!-- Begin Scroll To Top -->
+    <a class="scroll-to-top" href="">
+        <i class="fa fa-chevron-up"></i>
+    </a>
+    <!-- Scroll To Top End Here -->
+
+</div>
+
+<!-- Global Vendor, plugins JS -->
+
+<!-- JS Files
+============================================ -->
+<!-- Global Vendor, plugins JS -->
+
+<!-- Vendor JS -->
+<!-- <script src="/static/JavaScript/vendor/bootstrap.bundle.min.js"></script> -->
+<!-- <script src="/static/JavaScript/vendor/jquery-3.5.1.min.js"></script> -->
+<!-- <script src="/static/JavaScript/vendor/jquery-migrate-3.3.0.min.js"></script> -->
+<!-- <script src="/static/JavaScript/vendor/modernizr-3.11.2.min.js"></script> -->
+<!-- <script src="/static/JavaScript/vendor/jquery.waypoints.js"></script> -->
+
+<!--Plugins JS-->
+<!-- <script src="/static/JavaScript/plugins/wow.min.js"></script> -->
+<!-- <script src="/static/JavaScript/plugins/jquery-ui.min.js"></script> -->
+<!-- <script src="/static/JavaScript/plugins/swiper-bundle.min.js"></script> -->
+<!-- <script src="/static/JavaScript/plugins/jquery.nice-select.js"></script> -->
+<!-- <script src="/static/JavaScript/plugins/parallax.min.js"></script> -->
+<!-- <script src="/static/JavaScript/plugins/jquery.magnific-popup.min.js"></script> -->
+
+<!-- Minify Version -->
+<script src="/static/JavaScript/vendor.min1.js"></script>
+<script src="/static/JavaScript/plugins.min1.js"></script>
+
+<!--Main JS (Common Activation Codes)-->
+<!-- <script src="/static/JavaScript/main.js"></script> -->
+<script src="/static/JavaScript/main.min1.js"></script>
+<script src="/static/JavaScript/vendor/vendor.min.js"></script>
+<script src="/static/JavaScript/plugins/plugins.min.js"></script>
+
+<!-- Main Js -->
+<script src="/static/JavaScript/main.js"></script>
 </body>
+
 </html>
