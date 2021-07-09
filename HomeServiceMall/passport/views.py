@@ -8,9 +8,12 @@ from django.contrib.auth.models import User
 # 登录页面视图
 class LoginView(View):
     def get(self, request):
+        if request.session.get("username"):
+            return HttpResponse("用户 "+request.session.get("username")+",您已登录")
         return render(request, "login.html")
 
     def post(self, request):
+
         username = request.POST.get("user-name")
         password = request.POST.get("user-password")
 
