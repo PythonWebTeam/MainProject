@@ -377,8 +377,13 @@
                                             <br>
                                             <br>
                                         </div>
+                                            <script>
+                                                function myAction(mymsg) {
+                                                    alert(mymsg);
+                                                }
+                                            </script>
                                         <div class="button-box">
-                                            <button type="submit"><span>注册</span></button>
+                                            <button type="submit" onclick="myAction({{ msg }})"><span>注册</span></button>
                                         </div>
                                             </form>
                                     </form>
