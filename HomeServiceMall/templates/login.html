@@ -360,25 +360,27 @@
                                             }
                                         </script>
                                         <script src="/static/JavaScript/province.js"></script>
-                                      <!-- 省份选择 -->
+                                        <form action="../../passport/register/" method="post">                                      <!-- 省份选择 -->
                                         <select id="prov" name="prov" onchange="showCity(this)">
                                             <option>省份</option>
                                         </select>
                                         <!-- 城市选择 -->
-                                        <select id="city" onchange="showCountry(this)">
+                                        <select id="city" name="city" onchange="showCountry(this)">
                                             <option>城市</option>
                                         </select>
                                         <!-- 区县选择 -->
-                                        <select id="country" onchange="selectCountry(this)">
+                                        <select id="county" name="county" onchange="selectCountry(this)">
                                             <option>县区</option>
                                         </select>
+
                                         <div>
                                             <br>
                                             <br>
                                         </div>
                                         <div class="button-box">
-                                            <form action="../../passport/register/" method="post"><button type="submit"><span>注册</span></button></form>
+                                            <button type="submit"><span>注册</span></button>
                                         </div>
+                                            </form>
                                     </form>
                                 </div>
                             </div>
