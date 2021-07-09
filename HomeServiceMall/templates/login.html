@@ -364,10 +364,7 @@
                                         <select id="prov" name="prov" onchange="showCity(this)">
                                             <option>省份</option>
                                         </select>
-                                        <!-- 城市选择 -->
-                                        <select id="city" name="city" onchange="showCountry(this)">
-                                            <option>城市</option>
-                                        </select>
+
                                         <!-- 区县选择 -->
                                         <select id="country" name="county" onchange="selectCountry(this)">
                                             <option>县区</option>
@@ -377,13 +374,9 @@
                                             <br>
                                             <br>
                                         </div>
-                                            <script>
-                                                function myAction(mymsg) {
-                                                    alert(mymsg);
-                                                }
-                                            </script>
+
                                         <div class="button-box">
-                                            <button type="submit" onclick="myAction({{ msg }})"><span>注册</span></button>
+                                            <button type="submit" onclick="alert({{ msg }})"><span>注册</span></button>
                                         </div>
                                             </form>
                                     </form>
