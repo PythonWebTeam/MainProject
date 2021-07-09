@@ -1,41 +1,47 @@
 from django.db import connection
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.views import View
 
 
 def user_info_manage_view(request):
-
-    return render(request,"user_info_manage.html")
+    return render(request, "user_info_manage.html")
 
 
 def order_info_manage_view(request):
-    return render(request,"order_info_manage.html")
+    return render(request, "order_info_manage.html")
 
 
 def shop_cart_view(request):
-    return render(request,"shop_cart.html")
+    return render(request, "shop_cart.html")
 
 
 def vendor_info_manage_view(request):
-    return render(request,"vendor_info_manage.html")
+    return render(request, "vendor_info_manage.html")
 
 
 def shop_info_manage_view(request):
-    return render(request,"shop_info_manage.html")
+    return render(request, "shop_info_manage.html")
 
 
 def product_manage_view(request):
-    return render(request,"product_manage.html")
+    return render(request, "product_manage.html")
 
 
 def order_manage_view(request):
-    return render(request,"order_manage.html")
+    return render(request, "order_manage.html")
 
 
 def service_manage_view(request):
-    return render(request,"service_manage.html")
+    return render(request, "service_manage.html")
 
 
 def business_data_view(request):
-    return render(request,"business_data.html")
+    return render(request, "business_data.html")
+
+
+class LogoutView(View):
+    def get(self, request):
+        request.session.flush()
+        return redirect("/")

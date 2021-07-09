@@ -12,9 +12,12 @@ class LoginView(View):
     def post(self, request):
         username = request.POST.get("user-name")
         password = request.POST.get("user-password")
-        user=authenticate(request, username=username, password=password)
+
+        user = authenticate(request, username=username, password=password)
 
         if user:
+            request.session["is_login"] = True
+            request.session["username"] = username
             return redirect("/")
         elif len(username) == 0 or len(password) == 0:
             if len(username) == 0:
@@ -22,7 +25,7 @@ class LoginView(View):
             if len(password) == 0:
                 return render(request, 'login.html', {"msg": "密码不能为空!"})
         else:
-            return render(request, 'login.html', {"msg": "用户名或密码错误"})
+            return render(request, 'login.html', {"msg": "用户名或密码错误!"})
 
 
 class RegisterView(View):

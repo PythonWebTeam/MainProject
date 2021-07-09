@@ -30,6 +30,7 @@ vendors_patterns = [
 account_patterns = [
     path("users/", include(users_patterns)),
     path("vendors/", include(vendors_patterns)),
+    path("logout/",account_views.LogoutView.as_view())
 ]
 
 # passport urls
@@ -62,5 +63,7 @@ urlpatterns = [
     path("services/", include(services_patterns)),
     path("other/", include(other_patterns)),
     path("admin/", admin.site.urls),
-    path("test/",test_view)
+    path("test/",test_view),
+
+
 ]
