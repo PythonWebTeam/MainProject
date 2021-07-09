@@ -42,8 +42,24 @@ class RegisterView(View):
         data = request.POST
         username = data.get("user-name")
         password = data.get("user-password")
-        print(username, password)
-        user = User.objects.create_user(username=username, password=password)
+        phone_number = data.get("phone-number")
+        email = data.get("user-email")
+        addr = data.get("address")
+        prov = data.get("prov")
+        city = data.get("city")
+        county = data.get("county")
+        msg = "注册成功"
+        if not User.objects.filter(username=username):
+            return render("login.html", {"msg": "用户名已被注册!"})
+        elif not username:
+            return render("login.html", {"msg": "用户名不能为空!"})
+        elif not password:
+            return render("login.html", {"msg": "电话号码不能为空!"})
+        elif not email:
+            return render("login.html", {"msg": "邮箱不能为空!"})
+
+        user = User.objects.create_user(username=username, password=password, phone=phone_number, email=email,
+                                        province=prov, district=county, details=addr)
         return redirect("../../passport/login/")
 
 
