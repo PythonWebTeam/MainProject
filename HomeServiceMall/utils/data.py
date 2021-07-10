@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 
 class TestView(View):
     def post(self, request):
+        print(request.POST.get("user-name"))
         return HttpResponse("nok")
 
     def get(self, request):

@@ -402,16 +402,16 @@
                                     <script>
                                         function AjaxSend() {
                                             $.ajax({
-                                                url: "../../passport/register",
+                                                url: "../../passport/register/",
                                                 type: "POST",
                                                 data: {
-                                                    "user-name": $("#user-name"),
-                                                    "user-password": $("#password"),
-                                                    "phone-number": $("#phonenumber"),
-                                                    "user-email": $("#email"),
-                                                    "prov": $("#prov"),
-                                                    "county": $("#county"),
-                                                    "address": $("#address")
+                                                    "user-name": $("#user-name").val(),
+                                                    "user-password": $("#password").val(),
+                                                    "phone-number": $("#phonenumber").val(),
+                                                    "user-email": $("#email").val(),
+                                                    "prov": $("#prov").val(),
+                                                    "county": $("#county").val(),
+                                                    "address": $("#address").val()
                                                 },
                                                 success: function (return_data) {
                                                     if (return_data === "ok") {
