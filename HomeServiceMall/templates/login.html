@@ -139,41 +139,35 @@
 <!-- Header Bottom  End -->
 <!-- Main Menu Start -->
 <div class="bg-black d-none d-lg-block sticky-nav">
-    <div class="container position-relative">
-        <div class="row">
-            <div class="col-md-12 align-self-center">
-                <div class="main-menu">
-                    <ul>
-                        <li>
-                            <form action="../../" method="GET"><a class="single-link" href="../../">首页</a></form>
-                        </li>
-                        <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="404.html">{{ services_sort.0 }}</a></li>
-                                <li><a href="privacy-policy.html">{{ services_sort.1 }}</a></li>
-                                <li><a href="faq.html">{{ services_sort.2 }}</a></li>
-                                <li><a href="coming-soon.html">{{ services_sort.3 }}</a></li>
+            <div class="container position-relative">
+                <div class="row">
+                    <div class="col-md-12 align-self-center">
+                        <div class="main-menu">
+                            <ul>
+                                <li>
+                                    <form action="../../" method="GET"><a class="single-link" href="../../">首页</a></form>
+                                </li>
+                                <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
+                                    <ul class="sub-menu">
+                                        {% for service in services_sort %}
+                                        <li><a href="">{{ service.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                <li>
+                                    <form action="../../other/Q&A/" method="GET"><a class="single-link"
+                                            href="../../other/Q&A/">常见问题</a>
+                                </li>
+                                <li>
+                                    <form action="../../other/about/" method="GET"><a class="single-link"
+                                            href="../../other/about/">关于我们</a>
+                                </li>
                             </ul>
-                        </li>
-                        <li class="dropdown"><a href="../../other/Q&A/">常见问题 <i class="ion-ios-arrow-down"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="404.html">{{ services_sort.0 }}</a></li>
-                                <li><a href="privacy-policy.html">{{ services_sort.1 }}</a></li>
-                                <li><a href="faq.html">{{ services_sort.2 }}</a></li>
-                                <li><a href="coming-soon.html">{{ services_sort.3 }}</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <form action="../../other/about/" method="GET"><a class="single-link"
-                                                                              href="../../other/about/">关于我们</a>
-                            </form>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 <!-- Main Menu End -->
 
 <!-- OffCanvas Cart Start -->
@@ -256,13 +250,13 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                        <input type="text" name="usernameLogin" id="usernameLogin" maxlength="12" minlength="3"
+                                        <input type="text" name="user-name" id="user-name" maxlength="12" minlength="3"
                                                placeholder="用户名"/>
-                                        <label style="color: red" id="usernameInfoLogin"></label>
+                                        <label style="color: red" id="user-nameInfo"></label>
 
-                                        <input type="password" name="passwordLogin" id="passwordLogin" placeholder="密码" maxlength="12"
+                                        <input type="password" name="user-password" id="user-password" placeholder="密码" maxlength="12"
                                                minlength="6"/>
-                                        <label style="color: red" id="passwordInfoLogin"></label>
+                                        <label style="color: red" id="user-passwordInfo"></label>
 
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
@@ -276,34 +270,34 @@
                                                 function AjaxSendLogin() {
                                                     var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
                                                     $.ajax({
-                                                        url: "../../passport/register/",
+                                                        url: "../../passport/login/",
                                                         type: "POST",
                                                         data: {
-                                                            "usernameLogin": $("#usernameLogin").val(),
-                                                            "userPasswordLogin": $("#passwordLogin").val(),
+                                                            "user-name": $("#user-name").val(),
+                                                            "user-password": $("#user-password").val(),
                                                         },
                                                         beforeSend: function (xhr) {
-                                                            if ($("#usernameLogin").val() === "") {
-                                                                $("#usernameInfoLogin").text("用户名不能为空!")
+                                                            if ($("#user-name").val() === "") {
+                                                                $("#user-nameInfo").text("用户名不能为空!")
                                                                 xhr.abort()
                                                             } else {
-                                                                $("#usernameInfoLogin").text("")
+                                                                $("#user-nameInfo").text("")
                                                             }
 
-                                                            if ($("#passwordLogin").val().length < 6 || $("#passwordLogin").val().length > 15) {
-                                                                $("#passwordInfoLogin").text("密码长度错误!")
+                                                            if ($("#user-password").val().length < 6 || $("#user-password").val().length > 15) {
+                                                                $("#user-passwordInfo").text("密码长度错误!")
                                                                 xhr.abort()
                                                             } else {
-                                                                $("#passwordInfoLogin").text("")
+                                                                $("#user-passwordInfo").text("")
 
                                                             }
                                                         },
-                                                        success: function (return_data) {
-                                                            if (return_data === "ok") {
+                                                        success: function (response_data) {
+                                                            if (response_data === "ok") {
                                                                 alert("登录成功!")
-                                                                location.href = "../../passport/login/"
+                                                                location.href = "../../"
                                                             } else {
-                                                                $("#usernameInfo").text(return_data)
+                                                                $("#usernameInfoLogin").text(response_data)
                                                             }
                                                         }
                                                     })
@@ -317,20 +311,20 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
 
-                                    <input id="username" type="text" name="username" minlength="3" maxlength="12"
+                                    <input id="user-name" type="text" name="user-name" minlength="3" maxlength="12"
                                            placeholder="用户名"/>
-                                    <label style="color: red" id="usernameInfo"></label>
+                                    <label style="color: red" id="user-nameInfo"></label>
 
-                                    <input id="password" type="password" name="password" maxlength="12"
+                                    <input id="user-password" type="password" name="user-password" maxlength="12"
                                            minlength="6" placeholder="密码"/>
-                                    <label style="color: red" id="passwordInfo"></label>
+                                    <label style="color: red" id="user-passwordInfo"></label>
 
-                                    <input id="phonenumber" type="text" oninput="value=value.replace(/[^\d]/g,'')"
-                                           maxlength="11" minlength="11" name="phonenumber" placeholder="手机号">
-                                    <label style="color: red" id="phonenumberInfo"></label>
+                                    <input id="phone-number" type="text" oninput="value=value.replace(/[^\d]/g,'')"
+                                           maxlength="11" minlength="11" name="phone-number" placeholder="手机号">
+                                    <label style="color: red" id="phone-numberInfo"></label>
 
-                                    <input id="email" type="email" name="email" placeholder="邮箱"/>
-                                    <label style="color: red" id="emailInfo"></label>
+                                    <input id="user-email" type="email" name="user-email" placeholder="邮箱"/>
+                                    <label style="color: red" id="user-emailInfo"></label>
                                     <div style="height: 15px"></div>
 
 
@@ -450,46 +444,46 @@
                                                 url: "../../passport/register/",
                                                 type: "POST",
                                                 data: {
-                                                    "user-name": $("#username").val(),
-                                                    "user-password": $("#password").val(),
-                                                    "phone-number": $("#phonenumber").val(),
-                                                    "user-email": $("#email").val(),
+                                                    "user-name": $("#user-name").val(),
+                                                    "user-password": $("#user-password").val(),
+                                                    "phone-number": $("#phone-number").val(),
+                                                    "user-email": $("#user-email").val(),
                                                     "prov": $("#prov").val(),
                                                     "county": $("#county").val(),
                                                     "address": $("#address").val()
                                                 },
                                                 beforeSend: function (xhr) {
-                                                    if ($("#username").val() === "") {
-                                                        $("#usernameInfo").text("用户名不能为空!")
+                                                    if ($("#user-name").val() === "") {
+                                                        $("#user-nameInfo").text("用户名不能为空!")
                                                         xhr.abort()
                                                     } else {
-                                                        $("#usernameInfo").text("")
+                                                        $("#user-nameInfo").text("")
                                                     }
 
-                                                    if ($("#password").val().length < 6 || $("#password").val().length > 15) {
-                                                        $("#passwordInfo").text("密码长度不符合要求!")
+                                                    if ($("#user-password").val().length < 6 || $("#user-password").val().length > 15) {
+                                                        $("#user-passwordInfo").text("密码长度不符合要求!")
                                                         xhr.abort()
                                                     } else {
-                                                        $("#passwordInfo").text("")
-
-                                                    }
-
-                                                    if ($("#phonenumber").val().length !== 11) {
-                                                        $("#phonenumberInfo").text("手机号格式有误!")
-                                                        xhr.abort()
-                                                    } else {
-                                                        $("#phonenumberInfo").text("")
+                                                        $("#user-passwordInfo").text("")
 
                                                     }
 
-                                                    if ($("#email").val().length === 0) {
-                                                        $("#emailInfo").text("邮箱不能为空!")
-                                                        xhr.abort()
-                                                    } else if (!myreg.test($("#email").val())) {
-                                                        $("#emailInfo").text("邮箱格式错误!")
+                                                    if ($("#phone-number").val().length !== 11) {
+                                                        $("#phone-numberInfo").text("手机号格式有误!")
                                                         xhr.abort()
                                                     } else {
-                                                        $("#emailInfo").text("")
+                                                        $("#phone-numberInfo").text("")
+
+                                                    }
+
+                                                    if ($("#user-email").val().length === 0) {
+                                                        $("#user-emailInfo").text("邮箱不能为空!")
+                                                        xhr.abort()
+                                                    } else if (!myreg.test($("#user-email").val())) {
+                                                        $("#user-emailInfo").text("邮箱格式错误!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#user-emailInfo").text("")
                                                     }
 
                                                     if ($("#prov").val() == "省份" || $("#city").val() == "城市" || $("#country").val() == "县区") {
@@ -512,7 +506,7 @@
                                                         alert("注册成功")
                                                         location.href = "../../passport/login/"
                                                     } else {
-                                                        $("#usernameInfo").text(response_data)
+                                                        $("#user-nameInfo").text(response_data)
                                                     }
                                                 }
                                             })
@@ -532,118 +526,122 @@
 
 <!-- Footer Area Start -->
 <div class="footer-area">
-    <div class="footer-container">
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
+            <div class="footer-container">
+                <div class="footer-top">
+                    <div class="container">
+                        <div class="row">
 
-                    <!-- Start single blog -->
-                    <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="200">
-                        <div class="single-wedge">
-                            <form action="../../other/about/" method="GET">
-                                <li class="li"><a class="single-link" href="../../other/about/">关于我们</a></li>
-                            </form>
-                            <p class="about-text"> 公司简介简介简介</p>
+                            <!-- Start single blog -->
+                            <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up"
+                                data-aos-delay="200">
+                                <div class="single-wedge">
+                                    <form action="../../other/about/" method="GET">
+                                        <li class="li"><a class="single-link" href="../../other/about/">关于我们</a></li>
+                                    </form>
+                                    <p class="about-text">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。 以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业 的运营生态。</p>
 
-                        </div>
-                    </div>
-                    <!-- End single blog -->
-
-                    <!-- Start single blog -->
-                    <div class="col-md-6 col-sm-6 col-lg-3 mb-md-30px mb-lm-30px" data-aos="fade-up"
-                         data-aos-delay="400">
-                        <div class="single-wedge">
-                            <h4 class="footer-herading">其他</h4>
-                            <div class="footer-links">
-                                <div class="footer-row">
-                                    <ul class="align-items-center">
-                                        <form action="../../other/Q&A/" method="GET">
-                                            <li class="li"><a class="single-link" href="../../other/Q&A/">常见问题</a></li>
-                                        </form>
-                                        <!--                                            <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>-->
-                                        <form action="../../other/privacy_policy/" method="GET">
-                                            <li class="li"><a class="single-link" href="../../other/privacy_policy/">隐私政策</a>
-                                            </li>
-                                        </form>
-                                        <!--                                            <li class="li"><a class="single-link" href="other/privacy-policy/">隐私政策</a></li>-->
-                                        <form action="../../admin/" method="GET">
-                                            <li class="li"><a class="single-link" href="../../admin/">管理员登陆</a></li>
-                                        </form>
-                                        <!--                                            <li class="li"><a class="single-link" href="admin/">管理员登陆</a></li>-->
-                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- End single blog -->
+                            <!-- End single blog -->
 
-                    <!-- Start single blog -->
-                    <div class="col-md-6 col-lg-2 col-sm-6 mb-lm-30px" data-aos="fade-up" data-aos-delay="600">
-                        <div class="single-wedge">
-                            <h4 class="footer-herading">账户</h4>
-                            <div class="footer-links">
-                                <div class="footer-row">
-                                    <ul class="align-items-center">
-                                        {% if is_login %}
-                                            <form action="../../account/users/user_info_manage" method="GET">
-                                                <li class="li"><a class="single-link"
-                                                                  href="../../account/users/user_info_manage">我的账户</a>
-                                                </li>
-                                            </form>
-                                            <form action="../../account/users/shop_cart" method="GET">
-                                                <li class="li"><a class="single-link"
-                                                                  href="../../account/users/shop_cart">购物车</a>
-                                                </li>
-                                            </form>
-                                            <form action="../../passport/logout" method="POST">
-                                                <li class="li"><a class="single-link" href="../../passport/logout"
-                                                                  onclick="logout()">注销</a></li>
-                                            </form>
-
-                                            <!--                                        <script>-->
-                                            <!--                                            function logout() {-->
-                                            <!--                                                alert("注销成功!")-->
-                                            <!--                                            }-->
-                                            <!--                                        </script>-->
-                                        {% else %}
-                                            <form action="../../passport/login/" method="GET">
-                                                <li class="li"><a class="single-link"
-                                                                  href="../../passport/login/">登录</a></li>
-                                            </form>
-                                        {% endif %}
-                                    </ul>
+                            <!-- Start single blog -->
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-md-30px mb-lm-30px" data-aos="fade-up"
+                                data-aos-delay="400">
+                                <div class="single-wedge">
+                                    <h4 class="footer-herading">其他</h4>
+                                    <div class="footer-links">
+                                        <div class="footer-row">
+                                            <ul class="align-items-center">
+                                                <form action="../../other/Q&A/" method="GET">
+                                                    <li class="li"><a class="single-link" href="../../other/Q&A/">常见问题</a>
+                                                    </li>
+                                                </form>
+                                                <!--                                            <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>-->
+                                                <form action="../../other/privacy_policy/" method="GET">
+                                                    <li class="li"><a class="single-link"
+                                                            href="../../other/privacy_policy/">隐私政策</a>
+                                                    </li>
+                                                </form>
+                                                <!--                                            <li class="li"><a class="single-link" href="other/privacy-policy/">隐私政策</a></li>-->
+                                                <form action="../../admin/" method="GET">
+                                                    <li class="li"><a class="single-link" href="../../admin/">管理员登陆</a></li>
+                                                </form>
+                                                <!--                                            <li class="li"><a class="single-link" href="admin/">管理员登陆</a></li>-->
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- End single blog -->
+
+                            <!-- Start single blog -->
+                            <div class="col-md-6 col-lg-2 col-sm-6 mb-lm-30px" data-aos="fade-up" data-aos-delay="600">
+                                <div class="single-wedge">
+                                    <h4 class="footer-herading">账户</h4>
+                                    <div class="footer-links">
+                                        <div class="footer-row">
+                                            <ul class="align-items-center">
+                                                {% if is_login %}
+                                                <form action="../../account/users/user_info_manage" method="GET">
+                                                    <li class="li"><a class="single-link"
+                                                            href="../../account/users/user_info_manage">我的账户</a></li>
+                                                </form>
+                                                <form action="../../account/users/shop_cart" method="GET">
+                                                    <li class="li"><a class="single-link"
+                                                            href="../../account/users/shop_cart">购物车</a>
+                                                    </li>
+                                                </form>
+                                                <form action="../../" method="POST">
+                                                    <li class="li"><a class="single-link" href="../../"
+                                                            onclick="logout()">注销</a>
+                                                    </li>
+                                                </form>
+
+                                                <!--                                        <script>-->
+                                                <!--                                            function logout() {-->
+                                                <!--                                                alert("注销成功!")-->
+                                                <!--                                            }-->
+                                                <!--                                        </script>-->
+                                                {% else %}
+                                                <form action="../../passport/login/" method="GET">
+                                                    <li class="li"><a class="single-link" href="../../passport/login/">登录</a>
+                                                    </li>
+                                                </form>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End single blog -->
+                            <!-- Start single blog -->
+                            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="800">
+                                <div class="single-wedge">
+                                    <div class="footer-links">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End single blog -->
                         </div>
                     </div>
-                    <!-- End single blog -->
-                    <!-- Start single blog -->
-                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="800">
-                        <div class="single-wedge">
-                            <div class="footer-links">
+                </div>
+                <div class="footer-bottom">
+                    <div class="container">
+                        <div class="row flex-sm-row-reverse">
+                            <div class="col-md-6 text-right">
+                                <div class="payment-link">
+                                    <img src="/static/Images/icons/payment.png" alt="">
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-left">
+                                <p class="copy-text">Copyright&copy; Let's购 2021. &nbsp;All rights reserved.</p>
                             </div>
                         </div>
                     </div>
-                    <!-- End single blog -->
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row flex-sm-row-reverse">
-                    <div class="col-md-6 text-right">
-                        <div class="payment-link">
-                            <img src="/static/Images/icons/payment.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-md-6 text-left">
-                        <p class="copy-text">Copyright&copy; Let's购 2021. &nbsp;All rights reserved.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <!-- Footer Area End -->
 
 
