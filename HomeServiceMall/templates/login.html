@@ -256,24 +256,60 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="#" method="post">
-                                        <input type="text" name="user-name" maxlength="12" minlength="3"
+                                        <input type="text" name="usernameLogin" id="usernameLogin" maxlength="12" minlength="3"
                                                placeholder="用户名"/>
-                                        <input type="password" name="user-password" placeholder="密码" maxlength="12"
+                                        <label style="color: red" id="usernameInfoLogin"></label>
+
+                                        <input type="password" name="passwordLogin" id="passwordLogin" placeholder="密码" maxlength="12"
                                                minlength="6"/>
-                                        <label style="color:red">{{ msg }}</label>
+                                        <label style="color: red" id="passwordInfoLogin"></label>
+
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
                                                 <!--                                                <input type="checkbox" />-->
                                                 <!--                                                <a class="flote-none" href="javascript:void(0)">记住我</a>-->
                                                 <a href="../../passport/retrieve">忘记密码?</a>
                                             </div>
-                                            <form method="post" action="../../passport/login">
-                                                <button type="submit"><span>登录</span></button>
-                                            </form>
+                                            <button type="submit" onclick="AjaxSendLogin()"><span>登录</span></button>
+                                            <script src="/static/JavaScript/jquery-1.8.3.min.js"></script>
+                                            <script>
+                                                function AjaxSendLogin() {
+                                                    var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                                                    $.ajax({
+                                                        url: "../../passport/register/",
+                                                        type: "POST",
+                                                        data: {
+                                                            "usernameLogin": $("#usernameLogin").val(),
+                                                            "userPasswordLogin": $("#passwordLogin").val(),
+                                                        },
+                                                        beforeSend: function (xhr) {
+                                                            if ($("#usernameLogin").val() === "") {
+                                                                $("#usernameInfoLogin").text("用户名不能为空!")
+                                                                xhr.abort()
+                                                            } else {
+                                                                $("#usernameInfoLogin").text("")
+                                                            }
 
+                                                            if ($("#passwordLogin").val().length < 6 || $("#passwordLogin").val().length > 15) {
+                                                                $("#passwordInfoLogin").text("密码长度错误!")
+                                                                xhr.abort()
+                                                            } else {
+                                                                $("#passwordInfoLogin").text("")
+
+                                                            }
+                                                        },
+                                                        success: function (return_data) {
+                                                            if (return_data === "ok") {
+                                                                alert("登录成功!")
+                                                                location.href = "../../passport/login/"
+                                                            } else {
+                                                                $("#usernameInfo").text(return_data)
+                                                            }
+                                                        }
+                                                    })
+                                                }
+                                            </script>
                                         </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -281,130 +317,140 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
 
-                                    <input id="user-name" type="text" name="user-name" minlength="3" maxlength="12"
+                                    <input id="username" type="text" name="username" minlength="3" maxlength="12"
                                            placeholder="用户名"/>
-                                    <label style="color: red" id="is_registered"></label>
-                                    <input id="password" type="password" name="user-password" maxlength="12"
+                                    <label style="color: red" id="usernameInfo"></label>
+
+                                    <input id="password" type="password" name="password" maxlength="12"
                                            minlength="6" placeholder="密码"/>
-                                    <label style="color: red" id="is_password_void"></label>
+                                    <label style="color: red" id="passwordInfo"></label>
+
                                     <input id="phonenumber" type="text" oninput="value=value.replace(/[^\d]/g,'')"
-                                           maxlength="11" minlength="11" name="phone-number" placeholder="手机号">
-                                    <input id="email" type="email" name="user-email" placeholder="邮箱"/>
+                                           maxlength="11" minlength="11" name="phonenumber" placeholder="手机号">
+                                    <label style="color: red" id="phonenumberInfo"></label>
+
+                                    <input id="email" type="email" name="email" placeholder="邮箱"/>
+                                    <label style="color: red" id="emailInfo"></label>
+                                    <div style="height: 15px"></div>
 
 
-                                        <script>
-                                            $(function () {
-                                                var current_prov;
-                                                var current_city;
-                                                var current_country;
-                                                /* 自动加载省份列表 */
-                                                showPro();
-                                            });
-                                            function showPro(){
-                                                $(".btn").disabled = true;
-                                                var len = province.length;
-                                                for(var i = 0; i < len; i++) {
-                                                    var provOpt = document.createElement("option");
-                                                    provOpt.innerText = province[i]['name'];
-                                                    provOpt.value = i;
-                                                    prov.appendChild(provOpt);
-                                                }
-                                            };
-                                            /*根据所选的省份来显示城市列表*/
-                                            function showCity(obj) {
-                                                var val = obj.options[obj.selectedIndex].value;
-                                                current_prov = val;
-                                                if (val >=0) {
-                                                    city.style.display = 'inline-block';
-                                                    country.style.display = 'none';
-                                                } else {
-                                                    city.style.display = 'none';
-                                                    country.style.display = 'none';
-                                                }
-                                                if (val != null) {
-                                                    city.length = 1;
-                                                    if (province[val]) {
-                                                        var cityLen = province[val]["city"].length;
-                                                    }
-                                                    for (var j = 0; j < cityLen; j++) {
-                                                        var cityOpt = document.createElement('option');
-                                                        cityOpt.innerText = province[val]["city"][j].name;
-                                                        cityOpt.value = j;
-                                                        city.appendChild(cityOpt);
-                                                    }
-                                                }
-                                            };
-                                            /*根据所选的城市来显示县区列表*/
-                                            function showCountry(obj) {
-                                                var val = obj.options[obj.selectedIndex].value;
-                                                if (val >=0) {
-                                                    country.style.display = 'inline-block';
-                                                } else {
-                                                    country.style.display = 'none';
-                                                }
-                                                current_city = val;
-                                                if (val != null) {
-                                                    country.length = 1;
-                                                    if (province[current_prov]["city"][val]) {
-                                                        var countryLen = province[current_prov]["city"][val].districtAndCounty.length;
-                                                    }
-                                                    if(countryLen == 0){
-                                                        addrShow.value = province[current_prov].name + '-' + province[current_prov]["city"][val].name;
-                                                        return;
-                                                    }
-                                                    for (var n = 0; n < countryLen; n++) {
-                                                        var countryOpt = document.createElement('option');
-                                                        countryOpt.innerText = province[current_prov]["city"][val].districtAndCounty[n];
-                                                        countryOpt.value = n;
-                                                        country.appendChild(countryOpt);
-                                                    }
-                                                }
-                                            };
+                                    <script>
+                                        $(function () {
+                                            var current_prov;
+                                            var current_city;
+                                            var current_country;
+                                            /* 自动加载省份列表 */
+                                            showPro();
+                                        });
 
-                                            function selectCountry(obj) {
-                                                current_country = obj.options[obj.selectedIndex].value;
-                                                $(".btn").disabled = false;
-
-                                            };
-                                            function showAddr() {
-                                                var ss = province[current_prov].name + "|" +
-                                                    province[current_prov]['city'][current_city].name + "|" +
-                                                    province[current_prov]['city'][current_city]['districtAndCounty'][current_country];
-                                                $("#addr-show").val(ss);
+                                        function showPro() {
+                                            $(".btn").disabled = true;
+                                            var len = province.length;
+                                            for (var i = 0; i < len; i++) {
+                                                var provOpt = document.createElement("option");
+                                                provOpt.innerText = province[i]['name'];
+                                                provOpt.value = i;
+                                                prov.appendChild(provOpt);
                                             }
-                                        </script>
-                                        <script src="/static/JavaScript/province.js"></script>
-                                      <!-- 省份选择 -->
-                                        <select id="prov" name="prov" onchange="showCity(this)">
-                                            <option>省份</option>
-                                        </select>
-                                        <!-- 城市选择 -->
-                                        <select id="city" onchange="showCountry(this)">
-                                            <option>城市</option>
-                                        </select>
-                                        <!-- 区县选择 -->
-                                        <select id="country" onchange="selectCountry(this)">
-                                            <option>县区</option>
-                                        </select>
-                                    <div>
-                                        <br>
-                                        <br>
-                                    </div>
-                                    <input id="address" type="text" name="address" placeholder="地址" >
+                                        };
 
-                                    <div class="button-box" >
+                                        /*根据所选的省份来显示城市列表*/
+                                        function showCity(obj) {
+                                            var val = obj.options[obj.selectedIndex].value;
+                                            current_prov = val;
+                                            if (val >= 0) {
+                                                city.style.display = 'inline-block';
+                                                country.style.display = 'none';
+                                            } else {
+                                                city.style.display = 'none';
+                                                country.style.display = 'none';
+                                            }
+                                            if (val != null) {
+                                                city.length = 1;
+                                                if (province[val]) {
+                                                    var cityLen = province[val]["city"].length;
+                                                }
+                                                for (var j = 0; j < cityLen; j++) {
+                                                    var cityOpt = document.createElement('option');
+                                                    cityOpt.innerText = province[val]["city"][j].name;
+                                                    cityOpt.value = j;
+                                                    city.appendChild(cityOpt);
+                                                }
+                                            }
+                                        };
 
-                                       <button type="submit" onclick="AjaxSend()">提交</button>
+                                        /*根据所选的城市来显示县区列表*/
+                                        function showCountry(obj) {
+                                            var val = obj.options[obj.selectedIndex].value;
+                                            if (val >= 0) {
+                                                country.style.display = 'inline-block';
+                                            } else {
+                                                country.style.display = 'none';
+                                            }
+                                            current_city = val;
+                                            if (val != null) {
+                                                country.length = 1;
+                                                if (province[current_prov]["city"][val]) {
+                                                    var countryLen = province[current_prov]["city"][val].districtAndCounty.length;
+                                                }
+                                                if (countryLen == 0) {
+                                                    addrShow.value = province[current_prov].name + '-' + province[current_prov]["city"][val].name;
+                                                    return;
+                                                }
+                                                for (var n = 0; n < countryLen; n++) {
+                                                    var countryOpt = document.createElement('option');
+                                                    countryOpt.innerText = province[current_prov]["city"][val].districtAndCounty[n];
+                                                    countryOpt.value = n;
+                                                    country.appendChild(countryOpt);
+                                                }
+                                            }
+                                        };
 
+                                        function selectCountry(obj) {
+                                            current_country = obj.options[obj.selectedIndex].value;
+                                            $(".btn").disabled = false;
+
+                                        };
+
+                                        function showAddr() {
+                                            var ss = province[current_prov].name + "|" +
+                                                province[current_prov]['city'][current_city].name + "|" +
+                                                province[current_prov]['city'][current_city]['districtAndCounty'][current_country];
+                                            $("#addr-show").val(ss);
+                                        }
+                                    </script>
+                                    <script src="/static/JavaScript/province.js"></script>
+                                    <!-- 省份选择 -->
+                                    <select id="prov" name="prov" onchange="showCity(this)">
+                                        <option>省份</option>
+                                    </select>
+                                    <!-- 城市选择 -->
+                                    <select id="city" onchange="showCountry(this)">
+                                        <option>城市</option>
+                                    </select>
+                                    <!-- 区县选择 -->
+                                    <select id="country" onchange="selectCountry(this)">
+                                        <option>县区</option>
+                                    </select>
+                                    <div style="height: 15px"></div>
+                                    <label style="color: red" id="bigaddressInfo"></label>
+
+                                    <div style="height: 15px"></div>
+                                    <input id="address" type="text" name="address" placeholder="地址">
+                                    <label style="color: red" id="addressInfo"></label>
+
+                                    <div class="button-box">
+                                        <button type="submit" onclick="AjaxSendRegister()">提交</button>
                                     </div>
                                     <script src="/static/JavaScript/jquery-1.8.3.min.js"></script>
                                     <script>
-                                        function AjaxSend() {
+                                        function AjaxSendRegister() {
+                                            var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
                                             $.ajax({
                                                 url: "../../passport/register/",
                                                 type: "POST",
                                                 data: {
-                                                    "user-name": $("#user-name").val(),
+                                                    "user-name": $("#username").val(),
                                                     "user-password": $("#password").val(),
                                                     "phone-number": $("#phonenumber").val(),
                                                     "user-email": $("#email").val(),
@@ -412,12 +458,61 @@
                                                     "county": $("#county").val(),
                                                     "address": $("#address").val()
                                                 },
+                                                beforeSend: function (xhr) {
+                                                    if ($("#username").val() === "") {
+                                                        $("#usernameInfo").text("用户名不能为空!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#usernameInfo").text("")
+                                                    }
+
+                                                    if ($("#password").val().length < 6 || $("#password").val().length > 15) {
+                                                        $("#passwordInfo").text("密码长度不符合要求!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#passwordInfo").text("")
+
+                                                    }
+
+                                                    if ($("#phonenumber").val().length !== 11) {
+                                                        $("#phonenumberInfo").text("手机号格式有误!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#phonenumberInfo").text("")
+
+                                                    }
+
+                                                    if ($("#email").val().length === 0) {
+                                                        $("#emailInfo").text("邮箱不能为空!")
+                                                        xhr.abort()
+                                                    } else if (!myreg.test($("#email").val())) {
+                                                        $("#emailInfo").text("邮箱格式错误!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#emailInfo").text("")
+                                                    }
+
+                                                    if ($("#prov").val() == "省份" || $("#city").val() == "城市" || $("#country").val() == "县区") {
+                                                        $("#bigaddressInfo").text("省份/城市/县区未正确选择!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#bigaddressInfo").text("")
+                                                    }
+
+                                                    if ($("#address").val() === "") {
+                                                        $("#addressInfo").text("详细地址不能为空!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#addressInfo").text("")
+
+                                                    }
+                                                },
                                                 success: function (return_data) {
                                                     if (return_data === "ok") {
+                                                        alert("注册成功")
                                                         location.href = "../../passport/login/"
                                                     } else {
-                                                        $("#is_registered").text(return_data)
-                                                        $("#is_password_void").text(return_data)
+                                                        $("#usernameInfo").text(return_data)
                                                     }
                                                 }
                                             })
