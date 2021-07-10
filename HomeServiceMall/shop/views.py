@@ -25,4 +25,4 @@ class PayView(View):
         se_id = request.GET.get("se_id")
         print(se_id)
         service = Service.objects.filter(id=int(se_id))
-        return render(request, "pay.html")
+        return render(request, "pay.html",{"service":service})
