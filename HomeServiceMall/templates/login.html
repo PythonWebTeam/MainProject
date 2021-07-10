@@ -286,6 +286,7 @@
                                     <label style="color: red" id="is_registered"></label>
                                     <input id="password" type="password" name="user-password" maxlength="12"
                                            minlength="6" placeholder="密码"/>
+                                    <label style="color: red" id="is_password_void"></label>
                                     <input id="phonenumber" type="text" oninput="value=value.replace(/[^\d]/g,'')"
                                            maxlength="11" minlength="11" name="phone-number" placeholder="手机号">
                                     <input id="email" type="email" name="user-email" placeholder="邮箱"/>
@@ -416,6 +417,7 @@
                                                         location.href = "../../passport/login/"
                                                     } else {
                                                         $("#is_registered").text(return_data)
+                                                        $("#is_password_void").text(return_data)
                                                     }
                                                 }
                                             })
