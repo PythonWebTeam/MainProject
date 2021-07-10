@@ -4,8 +4,9 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     phone = models.CharField(verbose_name='用户电话', max_length=32, unique=True, blank=True, null=True)
-    province = models.CharField(verbose_name='省份', max_length=32, blank=True, null=True)
-    district = models.CharField(verbose_name='区县', max_length=32, blank=True, null=True)
+    province = models.IntegerField(verbose_name='省份', blank=True, null=True)
+    city = models.IntegerField(verbose_name='城市', blank=True, null=True)
+    district = models.IntegerField(verbose_name='区县',  blank=True, null=True)
     details = models.CharField(verbose_name='详细地址', max_length=255, blank=True, null=True)
     mod_date = models.DateTimeField(verbose_name='Last modified', null=True, auto_now=True)
 

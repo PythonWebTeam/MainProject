@@ -24,3 +24,4 @@ class Util:
 
         return render(request, html, {"services_sort": services_sort, "top_service": top_service,
                                       "is_login": is_login})
+

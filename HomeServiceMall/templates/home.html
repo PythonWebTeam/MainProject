@@ -186,7 +186,10 @@
                                         {% endfor %}
                                     </ul>
                                 </li>
-
+                                <li>
+                                    <form action="other/Q&A/" method="GET"><a class="single-link"
+                                            href="other/Q&A/">常见问题</a>
+                                </li>
                                 <li>
                                     <form action="other/about/" method="GET"><a class="single-link"
                                             href="other/about/">关于我们</a>
@@ -212,12 +215,14 @@
                     <ul class="minicart-product-list">
                         {% for service in cart_services %}
                         <li>
-                            <a href="single-product.html" class="image"><img src={{ service.img1 }}></a>
+                        <form method="get">
+                            <a href="/shop/servivce?id={{id}}" class="image"><img src={{ service.img1 }}></a>
                             <div class="content">
-                                <a href="single-product.html" class="title">{{ service.name }}</a>
+                                <a href="/shop/servivce?id={{id}}" class="title">{{ service.name }}</a>
                                 <span class="quantity-price"> <span class="amount">{{ service.price }}</span></span>
                                 <a href="#" class="remove">×</a>
                             </div>
+                        </form>
                         </li>
                         {% endfor %}
                     </ul>
@@ -335,9 +340,11 @@
                                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6" data-aos="fade-up"
                                         data-aos-delay="200">
                                         <!-- Single Prodect -->
+                                        <from method="GET">
                                         <div class="product">
                                             <div class="thumb">
-                                                <a href="shop-left-sidebar.html" class="image">
+
+                                                <a href="/shop/service?se_id={{service.id}}" class="image">
                                                     <img style="width:300px;height:400px" alt="Product"
                                                         src={{ service.img1 }} />
                                                     <img alt="Product" style="width:200px;height:300px"
@@ -352,13 +359,14 @@
                                             </div>
                                             <div class="content">
                                                 <h5 class="title"><a
-                                                        href="shop-left-sidebar.html">{{ service.name }}({{ service.sort.name }})</a>
+                                                        href="/shop/servivce?se_id={{service.id}}">{{ service.name }}({{ service.sort.name }})</a>
                                                 </h5>
                                                 <span class="price">
                                                     <span class="new">{{ service.price }}元/时</span>
                                                 </span>
                                             </div>
                                         </div>
+                                        </from>
                                     </div>
                                     {% endfor %}
                                 </div>

@@ -45,9 +45,9 @@ services_patterns = [
 ]
 # shop urls
 shop_patterns = [
-    path("", shop_views.shop_view),
-    path("service/", shop_views.service_view),
-    path("service/pay", shop_views.pay_view),
+    path("", shop_views.ShopView.as_view()),
+    path("service/", shop_views.ServiceView.as_view()),
+    path("service/pay/", shop_views.PayView.as_view()),
 ]
 # other urls
 other_patterns = [
