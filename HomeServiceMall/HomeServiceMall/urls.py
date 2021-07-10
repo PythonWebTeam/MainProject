@@ -39,10 +39,7 @@ passport_patterns = [
     path("register/", passport_views.RegisterView.as_view()),
     path("retrieve/", passport_views.RetrieveView.as_view()),
 ]
-# services urls
-services_patterns = [
-    path("<str:service_class>/", services_views.services_class_view),
-]
+
 # shop urls
 shop_patterns = [
     path("", shop_views.ShopView.as_view()),
@@ -60,7 +57,7 @@ urlpatterns = [
     path("account/", include(account_patterns)),
     path("passport/", include(passport_patterns)),
     path("shop/", include(shop_patterns)),
-    path("services/", include(services_patterns)),
+    path("services/", services_views.ServicesClassView.as_view()),
     path("other/", include(other_patterns)),
     path("admin/", admin.site.urls),
     path("test/",TestView.as_view()),

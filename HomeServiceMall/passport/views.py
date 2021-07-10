@@ -28,14 +28,9 @@ class LoginView(View):
         if user:
             request.session["is_login"] = True
             request.session["username"] = username
-            return redirect("/")
-        elif len(username) == 0 or len(password) == 0:
-            if len(username) == 0:
-                return render(request, 'login.html', {"msg": "用户名不能为空!"})
-            if len(password) == 0:
-                return render(request, 'login.html', {"msg": "密码不能为空!"})
+            return HttpResponse("ok")
         else:
-            return render(request, 'login.html', {"msg": "用户名或密码错误!"})
+            return HttpResponse("账号或密码错误!")
 
 
 class RegisterView(View):
@@ -43,7 +38,7 @@ class RegisterView(View):
         return HttpResponse("404 not found")
 
     def post(self, request):
-        # TODO:将注册post数据写入数据库
+
         data = request.POST
         print(data)
         username = data.get("user-name")
