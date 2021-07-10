@@ -504,11 +504,14 @@
                                                 },
 
                                                 success: function (response_data) {
-                                                    $("#addressInfo").text("详细地址不能为空!")
                                                     if (response_data === "ok") {
                                                         alert("注册成功")
                                                         location.href = "../../passport/login/"
-                                                    } else {
+                                                    }
+                                                    else if(response_data==="该手机号已被注册"){
+                                                        $("#phone-numberInfo").text(response_data)
+                                                    }
+                                                    else {
                                                         $("#user-nameInfo").text(response_data)
                                                     }
                                                 }
