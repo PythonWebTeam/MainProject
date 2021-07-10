@@ -251,13 +251,13 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                        <input type="text" name="user-name" id="user-name" maxlength="12" minlength="3"
+                                        <input type="text" name="user-nameLogin" id="user-nameLogin" maxlength="12" minlength="3"
                                                placeholder="用户名"/>
-                                        <label style="color: red" id="user-nameInfo"></label>
+                                        <label style="color: red" id="user-nameInfoLogin"></label>
 
-                                        <input type="password" name="user-password" id="user-password" placeholder="密码" maxlength="12"
+                                        <input type="password" name="user-passwordLogin" id="user-passwordLogin" placeholder="密码" maxlength="12"
                                                minlength="6"/>
-                                        <label style="color: red" id="user-passwordInfo"></label>
+                                        <label style="color: red" id="user-passwordInfoLogin"></label>
 
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
@@ -274,22 +274,22 @@
                                                         url: "../../passport/login/",
                                                         type: "POST",
                                                         data: {
-                                                            "user-name": $("#user-name").val(),
-                                                            "user-password": $("#user-password").val(),
+                                                            "user-name": $("#user-nameLogin").val(),
+                                                            "user-password": $("#user-passwordLogin").val(),
                                                         },
                                                         beforeSend: function (xhr) {
-                                                            if ($("#user-name").val() === "") {
-                                                                $("#user-nameInfo").text("用户名不能为空!")
+                                                            if ($("#user-nameLogin").val() === "") {
+                                                                $("#user-nameInfoLogin").text("用户名不能为空!")
                                                                 xhr.abort()
                                                             } else {
-                                                                $("#user-nameInfo").text("")
+                                                                $("#user-nameInfoLogin").text("")
                                                             }
 
-                                                            if ($("#user-password").val().length < 6 || $("#user-password").val().length > 15) {
-                                                                $("#user-passwordInfo").text("密码长度错误!")
+                                                            if ($("#user-passwordLogin").val().length < 6 || $("#user-passwordLogin").val().length > 15) {
+                                                                $("#user-passwordInfoLogin").text("密码长度错误!")
                                                                 xhr.abort()
                                                             } else {
-                                                                $("#user-passwordInfo").text("")
+                                                                $("#user-passwordInfoLogin").text("")
 
                                                             }
                                                         },
@@ -298,7 +298,7 @@
                                                                 alert("登录成功!")
                                                                 location.href = "../../"
                                                             } else {
-                                                                $("#user-nameInfo").text(response_data)
+                                                                $("#user-nameInfoLogin").text(response_data)
                                                             }
                                                         }
                                                     })
@@ -314,18 +314,18 @@
 
                                     <input id="user-nameReg" type="text" name="user-nameReg" minlength="3" maxlength="12"
                                            placeholder="用户名"/>
-                                    <label style="color: red" id="user-nameInfo"></label>
+                                    <label style="color: red" id="user-nameInfoReg"></label>
 
                                     <input id="user-passwordReg" type="password" name="user-passwordReg" maxlength="12"
                                            minlength="6" placeholder="密码"/>
-                                    <label style="color: red" id="user-passwordInfo"></label>
+                                    <label style="color: red" id="user-passwordInfoReg"></label>
 
                                     <input id="phone-number" type="text" oninput="value=value.replace(/[^\d]/g,'')"
                                            maxlength="11" minlength="11" name="phone-number" placeholder="手机号">
-                                    <label style="color: red" id="phone-numberInfo"></label>
+                                    <label style="color: red" id="phone-numberInfoReg"></label>
 
                                     <input id="user-email" type="email" name="user-email" placeholder="邮箱"/>
-                                    <label style="color: red" id="user-emailInfo"></label>
+                                    <label style="color: red" id="user-emailInfoReg"></label>
                                     <div style="height: 15px"></div>
 
 
@@ -428,11 +428,11 @@
                                         <option>县区</option>
                                     </select>
                                     <div style="height: 15px"></div>
-                                    <label style="color: red" id="bigaddressInfo"></label>
+                                    <label style="color: red" id="addressSelectionInfoReg"></label>
 
                                     <div style="height: 15px"></div>
                                     <input id="address" type="text" name="address" placeholder="地址">
-                                    <label style="color: red" id="addressInfo"></label>
+                                    <label style="color: red" id="addressEnterInfoReg"></label>
 
                                     <div class="button-box">
                                         <button type="submit" onclick="AjaxSendRegister()">提交</button>
@@ -455,25 +455,25 @@
                                                 },
                                                 beforeSend: function (xhr) {
                                                     if ($("#user-nameReg").val() === "") {
-                                                        $("#user-nameInfo").text("用户名不能为空!")
+                                                        $("#user-nameInfoReg").text("用户名不能为空!")
                                                         xhr.abort()
                                                     } else {
-                                                        $("#user-nameInfo").text("")
+                                                        $("#user-nameInfoReg").text("")
                                                     }
 
                                                     if ($("#user-passwordReg").val().length < 6 || $("#user-passwordReg").val().length > 15) {
-                                                        $("#user-passwordInfo").text("密码长度不符合要求!")
+                                                        $("#user-passwordInfoReg").text("密码长度不符合要求!")
                                                         xhr.abort()
                                                     } else {
-                                                        $("#user-passwordInfo").text("")
+                                                        $("#user-passwordInfoReg").text("")
 
                                                     }
 
                                                     if ($("#phone-number").val().length !== 11) {
-                                                        $("#phone-numberInfo").text("手机号为11位数字!")
+                                                        $("#phone-numberInfoReg").text("手机号为11位数字!")
                                                         xhr.abort()
                                                     } else {
-                                                        $("#phone-numberInfo").text("")
+                                                        $("#phone-numberInfoReg").text("")
 
                                                     }
 
@@ -481,24 +481,24 @@
                                                         $("#user-emailInfo").text("邮箱不能为空!")
                                                         xhr.abort()
                                                     } else if (!myreg.test($("#user-email").val())) {
-                                                        $("#user-emailInfo").text("邮箱格式错误!")
+                                                        $("#user-emailInfoReg").text("邮箱格式错误!")
                                                         xhr.abort()
                                                     } else {
-                                                        $("#user-emailInfo").text("")
+                                                        $("#user-emailInfoReg").text("")
                                                     }
 
                                                     if ($("#prov").val() === "省份" || $("#city").val() === "城市" || $("#country").val() === "县区") {
-                                                        $("#bigaddressInfo").text("省份/城市/县区未正确选择!")
+                                                        $("#addressSelectionInfoReg").text("省份/城市/县区未正确选择!")
                                                         xhr.abort()
                                                     } else {
-                                                        $("#bigaddressInfo").text("")
+                                                        $("#addressSelectionInfoReg").text("")
                                                     }
 
                                                     if ($("#address").val() === "") {
-                                                        $("#addressInfo").text("详细地址不能为空!")
+                                                        $("#addressEnterInfoReg").text("详细地址不能为空!")
                                                         xhr.abort()
                                                     } else {
-                                                        $("#addressInfo").text("")
+                                                        $("#addressEnterInfoReg").text("")
 
                                                     }
                                                 },
