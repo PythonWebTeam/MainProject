@@ -12,7 +12,7 @@ class ServicesClassView(View):
         type_id = request.GET.get("type_id")
         services = Service.objects.filter("type_id")
         services_num = len(services)
-        return render(request, "services_class.html", services, services_num)
+        return render(request, "services_class.html",{ "services":services, "services_num":services_num})
 
     def post(self, request):
 
