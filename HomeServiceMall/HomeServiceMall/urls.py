@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from utils.data import test_view
+from utils.data import  TestView
 from . import views
 from account import views as account_views
 from other import views as other_views
@@ -46,8 +46,8 @@ services_patterns = [
 # shop urls
 shop_patterns = [
     path("", shop_views.shop_view),
-    path("<str:service>/", shop_views.service_view),
-    path("<str:service>/pay", shop_views.pay_view),
+    path("service/", shop_views.service_view),
+    path("service/pay", shop_views.pay_view),
 ]
 # other urls
 other_patterns = [
@@ -63,7 +63,7 @@ urlpatterns = [
     path("services/", include(services_patterns)),
     path("other/", include(other_patterns)),
     path("admin/", admin.site.urls),
-    path("test/",test_view),
+    path("test/",TestView.as_view()),
 
 
 ]

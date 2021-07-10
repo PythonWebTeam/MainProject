@@ -1,10 +1,17 @@
+from django.http import HttpResponse
+from django.views import View
+
 from account.models import Service, User
 from django.shortcuts import render, redirect
 
 
-def test_view(request):
-    print_all_service()
-    return render(request, "test.html")
+class TestView(View):
+    def post(self, request):
+        print(request.POST.get("user-name"))
+        return HttpResponse("nok")
+
+    def get(self, request):
+        return render(request, "test.html")
 
 
 def print_all_service():

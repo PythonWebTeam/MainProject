@@ -14957,7 +14957,8 @@ body.offcanvas-open {
     display: block;
     float: left;
     font-family: "Open Sans", sans-serif;
-    font-size: 14px;
+    login-register    font-size: 14px;
+    change-delete    font-size: 14px;
     font-weight: 400;
     height: 45px;
     line-height: 45px;
@@ -16973,8 +16974,16 @@ body.offcanvas-open {
     justify-content: center;
     margin-bottom: 40px
 }
+.change-delete-wrapper .change-delete-tab-list {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px
+}
 
 .login-register-wrapper .login-register-tab-list a {
+    position: relative
+}
+.change-delete-wrapper .change-delete-tab-list a {
     position: relative
 }
 
@@ -16989,8 +16998,22 @@ body.offcanvas-open {
     transition: all .4s ease 0s;
     width: 1px
 }
+.change-delete-wrapper .change-delete-tab-list a:before {
+    background-color: #000;
+    bottom: 5px;
+    content: "";
+    height: 18px;
+    margin: 0 auto;
+    position: absolute;
+    right: -2px;
+    transition: all .4s ease 0s;
+    width: 1px
+}
 
 .login-register-wrapper .login-register-tab-list a:hover .h4, .login-register-wrapper .login-register-tab-list a:hover h4 {
+    color: #ff7004 !important
+}
+.change-delete-wrapper .change-delete-tab-list a:hover .h4, .change-delete-wrapper .change-delete-tab-list a:hover h4 {
     color: #ff7004 !important
 }
 
@@ -17003,11 +17026,31 @@ body.offcanvas-open {
     color: #212121
 }
 
+.change-delete-wrapper .change-delete-tab-list a .h4, .change-delete-wrapper .change-delete-tab-list a h4 {
+    font-size: 25px;
+    font-weight: 600;
+    margin: 0 20px;
+    text-transform: capitalize;
+    transition: all .3s ease 0s;
+    color: #212121
+}
+
 .login-register-wrapper .login-register-tab-list a:last-child:before {
     display: none
 }
 
+.change-delete-wrapper .change-delete-tab-list a:last-child:before {
+    display: none
+}
+
 .login-register-wrapper .login-form-container {
+    background: transparent none repeat scroll 0 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .1);
+    padding: 80px;
+    text-align: left
+}
+
+.change-delete-wrapper .login-form-container {
     background: transparent none repeat scroll 0 0;
     box-shadow: 0 0 6px rgba(0, 0, 0, .1);
     padding: 80px;
@@ -17025,11 +17068,34 @@ body.offcanvas-open {
     outline: 0
 }
 
+.change-delete-wrapper .login-form-container .change-delete-form input {
+    background-color: transparent;
+    border: 1px solid #ebebeb;
+    color: #474747;
+    font-size: 14px;
+    margin-bottom: 30px;
+    padding: 0 15px;
+    width: 100%;
+    outline: 0
+}
+
 .login-register-wrapper .login-form-container .login-register-form .button-box .login-toggle-btn {
     padding: 10px 0 19px
 }
 
+.change-delete-wrapper .login-form-container .change-delete-form .button-box .login-toggle-btn {
+    padding: 10px 0 19px
+}
+
 .login-register-wrapper .login-form-container .login-register-form .button-box .login-toggle-btn input[type=checkbox] {
+    height: 15px;
+    margin: 0;
+    position: relative;
+    top: 1px;
+    width: 17px
+}
+
+.change-delete-wrapper .login-form-container .change-delete-form .button-box .login-toggle-btn input[type=checkbox] {
     height: 15px;
     margin: 0;
     position: relative;
@@ -17044,11 +17110,26 @@ body.offcanvas-open {
     transition: all .3s ease 0s
 }
 
+.change-delete-wrapper .login-form-container .change-delete-form .button-box .login-toggle-btn a {
+    color: #212121;
+    float: right;
+    font-size: 15px;
+    transition: all .3s ease 0s
+}
+
 .login-register-wrapper .login-form-container .login-register-form .button-box .login-toggle-btn a.flote-none {
     float: none !important
 }
 
+.change-delete-wrapper .login-form-container .change-delete-form .button-box .login-toggle-btn a.flote-none {
+    float: none !important
+}
+
 .login-register-wrapper .login-form-container .login-register-form .button-box .login-toggle-btn a:hover {
+    color: #ff7004
+}
+
+.change-delete-wrapper .login-form-container .change-delete-form .button-box .login-toggle-btn a:hover {
     color: #ff7004
 }
 
@@ -17068,7 +17149,27 @@ body.offcanvas-open {
     font-family: Raleway, sans-serif
 }
 
+.change-delete-wrapper .login-form-container .change-delete-form .button-box button {
+    background-color: #f2f2f2;
+    border: medium none;
+    color: #212121;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    padding: 11px 30px;
+    text-transform: uppercase;
+    transition: all .3s ease 0s;
+    outline: 0;
+    border-radius: 0;
+    font-family: Raleway, sans-serif
+}
+
 .login-register-wrapper .login-form-container .login-register-form .button-box button:hover {
+    background-color: #ff7004;
+    color: #fff
+}
+.change-delete-wrapper .login-form-container .change-delete-form .button-box button:hover {
     background-color: #ff7004;
     color: #fff
 }
@@ -17086,6 +17187,22 @@ body.offcanvas-open {
 }
 
 .login-register-wrapper .login-register-tab-list a.active .h4, .login-register-wrapper .login-register-tab-list a.active h4 {
+    color: #ff7004
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .change-delete-wrapper .login-form-container {
+        padding: 80px 50px
+    }
+}
+
+@media only screen and (max-width: 7670px) {
+    .change-delete-wrapper .login-form-container {
+        padding: 40px 15px
+    }
+}
+
+.change-delete-wrapper .change-delete-tab-list a.active .h4, .change-delete-wrapper .change-delete-tab-list a.active h4 {
     color: #ff7004
 }
 
