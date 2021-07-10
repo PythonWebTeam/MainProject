@@ -22,9 +22,7 @@ class LoginView(View):
 
         username = request.POST.get("user-name")
         password = request.POST.get("user-password")
-
         user = authenticate(request, username=username, password=password)
-
         if user:
             request.session["is_login"] = True
             request.session["username"] = username

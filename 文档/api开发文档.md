@@ -91,7 +91,7 @@
 
 ---
 
-### 获取服务页面
+### 获取服务列表页面
 
 方法`GET`  请求地址:`services?type_id={{service.sort.id}}` 
 
@@ -107,15 +107,16 @@
 
 **请求参数**
 
-| 参数名    | 参数类型 | 描述                             |
-| --------- | -------- | -------------------------------- |
-| `type_id` | `int`    | 服务种类id号，为-1时代表全部种类 |
+| 参数名    | 参数类型 | 描述                               |
+| --------- | -------- | ---------------------------------- |
+| `type_id` | `int`    | 服务种类id号，为`-1`时代表全部种类 |
 
 **成功返回**
 
-| 参数名          | 参数类型        | 描述                  |
-| --------------- | --------------- | --------------------- |
-| `response_data` | `HttpResponese` | 注册成功，返回 `"ok"` |
+| 参数名         | 参数类型    | 描述              |
+| -------------- | ----------- | ----------------- |
+| `services`     | `Service[]` | `Service`对象列表 |
+| `services_num` | `int`       | 服务总个数        |
 
 **失败返回**
 
@@ -124,4 +125,30 @@
 |        | `HttpResponse` | 返回`404 Not Found` |
 
 **说明/示例**
+
+---
+
+`Service`对象所含参数如下
+
+```python
+    name = models.CharField('服务名称', max_length=32)
+    price = models.DecimalField('服务价格', max_digits=10, decimal_places=2)
+    status = models.BooleanField('服务状态')
+    img1 = models.CharField('服务图片位置', max_length=255, unique=True, blank=True, null=True)
+    img2 = models.CharField('服务图片位置', max_length=255, unique=True, blank=True, null=True)
+    intro = models.CharField('服务简介', max_length=255, unique=True, blank=True, null=True)
+    sales = models.IntegerField("销量", default=0)
+    shop = models.ForeignKey('Shop', on_delete=models.CASCADE)  # 联接Shop表
+    sort = models.ForeignKey('Type', on_delete=models.CASCADE)  # 联接Type表
+```
+
+获取 商品种类名 使用`services.下标.sort.name`
+
+HTML用`for`循环显示图片
+
+---
+
+## 3.店铺
+
+
 
