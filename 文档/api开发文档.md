@@ -93,7 +93,7 @@
 
 ### 获取服务列表页面
 
-方法`GET`  请求地址:`services?search={{key}}` 
+方法`GET`  请求地址:`services/?search={{key}}` 
 
 **描述**
 
@@ -185,3 +185,4 @@ HTML用`for`循环显示图片
 **说明/示例**
 
 ---
+
