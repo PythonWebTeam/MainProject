@@ -507,12 +507,12 @@
 
                                                     }
                                                 },
-                                                success: function (return_data) {
-                                                    if (return_data === "ok") {
+                                                success: function (response_data) {
+                                                    if (response_data === "ok") {
                                                         alert("注册成功")
                                                         location.href = "../../passport/login/"
                                                     } else {
-                                                        $("#usernameInfo").text(return_data)
+                                                        $("#usernameInfo").text(response_data)
                                                     }
                                                 }
                                             })
