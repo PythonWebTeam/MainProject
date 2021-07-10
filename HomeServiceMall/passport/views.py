@@ -16,7 +16,7 @@ class LoginView(View):
     def get(self, request):
         if request.session.get("username"):
             return HttpResponse("用户 " + request.session.get("username") + ",您已登录")
-        return Util.get_page(request,"login.html")
+        return Util.get_page(request, "login.html")
 
     def post(self, request):
 
@@ -53,16 +53,14 @@ class RegisterView(View):
         addr = data.get("address")
         prov = data.get("prov")
         county = data.get("county")
-        msg = "注册成功"
 
-        print(User.objects.filter(username=username))
         if User.objects.filter(username=username):
             print('用户名已被注册')
-            return render(request,"login.html", {"msg": "用户名已被注册!"})
+            return HttpResponse('用户名已被注册')
 
         user = User.objects.create_user(username=username, password=password, phone=phone_number, email=email,
                                         province=prov, district=county, details=addr)
-        return redirect("../../passport/login/")
+        return HttpResponse("ok")
 
 
 class RetrieveView(View):
