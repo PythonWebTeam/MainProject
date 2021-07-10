@@ -283,9 +283,10 @@
 
                                     <input id="user-name" type="text" name="user-name" minlength="3" maxlength="12"
                                            placeholder="用户名"/>
-                                    <label style="color: red" id="is_registered"></label>
+                                    <label style="color: red" id="usernameInfo"></label>
                                     <input id="password" type="password" name="user-password" maxlength="12"
                                            minlength="6" placeholder="密码"/>
+                                    <label id="passwordInfo"></label>
                                     <input id="phonenumber" type="text" oninput="value=value.replace(/[^\d]/g,'')"
                                            maxlength="11" minlength="11" name="phone-number" placeholder="手机号">
                                     <input id="email" type="email" name="user-email" placeholder="邮箱"/>
@@ -411,11 +412,22 @@
                                                     "county": $("#county").val(),
                                                     "address": $("#address").val()
                                                 },
+                                                beforeSend: function(xhr){
+                                                    if ($("#user-name").val()===""){
+                                                        $("#usernameInfo").text("用户名不能为空!")
+                                                        xhr.abort()
+                                                    }
+                                                    else if($("#password").val()===""){
+                                                        $("#usernameInfo").text("密码不能为空!")
+                                                        xhr.abort()
+                                                    }
+                                                },
                                                 success: function (return_data) {
                                                     if (return_data === "ok") {
+                                                        alert("注册成功")
                                                         location.href = "../../passport/login/"
                                                     } else {
-                                                        $("#is_registered").text(return_data)
+                                                        $("#usernameInfo").text(return_data)
                                                     }
                                                 }
                                             })
