@@ -327,9 +327,9 @@
                                             Service_namelist为具体的服务名称列表
                                             Service_pricelist为具体的服务价格列表
                                             -->
-                                            <img src="{{service.img1}}" alt="Product"/>
+                                            <img style="width:400px;height:300px" src="{{service.img1}}" alt="Product"/>
                                             <!--                                 hofee       鼠标移到上面时变化为第二幅图片，如不需要可直接删除此行代码-->
-                                            <img class="hover-image" src="{{service.img2}}"
+                                            <img style="width:300px;height:400px" class="hover-image" src="{{service.img2}}"
                                                  alt="Product"/>
                                         </a>
 
@@ -340,7 +340,7 @@
                                         </form>
                                     </div>
                                     <div class="content">
-                                        <h5 class="title"><a href="shop-left-sidebar.html">{{ service.name }}</a></h5>
+                                        <h5 class="title"><a href="shop-left-sidebar.html">{{ service.name }}({{ service.sort.name }})</a></h5>
                                         <span class="price">
                                             <span class="new">{{ service.price }}</span>
                                         </span>

@@ -50,7 +50,7 @@ class Type(models.Model):
     class Meta:
         db_table = 'Type'
 
-
+ 
 class Service(models.Model):
     name = models.CharField('服务名称', max_length=32)
     price = models.DecimalField('服务价格', max_digits=10, decimal_places=2)
