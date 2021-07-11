@@ -310,6 +310,7 @@
             </div>
             <div class="col-lg-7 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
                 <div class="product-details-content quickview-content">
+                    <div style="height: 150px"></div>
                     <h2>{{service.name}}</h2>
                     <p class="reference">所属分类: <span>{{service.sort.name}}</span></p>
                     <div class="pro-details-rating-wrap">
@@ -340,13 +341,13 @@
                         </div>
                     </div>
 
-                    <div class="pro-details-policy">
-                        <ul>
-                            <li><img src="/static/Images/icons/policy.png" alt="" /><span>安全可靠</span></li>
-                            <li><img src="/static/Images/icons/policy-2.png" alt="" /><span>快速到达</span></li>
-                            <li><img src="/static/Images/icons/policy-3.png" alt="" /><span>可退订</span></li>
-                        </ul>
-                    </div>
+{#                    <div class="pro-details-policy">#}
+{#                        <ul>#}
+{#                            <li><img src="/static/Images/icons/policy.png" alt="" /><span>安全可靠</span></li>#}
+{#                            <li><img src="/static/Images/icons/policy-2.png" alt="" /><span>快速到达</span></li>#}
+{#                            <li><img src="/static/Images/icons/policy-3.png" alt="" /><span>可退订</span></li>#}
+{#                        </ul>#}
+{#                    </div>#}
                 </div>
             </div>
         </div>
@@ -370,7 +371,26 @@
 <!-- product details description area end -->
 
 
-
+<!-- product comment area start -->
+<div class="description-review-area pb-100px" data-aos="fade-up" data-aos-delay="200">
+    <div class="container">
+        <div class="description-review-wrapper">
+                <h2 data-bs-toggle="tab" href="#des-details1" align="center">服务评论</h2>
+            <div class="tab-content description-review-bottom">
+                {% for order in order_list %}
+                    <
+                        <hr />
+                            <p>用户 {{ order.user.username }} </p>
+                        <hr />
+                            <p>评级：{% for cnt in order.star %}}<i class="ion-android-star"></i>{% endfor %}</p>
+                            <p>评论内容: {{ order.comment }} </p>
+                        <hr />
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- product comment area end -->
 
 
 <!-- Footer Area Start -->
