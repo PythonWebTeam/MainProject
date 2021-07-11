@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -140,35 +139,35 @@
 <!-- Header Bottom  End -->
 <!-- Main Menu Start -->
 <div class="bg-black d-none d-lg-block sticky-nav">
-            <div class="container position-relative">
-                <div class="row">
-                    <div class="col-md-12 align-self-center">
-                        <div class="main-menu">
-                            <ul>
-                                <li>
-                                    <form action="../../" method="GET"><a class="single-link" href="../../">首页</a></form>
-                                </li>
-                                <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
-                                    <ul class="sub-menu">
-                                        {% for service in services_sort %}
-                                        <li><a href="">{{ service.name }}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                </li>
-                                <li>
-                                    <form action="../../other/Q&A/" method="GET"><a class="single-link"
-                                            href="../../other/Q&A/">常见问题</a>
-                                </li>
-                                <li>
-                                    <form action="../../other/about/" method="GET"><a class="single-link"
-                                            href="../../other/about/">关于我们</a>
-                                </li>
+    <div class="container position-relative">
+        <div class="row">
+            <div class="col-md-12 align-self-center">
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <form action="../../" method="GET"><a class="single-link" href="../../">首页</a></form>
+                        </li>
+                        <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
+                            <ul class="sub-menu">
+                                {% for service in services_sort %}
+                                    <li><a href="">{{ service.name }}</a></li>
+                                {% endfor %}
                             </ul>
-                        </div>
-                    </div>
+                        </li>
+                        <li>
+                            <form action="../../other/Q&A/" method="GET"><a class="single-link"
+                                                                            href="../../other/Q&A/">常见问题</a>
+                        </li>
+                        <li>
+                            <form action="../../other/about/" method="GET"><a class="single-link"
+                                                                              href="../../other/about/">关于我们</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 <!-- Main Menu End -->
 
 <!-- OffCanvas Cart Start -->
@@ -251,60 +250,62 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                        <input type="text" name="user-nameLogin" id="user-nameLogin" maxlength="12" minlength="3"
-                                               placeholder="用户名"/>
-                                        <label style="color: red" id="user-nameInfoLogin"></label>
+                                    <input type="text" name="user-nameLogin" id="user-nameLogin" maxlength="12"
+                                           minlength="3"
+                                           placeholder="用户名"/>
+                                    <label style="color: red" id="user-nameInfoLogin"></label>
 
-                                        <input type="password" name="user-passwordLogin" id="user-passwordLogin" placeholder="密码" maxlength="12"
-                                               minlength="6"/>
-                                        <label style="color: red" id="user-passwordInfoLogin"></label>
+                                    <input type="password" name="user-passwordLogin" id="user-passwordLogin"
+                                           placeholder="密码" maxlength="12"
+                                           minlength="6"/>
+                                    <label style="color: red" id="user-passwordInfoLogin"></label>
 
-                                        <div class="button-box">
-                                            <div class="login-toggle-btn">
-                                                <!--                                                <input type="checkbox" />-->
-                                                <!--                                                <a class="flote-none" href="javascript:void(0)">记住我</a>-->
-                                                <a href="../../passport/retrieve">忘记密码?</a>
-                                            </div>
-                                            <button type="submit" onclick="AjaxSendLogin()"><span>登录</span></button>
-                                            <script src="/static/JavaScript/jquery-1.8.3.min.js"></script>
-                                            <script>
-                                                function AjaxSendLogin() {
-                                                    var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
-                                                    $.ajax({
-                                                        url: "../../passport/login/",
-                                                        type: "POST",
-                                                        data: {
-                                                            "user-name": $("#user-nameLogin").val(),
-                                                            "user-password": $("#user-passwordLogin").val(),
-                                                        },
-                                                        beforeSend: function (xhr) {
-                                                            if ($("#user-nameLogin").val() === "") {
-                                                                $("#user-nameInfoLogin").text("用户名不能为空!")
-                                                                xhr.abort()
-                                                            } else {
-                                                                $("#user-nameInfoLogin").text("")
-                                                            }
-
-                                                            if ($("#user-passwordLogin").val().length < 6 || $("#user-passwordLogin").val().length > 15) {
-                                                                $("#user-passwordInfoLogin").text("密码长度错误!")
-                                                                xhr.abort()
-                                                            } else {
-                                                                $("#user-passwordInfoLogin").text("")
-
-                                                            }
-                                                        },
-                                                        success: function (response_data) {
-                                                            if (response_data === "ok") {
-                                                                alert("登录成功!")
-                                                                location.href = "../../"
-                                                            } else {
-                                                                $("#user-nameInfoLogin").text(response_data)
-                                                            }
-                                                        }
-                                                    })
-                                                }
-                                            </script>
+                                    <div class="button-box">
+                                        <div class="login-toggle-btn">
+                                            <!--                                                <input type="checkbox" />-->
+                                            <!--                                                <a class="flote-none" href="javascript:void(0)">记住我</a>-->
+                                            <a href="../../passport/retrieve">忘记密码?</a>
                                         </div>
+                                        <button type="submit" onclick="AjaxSendLogin()"><span>登录</span></button>
+                                        <script src="/static/JavaScript/jquery-1.8.3.min.js"></script>
+                                        <script>
+                                            function AjaxSendLogin() {
+                                                var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                                                $.ajax({
+                                                    url: "../../passport/login/",
+                                                    type: "POST",
+                                                    data: {
+                                                        "user-name": $("#user-nameLogin").val(),
+                                                        "user-password": $("#user-passwordLogin").val(),
+                                                    },
+                                                    beforeSend: function (xhr) {
+                                                        if ($("#user-nameLogin").val() === "") {
+                                                            $("#user-nameInfoLogin").text("用户名不能为空!")
+                                                            xhr.abort()
+                                                        } else {
+                                                            $("#user-nameInfoLogin").text("")
+                                                        }
+
+                                                        if ($("#user-passwordLogin").val().length < 6 || $("#user-passwordLogin").val().length > 15) {
+                                                            $("#user-passwordInfoLogin").text("密码长度错误!")
+                                                            xhr.abort()
+                                                        } else {
+                                                            $("#user-passwordInfoLogin").text("")
+
+                                                        }
+                                                    },
+                                                    success: function (response_data) {
+                                                        if (response_data === "ok") {
+                                                            alert("登录成功!")
+                                                            location.href = "../../"
+                                                        } else {
+                                                            $("#user-nameInfoLogin").text(response_data)
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                        </script>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -312,7 +313,8 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
 
-                                    <input id="user-nameReg" type="text" name="user-nameReg" minlength="3" maxlength="12"
+                                    <input id="user-nameReg" type="text" name="user-nameReg" minlength="3"
+                                           maxlength="12"
                                            placeholder="用户名"/>
                                     <label style="color: red" id="user-nameInfoReg"></label>
 
@@ -320,11 +322,97 @@
                                            minlength="6" placeholder="密码"/>
                                     <label style="color: red" id="user-passwordInfoReg"></label>
 
-                                    <input id="phone-number" type="text" oninput="value=value.replace(/[^\d]/g,'')"
-                                           maxlength="11" minlength="11" name="phone-number" placeholder="手机号">
-                                    <label style="color: red" id="phone-numberInfoReg"></label>
+                                    <input id="user-passwordConfirm" type="password" name="user-passwordConfirm"
+                                           maxlength="12"
+                                           minlength="6" placeholder="验证密码"/>
+                                    <label style="color: red" id="user-passwordConfirmInfo"></label>
 
-                                    <input id="user-email" type="email" name="user-email" placeholder="邮箱"/>
+                                    <div>
+                                        <input id="phone-number" type="text" oninput="value=value.replace(/[^\d]/g,'')"
+                                               maxlength="11" minlength="11" name="phone-number" placeholder="手机号">
+                                        <label style="color: red" id="phone-numberInfoReg"></label>
+
+                                    </div>
+
+
+                                    <div>
+                                        <input id="user-email" type="email" name="user-email" placeholder="邮箱"
+                                               style="width: 230px"/>
+                                        <input type="button" id="forcode" onclick="AjaxEmailVerifyRegister(this)"
+                                               value="获取验证码" style="width: 100px">
+                                        {#                                        <button type="submit" onclick="AjaxEmailVerifyRegister(this)">获取验证码</button>#}
+                                        <input id="email-verify" type="text" name="email-verify" placeholder="邮箱验证码"
+                                               style="width: 150px"/>
+                                        <label style="color: red" id="user-emailInfoReg"></label>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label style="color: red" id="email-verifyInfoReg"></label>
+
+                                        <script>
+                                            var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                                            var countdown = 3;
+
+                                            function count(obj) {
+                                                var myvar=setInterval(function(){cnt(obj,myvar)}, 1000);
+                                                console.log(countdown);
+                                            }
+
+                                            function cnt(obj,myvar) {
+                                                if (countdown === 0) {
+                                                    clearInterval(myvar);
+                                                    obj.removeAttribute("disabled");
+                                                    obj.value = "免费获取验证码";
+                                                    countdown = 3;
+                                                    return;
+                                                } else {
+                                                    obj.setAttribute("disabled", true);
+                                                    obj.value = "重新发送(" + countdown + ")";
+                                                    console.log(countdown);
+                                                    countdown--;
+
+                                                }
+                                                console.log(countdown);
+                                            }
+
+
+                                            function AjaxEmailVerifyRegister(obj) {
+                                                $.ajax({
+                                                    url: "../../passport/email_auth/",
+                                                    type: "POST",
+                                                    data: {
+                                                        "email": $("#user-email").val(),
+                                                        "email_code": $("#email-verify").val(),
+                                                        "operate_type": "register",
+                                                    },
+                                                    beforeSend: function (xhr) {
+                                                        if ($("#user-email").val().length === 0) {
+                                                            $("#user-emailInfoReg").text("邮箱不能为空!")
+                                                            xhr.abort()
+                                                        } else if (!myreg.test($("#user-email").val())) {
+                                                            $("#user-emailInfoReg").text("邮箱格式错误!")
+                                                            xhr.abort()
+                                                        } else {
+                                                            $("#user-emailInfoReg").text("")
+                                                        }
+
+                                                    },
+                                                    success: function (response_data) {
+                                                        if (response_data === "ok") {
+                                                            count(obj);
+                                                        } else if (response_data === "发送失败") {
+                                                            $("#email-verifyInfoReg").text(response_data)
+                                                        } else {
+                                                            alert(response_data);
+                                                        }
+                                                    },
+                                                })
+                                            }
+
+
+                                        </script>
+
+                                    </div>
                                     <label style="color: red" id="user-emailInfoReg"></label>
                                     <div style="height: 15px"></div>
 
@@ -460,13 +548,18 @@
                                                     } else {
                                                         $("#user-nameInfoReg").text("")
                                                     }
-
                                                     if ($("#user-passwordReg").val().length < 6 || $("#user-passwordReg").val().length > 15) {
                                                         $("#user-passwordInfoReg").text("密码长度不符合要求!")
                                                         xhr.abort()
                                                     } else {
                                                         $("#user-passwordInfoReg").text("")
+                                                    }
 
+                                                    if ($("#user-passwordReg").val() !== $("#user-passwordConfirm").val()) {
+                                                        $("#user-passwordConfirmInfo").text("两次输入的密码不一致!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#user-passwordConfirmInfo").text("")
                                                     }
 
                                                     if ($("#phone-number").val().length !== 11) {
@@ -478,13 +571,20 @@
                                                     }
 
                                                     if ($("#user-email").val().length === 0) {
-                                                        $("#user-emailInfo").text("邮箱不能为空!")
+                                                        $("#user-emailInfoReg").text("邮箱不能为空!")
                                                         xhr.abort()
                                                     } else if (!myreg.test($("#user-email").val())) {
                                                         $("#user-emailInfoReg").text("邮箱格式错误!")
                                                         xhr.abort()
                                                     } else {
                                                         $("#user-emailInfoReg").text("")
+                                                    }
+
+                                                    if ($("#email-verify").val().length !== 6) {
+                                                        $("#email-verifyInfoReg").text("验证码为6位!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#email-verifyInfoReg").text("")
                                                     }
 
                                                     if ($("#prov").val() === "省份" || $("#city").val() === "城市" || $("#country").val() === "县区") {
@@ -507,12 +607,12 @@
                                                     if (response_data === "ok") {
                                                         alert("注册成功")
                                                         location.href = "../../passport/login/"
-                                                    }
-                                                    else if(response_data==="该手机号已被注册"){
-                                                        $("#phone-numberInfo").text(response_data)
-                                                    }
-                                                    else {
-                                                        $("#user-nameInfo").text(response_data)
+                                                    } else if (response_data === "用户名已被注册") {
+                                                        $("#user-nameInfoReg").text(response_data)
+                                                    } else if (response_data === "该手机号已被注册") {
+                                                        $("#phone-numberInfoReg").text(response_data)
+                                                    } else {
+                                                        $("#user-nameInfoReg").text(response_data)
                                                     }
                                                 }
                                             })
@@ -532,121 +632,125 @@
 
 <!-- Footer Area Start -->
 <div class="footer-area">
-            <div class="footer-container">
-                <div class="footer-top">
-                    <div class="container">
-                        <div class="row">
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
 
-                            <!-- Start single blog -->
-                            <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up"
-                                data-aos-delay="200">
-                                <div class="single-wedge">
-                                    <form action="../../other/about/" method="GET">
-                                        <li class="li"><a class="single-link" href="../../other/about/">关于我们</a></li>
-                                    </form>
-                                    <p class="about-text">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。 以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业 的运营生态。</p>
+                    <!-- Start single blog -->
+                    <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up"
+                         data-aos-delay="200">
+                        <div class="single-wedge">
+                            <form action="../../other/about/" method="GET">
+                                <li class="li"><a class="single-link" href="../../other/about/">关于我们</a></li>
+                            </form>
+                            <p class="about-text">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
+                                以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业
+                                的运营生态。</p>
 
-                                </div>
-                            </div>
-                            <!-- End single blog -->
-
-                            <!-- Start single blog -->
-                            <div class="col-md-6 col-sm-6 col-lg-3 mb-md-30px mb-lm-30px" data-aos="fade-up"
-                                data-aos-delay="400">
-                                <div class="single-wedge">
-                                    <h4 class="footer-herading">其他</h4>
-                                    <div class="footer-links">
-                                        <div class="footer-row">
-                                            <ul class="align-items-center">
-                                                <form action="../../other/Q&A/" method="GET">
-                                                    <li class="li"><a class="single-link" href="../../other/Q&A/">常见问题</a>
-                                                    </li>
-                                                </form>
-                                                <!--                                            <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>-->
-                                                <form action="../../other/privacy_policy/" method="GET">
-                                                    <li class="li"><a class="single-link"
-                                                            href="../../other/privacy_policy/">隐私政策</a>
-                                                    </li>
-                                                </form>
-                                                <!--                                            <li class="li"><a class="single-link" href="other/privacy-policy/">隐私政策</a></li>-->
-                                                <form action="../../admin/" method="GET">
-                                                    <li class="li"><a class="single-link" href="../../admin/">管理员登陆</a></li>
-                                                </form>
-                                                <!--                                            <li class="li"><a class="single-link" href="admin/">管理员登陆</a></li>-->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End single blog -->
-
-                            <!-- Start single blog -->
-                            <div class="col-md-6 col-lg-2 col-sm-6 mb-lm-30px" data-aos="fade-up" data-aos-delay="600">
-                                <div class="single-wedge">
-                                    <h4 class="footer-herading">账户</h4>
-                                    <div class="footer-links">
-                                        <div class="footer-row">
-                                            <ul class="align-items-center">
-                                                {% if is_login %}
-                                                <form action="../../account/users/user_info_manage" method="GET">
-                                                    <li class="li"><a class="single-link"
-                                                            href="../../account/users/user_info_manage">我的账户</a></li>
-                                                </form>
-                                                <form action="../../account/users/shop_cart" method="GET">
-                                                    <li class="li"><a class="single-link"
-                                                            href="../../account/users/shop_cart">购物车</a>
-                                                    </li>
-                                                </form>
-                                                <form action="../../" method="POST">
-                                                    <li class="li"><a class="single-link" href="../../"
-                                                            onclick="logout()">注销</a>
-                                                    </li>
-                                                </form>
-
-                                                <!--                                        <script>-->
-                                                <!--                                            function logout() {-->
-                                                <!--                                                alert("注销成功!")-->
-                                                <!--                                            }-->
-                                                <!--                                        </script>-->
-                                                {% else %}
-                                                <form action="../../passport/login/" method="GET">
-                                                    <li class="li"><a class="single-link" href="../../passport/login/">登录</a>
-                                                    </li>
-                                                </form>
-                                                {% endif %}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End single blog -->
-                            <!-- Start single blog -->
-                            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="800">
-                                <div class="single-wedge">
-                                    <div class="footer-links">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End single blog -->
                         </div>
                     </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="container">
-                        <div class="row flex-sm-row-reverse">
-                            <div class="col-md-6 text-right">
-                                <div class="payment-link">
-                                    <img src="/static/Images/icons/payment.png" alt="">
+                    <!-- End single blog -->
+
+                    <!-- Start single blog -->
+                    <div class="col-md-6 col-sm-6 col-lg-3 mb-md-30px mb-lm-30px" data-aos="fade-up"
+                         data-aos-delay="400">
+                        <div class="single-wedge">
+                            <h4 class="footer-herading">其他</h4>
+                            <div class="footer-links">
+                                <div class="footer-row">
+                                    <ul class="align-items-center">
+                                        <form action="../../other/Q&A/" method="GET">
+                                            <li class="li"><a class="single-link" href="../../other/Q&A/">常见问题</a>
+                                            </li>
+                                        </form>
+                                        <!--                                            <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>-->
+                                        <form action="../../other/privacy_policy/" method="GET">
+                                            <li class="li"><a class="single-link"
+                                                              href="../../other/privacy_policy/">隐私政策</a>
+                                            </li>
+                                        </form>
+                                        <!--                                            <li class="li"><a class="single-link" href="other/privacy-policy/">隐私政策</a></li>-->
+                                        <form action="../../admin/" method="GET">
+                                            <li class="li"><a class="single-link" href="../../admin/">管理员登陆</a></li>
+                                        </form>
+                                        <!--                                            <li class="li"><a class="single-link" href="admin/">管理员登陆</a></li>-->
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="col-md-6 text-left">
-                                <p class="copy-text">Copyright&copy; Let's购 2021. &nbsp;All rights reserved.</p>
+                        </div>
+                    </div>
+                    <!-- End single blog -->
+
+                    <!-- Start single blog -->
+                    <div class="col-md-6 col-lg-2 col-sm-6 mb-lm-30px" data-aos="fade-up" data-aos-delay="600">
+                        <div class="single-wedge">
+                            <h4 class="footer-herading">账户</h4>
+                            <div class="footer-links">
+                                <div class="footer-row">
+                                    <ul class="align-items-center">
+                                        {% if is_login %}
+                                            <form action="../../account/users/user_info_manage" method="GET">
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../account/users/user_info_manage">我的账户</a>
+                                                </li>
+                                            </form>
+                                            <form action="../../account/users/shop_cart" method="GET">
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../account/users/shop_cart">购物车</a>
+                                                </li>
+                                            </form>
+                                            <form action="../../" method="POST">
+                                                <li class="li"><a class="single-link" href="../../"
+                                                                  onclick="logout()">注销</a>
+                                                </li>
+                                            </form>
+
+                                            <!--                                        <script>-->
+                                            <!--                                            function logout() {-->
+                                            <!--                                                alert("注销成功!")-->
+                                            <!--                                            }-->
+                                            <!--                                        </script>-->
+                                        {% else %}
+                                            <form action="../../passport/login/" method="GET">
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../passport/login/">登录</a>
+                                                </li>
+                                            </form>
+                                        {% endif %}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- End single blog -->
+                    <!-- Start single blog -->
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="800">
+                        <div class="single-wedge">
+                            <div class="footer-links">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End single blog -->
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row flex-sm-row-reverse">
+                    <div class="col-md-6 text-right">
+                        <div class="payment-link">
+                            <img src="/static/Images/icons/payment.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-left">
+                        <p class="copy-text">Copyright&copy; Let's购 2021. &nbsp;All rights reserved.</p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
 <!-- Footer Area End -->
 
