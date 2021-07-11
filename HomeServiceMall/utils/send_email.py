@@ -1,4 +1,5 @@
-import datetime
+from datetime import datetime
+
 from random import Random  # 用于生成随机码
 from django.core.mail import send_mail  # 发送邮件模块
 from django.http import HttpResponse
@@ -41,6 +42,7 @@ class SendEmailView(View):  # email, send_type="register"
             if (t2 - t1).seconds < 60:
                 return HttpResponse("请求发送过快，请{}s之后尝试".format(60 - (t2 - t1).seconds))
             flag.code = code
+            flag.send_time = datetime.now
             flag.save()
         else:
             email_record = EmailVerifyRecord()
