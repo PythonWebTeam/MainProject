@@ -5,7 +5,6 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-
     phone = models.CharField(verbose_name='用户电话', max_length=32, unique=True, blank=True, null=True)
     province = models.IntegerField(verbose_name='省份', blank=True, null=True)
     city = models.IntegerField(verbose_name='城市', blank=True, null=True)
@@ -16,6 +15,12 @@ class User(AbstractUser):
     class Meta:
         db_table = 'auth_user'
 
+    def __str__(self):
+        return self.username
+
+    def __unicode__(self):
+        return self.username
+
 
 class Cart(models.Model):
     service = models.ForeignKey('Service', on_delete=models.CASCADE)  # 联接Service表
@@ -23,6 +28,12 @@ class Cart(models.Model):
 
     class Meta:
         db_table = 'Cart'
+
+    def __str__(self):
+        return str(self.user)+":"+str(self.service)
+
+    def __unicode__(self):
+        return str(self.user)+":"+str(self.service)
 
 
 class Order(models.Model):
@@ -33,19 +44,33 @@ class Order(models.Model):
     end_time = models.DateTimeField('订单结束时间')
     pay_status = models.BooleanField('订单支付状态')
     comment = models.CharField(verbose_name='评价', max_length=255, blank=True, null=True)
-    star = models.IntegerField(verbose_name='星级', blank=True, null=True)
+    star = models.IntegerField(verbose_name='服务星级', blank=True, null=True)
+
     class Meta:
         db_table = 'Order'
+
+    def __str__(self):
+        return str(self.user)+":"+str(self.service)
+
+    def __unicode__(self):
+        return str(self.user)+":"+str(self.service)
 
 
 class Shop(models.Model):
     name = models.CharField('店铺名称', max_length=32, unique=True)
     create_time = models.DateTimeField('店铺创建时间')
     status = models.BooleanField('店铺状态')
+    star = models.IntegerField(verbose_name='店铺星级', blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # 联接User表
 
     class Meta:
         db_table = 'Shop'
+
+    def __str__(self):
+        return self.name
+
+    def __unicode__(self):
+        return self.name
 
 
 class Type(models.Model):
@@ -53,6 +78,12 @@ class Type(models.Model):
 
     class Meta:
         db_table = 'Type'
+
+    def __str__(self):
+        return self.name
+
+    def __unicode__(self):
+        return self.name
 
 
 class Service(models.Model):
@@ -68,6 +99,12 @@ class Service(models.Model):
 
     class Meta:
         db_table = 'Service'
+
+    def __str__(self):
+        return '{0}({1})'.format(self.name, self.sort)
+
+    def __unicode__(self):
+        return '{0}({1})'.format(self.name, self.sort)
 
 
 class EmailVerifyRecord(models.Model):
