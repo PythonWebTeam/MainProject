@@ -14,7 +14,7 @@ User = get_user_model()
 # 登录页面视图
 class LoginView(View):
     def get(self, request):
-        if request.session.get("username"):
+        if request.session.get("is_login"):
             return HttpResponse("用户 " + request.session.get("username") + ",您已登录")
         return Util.get_page(request, "login.html")
 

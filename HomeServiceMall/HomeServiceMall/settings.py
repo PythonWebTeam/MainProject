@@ -37,6 +37,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'HomeServiceMall.urls'
@@ -60,7 +61,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'HomeServiceMall.wsgi.application'
 
-
+LOGIN_URL = "/passport/login/"
+OPEN_URLS = ['/passport/login/']
 # Database
 
 DATABASES = {

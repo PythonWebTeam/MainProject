@@ -1,12 +1,15 @@
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+
     phone = models.CharField(verbose_name='用户电话', max_length=32, unique=True, blank=True, null=True)
     province = models.IntegerField(verbose_name='省份', blank=True, null=True)
     city = models.IntegerField(verbose_name='城市', blank=True, null=True)
-    district = models.IntegerField(verbose_name='区县',  blank=True, null=True)
+    district = models.IntegerField(verbose_name='区县', blank=True, null=True)
     details = models.CharField(verbose_name='详细地址', max_length=255, blank=True, null=True)
     mod_date = models.DateTimeField(verbose_name='Last modified', null=True, auto_now=True)
 
@@ -29,7 +32,8 @@ class Order(models.Model):
     start_time = models.DateTimeField('订单开始时间')
     end_time = models.DateTimeField('订单结束时间')
     pay_status = models.BooleanField('订单支付状态')
-
+    comment = models.CharField(verbose_name='评价', max_length=255, blank=True, null=True)
+    star = models.IntegerField(verbose_name='星级', blank=True, null=True)
     class Meta:
         db_table = 'Order'
 
@@ -64,3 +68,20 @@ class Service(models.Model):
 
     class Meta:
         db_table = 'Service'
+
+
+class EmailVerifyRecord(models.Model):
+    # 验证码
+    code = models.CharField(max_length=20, verbose_name=u"验证码")
+    email = models.EmailField(max_length=50, verbose_name=u"邮箱")
+    # 包含注册验证和找回验证
+    send_type = models.CharField(verbose_name=u"验证码类型", max_length=10,
+                                 choices=(("register", u"注册"), ("forget", u"找回密码")))
+    send_time = models.DateTimeField(verbose_name=u"发送时间", default=datetime.now)
+
+    class Meta:
+        verbose_name = u"邮箱验证码"
+        verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return '{0}({1})'.format(self.code, self.email)

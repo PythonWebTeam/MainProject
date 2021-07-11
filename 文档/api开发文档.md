@@ -89,7 +89,7 @@
 
 ---
 
-## 2.服务列表
+## 二.服务列表
 
 ---
 
@@ -155,7 +155,7 @@ HTML用`for`循环显示图片
 
 ---
 
-## 3.店铺
+## 三.店铺
 
 ### 获取服务详情页面
 
@@ -179,14 +179,12 @@ HTML用`for`循环显示图片
 
 **成功返回**
 
-| 参数名     | 参数类型  | 描述                             |
-| ---------- | --------- | -------------------------------- |
-| `service`  | `Service` | `Service`对象                    |
-| `is_login` | `boolean` | 判断是否登录，为`True`时为登录态 |
+| 参数名       | 参数类型  | 描述                   |
+| ------------ | --------- | ---------------------- |
+| `service`    | `Service` | `Service`对象          |
+| `order_list` | `Order[]` | 已评论该商品的订单列表 |
 
-```
-点击购买时未登录跳转登录页面
-```
+
 
 **失败返回**
 
@@ -195,6 +193,39 @@ HTML用`for`循环显示图片
 |        | `HttpResponse` | 返回`"404 Not Found"` |
 
 **说明/示例**
+
+`User`对象所含参数如下
+
+```python
+class User(AbstractUser):
+    #继承了AbstractUser的username,password,email
+    phone = models.CharField(verbose_name='用户电话', max_length=32, unique=True, blank=True, null=True)
+    province = models.IntegerField(verbose_name='省份', blank=True, null=True)
+    city = models.IntegerField(verbose_name='城市', blank=True, null=True)
+    district = models.IntegerField(verbose_name='区县', blank=True, null=True)
+    details = models.CharField(verbose_name='详细地址', max_length=255, blank=True, null=True)
+    mod_date = models.DateTimeField(verbose_name='Last modified', null=True, auto_now=True)
+
+```
+
+`Order`对象所含参数如下
+
+```python
+class Order(models.Model):
+    service = models.ForeignKey('Service', null=True, blank=True, on_delete=models.SET_NULL)  # 联接Service表
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)  # 联接User表
+    create_time = models.DateTimeField('订单创建时间')
+    start_time = models.DateTimeField('订单开始时间')
+    end_time = models.DateTimeField('订单结束时间')
+    pay_status = models.BooleanField('订单支付状态')
+    comment = models.CharField(verbose_name='评价', max_length=255, blank=True, null=True)
+    star = models.IntegerField(verbose_name='星级', blank=True, null=True)#1~5的整数
+```
+
+例:
+
+- 根据`order`获取用户名 `order.user.username`
+- 根据`order`获取评论`order.comment`
 
 ---
 
@@ -236,3 +267,39 @@ HTML用`for`循环显示图片
 
 **说明/示例**
 
+---
+
+## 四.账户信息
+
+### 获取买家用户页面
+
+方法`GET` 请求地址:`/account/users/user_info_manage/`
+
+**描述**
+
+> 获取买家用户页面，当用户未登录时被重定向至登录页面，当用户身份为商家时被重定向至`/account/vendors/vendor_info_manage/`
+
+**请求头**
+
+| 参数名         | 参数类型 | 描述 |
+| -------------- | -------- | ---- |
+| `content-type` | `string` | HTML |
+
+**请求参数**
+
+| 参数名 | 参数类型 | 描述 |
+| ------ | -------- | ---- |
+|        |          |      |
+
+**成功返回**
+
+| 参数名       | 参数类型  | 描述       |
+| ------------ | --------- | ---------- |
+| `user`       | `User`    | `User`对象 |
+| `order_list` | `Order[]` | `Order`    |
+
+**失败返回**
+
+| 参数名 | 参数类型       | 描述                  |
+| ------ | -------------- | --------------------- |
+|        | `HttpResponse` | 返回`"404 Not Found"` |
