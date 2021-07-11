@@ -4,8 +4,8 @@ from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-
-from account.models import Service
+import datetime
+from account.models import Service, EmailVerifyRecord
 from utils.util import Util
 
 User = get_user_model()
@@ -49,12 +49,16 @@ class RegisterView(View):
 
         if User.objects.filter(username=username):
             return HttpResponse('用户名已被注册')
-
-        if User.objects.filter(phone=phone_number):
+        elif User.objects.filter(phone=phone_number):
             return HttpResponse("该手机号已被注册")
+        code_rec = request.GET.get("email_code")
+        code_db = EmailVerifyRecord.objects.filter(email=email)[0].code
+        if code_rec != code_db:
+            return HttpResponse("验证码错误!")
         user = User.objects.create_user(username=username, password=password, phone=phone_number, email=email,
                                         province=prov, district=county, details=addr)
-        return HttpResponse("ok")
+        if user:
+            return HttpResponse("ok")
 
 
 class RetrieveView(View):

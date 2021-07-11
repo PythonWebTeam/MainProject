@@ -39,6 +39,7 @@ passport_patterns = [
     path("register/", passport_views.RegisterView.as_view()),
     path("retrieve/", passport_views.RetrieveView.as_view()),
     path("email_auth/",send_email.SendEmailView.as_view()),
+    path("test/",passport_views.test)
 ]
 
 # shop urls
@@ -61,7 +62,6 @@ urlpatterns = [
     path("services/", services_views.ServicesClassView.as_view()),
     path("other/", include(other_patterns)),
     path("admin/", admin.site.urls),
-    #path("test/",TestView.as_view()),
 
 
 ]

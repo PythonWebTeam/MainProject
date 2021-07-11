@@ -148,6 +148,8 @@
 | `city`          | `int`    | 市代码                                |
 | `county`        | `int`    | 县代码                                |
 | `address`       | `string` | 详细地址                              |
+| `email_code`    | `string` | 邮箱验证码                            |
+| `phone_code`    | `string` | 手机验证码                            |
 
 **成功返回**
 
