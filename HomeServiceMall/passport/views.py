@@ -54,7 +54,7 @@ class RegisterView(View):
         code_rec = request.GET.get("email_code")
         code_db = EmailVerifyRecord.objects.filter(email=email)[0].code
         if code_rec != code_db:
-            return HttpResponse("验证码错误!")
+            return HttpResponse("邮箱验证码错误")
         user = User.objects.create_user(username=username, password=password, phone=phone_number, email=email,
                                         province=prov, district=county, details=addr)
         if user:
