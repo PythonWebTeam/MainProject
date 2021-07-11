@@ -39,7 +39,7 @@ passport_patterns = [
     path("register/", passport_views.RegisterView.as_view()),
     path("retrieve/", passport_views.RetrieveView.as_view()),
     path("email_auth/",send_email.SendEmailView.as_view()),
-    path("test/",passport_views.test)
+
 ]
 
 # shop urls
