@@ -1,7 +1,5 @@
 from django.contrib import admin
 from django.urls import path, include
-
-from utils.data import  TestView
 from . import views
 from account import views as account_views
 from other import views as other_views
@@ -60,7 +58,7 @@ urlpatterns = [
     path("services/", services_views.ServicesClassView.as_view()),
     path("other/", include(other_patterns)),
     path("admin/", admin.site.urls),
-    path("test/",TestView.as_view()),
+    #path("test/",TestView.as_view()),
 
 
 ]
