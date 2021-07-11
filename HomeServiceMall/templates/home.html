@@ -182,7 +182,7 @@
                                 <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                                     <ul class="sub-menu">
                                         {% for service in services_sort %}
-                                        <li><a href="services/?search={{service.name}}">{{ service.name }}</a></li>
+                                        <li><a href="services/?search={{key}}&page=1">{{ service.name }}</a></li>
                                         {% endfor %}
                                     </ul>
                                 </li>

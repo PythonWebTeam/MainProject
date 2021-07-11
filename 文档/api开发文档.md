@@ -148,6 +148,8 @@
 | `city`          | `int`    | 市代码                                |
 | `county`        | `int`    | 县代码                                |
 | `address`       | `string` | 详细地址                              |
+| `email_code`    | `string` | 邮箱验证码                            |
+| `phone_code`    | `string` | 手机验证码                            |
 
 **成功返回**
 
@@ -171,11 +173,11 @@
 
 ### 获取服务列表页面
 
-方法`GET`  请求地址:`services/?search={{key}}` 
+方法`GET`  请求地址:`services/?search={{key}}&page={{page}}` 
 
 **描述**
 
-> 获取服务列表页面，通过关键字`key`搜索
+> 获取第`page`页的服务列表页面，通过关键字`key`搜索
 
 **请求头**
 
@@ -196,10 +198,7 @@
 | `services`     | `Service[]` | 搜索结果`Service`对象列表 |
 | `services_num` | `int`       | 服务总个数                |
 | `key`          | `string`    | 搜索关键字                |
-
-```
-增加搜索关键字
-```
+| `page_num`     | `int`       | 当前的页面数              |
 
 **失败返回**
 
@@ -350,7 +349,7 @@ class Order(models.Model):
 
 **描述**
 
-> 获取买家用户页面，当用户未登录时被重定向至登录页面，当用户身份为商家时被重定向至`/account/vendors/vendor_info_manage/`
+> 获取买家用户页面，当用户未登录时被重定向至登录页面，当用户身份为商家时被重定向至`account/vendors/vendor_info_manage/`
 
 **请求头**
 
