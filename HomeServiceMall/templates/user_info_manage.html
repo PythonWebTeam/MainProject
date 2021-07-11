@@ -322,23 +322,23 @@
                                         <div class="myaccount-form-inner">
                                             <div class="single-input single-input-half">
                                                 <label>用户名</label>
-                                                <input type="text"  placeholder="{{user.username}}">
+                                                <input type="text"  value="{{user.username}}">
                                             </div>
                                             <div class="single-input single-input-half">
                                                 <label>用户ID</label>
-                                                <input type="text" placeholder="{{user.id}}" disabled="true">
+                                                <input type="text" value="{{user.id}}" disabled="true">
                                             </div>
                                             <div class="single-input">
                                                 <label>邮箱</label>
-                                                <input type="email" placeholder="{{user.email}}">
+                                                <input type="email" value="{{user.email}}">
                                             </div>
                                             <div class="single-input">
                                                 <label>手机号</label>
-                                                <input type="number" name="phone-number" placeholder="{{ user.phone }}">
+                                                <input type="number" name="phone-number" value="{{ user.phone }}">
                                             </div>
                                             <div class="single-input">
                                                 <label>用户地址</label>
-                                                <input type="text" name="address" placeholder="{{ user.details }}">
+                                                <input type="text" name="address" value="{{ user.details }}">
                                                 <script>
                                                     $(function () {
                                                         var current_prov;
