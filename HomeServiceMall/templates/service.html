@@ -300,52 +300,19 @@
                 <div class="swiper-container zoom-top">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="/static/Images/product-image/zoom-image/1.jpg" alt="">
+                            <img class="img-responsive m-auto" style="width: 400px;height:600px" src={{ service.img1 }}>
                         </div>
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="/static/Images/product-image/zoom-image/2.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="/static/Images/product-image/zoom-image/3.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="/static/Images/product-image/zoom-image/4.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide zoom-image-hover">
-                            <img class="img-responsive m-auto" src="/static/Images/product-image/zoom-image/5.jpg" alt="">
-                        </div>
+
                     </div>
                 </div>
-<!-- HOFEE 以下商品图片需修改-->
-                <div class="swiper-container zoom-thumbs slider-nav-style-1 small-nav mt-3 mb-3">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="/static/Images/product-image/1.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="/static/Images/product-image/2.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="/static/Images/product-image/3.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="/static/Images/product-image/4.jpg" alt="">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="img-responsive m-auto" src="/static/Images/product-image/5.jpg" alt="">
-                        </div>
-                    </div>
-                    <!-- Add Arrows -->
-                    <div class="swiper-buttons">
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                </div>
+
+
             </div>
             <div class="col-lg-7 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
                 <div class="product-details-content quickview-content">
-                    <h2>{{Service_name}}</h2>
-                    <p class="reference">所属分类: <span>{{Service_sort}}</span></p>
+                    <div style="height: 150px"></div>
+                    <h2>{{service.name}}</h2>
+                    <p class="reference">所属分类: <span>{{service.sort.name}}</span></p>
                     <div class="pro-details-rating-wrap">
                         <div class="rating-product">
                             <p>服务星级:
@@ -359,25 +326,28 @@
                     </div>
                     <div class="pricing-meta">
                         <ul>
-                            <li class="old-price not-cut">{{Service_price}}</li>
+                            <li class="old-price not-cut">价格:{{service.price}}￥/小时</li>
                         </ul>
                     </div>
-                    <p class="quickview-para">{{Service_concise}}</p>
+
                     <div class="pro-details-quality">
 
                         <div class="pro-details-cart">
-<!--HOFEE-->
-                            <form action="../../shop/service/pay/?se_id={{se_id}}" method="POST"><button class="add-cart btn btn-primary btn-hover-primary ml-4" href="../../shop/service/pay/?se_id={{se_id}}">购买</button></form>
+<!--HOFEE-->            <form method="get" action="../../shop/service/pay/">
+                            <button href="../../shop/service/pay/"   type="submit" class="add-cart btn btn-primary btn-hover-primary ml-4" name="se_id" value={{ service.id }}>购买</button>
+                            <button href="../../shop/service/pay/"   type="submit" class="add-cart btn btn-primary btn-hover-primary ml-4" name="se_id" value={{ service.id }}>加入购物车</button>
+
+                        </form>
                         </div>
                     </div>
 
-                    <div class="pro-details-policy">
-                        <ul>
-                            <li><img src="/static/Images/icons/policy.png" alt="" /><span>安全可靠</span></li>
-                            <li><img src="/static/Images/icons/policy-2.png" alt="" /><span>快速到达</span></li>
-                            <li><img src="/static/Images/icons/policy-3.png" alt="" /><span>可退订</span></li>
-                        </ul>
-                    </div>
+{#                    <div class="pro-details-policy">#}
+{#                        <ul>#}
+{#                            <li><img src="/static/Images/icons/policy.png" alt="" /><span>安全可靠</span></li>#}
+{#                            <li><img src="/static/Images/icons/policy-2.png" alt="" /><span>快速到达</span></li>#}
+{#                            <li><img src="/static/Images/icons/policy-3.png" alt="" /><span>可退订</span></li>#}
+{#                        </ul>#}
+{#                    </div>#}
                 </div>
             </div>
         </div>
@@ -391,7 +361,7 @@
         <div class="description-review-wrapper">
                 <h2 data-bs-toggle="tab" href="#des-details1" align="center">服务简介</h2>
             <div class="tab-content description-review-bottom">
-                        <p>{{Service_detailed}}
+                        <p>{{service.intro}}
                         </p>
 
             </div>
@@ -401,7 +371,26 @@
 <!-- product details description area end -->
 
 
-
+<!-- product comment area start -->
+<div class="description-review-area pb-100px" data-aos="fade-up" data-aos-delay="200">
+    <div class="container">
+        <div class="description-review-wrapper">
+                <h2 data-bs-toggle="tab" href="#des-details1" align="center">服务评论</h2>
+            <div class="tab-content description-review-bottom">
+                {% for order in order_list %}
+                    <
+                        <hr />
+                            <p>用户 {{ order.user.username }} </p>
+                        <hr />
+                            <p>评级：{% for cnt in order.star %}}<i class="ion-android-star"></i>{% endfor %}</p>
+                            <p>评论内容: {{ order.comment }} </p>
+                        <hr />
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- product comment area end -->
 
 
 <!-- Footer Area Start -->

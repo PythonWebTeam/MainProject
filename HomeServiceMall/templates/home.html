@@ -55,8 +55,8 @@
                     <label class="header-actions">
                         <!-- Search Begin -->
                         <div class="dropdown_search">
-                            <form class="action-form" action="services/">
-                                <input class="form-control" placeholder="输入要搜索的服务" type="text">
+                            <form class="action-form" action="services/" method="get">
+                                <input class="form-control" name="search" placeholder="输入要搜索的服务" type="text">
                                 <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
                             </form>
                         </div>
@@ -182,11 +182,14 @@
                                 <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                                     <ul class="sub-menu">
                                         {% for service in services_sort %}
-                                        <li><a href="">{{ service.name }}</a></li>
+                                        <li><a href="services/?search={{service.name}}">{{ service.name }}</a></li>
                                         {% endfor %}
                                     </ul>
                                 </li>
-
+                                <li>
+                                    <form action="other/Q&A/" method="GET"><a class="single-link"
+                                            href="other/Q&A/">常见问题</a>
+                                </li>
                                 <li>
                                     <form action="other/about/" method="GET"><a class="single-link"
                                             href="other/about/">关于我们</a>
@@ -212,12 +215,14 @@
                     <ul class="minicart-product-list">
                         {% for service in cart_services %}
                         <li>
-                            <a href="single-product.html" class="image"><img src={{ service.img1 }}></a>
+                        <form method="get">
+                            <a href="/shop/servivce?id={{id}}" class="image"><img src={{ service.img1 }}></a>
                             <div class="content">
-                                <a href="single-product.html" class="title">{{ service.name }}</a>
+                                <a href="/shop/servivce?id={{id}}" class="title">{{ service.name }}</a>
                                 <span class="quantity-price"> <span class="amount">{{ service.price }}</span></span>
                                 <a href="#" class="remove">×</a>
                             </div>
+                        </form>
                         </li>
                         {% endfor %}
                     </ul>
@@ -335,9 +340,11 @@
                                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6" data-aos="fade-up"
                                         data-aos-delay="200">
                                         <!-- Single Prodect -->
+                                        <from method="GET">
                                         <div class="product">
                                             <div class="thumb">
-                                                <a href="shop-left-sidebar.html" class="image">
+
+                                                <a href="/shop/service?se_id={{service.id}}" class="image">
                                                     <img style="width:300px;height:400px" alt="Product"
                                                         src={{ service.img1 }} />
                                                     <img alt="Product" style="width:200px;height:300px"
@@ -352,13 +359,14 @@
                                             </div>
                                             <div class="content">
                                                 <h5 class="title"><a
-                                                        href="shop-left-sidebar.html">{{ service.name }}({{ service.sort.name }})</a>
+                                                        href="/shop/servivce?se_id={{service.id}}">{{ service.name }}({{ service.sort.name }})</a>
                                                 </h5>
                                                 <span class="price">
                                                     <span class="new">{{ service.price }}元/时</span>
                                                 </span>
                                             </div>
                                         </div>
+                                        </from>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -389,7 +397,7 @@
                                     <form action="other/about/" method="GET">
                                         <li class="li"><a class="single-link" href="other/about/">关于我们</a></li>
                                     </form>
-                                    <p class="about-text"> 公司简介简介简介</p>
+                                    <p class="about-text">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。 以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业 的运营生态。</p>
 
                                 </div>
                             </div>

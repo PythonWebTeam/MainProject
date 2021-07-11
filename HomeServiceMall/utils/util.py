@@ -24,3 +24,7 @@ class Util:
 
         return render(request, html, {"services_sort": services_sort, "top_service": top_service,
                                       "is_login": is_login})
+
+    @staticmethod
+    def login_check(request):
+        is_login = request.session.get("is_login", False)

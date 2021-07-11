@@ -14,7 +14,7 @@ User = get_user_model()
 # 登录页面视图
 class LoginView(View):
     def get(self, request):
-        if request.session.get("username"):
+        if request.session.get("is_login"):
             return HttpResponse("用户 " + request.session.get("username") + ",您已登录")
         return Util.get_page(request, "login.html")
 
@@ -22,20 +22,13 @@ class LoginView(View):
 
         username = request.POST.get("user-name")
         password = request.POST.get("user-password")
-
         user = authenticate(request, username=username, password=password)
-
         if user:
             request.session["is_login"] = True
             request.session["username"] = username
-            return redirect("/")
-        elif len(username) == 0 or len(password) == 0:
-            if len(username) == 0:
-                return render(request, 'login.html', {"msg": "用户名不能为空!"})
-            if len(password) == 0:
-                return render(request, 'login.html', {"msg": "密码不能为空!"})
+            return HttpResponse("ok")
         else:
-            return render(request, 'login.html', {"msg": "用户名或密码错误!"})
+            return HttpResponse("账号或密码错误!")
 
 
 class RegisterView(View):
@@ -43,7 +36,7 @@ class RegisterView(View):
         return HttpResponse("404 not found")
 
     def post(self, request):
-        # TODO:将注册post数据写入数据库
+
         data = request.POST
         print(data)
         username = data.get("user-name")
@@ -55,9 +48,9 @@ class RegisterView(View):
         county = data.get("county")
 
         if User.objects.filter(username=username):
-            print('用户名已被注册')
             return HttpResponse('用户名已被注册')
-
+        if User.objects.filter(phone=phone_number):
+            return HttpResponse("该手机号已被注册")
         user = User.objects.create_user(username=username, password=password, phone=phone_number, email=email,
                                         province=prov, district=county, details=addr)
         return HttpResponse("ok")

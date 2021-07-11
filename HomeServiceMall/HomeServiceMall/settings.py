@@ -37,6 +37,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'HomeServiceMall.urls'
@@ -60,7 +61,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'HomeServiceMall.wsgi.application'
 
-
+LOGIN_URL = "/passport/login/"
+OPEN_URLS = ['/passport/login/']
 # Database
 
 DATABASES = {
@@ -116,3 +118,13 @@ STATICFILES_DIRS=(
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+ALIPAY_PUBLIC = os.path.join(BASE_DIR,'keys','alipay_public.txt')
+APP_PUBLIC = os.path.join(BASE_DIR,'keys','app_public.txt')
+APP_PRIVATE = os.path.join(BASE_DIR,'keys','app_private.txt')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.163.com"   # 服务器
+EMAIL_PORT = 25               # 一般情况下都为25
+EMAIL_HOST_USER = "lets_go2011@163.com"   # 账号
+EMAIL_HOST_PASSWORD = "NBMBWKTLJEYOSJLX"  # 密码
+EMAIL_USE_TLS = False             # 一般都为False
+EMAIL_FROM = "lets_go2011@163.com"        # 邮箱来自
