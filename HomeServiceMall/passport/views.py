@@ -53,6 +53,7 @@ class RegisterView(View):
             return HttpResponse("该手机号已被注册")
         code_rec = request.GET.get("email_code")
         code_db = EmailVerifyRecord.objects.filter(email=email)[0].code
+        print(code_rec,code_db)
         if code_rec != code_db:
             return HttpResponse("邮箱验证码错误")
         user = User.objects.create_user(username=username, password=password, phone=phone_number, email=email,
