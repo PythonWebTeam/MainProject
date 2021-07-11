@@ -9,6 +9,7 @@ class HomeView(View):
 
     def get(self, request):
         # 判断用户是否已登录
+        # TODO:冗余代码
         is_login = request.session.get("is_login", False)
         username = ""
         if is_login:
@@ -28,4 +29,4 @@ class HomeView(View):
 
     def post(self, request):
 
-            return self.get(request)
+        return self.get(request)
