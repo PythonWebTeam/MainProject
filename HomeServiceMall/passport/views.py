@@ -51,7 +51,7 @@ class RegisterView(View):
             return HttpResponse('用户名已被注册')
         elif User.objects.filter(phone=phone_number):
             return HttpResponse("该手机号已被注册")
-        code_rec = request.GET.get("email_code")
+        code_rec = data.get("email_code")
         code_db = EmailVerifyRecord.objects.filter(email=email)[0].code
         print(code_rec,code_db)
         if code_rec != code_db:

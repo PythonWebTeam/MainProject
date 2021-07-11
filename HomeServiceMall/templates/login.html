@@ -382,7 +382,7 @@
                                                     type: "POST",
                                                     data: {
                                                         "email": $("#user-email").val(),
-                                                        "email_code": $("#email-verify").val(),
+
                                                         "operate_type": "register",
                                                     },
                                                     beforeSend: function (xhr) {
@@ -539,7 +539,8 @@
                                                     "user-email": $("#user-email").val(),
                                                     "prov": $("#prov").val(),
                                                     "county": $("#county").val(),
-                                                    "address": $("#address").val()
+                                                    "address": $("#address").val(),
+                                                    "email_code": $("#email-verify").val(),
                                                 },
                                                 beforeSend: function (xhr) {
                                                     if ($("#user-nameReg").val() === "") {
