@@ -322,23 +322,23 @@
                                         <div class="myaccount-form-inner">
                                             <div class="single-input single-input-half">
                                                 <label>用户名</label>
-                                                <input type="text"  placeholder="{{User_username}}">
+                                                <input type="text"  placeholder="{{user.username}}">
                                             </div>
                                             <div class="single-input single-input-half">
                                                 <label>用户ID</label>
-                                                <input type="text" placeholder="{{User_u_id}}" disabled="true">
+                                                <input type="text" placeholder="{{user.id}}" disabled="true">
                                             </div>
                                             <div class="single-input">
                                                 <label>邮箱</label>
-                                                <input type="email" placeholder="{{User_email}}">
+                                                <input type="email" placeholder="{{user.email}}">
                                             </div>
                                             <div class="single-input">
                                                 <label>手机号</label>
-                                                <input type="number" name="phone-number" placeholder="手机号">
+                                                <input type="number" name="phone-number" placeholder="{{ user.phone }}">
                                             </div>
                                             <div class="single-input">
                                                 <label>用户地址</label>
-                                                <input type="text" name="address" placeholder="地址">
+                                                <input type="text" name="address" placeholder="{{ user.details }}">
                                                 <script>
                                                     $(function () {
                                                         var current_prov;
@@ -423,15 +423,15 @@
                                                 <script src="/static/JavaScript/province.js"></script>
                                                 <!-- 省份选择 -->
                                                 <select id="prov" name="prov" onchange="showCity(this)">
-                                                    <option>省份</option>
+                                                    <option>{{ user.province }}</option>
                                                 </select>
                                                 <!-- 城市选择 -->
                                                 <select id="city" name="city" onchange="showCountry(this)">
-                                                    <option>城市</option>
+                                                    <option>{{ user.city }}</option>
                                                 </select>
                                                 <!-- 区县选择 -->
                                                 <select id="country" name="county" onchange="selectCountry(this)">
-                                                    <option>县区</option>
+                                                    <option>{{ user.district }}</option>
                                                 </select>
                                             </div>
                                             <div class="single-input">
@@ -445,7 +445,7 @@
                             </div>
                             <div class="tab-pane fade" id="account-orders" role="tabpanel" aria-labelledby="account-orders-tab">
                                 <div class="myaccount-orders">
-                                    <h4 class="small-title">正在进行中的订单</h4>
+                                    <h4 class="small-title">我的订单</h4>
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover">
                                             <tbody>
@@ -454,18 +454,18 @@
                                                 <th>服务名称</th>
                                                 <th>订单开始时间</th>
                                                 <th>订单结束时间</th>
-                                                <th>订单状态</th>
-                                                <th>查看订单</th>
+                                                <th>支付状态</th>
                                             </tr>
+                                            {% for order in order_list %}
                                             <tr>
-                                                <td>{{Order_o_id}}</td>
-                                                <td>{{Order_service}}</td>
-                                                <td>{{start_time}}</td>
-                                                <td>{{end_time}}</td>
-                                                <td>{{order_state}}</td>
-                                                <td><a href="account/users/order_info_manage.html" class="btn btn-secondary btn-primary-hover"><span>查看</span></a>
+                                                <td>{{ order.id }}</td>
+                                                <td>{{ order.service.name }}</td>
+                                                <td>{{ order.start_time }}</td>
+                                                <td>{{ order.end_time }}</td>
+                                                <td>{{ order.pay_status }}</td>
                                                 </td>
                                             </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
@@ -473,27 +473,70 @@
                             </div>
                             <div class="tab-pane fade" id="account-address" role="tabpanel" aria-labelledby="account-address-tab">
                                 <div class="myaccount-address">
-                                    <form method="post" action="../../account/users/user_info_manage" class="myaccount-form" >
                                         <div class="myaccount-form-inner">
                                             <div class="single-input">
                                                 <label>当前密码(若空白则保持不修改)</label>
-                                                <input type="password">
+                                                <input type="password" id="current_password" minlength="6" maxlength="12">
+                                                <label style="color: red" id="oldPasswordInfo"></label>
                                             </div>
                                             <div class="single-input">
                                                 <label>新密码(若空白则保持不修改)</label>
-                                                <input type="password">
+                                                <input type="password" id="new_password" minlength="6" maxlength="12">
                                             </div>
                                             <div class="single-input">
                                                 <label>验证密码</label>
-                                                <input type="password">
+                                                <input type="password" id="confirm_password" minlength="6" maxlength="12">
+                                                <label style="color: red" id="newPasswordInfo"></label>
                                             </div>
+                                            <script>
+                                                function AjaxChangePassword() {
+                                                    $.ajax({
+                                                        url: "../../account/users/user_info_manage",
+                                                        type: "POST",
+                                                        data: {
+                                                            "current_password": $("#current_password").val(),
+                                                            "new_password": $("#new_password").val(),
+                                                            "confirm_password":$("#confirm_password").val(),
+                                                        },
+                                                        beforeSend: function (xhr) {
+                                                            if ($("#current_password").val().length<6||$("#current_password").val().length>12) {
+                                                                $("#oldPasswordInfo").text("原密码长度不符合要求!")
+                                                                xhr.abort()
+                                                            } else {
+                                                                $("#oldPasswordInfo").text("")
+                                                            }
+
+                                                            if ($("#new_password").val().length < 6 || $("#new_password").val().length >12) {
+                                                                $("#newPasswordInfo").text("新密码长度不符合要求!")
+                                                                xhr.abort()
+                                                            } else {
+                                                                $("#newPasswordInfo").text("")
+                                                            }
+
+                                                            if ($("#new_password").val()!== $("#confirm_password").val()) {
+                                                                $("#newPasswordInfo").text("两次输入的新密码不一致!")
+                                                                xhr.abort()
+                                                            } else {
+                                                                $("#newPasswordInfo").text("")
+                                                            }
+                                                        },
+                                                        success: function (response_data) {
+                                                            if (response_data === "ok") {
+                                                                alert("修改成功!")
+                                                                location.href = "../../"
+                                                            } else {
+                                                                $("#newPasswordInfo").text(response_data)
+                                                            }
+                                                        }
+                                                    })
+                                                }
+                                            </script>
                                             <div class="single-input">
-                                                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit">
-                                                    <span>保存改变</span>
+                                                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit" onclick="AjaxChangePassword()">
+                                                    <span>提交</span>
                                                 </button>
                                             </div>
                                         </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
