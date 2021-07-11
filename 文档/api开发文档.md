@@ -231,11 +231,7 @@ class Order(models.Model):
 
 ### 获取订单支付页面
 
-方法`GET` 请求地址:`shop/service/pay/?se_id={{service.id}}`
-
-```
-传递数组
-```
+方法`GET` 请求地址:`shop/service/pay/?se_id={{service.id}}&from_cart={{from_cart}}`
 
 **描述**
 
@@ -249,15 +245,16 @@ class Order(models.Model):
 
 **请求参数**
 
-| 参数名  | 参数类型 | 描述     |
-| ------- | -------- | -------- |
-| `se_id` | `int`    | 服务id号 |
+| 参数名      | 参数类型  | 描述               |
+| ----------- | --------- | ------------------ |
+| `se_id`     | `int`     | 服务id号           |
+| `from_cart` | `boolean` | 是否通过购物车购买 |
 
 **成功返回**
 
-| 参数名    | 参数类型  | 描述          |
-| --------- | --------- | ------------- |
-| `service` | `Service` | `Service`对象 |
+| 参数名     | 参数类型    | 描述              |
+| ---------- | ----------- | ----------------- |
+| `services` | `Service[]` | `Service`对象列表 |
 
 **失败返回**
 
@@ -303,3 +300,6 @@ class Order(models.Model):
 | 参数名 | 参数类型       | 描述                  |
 | ------ | -------------- | --------------------- |
 |        | `HttpResponse` | 返回`"404 Not Found"` |
+
+---
+
