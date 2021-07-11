@@ -49,6 +49,7 @@ class RegisterView(View):
 
         if User.objects.filter(username=username):
             return HttpResponse('用户名已被注册')
+
         if User.objects.filter(phone=phone_number):
             return HttpResponse("该手机号已被注册")
         user = User.objects.create_user(username=username, password=password, phone=phone_number, email=email,
