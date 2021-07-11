@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+
+from utils import send_email
 from . import views
 from account import views as account_views
 from other import views as other_views
@@ -36,6 +38,7 @@ passport_patterns = [
     path("login/", passport_views.LoginView.as_view()),
     path("register/", passport_views.RegisterView.as_view()),
     path("retrieve/", passport_views.RetrieveView.as_view()),
+    path("email_auth/",send_email.SendEmailView.as_view()),
 ]
 
 # shop urls
