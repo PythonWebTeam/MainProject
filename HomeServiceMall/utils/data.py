@@ -1,4 +1,4 @@
-'''
+
 from urllib.parse import parse_qs
 import time
 from django.http import HttpResponse
@@ -103,4 +103,3 @@ def pay_result(request):
     if status:
         return HttpResponse('支付成功')
     return HttpResponse('支付失败')
-'''

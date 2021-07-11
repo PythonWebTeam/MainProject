@@ -4,7 +4,6 @@ Created on 2020年1月9日
 @author: lan
 '''
 
-'''
 # _*_ coding=utf-8 _*_
 from datetime import datetime
 from Crypto.PublicKey import RSA
@@ -119,4 +118,3 @@ class AliPay(object):
         unsigned_items = self.ordered_data(data)
         message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
         return self._verify(message, signature)
-'''
