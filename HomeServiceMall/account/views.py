@@ -55,15 +55,25 @@ class ChangePasswordView(View):
         new_password = request.POST.get("new_password")
         user = User.objects.filter(username=username)[0]
         order_list = Order.objects.filter(user_id=user.id)
-        return render(request, "user_info_manage.html", {"user": user, "order_list": order_list})
+
+        if user.password != old_password:
+            return render(request, "user_info_manage.html",
+                          {"user": user, "order_list": order_list, "return_msg": "原密码错误"})
+        else:
+            user.password = new_password
+            user.save()
+            return render(request, "user_info_manage.html",
+                          {"user": user, "order_list": order_list, "return_msg": "修改成功"})
 
 
 def order_info_manage_view(request):
     return render(request, "order_info_manage.html")
 
 
-def shop_cart_view(request):
-    return render(request, "shop_cart.html")
+class ShopCartView(View):
+    def get(self, request):
+        service_id=
+        return render(request, "shop_cart.html")
 
 
 def vendor_info_manage_view(request):
