@@ -50,83 +50,84 @@
 <body>
 
 <div class="header-bottom d-none d-lg-block">
-<div class="container position-relative">
-            <div class="row align-self-center">
-                <!-- Header Logo Start -->
-                <div class="col-auto align-self-center">
-                    <div class="header-logo">
-                        <form action="../../" method="GET"><a href="../../"><img src="/static/Images/logo/logo.png"></a></form>
+    <div class="container position-relative">
+        <div class="row align-self-center">
+            <!-- Header Logo Start -->
+            <div class="col-auto align-self-center">
+                <div class="header-logo">
+                    <form action="../../" method="GET"><a href="../../"><img src="/static/Images/logo/logo.png"></a></form>
 
-                    </div>
                 </div>
-                <!-- Header Logo End -->
+            </div>
+            <!-- Header Logo End -->
 
 
-                <!-- Header Action Start -->
-                <div class="col align-self-center">
-                    <label class="header-actions">
-                        <!-- Search Begin -->
-                        <div class="dropdown_search">
-                            <form class="action-form" action="../../services/" method="get">
-                                <input class="form-control" name="search" placeholder="输入要搜索的服务" type="text">
-                                <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
-                            </form>
-                        </div>
-                        <!-- Search End -->
-                        <!-- User Begin -->
-                        <div class="header-bottom-set dropdown">
-                            <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i
-                                    class="icon-user" style="margin-top: 10px;"></i></button>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                {% if is_login %}
+            <!-- Header Action Start -->
+            <div class="col align-self-center">
+                <label class="header-actions">
+                    <!-- Search Begin -->
+                    <div class="dropdown_search">
+                        <form class="action-form" action="../../services/" method="get">
+                            <input class="form-control" name="search" placeholder="输入要搜索的服务" type="text">
+                            <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
+                        </form>
+                    </div>
+                    <!-- Search End -->
+                    <!-- User Begin -->
+                    <div class="header-bottom-set dropdown">
+                        <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i
+                                class="icon-user" style="margin-top: 10px;"></i></button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            {% if is_login %}
                                 <li>
                                     <form action="../../account/users/user_info_manage/" method="GET"><a class="dropdown-item"
-                                            href="../../account/users/user_info_manage/">我的账户{{ username }}</a>
+                                                                                                   href="../../account/users/user_info_manage/">我的账户{{ username }}</a>
                                     </form>
                                 </li>
 
                                 <li>
 
                                     <form action="../../account/logout/" method="POST"><a name="logout" class="dropdown-item"
-                                            href="../../account/logout/" onclick="logout()">注销</a>
+                                                                                    href="../../account/logout/"
+                                                                                    onclick="logout()">注销</a>
                                     </form>
                                 </li>
 
-                                {% else %}
+                            {% else %}
                                 <li>
                                     <form action="../../passport/login/" method="GET"><a class="dropdown-item"
-                                            href="../../passport/login/">登录/注册</a>
+                                                                                   href="../../passport/login/">登录/注册</a>
                                     </form>
                                 </li>
-                                {% endif %}
+                            {% endif %}
 
-                            </ul>
-                        </div>
-                        <!-- User End -->
-                        <!-- Cart Begin -->
-                        {% if is_login %}
+                        </ul>
+                    </div>
+                    <!-- User End -->
+                    <!-- Cart Begin -->
+                    {% if is_login %}
 
-                        <a href="#offcanvas-cart"
-                            class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
+                        <a href="../../account/users/shop_cart"
+                           class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                             <i class="icon-handbag" style="margin-top: 10px;"></i>
 
                         </a>
-                        {% else %}
+                    {% else %}
 
                         <label style="margin-left: 10px;margin-top: 10px">您好,请<a href="../../passport/login">登录</a></label>
 
-                        {% endif %}
-                        <!-- Cart End -->
-                        <a href="#offcanvas-mobile-menu"
-                            class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
-                            <i class="icon-menu"></i>
-                        </a>
-                </div>
+                    {% endif %}
+                    <!-- Cart End -->
+                    <a href="../../account/users/shop_cart"
+                       class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
+                        <i class="icon-menu"></i>
+                    </a>
             </div>
-
         </div>
 
     </div>
+    <!-- Header Bottom  End -->
+</div>
 
 <!-- Header Bottom  End -->
 
@@ -197,7 +198,7 @@
                         <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 {% for service in services_sort %}
-                                    <li><a href="../../services/?search={{ service.name }}">{{ service.name }}</a></li>
+                                    <li><a href="../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
@@ -397,121 +398,122 @@
 
 <!-- Footer Area Start -->
 <div class="footer-area">
-            <div class="footer-container">
-                <div class="footer-top">
-                    <div class="container">
-                        <div class="row">
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
 
-                            <!-- Start single blog -->
-                            <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up"
-                                data-aos-delay="200">
-                                <div class="single-wedge">
-                                    <form action="../../other/about/" method="GET">
-                                        <li class="li"><a class="single-link" href="../../other/about/">关于我们</a></li>
-                                    </form>
-                                    <p class="about-text">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。 以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业 的运营生态。</p>
+                    <!-- Start single blog -->
+                    <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up" style="width: 600px"
+                         data-aos-delay="200">
+                        <div class="single-wedge" style="width: 590px">
+                            <form action="../../other/about/" method="GET">
+                                <li class="li"><a class="single-link" href="../../other/about/">关于我们</a></li>
+                            </form>
+                            <p class="about-text" style="width: 490px">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。 以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业 的运营生态。</p>
 
-                                </div>
-                            </div>
-                            <!-- End single blog -->
-
-                            <!-- Start single blog -->
-                            <div class="col-md-6 col-sm-6 col-lg-3 mb-md-30px mb-lm-30px" data-aos="fade-up"
-                                data-aos-delay="400">
-                                <div class="single-wedge">
-                                    <h4 class="footer-herading">其他</h4>
-                                    <div class="footer-links">
-                                        <div class="footer-row">
-                                            <ul class="align-items-center">
-                                                <form action="../../other/Q&A/" method="GET">
-                                                    <li class="li"><a class="single-link" href="../../other/Q&A/">常见问题</a>
-                                                    </li>
-                                                </form>
-                                                <!--                                            <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>-->
-                                                <form action="../../other/privacy_policy/" method="GET">
-                                                    <li class="li"><a class="single-link"
-                                                            href="../../other/privacy_policy/">隐私政策</a>
-                                                    </li>
-                                                </form>
-                                                <!--                                            <li class="li"><a class="single-link" href="other/privacy-policy/">隐私政策</a></li>-->
-                                                <form action="../../admin/" method="GET">
-                                                    <li class="li"><a class="single-link" href="../../admin/">管理员登陆</a></li>
-                                                </form>
-                                                <!--                                            <li class="li"><a class="single-link" href="admin/">管理员登陆</a></li>-->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End single blog -->
-
-                            <!-- Start single blog -->
-                            <div class="col-md-6 col-lg-2 col-sm-6 mb-lm-30px" data-aos="fade-up" data-aos-delay="600">
-                                <div class="single-wedge">
-                                    <h4 class="footer-herading">账户</h4>
-                                    <div class="footer-links">
-                                        <div class="footer-row">
-                                            <ul class="align-items-center">
-                                                {% if is_login %}
-                                                <form action="../../account/users/user_info_manage" method="GET">
-                                                    <li class="li"><a class="single-link"
-                                                            href="../../account/users/user_info_manage">我的账户</a></li>
-                                                </form>
-                                                <form action="account/users/shop_cart" method="GET">
-                                                    <li class="li"><a class="single-link"
-                                                            href="../../account/users/shop_cart">购物车</a>
-                                                    </li>
-                                                </form>
-                                                <form action="../../" method="POST">
-                                                    <li class="li"><a class="single-link" href="../../"
-                                                            onclick="logout()">注销</a>
-                                                    </li>
-                                                </form>
-
-                                                <!--                                        <script>-->
-                                                <!--                                            function logout() {-->
-                                                <!--                                                alert("注销成功!")-->
-                                                <!--                                            }-->
-                                                <!--                                        </script>-->
-                                                {% else %}
-                                                <form action="../../passport/login/" method="GET">
-                                                    <li class="li"><a class="single-link" href="../../passport/login/">登录</a>
-                                                    </li>
-                                                </form>
-                                                {% endif %}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End single blog -->
-                            <!-- Start single blog -->
-                            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="800">
-                                <div class="single-wedge">
-                                    <div class="footer-links">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End single blog -->
                         </div>
                     </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="container">
-                        <div class="row flex-sm-row-reverse">
-                            <div class="col-md-6 text-right">
-                                <div class="payment-link">
-                                    <img src="/static/Images/icons/payment.png" alt="">
+                    <!-- End single blog -->
+
+                    <!-- Start single blog -->
+                    <div class="col-md-6 col-sm-6 col-lg-3 mb-md-30px mb-lm-30px" data-aos="fade-up"
+                         data-aos-delay="400">
+                        <div class="single-wedge">
+                            <h4 class="footer-herading">其他</h4>
+                            <div class="footer-links">
+                                <div class="footer-row">
+                                    <ul class="align-items-center">
+                                        <form action="../../other/Q&A/" method="GET">
+                                            <li class="li"><a class="single-link" href="../../other/Q&A/">常见问题</a>
+                                            </li>
+                                        </form>
+                                        <!--                                            <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>-->
+                                        <form action="../../other/privacy_policy/" method="GET">
+                                            <li class="li"><a class="single-link"
+                                                              href="../../other/privacy_policy/">隐私政策</a>
+                                            </li>
+                                        </form>
+                                        <!--                                            <li class="li"><a class="single-link" href="other/privacy-policy/">隐私政策</a></li>-->
+                                        <form action="../../admin/" method="GET">
+                                            <li class="li"><a class="single-link" href="../../admin/">管理员登陆</a></li>
+                                        </form>
+                                        <!--                                            <li class="li"><a class="single-link" href="admin/">管理员登陆</a></li>-->
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="col-md-6 text-left">
-                                <p class="copy-text">Copyright&copy; Let's购 2021. &nbsp;All rights reserved.</p>
+                        </div>
+                    </div>
+                    <!-- End single blog -->
+
+                    <!-- Start single blog -->
+                    <div class="col-md-6 col-lg-2 col-sm-6 mb-lm-30px" data-aos="fade-up" data-aos-delay="600">
+                        <div class="single-wedge">
+                            <h4 class="footer-herading">账户</h4>
+                            <div class="footer-links">
+                                <div class="footer-row">
+                                    <ul class="align-items-center">
+                                        {% if is_login %}
+                                            <form action="../../../account/users/user_info_manage" method="GET">
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../../account/users/user_info_manage">我的账户</a>
+                                                </li>
+                                            </form>
+                                            <form action="../../../account/users/shop_cart" method="GET">
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../../account/users/shop_cart">购物车</a>
+                                                </li>
+                                            </form>
+                                            <form action="../../" method="POST">
+                                                <li class="li"><a class="single-link" href="../../"
+                                                                  onclick="logout()">注销</a>
+                                                </li>
+                                            </form>
+
+                                            <!--                                        <script>-->
+                                            <!--                                            function logout() {-->
+                                            <!--                                                alert("注销成功!")-->
+                                            <!--                                            }-->
+                                            <!--                                        </script>-->
+                                        {% else %}
+                                            <form action="../../passport/login/" method="GET">
+                                                <li class="li"><a class="single-link" href="../../passport/login/">登录</a>
+                                                </li>
+                                            </form>
+                                        {% endif %}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- End single blog -->
+                    <!-- Start single blog -->
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="800">
+                        <div class="single-wedge">
+                            <div class="footer-links">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End single blog -->
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row flex-sm-row-reverse">
+                    <div class="col-md-6 text-right">
+                        <div class="payment-link">
+                            <img src="/static/Images/icons/payment.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-left">
+                        <p class="copy-text">Copyright&copy; Let's购 2021. &nbsp;All rights reserved.</p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 <!-- Footer Area End -->
 
 
