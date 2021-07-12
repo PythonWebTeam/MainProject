@@ -292,22 +292,6 @@
                                 <input type="text" />
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="billing-select mb-4">
-                                <label>国家</label>
-                                <select>
-                                    <option>中国大陆</option>
-                                    <option>中国香港</option>
-                                    <option>中国澳门</option>
-                                    <option>中国台湾</option>
-                                    <option>Japan</option>
-                                    <option>Russia</option>
-                                    <option>USA</option>
-                                    <option>UK</option>
-                                    <option>Germany</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-4">
                                 <label>省份</label>
@@ -354,7 +338,7 @@
                             </div>
                             <div class="your-order-middle">
                                 <ul>
-                                    {%for service in Seivices_list %}
+                                    {%for service in services%}
                                     <li><span class="order-middle-left">{{service.name}}</span> <span class="order-price">{{service.price}}</span></li>
                                     {% endfor %}
                                 </ul>
@@ -362,6 +346,13 @@
                             <div class="your-order-total">
                                 <ul>
                                     <li class="order-total">总金额</li>
+                                    <script>
+                                    console.log({{ services }});
+                                        var sum=0;
+                                        {% for serv in services %}
+                                            sum=sum+{{ serv.price }}
+                                        {% endfor %}
+                                    </script>
                                     <li>{{sum_price}}</li>
                                 </ul>
                             </div>
@@ -369,7 +360,7 @@
                     </div>
                     <div class="Place-order mt-25">
 <!--                        Hofee改重新跳转到支付页面-->
-                        <form action="../../shop/service/pay/?se_id={{se_id}}" method="post"><a class="btn-hover" href="../../shop/service/pay/?se_id={{se_id}}">支付</a></form>
+                        <form action="../../../shop/service/pay/?se_id=1&from_cart=false" method="get"><a class="btn-hover" href="../../../shop/service/pay/?se_id=1&from_cart=false">支付</a></form>
                     </div>
                 </div>
             </div>
