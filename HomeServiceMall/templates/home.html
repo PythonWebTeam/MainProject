@@ -95,7 +95,7 @@
                     <!-- Cart Begin -->
                     {% if is_login %}
 
-                        <a href="#offcanvas-cart"
+                        <a href="account/users/shop_cart"
                            class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                             <i class="icon-handbag" style="margin-top: 10px;"></i>
 
@@ -106,7 +106,7 @@
 
                     {% endif %}
                     <!-- Cart End -->
-                    <a href="#offcanvas-mobile-menu"
+                    <a href="account/users/shop_cart"
                        class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
                         <i class="icon-menu"></i>
                     </a>
@@ -184,7 +184,7 @@
                         <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 {% for service in services_sort %}
-                                    <li><a href="services/?search={{ key }}&page=1">{{ service.name }}</a></li>
+                                    <li><a href="services/?search={{ service.sort }}&page=1">{{ service.name }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
@@ -393,15 +393,13 @@
                 <div class="row">
 
                     <!-- Start single blog -->
-                    <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up"
+                    <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up" style="width: 600px"
                          data-aos-delay="200">
-                        <div class="single-wedge">
+                        <div class="single-wedge" style="width: 590px">
                             <form action="other/about/" method="GET">
                                 <li class="li"><a class="single-link" href="other/about/">关于我们</a></li>
                             </form>
-                            <p class="about-text">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
-                                以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及
-                                评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业 的运营生态。</p>
+                            <p class="about-text" style="width: 490px">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。 以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业 的运营生态。</p>
 
                         </div>
                     </div>

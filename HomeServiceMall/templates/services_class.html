@@ -318,125 +318,91 @@
                 <div class="shop-bottom-area">
                     <div class="row">
                         {% for service in services %}
-                            {% for service in services %}
-                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6" data-aos="fade-up" data-aos-delay="200">
-                                    <!-- Single Prodect -->
-                                    <div class="product mb-5">
-                                        <div class="thumb">
-                                            <!--       hofee                             跳转到服务详情页-->
-                                            <a href="../../shop/service/?se_id={{service.id}}" class="image">
-                                                <!--
-                                                hofee 此处修改图片
-                                                Service_namelist为具体的服务名称列表
-                                                Service_pricelist为具体的服务价格列表
-                                                -->
-                                                <img style="width:400px;height:300px" src="{{service.img1}}" alt="Product"/>
-                                                <!--                                 hofee       鼠标移到上面时变化为第二幅图片，如不需要可直接删除此行代码-->
-                                                <img style="width:300px;height:400px" class="hover-image" src="{{service.img2}}"
-                                                     alt="Product"/>
-                                            </a>
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6" data-aos="fade-up" data-aos-delay="200">
+                                <!-- Single Prodect -->
+                                <div class="product mb-5">
+                                    <div class="thumb">
+                                        <!--       hofee                             跳转到服务详情页-->
+                                        <a href="../../shop/service/?se_id={{service.id}}" class="image">
+                                            <!--
+                                            hofee 此处修改图片
+                                            Service_namelist为具体的服务名称列表
+                                            Service_pricelist为具体的服务价格列表
+                                            -->
+                                            <img style="width:400px;height:300px" src="{{service.img1}}" alt="Product"/>
+                                            <!--                                 hofee       鼠标移到上面时变化为第二幅图片，如不需要可直接删除此行代码-->
+                                            <img style="width:300px;height:400px" class="hover-image" src="{{service.img2}}"
+                                                 alt="Product"/>
+                                        </a>
 
 
-                                            <!--       hofee                             跳转到服务详情页-->
-                                            <form action="../../shop/service/?se_id={{  service.id  }}" method="post">
-                                                <button title="点击查看" class=" add-to-cart">点击查看</button>
-                                            </form>
-                                        </div>
-                                        <div class="content">
-                                            <h5 class="title"><a href="shop-left-sidebar.html">{{ service.name }}({{ service.sort.name }})</a></h5>
-                                            <span class="price">
+                                        <!--       hofee                             跳转到服务详情页-->
+                                        <form action="../../shop/service/?se_id={{  service.id  }}" method="post">
+                                            <button title="点击查看" class=" add-to-cart">点击查看</button>
+                                        </form>
+                                    </div>
+                                    <div class="content">
+                                        <h5 class="title"><a href="shop-left-sidebar.html">{{ service.name }}({{ service.sort.name }})</a></h5>
+                                        <span class="price">
                                             <span class="new">{{ service.price }}</span>
                                         </span>
-                                        </div>
                                     </div>
                                 </div>
-                            {% endfor %}
+                            </div>
                         {% endfor %}
                     </div>
 
                     <!--                      Pagination Area Start -->
-
-                    <!-- 页码  -->
-                    <div id="pageNumberDiv">
-                        <ul class="pagination">1</ul>
-                        <script>
-                            function initPage(pageInfo){
-                                //清除掉之前的页码
-                                $(".pagination li").remove();
-
-                                var total = 10;//总页数
-                                var pageNum =2;//当前页
-                                var firstPage = 1;//第一页
-                                var prePage = pageNum - 1;//上一页
-                                var nextPage = pageNum + 1;//下一页
-                                var lastPage = total;
-
-                                // 先拼接点击事件   ，用于解决字符串拼接的问题
-                                var firstPageStr = "retrieve(1)";
-                                var prePageStr = "retrieve("+prePage+")";
-                                var nextPageStr = "retrieve("+nextPage+")";
-                                var lastPageStr = "retrieve("+lastPage+")";
-
-
-                                //做判断，满足某些条件时，不能点击
-                                if(firstPage===pageNum){
-                                    $(".pagination").append("<li><a>首页</a></li>");
-                                }else{
-                                    $(".pagination").append("<li><a οnclick="+firstPageStr+">首页</a></li>");
-                                }
-                                if(prePage<=0){
-                                    $(".pagination").append("<li><a>上一页</a></li>");
-                                }else{
-                                    $(".pagination").append("<li><a οnclick="+prePageStr+">上一页</a></li>");
-                                }
-
-                                //生成中间的页面
-                                if(pageNum<=3){
-                                    for(var i=1; i<=(total<=5?total:5); i++){
-                                        if(i==pageNum){
-                                            $(".pagination").append("<li><a style='color:black'>"+i+"</a></li>");
-                                        }else{
-                                            var pageNumber = "retrieve("+i+")";
-                                            $(".pagination").append("<li><a οnclick="+pageNumber+">"+ i+ "</a></li>");
-                                        }
+                    <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-6" data-aos="fade-up">
+                        <ul>
+                            <li>
+                                <a class="prev" href="./?search={{key}}&page={{page_num|add:'-1'}}" method="post" ><i class="ion-ios-arrow-left"></i></a>
+                            </li>
+                            <li><a class="active" class="midcir" href="./?search={{key}}&page={{page_num}}" method="post" >{{ page_num }}</a></li>
+                            <li><a class="midcir" href="./?search={{key}}&page={{page_num|add:'1'}}" method="post">{{ page_num|add:'1'}}</a></li>
+                            <li><a class="midcir" href="./?search={{key}}&page={{page_num|add:'2'}}" method="post">{{ page_num|add:'2'}}</a></li>
+                            <li><a class="midcir" href="./?search={{key}}&page={{page_num|add:'3'}}" method="post">{{ page_num|add:'3'}}</a></li>
+                            <li><a class="midcir" href="./?search={{key}}&page={{page_num|add:'4'}}" method="post">{{ page_num|add:'4'}}</a></li>
+                            <li>
+                                <a class="next" href="./?search={{key}}&page={{page_num|add:'1'}}" method="post"><i class="ion-ios-arrow-right"></i></a>
+                            </li>
+                            <script>
+                                function check()
+                                {
+                                    var i={{ page_num }};
+                                    var j=1;
+                                    var x=document.getElementsByClassName("prev")[0];
+                                    if(i===j)
+                                    {
+                                        x.setAttribute("hidden","hidden");
                                     }
-                                }else if(pageNum>3 && total<=(pageNum+2)){
-                                    for(var i=total-4; i<=total; i++){
-                                        if(i==pageNum){
-                                            $(".pagination").append("<li><a style='color:black'>"+i+"</a></li>");
-                                        }else{
-                                            var pageNumber = "retrieve("+i+")";
-                                            $(".pagination").append("<li><a οnclick="+pageNumber+">"+ i+ "</a></li>");
-                                        }
+                                }
+                                check();
+                                function check2()
+                                {
+                                    var totalnum=8*{{ services_num }};
+                                    var Maxpage=Math.ceil(totalnum/12);
+                                    var pagenum={{ page_num }};
+                                    var a=document.getElementsByClassName("next")[0];
+                                    console.log(pagenum);
+                                    console.log(Maxpage);
+                                    if(pagenum===Maxpage)
+                                    {
+                                        a.setAttribute("hidden","hidden");
                                     }
-                                }else if(pageNum>3 && total>(pageNum+2)){
-                                    for(var i=pageNum-2; i<=pageNum+2; i++){
-                                        if(i==pageNum){
-                                            $(".pagination").append("<li><a style='color:black'>"+i+"</a></li>");
-                                        }else{
-                                            var pageNumber = "retrieve("+i+")";
-                                            $(".pagination").append("<li><a οnclick="+pageNumber+">"+ i+ "</a></li>");
+                                    for(let i=0;i<5;i++)
+                                    {
+                                        var b=document.getElementsByClassName("midcir")[i];
+                                        if(b.innerHTML>Maxpage)
+                                        {
+                                            b.setAttribute("hidden","hidden");
                                         }
                                     }
                                 }
-
-                                if(nextPage<=0 || nextPage > total){
-                                    $(".pagination").append("<li><a>下一页</a></li>");
-                                }else{
-                                    $(".pagination").append("<li><a οnclick="+nextPageStr+">下一页</a></li>");
-                                }
-                                if(lastPage===pageNum){
-                                    $(".pagination").append("<li><a>尾页</a></li>");
-                                }else{
-                                    $(".pagination").append("<li><a οnclick="+lastPageStr+">尾页</a></li>");
-                                }
-                            }
-
-
-                        </script>
+                                check2();
+                            </script>
+                        </ul>
                     </div>
-
-
                     <!--                      Pagination Area End -->
                 </div>
                 <!-- Shop Bottom Area End -->
