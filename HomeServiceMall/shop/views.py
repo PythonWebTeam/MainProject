@@ -10,9 +10,9 @@ from account.models import Service
 class ServiceView(View):
     def get(self, request):
         se_id = request.GET.get("se_id")
-        service = Service.objects.filter(id=int(se_id))
+        service = Service.objects.filter(id=int(se_id))[0]
 
-        return render(request, "service.html", {"service": service[0]})
+        return render(request, "service.html", {"service": service})
 
 
 class ShopView(View):

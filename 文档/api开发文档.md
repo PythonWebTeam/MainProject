@@ -536,8 +536,6 @@ class Order(models.Model):
 
 ---
 
-
-
 ### 获取商家用户页面
 
 方法`GET` 请求地址:`/account/vendors/vendor_info_manage/`
