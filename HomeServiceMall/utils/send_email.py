@@ -63,7 +63,7 @@ class SendEmailView(View):  # email, send_type="register"
         else:
             msg = ""
         email_title = "Let's 购|{0}-验证码".format(msg)
-        email_body = "验证码为{0}".format(code)
+        email_body = "【Let's 购】您的验证码为: {0}。请不要把验证码泄露给其他人。如非本人操作，可不用理会！".format(code)
         # 发送邮件
         send_status = send_mail(email_title, email_body, EMAIL_FROM, [email])
         if not send_status:
