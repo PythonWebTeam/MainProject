@@ -4,9 +4,58 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.views import View
 
+from account.models import *
 
-def user_info_manage_view(request):
-    return render(request, "user_info_manage.html")
+
+class UserInfoManageView(View):
+    def get(self, request):
+        if not request.session.get("is_login"):
+            return redirect("/passport/login/")
+        username = request.session.get("username")
+        user = User.objects.filter(username=username)[0]
+        order_list = Order.objects.filter(user_id=user.id)
+        return render(request, "user_info_manage.html", {"user": user, "order_list": order_list})
+
+    def post(self, request):
+        if not request.session.get("is_login"):
+            return redirect("/passport/login/")
+        data = request.POST
+        if not request.session.get("is_login"):
+            return redirect("/passport/login/")
+        username = request.session.get("username")
+        user = User.objects.filter(username=username)[0]
+        order_list = Order.objects.filter(user_id=user.id)
+        new_username = data.get("username")  #
+        email = data.get("email")  #
+        phone = data.get("phone")  #
+        prov = data.get("prov")
+        city = data.get("city")
+        county = data.get("county")
+        addr = data.get("addr")
+        if User.objects.filter(username=new_username):
+            msg = "该用户名已存在"
+            return render(request, "user_info_manage.html", {"user": user, "order_list": order_list, "msg": msg})
+        else:
+            user.username = new_username
+            user.email = email
+            user.phone = phone
+            user.prov = prov
+            user.city = city
+            user.county = county
+            user.details = addr
+            return render(request, "user_info_manage.html", {"user": user, "order_list": order_list})
+
+
+class ChangePasswordView(View):
+    def post(self, request):
+        if not request.session.get("is_login"):
+            return redirect("/passport/login/")
+        username = request.session.get("username")
+        old_password = request.POST.get("old_password")
+        new_password = request.POST.get("new_password")
+        user = User.objects.filter(username=username)[0]
+        order_list = Order.objects.filter(user_id=user.id)
+        return render(request, "user_info_manage.html", {"user": user, "order_list": order_list})
 
 
 def order_info_manage_view(request):

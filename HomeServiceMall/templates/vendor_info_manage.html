@@ -74,14 +74,13 @@
                 <!-- Header Logo End -->
 
 
-
                 <!-- Header Action Start -->
                 <div class="col align-self-center">
                     <label class="header-actions">
                         <!-- Search Begin -->
                         <div class="dropdown_search">
-                            <form class="action-form" action="../../../services/<str:service_class>/">
-                                <input class="form-control" placeholder="输入要搜索的服务" type="text">
+                            <form class="action-form" action="../../../services/" method="get">
+                                <input class="form-control" name="search" placeholder="输入要搜索的服务" type="text">
                                 <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
                             </form>
                         </div>
@@ -92,22 +91,26 @@
                                     class="icon-user" style="margin-top: 10px;"></i></button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 {% if is_login %}
-                                <li>
-                                    <form action="account/users/user_info_manage/" method="GET"><a class="dropdown-item" href="account/users/user_info_manage/">我的账户{{username}}</a>
-                                    </form>
-                                </li>
+                                    <li>
+                                        <form action="../../../account/users/user_info_manage/" method="GET"><a class="dropdown-item"
+                                                                                                       href="../../../account/users/user_info_manage/">我的账户{{ username }}</a>
+                                        </form>
+                                    </li>
 
-                                <li>
+                                    <li>
 
-                                    <form action="account/logout/" method="POST"><a name="logout" class="dropdown-item" href="account/logout/" onclick="logout()">注销</a>
-                                    </form>
-                                </li>
+                                        <form action="../../../account/logout/" method="POST"><a name="logout" class="dropdown-item"
+                                                                                        href="../../../account/logout/"
+                                                                                        onclick="logout()">注销</a>
+                                        </form>
+                                    </li>
 
                                 {% else %}
-                                <li>
-                                    <form action="../../../passport/login/" method="GET"><a class="dropdown-item" href="../../../passport/login/">登录/注册</a>
-                                    </form>
-                                </li>
+                                    <li>
+                                        <form action="../../../passport/login/" method="GET"><a class="dropdown-item"
+                                                                                       href="../../../passport/login/">登录/注册</a>
+                                        </form>
+                                    </li>
                                 {% endif %}
 
                             </ul>
@@ -116,17 +119,18 @@
                         <!-- Cart Begin -->
                         {% if is_login %}
 
-                        <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
-                            <i class="icon-handbag" style="margin-top: 10px;"></i>
+                            <a href="../../../account/users/shop_cart"
+                               class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
+                                <i class="icon-handbag" style="margin-top: 10px;"></i>
 
-                        </a>
+                            </a>
                         {% else %}
 
-                        <label style="margin-left: 10px;margin-top: 10px">您好,请<a href="/passport/login">登录</a></label>
+                            <label style="margin-left: 10px;margin-top: 10px">您好,请<a href="../../../passport/login">登录</a></label>
 
                         {% endif %}
                         <!-- Cart End -->
-                        <a href="#offcanvas-mobile-menu"
+                        <a href="../../../account/users/shop_cart"
                            class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
                             <i class="icon-menu"></i>
                         </a>
@@ -134,6 +138,7 @@
             </div>
 
         </div>
+        <!-- Header Bottom  End -->
     </div>
     <!-- Header Bottom  Start -->
     <div class="header-bottom d-lg-none sticky-nav bg-white">
@@ -142,7 +147,7 @@
                 <!-- Header Logo Start -->
                 <div class="col-auto align-self-center">
                     <div class="header-logo">
-                        <a href="../../../"><img src="/static/Images/logo/logo.png" alt="Site Logo" /></a>
+                        <a href="index.html"><img src="/static/Images/logo/logo.png" alt="Site Logo"/></a>
                     </div>
                 </div>
                 <!-- Header Logo End -->
@@ -200,23 +205,18 @@
                             </li>
                             <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                                 <ul class="sub-menu">
-                                    <li><a href="404.html">{{services_sort.0}}</a></li>
-                                    <li><a href="privacy-policy.html">{{services_sort.1}}</a></li>
-                                    <li><a href="faq.html">{{services_sort.2}}</a></li>
-                                    <li><a href="coming-soon.html">{{services_sort.3}}</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown"><a href="../../../other/Q&A/">常见问题 <i class="ion-ios-arrow-down"></i></a>
-                                <ul class="sub-menu">
-                                    <li><a href="404.html">{{services_sort.0}}</a></li>
-                                    <li><a href="privacy-policy.html">{{services_sort.1}}</a></li>
-                                    <li><a href="faq.html">{{services_sort.2}}</a></li>
-                                    <li><a href="coming-soon.html">{{services_sort.3}}</a></li>
+                                    {% for service in services_sort %}
+                                        <li><a href="../../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </li>
                             <li>
-                                <form action="../../../other/about/" method="GET"><a class="single-link" href="../../../other/about/">关于我们</a>
-                                </form>
+                                <form action="../../../other/Q&A/" method="GET"><a class="single-link"
+                                                                          href="../../../other/Q&A/">常见问题</a>
+                            </li>
+                            <li>
+                                <form action="../../../other/about/" method="GET"><a class="single-link"
+                                                                            href="../../../other/about/">关于我们</a>
                             </li>
                         </ul>
                     </div>
