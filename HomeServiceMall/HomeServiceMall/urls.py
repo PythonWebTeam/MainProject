@@ -10,13 +10,12 @@ from services import views as services_views
 from shop import views as shop_views
 
 # users urls
-
-
 users_patterns = [
     path("user_info_manage/", account_views.UserInfoManageView.as_view()),
     path("order_info_manage/", account_views.order_info_manage_view),
     path("shop_cart/", account_views.shop_cart_view),
 ]
+
 # vendors urls
 vendors_patterns = [
     path("vendor_info_manage/", account_views.vendor_info_manage_view),
@@ -26,11 +25,13 @@ vendors_patterns = [
     path("service_manage/", account_views.service_manage_view),
     path("business_data/", account_views.business_data_view),
 ]
+
 # account urls
 account_patterns = [
     path("users/", include(users_patterns)),
     path("vendors/", include(vendors_patterns)),
-    path("logout/",account_views.LogoutView.as_view())
+    path("logout/", account_views.LogoutView.as_view()),
+    path("change_psw/",account_views.ChangePasswordView.as_view()),
 ]
 
 # passport urls
@@ -38,7 +39,7 @@ passport_patterns = [
     path("login/", passport_views.LoginView.as_view()),
     path("register/", passport_views.RegisterView.as_view()),
     path("retrieve/", passport_views.RetrieveView.as_view()),
-    path("email_auth/",send_email.SendEmailView.as_view()),
+    path("email_auth/", send_email.SendEmailView.as_view()),
 
 ]
 
@@ -48,11 +49,13 @@ shop_patterns = [
     path("service/", shop_views.ServiceView.as_view()),
     path("service/pay/", shop_views.PayView.as_view()),
 ]
+
 # other urls
 other_patterns = [
     path("about/", other_views.about_view),
     path("Q&A/", other_views.QA_view),
 ]
+
 # main urls
 urlpatterns = [
     path("", views.HomeView.as_view()),
@@ -62,6 +65,4 @@ urlpatterns = [
     path("services/", services_views.ServicesClassView.as_view()),
     path("other/", include(other_patterns)),
     path("admin/", admin.site.urls),
-
-
 ]
