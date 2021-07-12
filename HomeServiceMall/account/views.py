@@ -72,9 +72,36 @@ def order_info_manage_view(request):
 
 class ShopCartView(View):
     def get(self, request):
-        service_id=
-        return render(request, "shop_cart.html")
+        if not request.session.get("is_login"):
+            return redirect("/passport/login/")
+        else:
+            username = request.session.get("username")
+            user = User.objects.filter(username=username)[0]
+            u_id = user.id
+            carts = Cart.objects.filter(user_id=u_id)
+            services = []
+            total_cost = 0
+            for cart in carts:
+                services.append(cart.service)
+            services_num = len(services)
+            for service in services:
+                total_cost += service.price
+            return render(request, "shop_cart.html",
+                          {"user": user, "services": services, "services_num": services_num, "total_cost": total_cost})
 
+    def post(self, request):
+        if not request.session.get("is_login"):
+            return redirect("/passport/login/")
+        else:
+            username = request.session.get("username")
+            user = User.objects.filter(username=username)[0]
+            service_id = int(request.POST.get("service_id"))
+            u_id = user.id
+            carts = Cart.objects.filter(user_id=u_id)
+            for cart in carts:
+                if cart.service.id==service_id:
+                    Cart.objects.filter(id=cart.id).delete()
+            return self.get(request)
 
 def vendor_info_manage_view(request):
     return render(request, "vendor_info_manage.html")

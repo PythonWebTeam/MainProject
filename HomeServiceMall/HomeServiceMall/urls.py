@@ -13,7 +13,7 @@ from shop import views as shop_views
 users_patterns = [
     path("user_info_manage/", account_views.UserInfoManageView.as_view()),
     path("order_info_manage/", account_views.order_info_manage_view),
-    path("shop_cart/", account_views.shop_cart_view),
+    path("shop_cart/", account_views.ShopCartView.as_view()),
 ]
 
 # vendors urls
