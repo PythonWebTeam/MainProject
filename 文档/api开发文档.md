@@ -210,7 +210,7 @@
 
 ---
 
-`Service`对象所含参数如下
+`Service`对象所含属性如下
 
 ```python
     name = models.CharField('服务名称', max_length=32)
@@ -269,7 +269,7 @@ HTML用`for`循环显示图片
 
 **说明/示例**
 
-`User`对象所含参数如下
+`User`对象所含属性如下
 
 ```python
 class User(AbstractUser):
@@ -283,7 +283,7 @@ class User(AbstractUser):
 
 ```
 
-`Order`对象所含参数如下
+`Order`对象所含属性如下
 
 ```python
 class Order(models.Model):
@@ -404,10 +404,25 @@ class Order(models.Model):
 | ------------ | --------- | -------------------- |
 | `user`       | `User`    | `User`对象           |
 | `order_list` | `Order[]` | 该商家的全部订单列表 |
+| `shop`       | `Shop`    | 该商家的店铺         |
 
 **失败返回**
 
 | 参数名 | 参数类型       | 描述                  |
 | ------ | -------------- | --------------------- |
 |        | `HttpResponse` | 返回`"404 Not Found"` |
+
+---
+
+**说明/示例**
+
+`Shop`类所含属性如下
+
+```python
+class Shop(models.Model):
+    name = models.CharField('店铺名称', max_length=32, unique=True)
+    create_time = models.DateTimeField('店铺创建时间')
+    status = models.BooleanField('店铺状态')
+    star = models.IntegerField(verbose_name='店铺星级', blank=True, null=True)
+```
 
