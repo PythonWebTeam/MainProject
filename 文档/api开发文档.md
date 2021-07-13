@@ -659,9 +659,9 @@ class Shop(models.Model):
 | `username` | `string` | 修改后的用户名   |
 | `email`    | `string` | 修改后的邮箱     |
 | `phone`    | `string` | 修改后的手机号   |
-| `prov`     | `string` | 修改后的省份     |
-| `city`     | `string` | 修改后的市       |
-| `county`   | `string` | 修改后的县       |
+| `prov`     | `int`    | 修改后的省份     |
+| `city`     | `int`    | 修改后的市       |
+| `county`   | `int`    | 修改后的县       |
 | `addr`     | `string` | 修改后的详细地址 |
 | `shopname` | `string` | 修改后的店铺名   |
 
@@ -684,7 +684,79 @@ class Shop(models.Model):
 
 
 
+---
 
+### 删除商家的服务
+
+方法`POST` 请求地址:`/account/vendors/shop_info_manage/`
+
+**描述**
+
+> 通过Ajax提交要删除的服务名
+
+**请求头**
+
+| 参数名         | 参数类型 | 描述 |
+| -------------- | -------- | ---- |
+| `content-type` | `string` | HTML |
+
+**请求参数**
+
+| 参数名         | 参数类型 | 描述                         |
+| -------------- | -------- | ---------------------------- |
+| `operate`      | `string` | 操作类型，`operate="delete"` |
+| `service_name` | `string` | 服务名                       |
+
+**成功返回**
+
+| 参数名        | 参数类型       | 描述     |
+| ------------- | -------------- | -------- |
+| `return_data` | `HttpResponse` | 返回`ok` |
+
+**失败返回**
+
+| 参数名        | 参数类型       | 描述         |
+| ------------- | -------------- | ------------ |
+| `return_data` | `HttpResponse` | 返回错误原因 |
+
+---
+
+### 增加商家的服务
+
+方法`POST` 请求地址:`/account/vendors/shop_info_manage/`
+
+**描述**
+
+> 通过Ajax提交要删除的服务名
+
+**请求头**
+
+| 参数名         | 参数类型 | 描述 |
+| -------------- | -------- | ---- |
+| `content-type` | `string` | HTML |
+
+**请求参数**
+
+| 参数名         | 参数类型 | 描述                         |
+| -------------- | -------- | ---------------------------- |
+| `operate`      | `string` | 操作类型，`operate="delete"` |
+| `service_name` | `string` | 服务名                       |
+
+**成功返回**
+
+| 参数名        | 参数类型       | 描述     |
+| ------------- | -------------- | -------- |
+| `return_data` | `HttpResponse` | 返回`ok` |
+
+**失败返回**
+
+| 参数名        | 参数类型       | 描述         |
+| ------------- | -------------- | ------------ |
+| `return_data` | `HttpResponse` | 返回错误原因 |
+
+---
+
+### 
 
 
 

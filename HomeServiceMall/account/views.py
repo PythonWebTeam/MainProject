@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from account.models import *
+from utils import util
 from utils.util import Util
 
 
@@ -20,7 +21,11 @@ class UserInfoManageView(View):
         if user.is_vendor:
             return redirect("/account/vendors/vendor_info_manage")
         order_list = Order.objects.filter(user_id=user.id)
-        return render(request, "user_info_manage.html", {"user": user, "order_list": order_list,"username":username,"services_sort":services_sort,"is_login":is_login})
+        addr = Util.transform(user.province, user.city, user.district)
+        print(addr)
+        return render(request, "user_info_manage.html",
+                      {"user": user, "order_list": order_list, "username": username, "services_sort": services_sort,
+                       "is_login": is_login, "prov": addr[0], "city": addr[1], "county": addr[2]})
 
     def post(self, request):
         if not request.session.get("is_login"):
@@ -41,7 +46,9 @@ class UserInfoManageView(View):
         addr = data.get("addr")
         if User.objects.filter(username=new_username):
             msg = "该用户名已存在"
-            return render(request, "user_info_manage.html", {"user": user, "order_list": order_list, "msg": msg,"username":username,"services_sort":services_sort,"is_login":is_login})
+            return render(request, "user_info_manage.html",
+                          {"user": user, "order_list": order_list, "msg": msg, "username": username,
+                           "services_sort": services_sort, "is_login": is_login})
         else:
             user.username = new_username
             user.email = email
@@ -50,7 +57,9 @@ class UserInfoManageView(View):
             user.city = city
             user.county = county
             user.details = addr
-            return render(request, "user_info_manage.html", {"user": user, "order_list": order_list,"username":username,"services_sort":services_sort,"is_login":is_login})
+            return render(request, "user_info_manage.html",
+                          {"user": user, "order_list": order_list, "username": username, "services_sort": services_sort,
+                           "is_login": is_login})
 
 
 class ChangePasswordView(View):
@@ -88,7 +97,8 @@ class ShopCartView(View):
                 total_cost += cart.service.price
             cart_size = len(carts)
             return render(request, "shop_cart.html",
-                          {"user": user, "carts": carts, "cart_size": cart_size, "total_cost": total_cost,"username":username,"services_sort":services_sort,"is_login":is_login})
+                          {"user": user, "carts": carts, "cart_size": cart_size, "total_cost": total_cost,
+                           "username": username, "services_sort": services_sort, "is_login": is_login})
 
     def post(self, request):
         if not request.session.get("is_login"):
@@ -119,7 +129,9 @@ class VendorInfoManageView(View):
             for service in services:
                 order_list.extend(Order.objects.filter(service_id=service.id))
 
-            return render(request, "vendor_info_manage.html", {"user": user, "shop": shop, "order_list": order_list,"username":username,"services_sort":services_sort,"is_login":is_login})
+            return render(request, "vendor_info_manage.html",
+                          {"user": user, "shop": shop, "order_list": order_list, "username": username,
+                           "services_sort": services_sort, "is_login": is_login})
 
 
 def shop_info_manage_view(request):
@@ -140,6 +152,3 @@ def service_manage_view(request):
 
 def business_data_view(request):
     return render(request, "business_data.html")
-
-
-
