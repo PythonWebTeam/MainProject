@@ -4,7 +4,6 @@ from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-import datetime
 from account.models import Service, EmailVerifyRecord
 from utils.util import Util
 
@@ -59,7 +58,6 @@ class RegisterView(View):
             return HttpResponse("邮箱验证码错误")
         user = User.objects.create_user(username=username, password=password, phone=phone_number, email=email,
                                         province=prov, district=county, details=addr, city=city)
-
         if user:
             return HttpResponse("ok")
 
@@ -70,7 +68,7 @@ class RetrieveView(View):
 
     def post(self, request):
         username = request.POST.get("username")
-        email=request.POST.get("email")
+        email = request.POST.get("email")
         code_rec = request.POST.get("email_code")
         new_password = request.POST.get("new_password")
         user = User.objects.filter(username=username)
