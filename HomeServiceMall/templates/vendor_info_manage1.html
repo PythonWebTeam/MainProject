@@ -2,27 +2,27 @@
 <html lang="zxx">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Let's购 信息修改</title>
     <meta name="description"
-          content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world."/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+          content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world." />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
-    <meta property="og:locale" content="en_US"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="Furns - Responsive eCommerce HTML Template"/>
-    <meta property="og:url" content="PAGE_URL"/>
-    <meta property="og:site_name" content="Furns - Responsive eCommerce HTML Template"/>
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Furns - Responsive eCommerce HTML Template" />
+    <meta property="og:url" content="PAGE_URL" />
+    <meta property="og:site_name" content="Furns - Responsive eCommerce HTML Template" />
     <!-- For the og:image content, replace the # with a link of an image -->
-    <meta property="og:image" content="#"/>
-    <meta property="og:description" content="Furns - Responsive eCommerce HTML Template"/>
-    <meta name="robots" content="noindex, follow"/>
+    <meta property="og:image" content="#" />
+    <meta property="og:description" content="Furns - Responsive eCommerce HTML Template" />
+    <meta name="robots" content="noindex, follow" />
     <!-- Add site Favicon -->
-    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="32x32"/>
-    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="192x192"/>
-    <link rel="apple-touch-icon" href="/static/Images/favicon/favicon.png"/>
-    <meta name="msapplication-TileImage" content="/static/Images/favicon/favicon.png"/>
+    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="32x32" />
+    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/static/Images/favicon/favicon.png" />
+    <meta name="msapplication-TileImage" content="/static/Images/favicon/favicon.png" />
     <!-- CSS
     ============================================ -->
 
@@ -36,22 +36,16 @@
     <!-- <link rel="stylesheet" href="/static/CSS/plugins/swiper-bundle.min.css"> -->
     <!-- <link rel="stylesheet" href="/static/CSS/plugins/nice-select.css"> -->
     <!-- <link rel="stylesheet" href="/static/CSS/plugins/magnific-popup.min.css"/> -->
-    <link rel="stylesheet" href="/static/CSS/vendor/vendor.min.css"/>
-    <link rel="stylesheet" href="/static/CSS/plugins/plugins.min.css"/>
+    <link rel="stylesheet" href="/static/CSS/vendor/vendor.min.css" />
+    <link rel="stylesheet" href="/static/CSS/plugins/plugins.min.css" />
     <link rel="stylesheet" href="/static/CSS/style.min.css">
-    <link rel="stylesheet" href="/static/CSS/layui.css"/>
+    <link rel="stylesheet" href="/static/CSS/layui.css"  />
     <script src="/static/JavaScript/layui.js" type="text/javascript"></script>
     <script src="/static/JavaScript/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/JavaScript/area.js" type="text/javascript"></script>
     <script src="/static/JavaScript/selectMore.js" type="text/javascript"></script>
     <script type="text/javascript" src="../../js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="../../js/demo.js"></script>
-
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-    <script src="/static/JavaScript/echarts.min.js"></script>
-
-
     <!-- Minify Version -->
     <link rel="stylesheet" href="/static/CSS/vendor/vendor.min1.css">
     <link rel="stylesheet" href="/static/CSS/plugins/plugins.min1.css">
@@ -73,8 +67,7 @@
                 <!-- Header Logo Start -->
                 <div class="col-auto align-self-center">
                     <div class="header-logo">
-                        <form action="../../../" method="GET"><a href="../../../"><img
-                                src="/static/Images/logo/logo.png"></a></form>
+                        <form action="../../../" method="GET"><a href="../../../"><img src="/static/Images/logo/logo.png"></a></form>
 
                     </div>
                 </div>
@@ -99,25 +92,23 @@
                             <ul class="dropdown-menu dropdown-menu-right">
                                 {% if is_login %}
                                     <li>
-                                        <form action="../../../account/users/user_info_manage/" method="GET"><a
-                                                class="dropdown-item"
-                                                href="../../../account/users/user_info_manage/">我的账户{{ username }}</a>
+                                        <form action="../../../account/users/user_info_manage/" method="GET"><a class="dropdown-item"
+                                                                                                       href="../../../account/users/user_info_manage/">我的账户{{ username }}</a>
                                         </form>
                                     </li>
 
                                     <li>
 
-                                        <form action="../../../account/logout/" method="POST"><a name="logout"
-                                                                                                 class="dropdown-item"
-                                                                                                 href="../../../account/logout/"
-                                                                                                 onclick="logout()">注销</a>
+                                        <form action="../../../account/logout/" method="POST"><a name="logout" class="dropdown-item"
+                                                                                        href="../../../account/logout/"
+                                                                                        onclick="logout()">注销</a>
                                         </form>
                                     </li>
 
                                 {% else %}
                                     <li>
                                         <form action="../../../passport/login/" method="GET"><a class="dropdown-item"
-                                                                                                href="../../../passport/login/">登录/注册</a>
+                                                                                       href="../../../passport/login/">登录/注册</a>
                                         </form>
                                     </li>
                                 {% endif %}
@@ -135,8 +126,7 @@
                             </a>
                         {% else %}
 
-                            <label style="margin-left: 10px;margin-top: 10px">您好,请<a
-                                    href="../../../passport/login">登录</a></label>
+                            <label style="margin-left: 10px;margin-top: 10px">您好,请<a href="../../../passport/login">登录</a></label>
 
                         {% endif %}
                         <!-- Cart End -->
@@ -211,25 +201,22 @@
                     <div class="main-menu">
                         <ul>
                             <li>
-                                <form action="../../../" method="GET"><a class="single-link" href="../../../">首页</a>
-                                </form>
+                                <form action="../../../" method="GET"><a class="single-link" href="../../../">首页</a></form>
                             </li>
                             <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                                 <ul class="sub-menu">
                                     {% for service in services_sort %}
-                                        <li>
-                                            <a href="../../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
-                                        </li>
+                                        <li><a href="../../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </li>
                             <li>
                                 <form action="../../../other/Q&A/" method="GET"><a class="single-link"
-                                                                                   href="../../../other/Q&A/">常见问题</a>
+                                                                          href="../../../other/Q&A/">常见问题</a>
                             </li>
                             <li>
                                 <form action="../../../other/about/" method="GET"><a class="single-link"
-                                                                                     href="../../../other/about/">关于我们</a>
+                                                                            href="../../../other/about/">关于我们</a>
                             </li>
                         </ul>
                     </div>
@@ -311,47 +298,39 @@
                     <div class="col-lg-3">
                         <ul class="nav myaccount-tab-trigger" id="account-page-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="account-dashboard-tab" data-bs-toggle="tab"
-                                   href="#account-dashboard" role="tab" aria-controls="account-dashboard"
-                                   aria-selected="true">商铺信息</a>
+                                <a class="nav-link active" id="account-dashboard-tab" data-bs-toggle="tab" href="#account-dashboard" role="tab" aria-controls="account-dashboard" aria-selected="true">商铺信息</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-orders-tab" data-bs-toggle="tab" href="#account-orders"
-                                   role="tab" aria-controls="account-orders" aria-selected="false">全部订单</a>
+                                <a class="nav-link" id="account-orders-tab" data-bs-toggle="tab" href="#account-orders" role="tab" aria-controls="account-orders" aria-selected="false">全部订单</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-change-tab" data-bs-toggle="tab" href="#account-change"
-                                   role="tab" aria-controls="account-change" aria-selected="false">商品管理</a>
+                                <a class="nav-link" id="account-change-tab" data-bs-toggle="tab" href="#account-change" role="tab" aria-controls="account-change" aria-selected="false">商品管理</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-sale-tab" data-bs-toggle="tab" href="#account-sale"
-                                   role="tab" aria-controls="account-address" aria-selected="false">经营数据</a>
+                                <a class="nav-link" id="account-sale-tab" data-bs-toggle="tab" href="#account-sale" role="tab" aria-controls="account-address" aria-selected="false">经营数据</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-address-tab" data-bs-toggle="tab"
-                                   href="#account-address" role="tab" aria-controls="account-address"
-                                   aria-selected="false">修改密码</a>
+                                <a class="nav-link" id="account-address-tab" data-bs-toggle="tab" href="#account-address" role="tab" aria-controls="account-address" aria-selected="false">修改密码</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-lg-9">
                         <div class="tab-content myaccount-tab-content" id="account-page-tab-content">
-                            <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
-                                 aria-labelledby="account-dashboard-tab">
+                            <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel" aria-labelledby="account-dashboard-tab">
                                 <div class="myaccount-dashboard">
                                     <form method="post" action="" class="myaccount-form">
                                         <div class="myaccount-form-inner">
                                             <div class="single-input single-input-half">
                                                 <label>用户名</label>
-                                                <input type="text" placeholder="{{ User_username }}">
+                                                <input type="text"  placeholder="{{User_username}}">
                                             </div>
                                             <div class="single-input single-input-half">
                                                 <label>用户ID</label>
-                                                <input type="text" placeholder="{{ User_u_id }}" disabled="true">
+                                                <input type="text" placeholder="{{User_u_id}}" disabled="true">
                                             </div>
                                             <div class="single-input">
                                                 <label>店铺名</label>
-                                                <input type="text" placeholder="{{ Shop_name }}">
+                                                <input type="text" placeholder="{{Shop_name}}">
                                             </div>
                                             <div class="single-input">
                                                 <label>店铺状态</label>
@@ -362,12 +341,11 @@
                                             </div>
                                             <div class="single-input">
                                                 <label>邮箱</label>
-                                                <input type="email" placeholder="{{ User_email }}">
+                                                <input type="email" placeholder="{{User_email}}">
                                             </div>
                                             <div class="single-input">
                                                 <label>创建时间</label>
-                                                <input type="create_time" placeholder="{{ create_time }}"
-                                                       disabled="true">
+                                                <input type="create_time" placeholder="{{create_time}}" disabled="true">
                                             </div>
                                             <div class="single-input">
                                                 <label>手机号</label>
@@ -384,23 +362,21 @@
                                                         /* 自动加载省份列表 */
                                                         showPro();
                                                     });
-
-                                                    function showPro() {
+                                                    function showPro(){
                                                         $(".btn").disabled = true;
                                                         var len = province.length;
-                                                        for (var i = 0; i < len; i++) {
+                                                        for(var i = 0; i < len; i++) {
                                                             var provOpt = document.createElement("option");
                                                             provOpt.innerText = province[i]['name'];
                                                             provOpt.value = i;
                                                             prov.appendChild(provOpt);
                                                         }
                                                     };
-
                                                     /*根据所选的省份来显示城市列表*/
                                                     function showCity(obj) {
                                                         var val = obj.options[obj.selectedIndex].value;
                                                         current_prov = val;
-                                                        if (val >= 0) {
+                                                        if (val >=0) {
                                                             city.style.display = 'inline-block';
                                                             country.style.display = 'none';
                                                         } else {
@@ -420,11 +396,10 @@
                                                             }
                                                         }
                                                     };
-
                                                     /*根据所选的城市来显示县区列表*/
                                                     function showCountry(obj) {
                                                         var val = obj.options[obj.selectedIndex].value;
-                                                        if (val >= 0) {
+                                                        if (val >=0) {
                                                             country.style.display = 'inline-block';
                                                         } else {
                                                             country.style.display = 'none';
@@ -435,7 +410,7 @@
                                                             if (province[current_prov]["city"][val]) {
                                                                 var countryLen = province[current_prov]["city"][val].districtAndCounty.length;
                                                             }
-                                                            if (countryLen == 0) {
+                                                            if(countryLen == 0){
                                                                 addrShow.value = province[current_prov].name + '-' + province[current_prov]["city"][val].name;
                                                                 return;
                                                             }
@@ -453,7 +428,6 @@
                                                         $(".btn").disabled = false;
 
                                                     };
-
                                                     function showAddr() {
                                                         var ss = province[current_prov].name + "|" +
                                                             province[current_prov]['city'][current_city].name + "|" +
@@ -476,8 +450,7 @@
                                                 </select>
                                             </div>
                                             <div class="single-input">
-                                                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0"
-                                                        type="submit">
+                                                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit">
                                                     <span>保存改变</span>
                                                 </button>
                                             </div>
@@ -485,8 +458,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="account-orders" role="tabpanel"
-                                 aria-labelledby="account-orders-tab">
+                            <div class="tab-pane fade" id="account-orders" role="tabpanel" aria-labelledby="account-orders-tab">
                                 <div class="myaccount-orders">
                                     <h4 class="small-title">正在进行中的订单</h4>
                                     <div class="table-responsive">
@@ -501,13 +473,12 @@
                                                 <th>查看订单</th>
                                             </tr>
                                             <tr>
-                                                <td>{{ Order_o_id }}</td>
-                                                <td>{{ Order_service }}</td>
-                                                <td>{{ start_time }}</td>
-                                                <td>{{ end_time }}</td>
-                                                <td>{{ order_state }}</td>
-                                                <td><a href="../../../account/users/order_info_manage.html"
-                                                       class="btn btn-secondary btn-primary-hover"><span>查看</span></a>
+                                                <td>{{Order_o_id}}</td>
+                                                <td>{{Order_service}}</td>
+                                                <td>{{start_time}}</td>
+                                                <td>{{end_time}}</td>
+                                                <td>{{order_state}}</td>
+                                                <td><a href="../../../account/users/order_info_manage.html" class="btn btn-secondary btn-primary-hover"><span>查看</span></a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -515,8 +486,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="account-change" role="tabpanel"
-                                 aria-labelledby="account-change-tab">
+                            <div class="tab-pane fade" id="account-change" role="tabpanel" aria-labelledby="account-change-tab">
                                 <div class="change-delete-area pt-300px pb-300px">
                                     <div class="container">
                                         <div class="row">
@@ -535,30 +505,18 @@
                                                             <div class="login-form-container">
                                                                 <div class="change-delete-form">
                                                                     <form action="#" method="post">
-                                                                        <input type="text" name="service_name"
-                                                                               maxlength="12" minlength="3"
-                                                                               placeholder="服务名称"/>
-                                                                        <input type="text" name="service_price"
-                                                                               maxlength="12" minlength="3"
-                                                                               placeholder="服务价格"/>
-                                                                        <input type="text" name="service_detail"
-                                                                               maxlength="500" minlength="6"
-                                                                               placeholder="备注（不超过五百字）"/>
+                                                                        <input type="text" name="service_name" maxlength="12" minlength="3" placeholder="服务名称" />
+                                                                        <input type="text" name="service_price" maxlength="12" minlength="3" placeholder="服务价格" />
+                                                                        <input type="text" name="service_detail" maxlength="500" minlength="6" placeholder="备注（不超过五百字）"  />
                                                                         <div class="layui-form-item">
                                                                             <label class="layui-form-label">图片</label>
                                                                             <div class="layui-input-block">
                                                                                 <input type="hidden" id="img_url">
-                                                                                <input type="file" onchange="showImg()"
-                                                                                       id="img_file"><img src="" alt=""
-                                                                                                          id="img_id"
-                                                                                                          style="width: 100px">
+                                                                                <input type="file" onchange="showImg()" id="img_file"><img src="" alt="" id="img_id" style="width: 100px">
                                                                             </div>
                                                                         </div>
                                                                         <div class="button-box">
-                                                                            <form method="post" action="#">
-                                                                                <button type="submit"><span>确认提交</span>
-                                                                                </button>
-                                                                            </form>
+                                                                            <form method="post" action="#"><button type="submit"><span>确认提交</span></button></form>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -568,22 +526,17 @@
                                                             <div class="login-form-container">
                                                                 <div class="change-delete-form">
                                                                     <form action="#" method="post">
-                                                                        <label>待删除的服务名称</label>
-                                                                        <input type="text" name="service_input"
-                                                                               maxlength="12" minlength="3"
-                                                                               placeholder="服务名称"/>
+                                                                        <label >待删除的服务名称</label>
+                                                                        <input type="text" name="service_input" maxlength="12" minlength="3" placeholder="服务名称" />
                                                                         <div class="button-box">
-                                                                            <form method="post" action="#">
-                                                                                <button type="submit"><span>确认删除</span>
-                                                                                </button>
-                                                                            </form>
+                                                                            <form method="post" action="#"><button type="submit"><span>确认删除</span></button></form>
                                                                         </div>
                                                                     </form>
                                                                     <script>
-                                                                        function check() {
-                                                                            var service = document.getElementById("a").value;
-                                                                            var service_input = document.getElementById("b").value;
-                                                                            if (service != service_input) {
+                                                                        function check(){
+                                                                            var service=document.getElementById("a").value;
+                                                                            var service_input=document.getElementById("b").value;
+                                                                            if(service!=service_input){
                                                                                 alert("服务名称不存在，请核查！");
                                                                             }
                                                                         }
@@ -598,52 +551,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="account-sale" role="tabpanel"
-                                 aria-labelledby="account-address-tab">
+                            <div class="tab-pane fade" id="account-sale" role="tabpanel" aria-labelledby="account-address-tab">
                                 <div class="myaccount-address">
-                                    <p>此部分为店铺经营数据可视化图表部分，待完成。。。。。。</p>
-                                    <div>
-                                        <div id="GraphDemoOne" style="height:500px">
+                                    <form method="post" action="" class="myaccount-form" >
+                                        <div>
+                                            <p>此部分为店铺经营数据可视化图表部分，待完成。。。。。。</p>
                                         </div>
-                                        <script type="text/javascript">
-                                            var dom = document.getElementById("GraphDemoOne");
-                                            var myChart = echarts.init(dom);
-                                            var app = {};
-
-                                            var option;
-
-                                            option = {
-                                                title: {
-                                                    text: 'ECharts 入门示例'
-                                                },
-                                                tooltip: {},
-                                                legend: {
-                                                    data: ['销量']
-                                                },
-                                                xAxis: {
-                                                    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-                                                },
-                                                yAxis: {},
-                                                series: [{
-                                                    name: '销量',
-                                                    type: 'bar',
-                                                    data: [5, 20, 36, 10, 10, 20]
-                                                }]
-                                            };
-
-                                            if (option && typeof option === 'object') {
-                                                myChart.setOption(option);
-                                            }
-
-                                        </script>
-
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="account-address" role="tabpanel"
-                                 aria-labelledby="account-address-tab">
+                            <div class="tab-pane fade" id="account-address" role="tabpanel" aria-labelledby="account-address-tab">
                                 <div class="myaccount-address">
-                                    <form method="post" action="" class="myaccount-form">
+                                    <form method="post" action="" class="myaccount-form" >
                                         <div class="myaccount-form-inner">
                                             <div class="single-input">
                                                 <label>当前密码(若空白则保持不修改)</label>
@@ -658,8 +577,7 @@
                                                 <input type="password">
                                             </div>
                                             <div class="single-input">
-                                                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0"
-                                                        type="submit">
+                                                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit">
                                                     <span>保存改变</span>
                                                 </button>
                                             </div>
@@ -703,19 +621,16 @@
                                     <div class="footer-row">
                                         <ul class="align-items-center">
                                             <form action="../../../other/Q&A/" method="GET">
-                                                <li class="li"><a class="single-link"
-                                                                  href="../../../other/Q&A/">常见问题</a></li>
+                                                <li class="li"><a class="single-link" href="../../../other/Q&A/">常见问题</a></li>
                                             </form>
                                             <!--                                            <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>-->
                                             <form action="../../../other/privacy_policy/" method="GET">
-                                                <li class="li"><a class="single-link"
-                                                                  href="../../../other/privacy_policy/">隐私政策</a>
+                                                <li class="li"><a class="single-link" href="../../../other/privacy_policy/">隐私政策</a>
                                                 </li>
                                             </form>
                                             <!--                                            <li class="li"><a class="single-link" href="other/privacy-policy/">隐私政策</a></li>-->
                                             <form action="../../../admin/" method="GET">
-                                                <li class="li"><a class="single-link" href="../../../admin/">管理员登陆</a>
-                                                </li>
+                                                <li class="li"><a class="single-link" href="../../../admin/">管理员登陆</a></li>
                                             </form>
                                             <!--                                            <li class="li"><a class="single-link" href="admin/">管理员登陆</a></li>-->
                                         </ul>
@@ -733,32 +648,26 @@
                                     <div class="footer-row">
                                         <ul class="align-items-center">
                                             {% if is_login %}
-                                                <form action="../../../account/users/user_info_manage" method="GET">
-                                                    <li class="li"><a class="single-link"
-                                                                      href="../../../account/users/user_info_manage">我的账户</a>
-                                                    </li>
-                                                </form>
-                                                <form action="../../../account/users/shop_cart" method="GET">
-                                                    <li class="li"><a class="single-link"
-                                                                      href="../../../account/users/shop_cart">购物车</a>
-                                                    </li>
-                                                </form>
-                                                <form action="../../../passport/logout" method="POST">
-                                                    <li class="li"><a class="single-link"
-                                                                      href="../../../passport/logout"
-                                                                      onclick="logout()">注销</a></li>
-                                                </form>
+                                            <form action="../../../account/users/user_info_manage" method="GET">
+                                                <li class="li"><a class="single-link" href="../../../account/users/user_info_manage">我的账户</a></li>
+                                            </form>
+                                            <form action="../../../account/users/shop_cart" method="GET">
+                                                <li class="li"><a class="single-link" href="../../../account/users/shop_cart">购物车</a>
+                                                </li>
+                                            </form>
+                                            <form action="../../../passport/logout" method="POST">
+                                                <li class="li"><a class="single-link" href="../../../passport/logout" onclick="logout()">注销</a></li>
+                                            </form>
 
-                                                <!--                                        <script>-->
-                                                <!--                                            function logout() {-->
-                                                <!--                                                alert("注销成功!")-->
-                                                <!--                                            }-->
-                                                <!--                                        </script>-->
+                                            <!--                                        <script>-->
+                                            <!--                                            function logout() {-->
+                                            <!--                                                alert("注销成功!")-->
+                                            <!--                                            }-->
+                                            <!--                                        </script>-->
                                             {% else %}
-                                                <form action="../../../passport/login/" method="GET">
-                                                    <li class="li"><a class="single-link"
-                                                                      href="../../../passport/login/">登录</a></li>
-                                                </form>
+                                            <form action="../../../passport/login/" method="GET">
+                                                <li class="li"><a class="single-link" href="../../../passport/login/">登录</a></li>
+                                            </form>
                                             {% endif %}
                                         </ul>
                                     </div>
@@ -833,7 +742,6 @@
 <script src="/static/JavaScript/main.min1.js"></script>
 <script src="/static/JavaScript/vendor/vendor.min.js"></script>
 <script src="/static/JavaScript/plugins/plugins.min.js"></script>
-<script src="/static/JavaScript/echarts.min.js"></script>
 
 <!-- Main Js -->
 <script src="/static/JavaScript/main.js"></script>
