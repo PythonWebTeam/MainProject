@@ -39,14 +39,6 @@ class Cart(models.Model):
         return str(self.user) + ":" + str(self.service)
 
 
-class OrderCollection(models.Model):
-    order_collection_id = models.CharField(verbose_name='总订单号',max_length=32, unique=True)
-
-
-    class Meta:
-        db_table = 'OrderCollection'
-
-
 class Order(models.Model):
     service = models.ForeignKey('Service', null=True, blank=True, on_delete=models.SET_NULL)  # 联接Service表
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)  # 联接User表
@@ -56,7 +48,7 @@ class Order(models.Model):
     pay_status = models.BooleanField('订单支付状态')
     comment = models.CharField(verbose_name='评价', max_length=255, blank=True, null=True)
     star = models.IntegerField(verbose_name='服务星级', blank=True, null=True)
-    order_collection_id = models.ForeignKey('OrderCollection', on_delete=models.CASCADE,blank=True, null=True)
+    order_collection_id = models.CharField('OrderCollection', blank=True, null=True, max_length=255)
 
     class Meta:
         db_table = 'Order'
