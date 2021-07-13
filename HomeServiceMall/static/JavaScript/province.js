@@ -1,4 +1,4 @@
-var province = [
+province = [
     {
         name: "北京市",
         city: [
@@ -1614,3 +1614,4 @@ var province = [
         ]
     }
 ];
+
