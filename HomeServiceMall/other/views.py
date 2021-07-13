@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -7,3 +8,6 @@ def about_view(request):
 
 def QA_view(request):
     return render(request,"Q&A.html")
+
+def policy_view(request):
+    return HttpResponse("隐私政策")

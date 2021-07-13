@@ -108,8 +108,13 @@ class VendorInfoManageView(View):
         else:
             username = request.session.get("username")
             user = User.objects.filter(username=username)[0]
+            shop = Shop.objects.filter(user_id=user.id)[0]
+            services = Service.objects.filter(shop_id=shop.id)
+            order_list = []
+            for service in services:
+                order_list.extend(Order.objects.filter(service_id=service.id))
 
-        return render(request, "vendor_info_manage.html")
+            return render(request, "vendor_info_manage.html", {"user": user, "shop": shop, "order_list": order_list})
 
 
 def shop_info_manage_view(request):

@@ -54,6 +54,7 @@ shop_patterns = [
 other_patterns = [
     path("about/", other_views.about_view),
     path("Q&A/", other_views.QA_view),
+    path("privacy_policy/",other_views.policy_view),
 ]
 
 # main urls
