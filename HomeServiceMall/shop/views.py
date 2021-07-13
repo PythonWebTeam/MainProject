@@ -13,6 +13,7 @@ class ServiceView(View):
 
 class ShopView(View):
     def get(self, request):
+
         return render(request, "shop.html")
 
 

@@ -79,15 +79,12 @@ class ShopCartView(View):
             user = User.objects.filter(username=username)[0]
             u_id = user.id
             carts = Cart.objects.filter(user_id=u_id)
-            services = []
             total_cost = 0
             for cart in carts:
-                services.append(cart.service)
-            services_num = len(services)
-            for service in services:
-                total_cost += service.price
+                total_cost += cart.service.price
+            cart_size = len(carts)
             return render(request, "shop_cart.html",
-                          {"user": user, "services": services, "services_num": services_num, "total_cost": total_cost})
+                          {"user": user, "carts": carts, "cart_size": cart_size, "total_cost": total_cost})
 
     def post(self, request):
         if not request.session.get("is_login"):
@@ -105,7 +102,7 @@ class ShopCartView(View):
 
 
 class VendorInfoManageView(View):
-    def get(self,request):
+    def get(self, request):
         if not request.session.get("is_login"):
             return redirect("/passport/login/")
         else:
@@ -113,7 +110,6 @@ class VendorInfoManageView(View):
             user = User.objects.filter(username=username)[0]
 
         return render(request, "vendor_info_manage.html")
-
 
 
 def shop_info_manage_view(request):
