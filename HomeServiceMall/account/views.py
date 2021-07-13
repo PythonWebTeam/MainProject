@@ -1,4 +1,5 @@
 from django.db import connection
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -13,6 +14,8 @@ class UserInfoManageView(View):
             return redirect("/passport/login/")
         username = request.session.get("username")
         user = User.objects.filter(username=username)[0]
+        if user.is_vendor:
+            return redirect("/account/vendors/vendor_info_manage")
         order_list = Order.objects.filter(user_id=user.id)
         return render(request, "user_info_manage.html", {"user": user, "order_list": order_list})
 
@@ -57,13 +60,11 @@ class ChangePasswordView(View):
         order_list = Order.objects.filter(user_id=user.id)
 
         if user.password != old_password:
-            return render(request, "user_info_manage.html",
-                          {"user": user, "order_list": order_list, "return_msg": "原密码错误"})
+            return HttpResponse("原密码错误")
         else:
             user.password = new_password
             user.save()
-            return render(request, "user_info_manage.html",
-                          {"user": user, "order_list": order_list, "return_msg": "修改成功"})
+            return HttpResponse("修改密码成功")
 
 
 def order_info_manage_view(request):
@@ -99,9 +100,10 @@ class ShopCartView(View):
             u_id = user.id
             carts = Cart.objects.filter(user_id=u_id)
             for cart in carts:
-                if cart.service.id==service_id:
+                if cart.service.id == service_id:
                     Cart.objects.filter(id=cart.id).delete()
             return self.get(request)
+
 
 def vendor_info_manage_view(request):
     return render(request, "vendor_info_manage.html")

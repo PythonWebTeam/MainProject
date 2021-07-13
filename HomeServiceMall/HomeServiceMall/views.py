@@ -28,5 +28,4 @@ class HomeView(View):
                        "is_login": is_login})
 
     def post(self, request):
-
         return self.get(request)

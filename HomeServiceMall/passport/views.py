@@ -62,5 +62,5 @@ class RegisterView(View):
 
 
 class RetrieveView(View):
-    def post(self, request):
-        return redirect(request, "passport/login/")
+    def get(self, request):
+        return render(request,"retrieve.html")

@@ -11,7 +11,7 @@ class User(AbstractUser):
     district = models.IntegerField(verbose_name='区县', blank=True, null=True)
     details = models.CharField(verbose_name='详细地址', max_length=255, blank=True, null=True)
     mod_date = models.DateTimeField(verbose_name='Last modified', null=True, auto_now=True)
-
+    is_vendor=models.BooleanField(verbose_name="商贩",default=0)
     class Meta:
         db_table = 'auth_user'
 

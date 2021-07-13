@@ -1,9 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
-# Create your views here.
 from django.views import View
-
 from account.models import Service, User, Cart
 
 
@@ -11,7 +8,6 @@ class ServiceView(View):
     def get(self, request):
         se_id = request.GET.get("se_id")
         service = Service.objects.filter(id=int(se_id))[0]
-
         return render(request, "service.html", {"service": service})
 
 
@@ -29,7 +25,6 @@ class PayView(View):
         from_cart = request.GET.get("from_cart")
         username = request.session.get("username")
         user = User.objects.filter(username=username)[0]
-        print(se_id, from_cart)
         if int(from_cart) == 0:
             services = Service.objects.filter(id=int(se_id))
         else:

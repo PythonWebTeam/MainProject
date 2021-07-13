@@ -8,7 +8,7 @@
 
 ### 登录
 
-方法`POST`  请求地址:`passport/login/`
+方法`POST`  请求地址:`/passport/login/`
 
 **描述**
 
@@ -49,7 +49,7 @@
 
 ### 邮箱验证
 
-方法`POST` 请求地址:`passport/email_auth/`
+方法`POST` 请求地址:`/passport/email_auth/`
 
 **描述**
 
@@ -84,46 +84,9 @@
 
 ---
 
-### 手机号验证
-
-方法`POST` 请求地址:`passport/phone_auth/`
-
-**描述**
-
-> 手机验证，向手机发送验证码短信，使用ajax进行提交请求
-
-**请求头**
-
-| 参数名         | 参数类型 | 描述 |
-| -------------- | -------- | ---- |
-| `content-type` | `string` | HTML |
-
-**请求参数**
-
-| 参数名         | 参数类型 | 描述                                                |
-| -------------- | -------- | --------------------------------------------------- |
-| `phone`        | `string` | 注册时的手机号                                      |
-| `operate_type` | `string` | 验证码操作类型，`forget`为修改密码,`register`为注册 |
-
-**成功返回**
-
-| 参数名          | 参数类型       | 描述                  |
-| --------------- | -------------- | --------------------- |
-| `response_data` | `HttpResponse` | 发送成功，返回 `"ok"` |
-
-**失败返回**
-
-| 参数名            | 参数类型       | 描述             |
-| ----------------- | -------------- | ---------------- |
-| ``response_data`` | `HttpResponse` | 发送失败提示信息 |
-
-**说明/示例**
-
----
-
 ### 注册
 
-方法`POST`  请求地址:`passport/register/` 
+方法`POST`  请求地址:`/passport/register/` 
 
 **描述**
 
@@ -166,6 +129,12 @@
 **说明/示例**
 
 ---
+
+### 获取找回密码页面
+
+方法`GET`  请求地址:`/passport/retrieve/` 
+
+
 
 ## 二.服务列表
 
@@ -234,7 +203,7 @@ HTML用`for`循环显示图片
 
 ### 获取服务详情页面
 
-方法`GET` 请求地址:`shop/service/?se_id={{service.id}}}`
+方法`GET` 请求地址:`/shop/service/?se_id={{service.id}}}`
 
 **描述**
 
@@ -306,7 +275,7 @@ class Order(models.Model):
 
 ### 获取订单支付页面
 
-方法`GET` 请求地址:`shop/service/pay/?se_id={{service.id}}&from_cart={{from_cart}}`
+方法`GET` 请求地址:`/shop/service/pay/?se_id={{service.id}}&from_cart={{from_cart}}`
 
 **描述**
 
@@ -677,6 +646,4 @@ se_order_by_price = Service.objects.order_by("price")
 ---
 
 ## 六.第三方接口
-
-
 
