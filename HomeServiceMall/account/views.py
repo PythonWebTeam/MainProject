@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from django.db import connection
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -56,15 +57,13 @@ class ChangePasswordView(View):
         username = request.session.get("username")
         old_password = request.POST.get("old_password")
         new_password = request.POST.get("new_password")
-        user = User.objects.filter(username=username)[0]
-        order_list = Order.objects.filter(user_id=user.id)
-
-        if user.password != old_password:
+        user = authenticate(request, username=username, password=old_password)
+        if not user:
             return HttpResponse("原密码错误")
         else:
-            user.password = new_password
+            user.set_password(new_password)
             user.save()
-            return HttpResponse("修改密码成功")
+            return HttpResponse("ok")
 
 
 def order_info_manage_view(request):
@@ -105,8 +104,16 @@ class ShopCartView(View):
             return self.get(request)
 
 
-def vendor_info_manage_view(request):
-    return render(request, "vendor_info_manage.html")
+class VendorInfoManageView(View):
+    def get(self,request):
+        if not request.session.get("is_login"):
+            return redirect("/passport/login/")
+        else:
+            username = request.session.get("username")
+            user = User.objects.filter(username=username)[0]
+
+        return render(request, "vendor_info_manage.html")
+
 
 
 def shop_info_manage_view(request):

@@ -18,7 +18,7 @@ users_patterns = [
 
 # vendors urls
 vendors_patterns = [
-    path("vendor_info_manage/", account_views.vendor_info_manage_view),
+    path("vendor_info_manage/", account_views.VendorInfoManageView.as_view()),
     path("shop_info_manage/", account_views.shop_info_manage_view),
     path("product_manage/", account_views.product_manage_view),
     path("order_manage/", account_views.order_manage_view),
