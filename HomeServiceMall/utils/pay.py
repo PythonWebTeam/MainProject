@@ -1,9 +1,3 @@
-'''
-Created on 2020年1月9日
-
-@author: lan
-'''
-
 # _*_ coding=utf-8 _*_
 from datetime import datetime
 from Crypto.PublicKey import RSA

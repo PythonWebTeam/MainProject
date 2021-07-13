@@ -33,7 +33,7 @@ def aliPay():
 
 
 @csrf_exempt
-def index(request):
+def alipay_index(request):
     if request.method == "GET":
         return render(request, 'test.html')
 
