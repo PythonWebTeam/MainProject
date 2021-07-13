@@ -84,4 +84,5 @@ class RetrieveView(View):
             if code_rec != code_db:
                 return HttpResponse("邮箱验证码错误")
             user.set_password(new_password)
+            user.save()
             return HttpResponse("ok")
