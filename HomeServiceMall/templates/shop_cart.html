@@ -279,12 +279,13 @@
                             </tr>
                             </thead>
                             <tbody>
+                            {% for service in services %}
                             <tr>
                                 <td class="product-thumbnail">
-                                    <a href="../../../shop/<str:service>/"><img class="img-responsive ml-3" src="/static/Images/product-image/1.jpg" alt="" /></a>
+                                    <a href="../../../shop/service/?se_id={{service.id}}"><img class="img-responsive ml-3" src="{{img1}}" alt="" /></a>
                                 </td>
-                                <td class="product-name"><a href="../../../shop/<str:service>/">{{Order.service}}</a></td>
-                                <td class="product-price-cart"><span class="amount">{{Shop.name}}</span></td>
+                                <td class="product-name"><a href="../../../shop/service/?se_id={{service.id}}">{{service.name}}</a></td>
+                                <td class="product-price-cart"><span class="amount">{{service.shop.name}}</span></td>
                                 <td class="product-quantity">
                                     <div class="cart-plus-minus">
                                         <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
@@ -295,38 +296,7 @@
                                     <a href="../../../account/users/shop_cart"	><i class="icon-close"></i></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="product-thumbnail">
-                                    <a href="../../../shop/<str:service>/"><img class="img-responsive ml-3" src="/static/Images/product-image/2.jpg" alt="" /></a>
-                                </td>
-                                <td class="product-name"><a href="../../../shop/<str:service>/">{{Order.service}}</a></td>
-                                <td class="product-price-cart"><span class="amount">{{Shop.name}}</span></td>
-                                <td class="product-quantity">
-                                    <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
-                                    </div>
-                                </td>
-                                <td class="product-subtotal">{{service.price}}</td>
-                                <td class="product-remove">
-                                    <a href="../../../account/users/shop_cart"><i class="icon-close"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="product-thumbnail">
-                                    <a href="../../../shop/<str:service>/"><img class="img-responsive ml-3" src="/static/Images/product-image/3.jpg" alt="" /></a>
-                                </td>
-                                <td class="product-name"><a href="../../../shop/<str:service>/">{{Order.service}}</a></td>
-                                <td class="product-price-cart"><span class="amount">{{Shop.name}}</span></td>
-                                <td class="product-quantity">
-                                    <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
-                                    </div>
-                                </td>
-                                <td class="product-subtotal">{{service.price}}</td>
-                                <td class="product-remove">
-                                    <a href="../../../account/users/shop_cart"><i class="icon-close"></i></a>
-                                </td>
-                            </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -349,9 +319,9 @@
                             <div class="title-wrap">
                                 <h4 class="cart-bottom-title section-bg-gary-cart">购物车总和</h4>
                             </div>
-                            <h5>服务数量<span>{{num}}</span></h5>
-                            <h4 class="grand-totall-title">总金额<span>{{sum_price}}</span></h4>
-                            <a href="../../../shop/<str:service>/pay">前往支付</a>
+                            <h5>服务数量<span>{{services_num}}</span></h5>
+                            <h4 class="grand-totall-title">总金额<span>{{total_cost}}</span></h4>
+                            <a href="../../../shop/service/pay/?se_id=0&from_cart=1">前往支付</a>
                         </div>
                     </div>
                 </div>
