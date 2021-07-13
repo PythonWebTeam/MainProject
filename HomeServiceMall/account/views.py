@@ -57,6 +57,7 @@ class UserInfoManageView(View):
             user.city = city
             user.county = county
             user.details = addr
+            user.save()
             return render(request, "user_info_manage.html",
                           {"user": user, "order_list": order_list, "username": username, "services_sort": services_sort,
                            "is_login": is_login})
