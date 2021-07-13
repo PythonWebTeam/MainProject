@@ -443,9 +443,9 @@ class Order(models.Model):
 | `username` | `string` | 修改后的用户名   |
 | `email`    | `string` | 修改后的邮箱     |
 | `phone`    | `string` | 修改后的手机号   |
-| `prov`     | `int`    | 修改后的省份代码 |
-| `city`     | `int`    | 修改后的市代码   |
-| `county`   | `int`    | 修改后的县代码   |
+| `prov`     | `string` | 修改后的省份     |
+| `city`     | `string` | 修改后的市       |
+| `county`   | `string` | 修改后的县       |
 | `addr`     | `string` | 修改后的详细地址 |
 
 **成功返回**
@@ -635,6 +635,58 @@ class Shop(models.Model):
     status = models.BooleanField('店铺状态')
     star = models.IntegerField(verbose_name='店铺星级', blank=True, null=True)
 ```
+
+---
+
+### 修改商家个人信息页面
+
+方法`POST` 请求地址:`/account/vendors/vendor_info_manage/`
+
+**描述**
+
+> 提交修改内容，并刷新页面
+
+**请求头**
+
+| 参数名         | 参数类型 | 描述 |
+| -------------- | -------- | ---- |
+| `content-type` | `string` | HTML |
+
+**请求参数**
+
+| 参数名     | 参数类型 | 描述             |
+| ---------- | -------- | ---------------- |
+| `username` | `string` | 修改后的用户名   |
+| `email`    | `string` | 修改后的邮箱     |
+| `phone`    | `string` | 修改后的手机号   |
+| `prov`     | `string` | 修改后的省份     |
+| `city`     | `string` | 修改后的市       |
+| `county`   | `string` | 修改后的县       |
+| `addr`     | `string` | 修改后的详细地址 |
+| `shopname` | `string` | 修改后的店铺名   |
+
+**成功返回**
+
+| 参数名       | 参数类型  | 描述                 |
+| ------------ | --------- | -------------------- |
+| `user`       | `User`    | 修改后的`User`对象   |
+| `order_list` | `Order[]` | 该商家的全部订单列表 |
+| `shop`       | `Shop`    | 该商家的店铺         |
+
+**失败返回**
+
+| 参数名       | 参数类型  | 描述                 |
+| ------------ | --------- | -------------------- |
+| `user`       | `User`    | 修改前的`User`对象   |
+| `order_list` | `Order[]` | 该商家的全部订单列表 |
+| `msg`        | `string`  | 返回无法修改原因     |
+| `shop`       | `Shop`    | 该商家的店铺         |
+
+
+
+
+
+
 
 ---
 
