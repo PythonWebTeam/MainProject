@@ -30,7 +30,6 @@ vendors_patterns = [
 account_patterns = [
     path("users/", include(users_patterns)),
     path("vendors/", include(vendors_patterns)),
-    path("logout/", account_views.LogoutView.as_view()),
     path("change_psw/",account_views.ChangePasswordView.as_view()),
 ]
 
