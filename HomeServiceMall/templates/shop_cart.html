@@ -273,27 +273,39 @@
                                 <th>图片</th>
                                 <th>服务名称</th>
                                 <th>店铺名称</th>
-                                <th>数量</th>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
                                 <th>金额</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for service in services %}
+                            {% for cart in carts %}
                             <tr>
                                 <td class="product-thumbnail">
-                                    <a href="../../../shop/service/?se_id={{service.id}}"><img class="img-responsive ml-3" src="{{img1}}" alt="" /></a>
+                                    <a href="../../../shop/service/?se_id={{cart.service.id}}"><img class="img-responsive ml-3" src="{{cart.service.img1}}" alt="" /></a>
                                 </td>
-                                <td class="product-name"><a href="../../../shop/service/?se_id={{service.id}}">{{service.name}}</a></td>
-                                <td class="product-price-cart"><span class="amount">{{service.shop.name}}</span></td>
+                                <td class="product-name"><a href="../../../shop/service/?se_id={{cart.service.id}}">{{cart.service.name}}</a></td>
+                                <td class="product-price-cart"><span class="amount">{{cart.service.shop.name}}</span></td>
                                 <td class="product-quantity">
                                     <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value={{cart.start_time|date:"Y-m-d"}} />
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value={{cart.start_time|date:"H:i:s"}} />
                                     </div>
                                 </td>
-                                <td class="product-subtotal">{{service.price}}</td>
+                                <td class="product-quantity">
+                                    <div class="cart-plus-minus">
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value={{cart.end_time|date:"Y-m-d"}} />
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value={{cart.end_time|date:"H:i:s"}} />
+                                    </div>
+                                </td>
+                                <td class="product-subtotal">{{cart.service.price}}</td>
                                 <td class="product-remove">
-                                    <a href="../../../account/users/shop_cart"	><i class="icon-close"></i></a>
+                                    <form method="post">
+                                        <button>
+                                            <a href="../../../account/users/shop_cart"><button type="submit" name="service_id" value={{ cart.service.id }} class="icon-close"></button></a>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -304,10 +316,10 @@
                         <div class="col-lg-12">
                             <div class="cart-shiping-update-wrapper">
                                 <div class="cart-clear">
-                                    <a href="../../../account/users/shop_cart">清空购物车</a>
+                                    <a href="../../../account/users/shop_cart"><button type="submit" name="service_id" value={{ cart.service.id }}><b style="color: #FFFFFF">清空购物车</b></button></a>
                                 </div>
                                 <div class="cart-shiping-update">
-                                    <a href="../../../services/<str:service_class>/">继续购物</a>
+                                    <a href="../../../services/?search={{key}}&page={{page}}">继续购物</a>
                                 </div>
                             </div>
                         </div>
@@ -319,7 +331,7 @@
                             <div class="title-wrap">
                                 <h4 class="cart-bottom-title section-bg-gary-cart">购物车总和</h4>
                             </div>
-                            <h5>服务数量<span>{{services_num}}</span></h5>
+                            <h5>服务数量<span>{{cart_size}}</span></h5>
                             <h4 class="grand-totall-title">总金额<span>{{total_cost}}</span></h4>
                             <a href="../../../shop/service/pay/?se_id=0&from_cart=1">前往支付</a>
                         </div>
