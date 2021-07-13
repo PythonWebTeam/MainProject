@@ -50,14 +50,13 @@
             <!-- Header Logo End -->
 
 
-
             <!-- Header Action Start -->
             <div class="col align-self-center">
                 <label class="header-actions">
                     <!-- Search Begin -->
                     <div class="dropdown_search">
-                        <form class="action-form" action="../../../services/<str:service_class>/">
-                            <input class="form-control" placeholder="输入要搜索的服务" type="text">
+                        <form class="action-form" action="../../../services/" method="get">
+                            <input class="form-control" name="search" placeholder="输入要搜索的服务" type="text">
                             <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
                         </form>
                     </div>
@@ -68,22 +67,26 @@
                                 class="icon-user" style="margin-top: 10px;"></i></button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             {% if is_login %}
-                            <li>
-                                <form action="../../../account/users/user_info_manage/" method="GET"><a class="dropdown-item" href="../../../account/users/user_info_manage/">我的账户{{username}}</a>
-                                </form>
-                            </li>
+                                <li>
+                                    <form action="../../../account/users/user_info_manage/" method="GET"><a class="dropdown-item"
+                                                                                                   href="../../../account/users/user_info_manage/">我的账户{{ username }}</a>
+                                    </form>
+                                </li>
 
-                            <li>
+                                <li>
 
-                                <form action="../../../passport/logout/" method="POST"><a name="logout" class="dropdown-item" href="../../../passport/logout/" onclick="logout()">注销</a>
-                                </form>
-                            </li>
+                                    <form action="../../../passport/logout/" method="POST"><a name="logout" class="dropdown-item"
+                                                                                     href="../../../passport/logout/"
+                                                                                     onclick="logout()">注销</a>
+                                    </form>
+                                </li>
 
                             {% else %}
-                            <li>
-                                <form action="../../../passport/login/" method="GET"><a class="dropdown-item" href="../../../passport/login/">登录/注册</a>
-                                </form>
-                            </li>
+                                <li>
+                                    <form action="../../../passport/login/" method="GET"><a class="dropdown-item"
+                                                                                   href="../../../passport/login/">登录/注册</a>
+                                    </form>
+                                </li>
                             {% endif %}
 
                         </ul>
@@ -92,29 +95,27 @@
                     <!-- Cart Begin -->
                     {% if is_login %}
 
-                    <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
-                        <i class="icon-handbag" style="margin-top: 10px;"></i>
+                        <a href="../../../account/users/shop_cart"
+                           class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
+                            <i class="icon-handbag" style="margin-top: 10px;"></i>
 
-                    </a>
+                        </a>
                     {% else %}
 
-                        <label style="margin-left: 10px;margin-top: 10px">您好,请<a href="/passport/login">登录</a></label>
+                        <label style="margin-left: 10px;margin-top: 10px">您好,请<a href="../../../passport/login">登录</a></label>
 
                     {% endif %}
                     <!-- Cart End -->
-                    <a href="#offcanvas-mobile-menu"
+                    <a href="../../../account/users/shop_cart"
                        class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
                         <i class="icon-menu"></i>
                     </a>
-                </div>
             </div>
-
         </div>
+
     </div>
-
-<!-- Header Bottom  End -->
-
-
+    <!-- Header Bottom  End -->
+</div>
 <!-- Header Bottom  Start -->
 <div class="header-bottom d-lg-none sticky-nav bg-white">
     <div class="container position-relative">
@@ -126,6 +127,44 @@
                 </div>
             </div>
             <!-- Header Logo End -->
+
+            <!-- Header Action Start -->
+            <div class="col align-self-center">
+                <div class="header-actions">
+                    <div class="header_account_list">
+                        <a href="javascript:void(0)" class="header-action-btn search-btn"><i
+                                class="icon-magnifier"></i></a>
+                        <div class="dropdown_search">
+                            <form class="action-form" action="#">
+                                <input class="form-control" placeholder="Enter your search key" type="text">
+                                <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Single Wedge Start -->
+                    <div class="header-bottom-set dropdown">
+                        <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i
+                                class="icon-user" style="margin-top: 10px;"></i></button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a class="dropdown-item" href="my-account.html">My account</a></li>
+                            <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
+                            <li><a class="dropdown-item" href="login.html">Sign in</a></li>
+                        </ul>
+                    </div>
+                    <!-- Single Wedge End -->
+                    <a href="#offcanvas-cart"
+                       class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
+                        <i class="icon-handbag" style="margin-top: 10px;"></i>
+                        <span class="header-action-num">01</span>
+                        <!-- <span class="cart-amount">€30.00</span> -->
+                    </a>
+                    <a href="#offcanvas-mobile-menu"
+                       class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
+                        <i class="icon-menu"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Header Action End -->
         </div>
     </div>
 </div>
@@ -142,23 +181,19 @@
                         </li>
                         <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="404.html">{{services_sort.0}}</a></li>
-                                <li><a href="privacy-policy.html">{{services_sort.1}}</a></li>
-                                <li><a href="faq.html">{{services_sort.2}}</a></li>
-                                <li><a href="coming-soon.html">{{services_sort.3}}</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown"><a href="../../../other/Q&A/">常见问题 <i class="ion-ios-arrow-down"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="404.html">{{services_sort.0}}</a></li>
-                                <li><a href="privacy-policy.html">{{services_sort.1}}</a></li>
-                                <li><a href="faq.html">{{services_sort.2}}</a></li>
-                                <li><a href="coming-soon.html">{{services_sort.3}}</a></li>
+                                {% for service in services_sort %}
+                                    <li><a href="../../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
+                                    </li>
+                                {% endfor %}
                             </ul>
                         </li>
                         <li>
-                            <form action="../../../other/about/" method="GET"><a class="single-link" href="../../../other/about/">关于我们</a>
-                            </form>
+                            <form action="../../../other/Q&A/" method="GET"><a class="single-link"
+                                                                      href="../../../other/Q&A/">常见问题</a>
+                        </li>
+                        <li>
+                            <form action="../../../other/about/" method="GET"><a class="single-link"
+                                                                        href="../../../other/about/">关于我们</a>
                         </li>
                     </ul>
                 </div>
@@ -170,71 +205,6 @@
 
 <!-- Header Area End  -->
 
-<!-- OffCanvas Cart Start -->
-<div id="offcanvas-cart" class="offcanvas offcanvas-cart">
-    <div class="inner">
-        <div class="head">
-            <span class="title">购物车</span>
-            <button class="offcanvas-close">×</button>
-        </div>
-        <div class="body customScroll">
-            <ul class="minicart-product-list">
-                <li>
-                    <a href="single-product.html" class="image"><img src="/static/Images/product-image/1.jpg"
-                                                                     alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.html" class="title">Walnut Cutting Board</a>
-                        <span class="quantity-price">1 x <span class="amount">$91.86</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.html" class="image"><img src="/static/Images/product-image/2.jpg"
-                                                                     alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.html" class="title">Lucky Wooden Elephant</a>
-                        <span class="quantity-price">1 x <span class="amount">$453.28</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.html" class="image"><img src="/static/Images/product-image/3.jpg"
-                                                                     alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.html" class="title">Fish Cut Out Set</a>
-                        <span class="quantity-price">1 x <span class="amount">$87.34</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="foot">
-            <div class="sub-total">
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <td class="text-left">总计 :</td>
-                        <td class="text-right theme-color">$632.48</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="buttons">
-                <!--                    <a href="cart.html" class="btn btn-dark btn-hover-primary mb-6">查看购物车详情</a>-->
-                <form action="../../../account/users/shop_cart" method="GET">
-                    <li class="li"><a class="btn btn-dark btn-hover-primary mb-6"
-                                      href="../../../account/users/shop_cart">查看购物车详情</a></li>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- OffCanvas Cart End -->
-
-
-
-<div class="offcanvas-overlay"></div>
-<!-- breadcrumb-area start -->
 <div class="breadcrumb-area">
     <div class="container">
         <div class="row">
@@ -351,12 +321,15 @@
                 <div class="row">
 
                     <!-- Start single blog -->
-                    <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="200">
-                        <div class="single-wedge">
+                    <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up" style="width: 600px"
+                         data-aos-delay="200">
+                        <div class="single-wedge" style="width: 590px">
                             <form action="../../../other/about/" method="GET">
                                 <li class="li"><a class="single-link" href="../../../other/about/">关于我们</a></li>
                             </form>
-                            <p class="about-text"> 公司简介简介简介</p>
+                            <p class="about-text" style="width: 490px">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
+                                以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业
+                                的运营生态。</p>
 
                         </div>
                     </div>
@@ -371,11 +344,13 @@
                                 <div class="footer-row">
                                     <ul class="align-items-center">
                                         <form action="../../../other/Q&A/" method="GET">
-                                            <li class="li"><a class="single-link" href="../../../other/Q&A/">常见问题</a></li>
+                                            <li class="li"><a class="single-link" href="../../../other/Q&A/">常见问题</a>
+                                            </li>
                                         </form>
                                         <!--                                            <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>-->
                                         <form action="../../../other/privacy_policy/" method="GET">
-                                            <li class="li"><a class="single-link" href="../../../other/privacy_policy/">隐私政策</a>
+                                            <li class="li"><a class="single-link"
+                                                              href="../../../other/privacy_policy/">隐私政策</a>
                                             </li>
                                         </form>
                                         <!--                                            <li class="li"><a class="single-link" href="other/privacy-policy/">隐私政策</a></li>-->
@@ -398,26 +373,32 @@
                                 <div class="footer-row">
                                     <ul class="align-items-center">
                                         {% if is_login %}
-                                        <form action="../../../account/users/user_info_manage" method="GET">
-                                            <li class="li"><a class="single-link" href="../../../account/users/user_info_manage">我的账户</a></li>
-                                        </form>
-                                        <form action="../../../account/users/shop_cart" method="GET">
-                                            <li class="li"><a class="single-link" href="../../../account/users/shop_cart">购物车</a>
-                                            </li>
-                                        </form>
-                                        <form action="../../../passport/logout" method="POST">
-                                            <li class="li"><a class="single-link" href="../../../passport/logout" onclick="logout()">注销</a></li>
-                                        </form>
+                                            <form action="../../../account/users/user_info_manage" method="GET">
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../../account/users/user_info_manage">我的账户</a>
+                                                </li>
+                                            </form>
+                                            <form action="../../../account/users/shop_cart" method="GET">
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../../account/users/shop_cart">购物车</a>
+                                                </li>
+                                            </form>
+                                            <form action="../../../" method="POST">
+                                                <li class="li"><a class="single-link" href="../../../"
+                                                                  onclick="logout()">注销</a>
+                                                </li>
+                                            </form>
 
-                                        <!--                                        <script>-->
-                                        <!--                                            function logout() {-->
-                                        <!--                                                alert("注销成功!")-->
-                                        <!--                                            }-->
-                                        <!--                                        </script>-->
+                                            <!--                                        <script>-->
+                                            <!--                                            function logout() {-->
+                                            <!--                                                alert("注销成功!")-->
+                                            <!--                                            }-->
+                                            <!--                                        </script>-->
                                         {% else %}
-                                        <form action="../../../passport/login/" method="GET">
-                                            <li class="li"><a class="single-link" href="../../../passport/login/">登录</a></li>
-                                        </form>
+                                            <form action="passport/login/" method="GET">
+                                                <li class="li"><a class="single-link" href="passport/login/">登录</a>
+                                                </li>
+                                            </form>
                                         {% endif %}
                                     </ul>
                                 </div>
@@ -452,6 +433,8 @@
         </div>
     </div>
 </div>
+<!-- Footer Area End -->
+
 
 
 <!-- Use the minified version files listed below for better performance and remove the files listed above -->
