@@ -10,13 +10,15 @@ class ServiceView(View):
         username, services_sort, is_login = Util.get_basic_info(request)
         se_id = request.GET.get("se_id")
         service = Service.objects.filter(id=int(se_id))[0]
-        return render(request, "service.html", {"service": service,"username":username,"services_sort":services_sort,"is_login":is_login})
+        return render(request, "service.html",
+                      {"service": service, "username": username, "services_sort": services_sort, "is_login": is_login})
 
 
 class ShopView(View):
     def get(self, request):
         username, services_sort, is_login = Util.get_basic_info(request)
-        return render(request, "shop.html",{"username":username,"services_sort":services_sort,"is_login":is_login})
+        return render(request, "shop.html",
+                      {"username": username, "services_sort": services_sort, "is_login": is_login})
 
 
 class PayView(View):
@@ -38,4 +40,6 @@ class PayView(View):
         total_cost = 0
         for service in services:
             total_cost += service.price
-        return render(request, "pay.html", {"services": services, "total_cost": total_cost, "user": user,"username":username,"services_sort":services_sort,"is_login":is_login})
+        return render(request, "pay.html",
+                      {"services": services, "total_cost": total_cost, "user": user, "username": username,
+                       "services_sort": services_sort, "is_login": is_login})
