@@ -19,7 +19,7 @@ class Util:
 
     @staticmethod
     def transform(prov, city, county):
-        dict_prov = province.province[prov]
+        dict_prov = province[prov]
         str_prov = dict_prov.get("name")
         dict_city = dict_prov.get("city")[city]
         str_city = dict_city.get("name")
