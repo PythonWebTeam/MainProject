@@ -4,10 +4,12 @@ from django.shortcuts import render
 from django.views import View
 
 from account.models import Service, Type
+from utils.util import Util
 
 
 class ServicesClassView(View):
     def get(self, request):
+        username, services_sort, is_login = Util.get_basic_info(request)
         # 获取服务列表页面
         key = request.GET.get("search")
         type_id = Type.objects.filter(name__contains=key)  # 通过关键字找该类服务id
@@ -19,7 +21,7 @@ class ServicesClassView(View):
         services_num = len(services)
 
         return render(request, "services_class.html",
-                      {"services": services, "services_num": services_num, "key": key, "page_num": page_num})
+                      {"services": services, "services_num": services_num, "key": key, "page_num": page_num,"username":username,"services_sort":services_sort,"is_login":is_login})
 
     def post(self, request):
         pass

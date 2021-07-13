@@ -30,7 +30,6 @@ vendors_patterns = [
 account_patterns = [
     path("users/", include(users_patterns)),
     path("vendors/", include(vendors_patterns)),
-    path("logout/", account_views.LogoutView.as_view()),
     path("change_psw/",account_views.ChangePasswordView.as_view()),
 ]
 
@@ -40,7 +39,7 @@ passport_patterns = [
     path("register/", passport_views.RegisterView.as_view()),
     path("retrieve/", passport_views.RetrieveView.as_view()),
     path("email_auth/", send_email.SendEmailView.as_view()),
-
+    path("logout/",passport_views.LogoutView.as_view())
 ]
 
 # shop urls
@@ -54,6 +53,7 @@ shop_patterns = [
 other_patterns = [
     path("about/", other_views.about_view),
     path("Q&A/", other_views.QA_view),
+    path("privacy_policy/",other_views.policy_view),
 ]
 
 # main urls
