@@ -15,7 +15,8 @@ class LoginView(View):
     def get(self, request):
         if request.session.get("is_login"):
             return HttpResponse("用户 " + request.session.get("username") + ",您已登录")
-        return Util.get_page(request, "login.html")
+        username, services_sort, is_login = Util.get_basic_info(request)
+        return render(request,"login.html",{"username":username,"services_sort":services_sort,"is_login":is_login})
 
     def post(self, request):
 
@@ -64,7 +65,8 @@ class RegisterView(View):
 
 class RetrieveView(View):
     def get(self, request):
-        return render(request, "retrieve.html")
+        username, services_sort, is_login = Util.get_basic_info(request)
+        return render(request, "retrieve.html",{"username":username,"services_sort":services_sort,"is_login":is_login})
 
     def post(self, request):
         username = request.POST.get("username")
