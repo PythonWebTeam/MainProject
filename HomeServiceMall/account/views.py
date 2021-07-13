@@ -142,7 +142,4 @@ def business_data_view(request):
     return render(request, "business_data.html")
 
 
-class LogoutView(View):
-    def get(self, request):
-        request.session.flush()
-        return redirect("/")
+
