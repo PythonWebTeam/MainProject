@@ -3537,7 +3537,7 @@ textarea.form-control-lg {
 
 .was-validated .form-control:invalid:focus, .form-control.is-invalid:focus {
     border-color: #050505;
-    box-shadow: 0 0 0 4px rgba(5, 5, 5, .25)
+    box-shadow: 0 0 0 4px rgba(5, 5, 5, .25);
     -webkit-box-shadow: 0 0 0 0.25rem rgba(5, 5, 5, .25);
 }
 
@@ -3643,7 +3643,7 @@ textarea.form-control-lg {
 .btn-check:focus + .btn-primary, .btn-primary:focus {
     color: #000;
     background-color: #ff7004;
-    border-color: #ff7004
+    border-color: #ff7004;
     -webkit-box-shadow: 0 0 0 0.25rem rgba(217, 95, 3, .5);
     box-shadow: 0 0 0 0.25rem rgba(217, 95, 3, .5)
 }
@@ -3680,7 +3680,7 @@ textarea.form-control-lg {
 .btn-check:focus + .btn-secondary, .btn-secondary:focus {
     color: #fff;
     background-color: #6c757d;
-    border-color: #6c757d
+    border-color: #6c757d;
     -webkit-box-shadow: 0 0 0 0.25rem rgba(39, 39, 39, 0.5);
     box-shadow: 0 0 0 0.25rem rgba(39, 39, 39, 0.5)
 }
@@ -3717,7 +3717,7 @@ textarea.form-control-lg {
 .btn-check:focus + .btn-success, .btn-success:focus {
     color: #fff;
     background-color: #198754;
-    border-color: #198754
+    border-color: #198754;
     -webkit-box-shadow: 0 0 0 0.25rem rgba(55, 130, 95, 0.5);
     box-shadow: 0 0 0 0.25rem rgba(55, 130, 95, 0.5)
 }

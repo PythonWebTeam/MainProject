@@ -3,27 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>Let's购 信息修改</title>
     <meta name="description"
-          content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world." />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+          content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Furns - Responsive eCommerce HTML Template" />
-    <meta property="og:url" content="PAGE_URL" />
-    <meta property="og:site_name" content="Furns - Responsive eCommerce HTML Template" />
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Furns - Responsive eCommerce HTML Template"/>
+    <meta property="og:url" content="PAGE_URL"/>
+    <meta property="og:site_name" content="Furns - Responsive eCommerce HTML Template"/>
     <!-- For the og:image content, replace the # with a link of an image -->
-    <meta property="og:image" content="#" />
-    <meta property="og:description" content="Furns - Responsive eCommerce HTML Template" />
-    <meta name="robots" content="noindex, follow" />
+    <meta property="og:image" content="#"/>
+    <meta property="og:description" content="Furns - Responsive eCommerce HTML Template"/>
+    <meta name="robots" content="noindex, follow"/>
     <!-- Add site Favicon -->
-    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="32x32" />
-    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="/static/Images/favicon/favicon.png" />
-    <meta name="msapplication-TileImage" content="/static/Images/favicon/favicon.png" />
+    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="32x32"/>
+    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="192x192"/>
+    <link rel="apple-touch-icon" href="/static/Images/favicon/favicon.png"/>
+    <meta name="msapplication-TileImage" content="/static/Images/favicon/favicon.png"/>
     <!-- CSS
     ============================================ -->
 
@@ -37,10 +37,10 @@
     <!-- <link rel="stylesheet" href="/static/CSS/plugins/swiper-bundle.min.css"> -->
     <!-- <link rel="stylesheet" href="/static/CSS/plugins/nice-select.css"> -->
     <!-- <link rel="stylesheet" href="/static/CSS/plugins/magnific-popup.min.css"/> -->
-    <link rel="stylesheet" href="/static/CSS/vendor/vendor.min.css" />
-    <link rel="stylesheet" href="/static/CSS/plugins/plugins.min.css" />
+    <link rel="stylesheet" href="/static/CSS/vendor/vendor.min.css"/>
+    <link rel="stylesheet" href="/static/CSS/plugins/plugins.min.css"/>
     <link rel="stylesheet" href="/static/CSS/style.min.css">
-    <link rel="stylesheet" href="/static/CSS/layui.css"  />
+    <link rel="stylesheet" href="/static/CSS/layui.css"/>
     <script src="/static/JavaScript/layui.js" type="text/javascript"></script>
     <script src="/static/JavaScript/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/JavaScript/area.js" type="text/javascript"></script>
@@ -66,7 +66,8 @@
                 <!-- Header Logo Start -->
                 <div class="col-auto align-self-center">
                     <div class="header-logo">
-                        <form action="../../../" method="GET"><a href="../../../"><img src="/static/Images/logo/logo.png"></a></form>
+                        <form action="../../../" method="GET"><a href="../../../"><img
+                                src="/static/Images/logo/logo.png"></a></form>
 
                     </div>
                 </div>
@@ -91,14 +92,16 @@
                             <ul class="dropdown-menu dropdown-menu-right">
                                 {% if is_login %}
                                     <li>
-                                        <form action="../../../account/users/user_info_manage/" method="GET"><a class="dropdown-item"
-                                                                                                                href="../../../account/users/user_info_manage/">我的账户{{ username }}</a>
+                                        <form action="../../../account/users/user_info_manage/" method="GET"><a
+                                                class="dropdown-item"
+                                                href="../../../account/users/user_info_manage/">我的账户{{ username }}</a>
                                         </form>
                                     </li>
 
                                     <li>
 
-                                        <form action="../../../account/logout/" method="POST"><a name="logout" class="dropdown-item"
+                                        <form action="../../../account/logout/" method="POST"><a name="logout"
+                                                                                                 class="dropdown-item"
                                                                                                  href="../../../account/logout/"
                                                                                                  onclick="logout()">注销</a>
                                         </form>
@@ -125,7 +128,8 @@
                             </a>
                         {% else %}
 
-                            <label style="margin-left: 10px;margin-top: 10px">您好,请<a href="../../../passport/login">登录</a></label>
+                            <label style="margin-left: 10px;margin-top: 10px">您好,请<a
+                                    href="../../../passport/login">登录</a></label>
 
                         {% endif %}
                         <!-- Cart End -->
@@ -200,12 +204,15 @@
                     <div class="main-menu">
                         <ul>
                             <li>
-                                <form action="../../../" method="GET"><a class="single-link" href="../../../">首页</a></form>
+                                <form action="../../../" method="GET"><a class="single-link" href="../../../">首页</a>
+                                </form>
                             </li>
                             <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                                 <ul class="sub-menu">
                                     {% for service in services_sort %}
-                                        <li><a href="../../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a></li>
+                                        <li>
+                                            <a href="../../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
+                                        </li>
                                     {% endfor %}
                                 </ul>
                             </li>
@@ -297,36 +304,44 @@
                     <div class="col-lg-3">
                         <ul class="nav myaccount-tab-trigger" id="account-page-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="account-dashboard-tab" data-bs-toggle="tab" href="#account-dashboard" role="tab" aria-controls="account-dashboard" aria-selected="true">个人信息</a>
+                                <a class="nav-link active" id="account-dashboard-tab" data-bs-toggle="tab"
+                                   href="#account-dashboard" role="tab" aria-controls="account-dashboard"
+                                   aria-selected="true">个人信息</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-orders-tab" data-bs-toggle="tab" href="#account-orders" role="tab" aria-controls="account-orders" aria-selected="false">全部订单</a>
+                                <a class="nav-link" id="account-orders-tab" data-bs-toggle="tab" href="#account-orders"
+                                   role="tab" aria-controls="account-orders" aria-selected="false">全部订单</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-address-tab" data-bs-toggle="tab" href="#account-address" role="tab" aria-controls="account-address" aria-selected="false">修改密码</a>
+                                <a class="nav-link" id="account-address-tab" data-bs-toggle="tab"
+                                   href="#account-address" role="tab" aria-controls="account-address"
+                                   aria-selected="false">修改密码</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-logout-tab" href="../../../account/users/shop_cart" role="tab" aria-selected="false">购物车</a>
+                                <a class="nav-link" id="account-logout-tab" href="../../../account/users/shop_cart"
+                                   role="tab" aria-selected="false">购物车</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-lg-9">
                         <div class="tab-content myaccount-tab-content" id="account-page-tab-content">
-                            <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel" aria-labelledby="account-dashboard-tab">
+                            <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
+                                 aria-labelledby="account-dashboard-tab">
                                 <div class="myaccount-dashboard">
-                                    <form method="post" action="../../account/users/user_info_manage" class="myaccount-form">
+                                    <form method="post" action="../../account/users/user_info_manage"
+                                          class="myaccount-form">
                                         <div class="myaccount-form-inner">
                                             <div class="single-input single-input-half">
                                                 <label>用户名</label>
-                                                <input type="text"  value={{user.username}}>
+                                                <input type="text" value={{ user.username }}>
                                             </div>
                                             <div class="single-input single-input-half">
                                                 <label>用户ID</label>
-                                                <input type="text" value={{user.id}} disabled="true">
+                                                <input type="text" value={{ user.id }} disabled="true">
                                             </div>
                                             <div class="single-input">
                                                 <label>邮箱</label>
-                                                <input type="email" value={{user.email}}>
+                                                <input type="email" value={{ user.email }}>
                                             </div>
                                             <div class="single-input">
                                                 <label>手机号</label>
@@ -343,21 +358,23 @@
                                                         /* 自动加载省份列表 */
                                                         showPro();
                                                     });
-                                                    function showPro(){
+
+                                                    function showPro() {
                                                         $(".btn").disabled = true;
                                                         var len = province.length;
-                                                        for(var i = 0; i < len; i++) {
+                                                        for (var i = 0; i < len; i++) {
                                                             var provOpt = document.createElement("option");
                                                             provOpt.innerText = province[i]['name'];
                                                             provOpt.value = i;
                                                             prov.appendChild(provOpt);
                                                         }
                                                     };
+
                                                     /*根据所选的省份来显示城市列表*/
                                                     function showCity(obj) {
                                                         var val = obj.options[obj.selectedIndex].value;
                                                         current_prov = val;
-                                                        if (val >=0) {
+                                                        if (val >= 0) {
                                                             city.style.display = 'inline-block';
                                                             country.style.display = 'none';
                                                         } else {
@@ -377,10 +394,11 @@
                                                             }
                                                         }
                                                     };
+
                                                     /*根据所选的城市来显示县区列表*/
                                                     function showCountry(obj) {
                                                         var val = obj.options[obj.selectedIndex].value;
-                                                        if (val >=0) {
+                                                        if (val >= 0) {
                                                             country.style.display = 'inline-block';
                                                         } else {
                                                             country.style.display = 'none';
@@ -391,7 +409,7 @@
                                                             if (province[current_prov]["city"][val]) {
                                                                 var countryLen = province[current_prov]["city"][val].districtAndCounty.length;
                                                             }
-                                                            if(countryLen == 0){
+                                                            if (countryLen == 0) {
                                                                 addrShow.value = province[current_prov].name + '-' + province[current_prov]["city"][val].name;
                                                                 return;
                                                             }
@@ -409,6 +427,7 @@
                                                         $(".btn").disabled = false;
 
                                                     };
+
                                                     function showAddr() {
                                                         var ss = province[current_prov].name + "|" +
                                                             province[current_prov]['city'][current_city].name + "|" +
@@ -431,7 +450,8 @@
                                                 </select>
                                             </div>
                                             <div class="single-input">
-                                                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit">
+                                                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0"
+                                                        type="submit">
                                                     <span>保存改变</span>
                                                 </button>
                                             </div>
@@ -439,7 +459,8 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="account-orders" role="tabpanel" aria-labelledby="account-orders-tab">
+                            <div class="tab-pane fade" id="account-orders" role="tabpanel"
+                                 aria-labelledby="account-orders-tab">
                                 <div class="myaccount-orders">
                                     <h4 class="small-title">我的订单</h4>
                                     <div class="table-responsive">
@@ -453,100 +474,108 @@
                                                 <th>支付状态</th>
                                             </tr>
                                             {% for order in order_list %}
-                                            <tr>
-                                                <td>{{ order.id }}</td>
-                                                <td>{{ order.service.name }}</td>
-                                                <td>{{ order.start_time }}</td>
-                                                <td>{{ order.end_time }}</td>
-                                                <td>{{ order.pay_status }}</td>
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <td>{{ order.id }}</td>
+                                                    <td>{{ order.service.name }}</td>
+                                                    <td>{{ order.start_time }}</td>
+                                                    <td>{{ order.end_time }}</td>
+                                                    <td>{{ order.pay_status }}</td>
+                                                    </td>
+                                                </tr>
                                             {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="account-address" role="tabpanel" aria-labelledby="account-address-tab">
+                            <div class="tab-pane fade" id="account-address" role="tabpanel"
+                                 aria-labelledby="account-address-tab">
                                 <div class="myaccount-address">
-                                        <div class="myaccount-form-inner">
-                                            <div class="single-input">
-                                                <label>当前密码</label>
-                                                <input type="password" id="current_password" minlength="6" maxlength="12">
-                                                <label style="color: red" id="oldPasswordInfo"></label>
-                                            </div>
-                                            <div class="single-input">
-                                                <label>新密码</label>
-                                                <input type="password" id="new_password" minlength="6" maxlength="12">
-                                                <label style="color: red" id="newPasswordInfo"></label>
+                                    <div class="myaccount-form-inner">
+                                        <div class="single-input">
+                                            <label>当前密码</label>
+                                            <input type="password" id="current_password" minlength="6" maxlength="12">
+                                            <label style="color: red" id="oldPasswordInfo"></label>
+                                        </div>
+                                        <div class="single-input">
+                                            <label>新密码</label>
+                                            <input type="password" id="new_password" minlength="6" maxlength="12">
+                                            <label style="color: red" id="newPasswordInfo"></label>
 
-                                            </div>
+                                        </div>
 
-                                            <div class="single-input">
-                                                <label>确认密码</label>
-                                                <input type="password" id="confirm_password" minlength="6" maxlength="12">
-                                                <label style="color: red" id="ConfirmPasswordInfo"></label>
-                                            </div>
-                                            <script>
-                                                function AjaxChangePassword() {
-                                                    $.ajax({
-                                                        url: "../../../account/change_psw/",
-                                                        type: "POST",
-                                                        data: {
-                                                            "old_password": $("#current_password").val(),
-                                                            "new_password": $("#new_password").val(),
-                                                        },
-                                                        beforeSend: function (xhr) {
-                                                            if ($("#current_password").val().length<6||$("#current_password").val().length>12) {
-                                                                $("#oldPasswordInfo").text("原密码长度不符合要求!")
-                                                                xhr.abort()
-                                                            } else {
-                                                                $("#oldPasswordInfo").text("")
-                                                            }
-
-                                                            if ($("#new_password").val().length < 6 || $("#new_password").val().length >12) {
+                                        <div class="single-input">
+                                            <label>确认密码</label>
+                                            <input type="password" id="confirm_password" minlength="6" maxlength="12">
+                                            <label style="color: red" id="ConfirmPasswordInfo"></label>
+                                        </div>
+                                        <script>
+                                            function AjaxChangePassword() {
+                                                $.ajax({
+                                                    url: "../../../account/change_psw/",
+                                                    type: "POST",
+                                                    data: {
+                                                        "old_password": $("#current_password").val(),
+                                                        "new_password": $("#new_password").val(),
+                                                    },
+                                                    beforeSend: function (xhr) {
+                                                        if ($("#current_password").val().length < 6 || $("#current_password").val().length > 12) {
+                                                            $("#oldPasswordInfo").text("原密码长度不符合要求!")
+                                                            xhr.abort()
+                                                        } else {
+                                                            $("#oldPasswordInfo").text("")
+                                                            if ($("#new_password").val().length < 6 || $("#new_password").val().length > 12) {
                                                                 $("#newPasswordInfo").text("新密码长度不符合要求!")
                                                                 xhr.abort()
                                                             } else {
                                                                 $("#newPasswordInfo").text("")
-                                                            }
-
-                                                            if ($("#new_password").val()!== $("#confirm_password").val()) {
-                                                                $("#ConfirmPasswordInfo").text("两次输入的新密码不一致!")
-                                                                xhr.abort()
-                                                            } else {
-                                                                $("#ConfirmPasswordInfo").text("")
-                                                            }
-                                                        },
-                                                        success: function (return_msg) {
-                                                            if (return_msg === "ok") {
-                                                                alert("修改成功!")
-                                                                location.href = "../../"
-                                                            } else {
-                                                                $("#oldPasswordInfo").text(return_msg)
+                                                                if (($("#new_password").val() !== "") && ($("#new_password").val() === $("#current_password").val())) {
+                                                                    $("#newPasswordInfo").text("新密码不能与旧密码相同！")
+                                                                    xhr.abort()
+                                                                } else {
+                                                                    $("#newPasswordInfo").text("")
+                                                                    if ($("#new_password").val() !== $("#confirm_password").val()) {
+                                                                        $("#ConfirmPasswordInfo").text("两次输入的新密码不一致!")
+                                                                        xhr.abort()
+                                                                    } else {
+                                                                        $("#ConfirmPasswordInfo").text("")
+                                                                    }
+                                                                }
                                                             }
                                                         }
-                                                    })
-                                                }
-                                            </script>
-                                            <div class="single-input">
-                                                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit" onclick="AjaxChangePassword()">
-                                                    <span>提交</span>
-                                                </button>
-                                            </div>
-                                            </div>
+
+
+                                                    },
+                                                    success: function (return_msg) {
+                                                        if (return_msg === "ok") {
+                                                            alert("修改成功!")
+                                                            location.href = "../../../account/users/user_info_manage"
+                                                        } else {
+                                                            $("#oldPasswordInfo").text(return_msg)
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                        </script>
+                                        <div class="single-input">
+                                            <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0"
+                                                    type="submit" onclick="AjaxChangePassword()">
+                                                <span>提交</span>
+                                            </button>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
-    </main>
-    <!-- Main Content Area End Here -->
+</div>
+</main>
+<!-- Main Content Area End Here -->
 
-    <!-- Footer Area Start -->
+<!-- Footer Area Start -->
 <div class="footer-area">
     <div class="footer-container">
         <div class="footer-top">
@@ -574,7 +603,8 @@
                                 <div class="footer-row">
                                     <ul class="align-items-center">
                                         <form action="../../../other/Q&A/" method="GET">
-                                            <li class="li"><a class="single-link" href="../../../other/Q&A/">常见问题</a></li>
+                                            <li class="li"><a class="single-link" href="../../../other/Q&A/">常见问题</a>
+                                            </li>
                                         </form>
                                         <!--                                            <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>-->
                                         <form action="../../../other/privacy_policy/" method="GET">
@@ -601,26 +631,31 @@
                                 <div class="footer-row">
                                     <ul class="align-items-center">
                                         {% if is_login %}
-                                        <form action="../../../account/users/user_info_manage" method="GET">
-                                            <li class="li"><a class="single-link" href="../../../account/users/user_info_manage">我的账户</a></li>
-                                        </form>
-                                        <form action="../../../account/users/shop_cart" method="GET">
-                                            <li class="li"><a class="single-link" href="../../../account/users/shop_cart">购物车</a>
-                                            </li>
-                                        </form>
-                                        <form action="../../../passport/logout" method="POST">
-                                            <li class="li"><a class="single-link" href="../../../passport/logout" onclick="logout()">注销</a></li>
-                                        </form>
+                                            <form action="../../../account/users/user_info_manage" method="GET">
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../../account/users/user_info_manage">我的账户</a>
+                                                </li>
+                                            </form>
+                                            <form action="../../../account/users/shop_cart" method="GET">
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../../account/users/shop_cart">购物车</a>
+                                                </li>
+                                            </form>
+                                            <form action="../../../passport/logout" method="POST">
+                                                <li class="li"><a class="single-link" href="../../../passport/logout"
+                                                                  onclick="logout()">注销</a></li>
+                                            </form>
 
-                                        <!--                                        <script>-->
-                                        <!--                                            function logout() {-->
-                                        <!--                                                alert("注销成功!")-->
-                                        <!--                                            }-->
-                                        <!--                                        </script>-->
+                                            <!--                                        <script>-->
+                                            <!--                                            function logout() {-->
+                                            <!--                                                alert("注销成功!")-->
+                                            <!--                                            }-->
+                                            <!--                                        </script>-->
                                         {% else %}
-                                        <form action="../../../passport/login/" method="GET">
-                                            <li class="li"><a class="single-link" href="../../../passport/login/">登录</a></li>
-                                        </form>
+                                            <form action="../../../passport/login/" method="GET">
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../../passport/login/">登录</a></li>
+                                            </form>
                                         {% endif %}
                                     </ul>
                                 </div>
@@ -655,13 +690,13 @@
         </div>
     </div>
 </div>
-    <!-- Footer Area End -->
+<!-- Footer Area End -->
 
-    <!-- Begin Scroll To Top -->
-    <a class="scroll-to-top" href="">
-        <i class="fa fa-chevron-up"></i>
-    </a>
-    <!-- Scroll To Top End Here -->
+<!-- Begin Scroll To Top -->
+<a class="scroll-to-top" href="">
+    <i class="fa fa-chevron-up"></i>
+</a>
+<!-- Scroll To Top End Here -->
 
 </div>
 
