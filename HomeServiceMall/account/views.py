@@ -57,7 +57,6 @@ class ChangePasswordView(View):
     def post(self, request):
         if not request.session.get("is_login"):
             return redirect("/passport/login/")
-        username, services_sort, is_login = Util.get_basic_info(request)
         username = request.session.get("username")
         old_password = request.POST.get("old_password")
         new_password = request.POST.get("new_password")
