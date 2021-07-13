@@ -182,7 +182,8 @@
                         <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 {% for service in services_sort %}
-                                    <li><a href="services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a></li>
+                                    <li><a href="services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </li>
@@ -397,7 +398,9 @@
                             <form action="other/about/" method="GET">
                                 <li class="li"><a class="single-link" href="other/about/">关于我们</a></li>
                             </form>
-                            <p class="about-text" style="width: 490px">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。 以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业 的运营生态。</p>
+                            <p class="about-text" style="width: 490px">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
+                                以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业
+                                的运营生态。</p>
 
                         </div>
                     </div>
