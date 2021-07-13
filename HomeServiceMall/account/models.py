@@ -26,8 +26,8 @@ class User(AbstractUser):
 class Cart(models.Model):
     service = models.ForeignKey('Service', on_delete=models.CASCADE)  # 联接Service表
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # 联接User表
-    start_time = models.DateTimeField('设置服务开始时间')
-    end_time = models.DateTimeField('设置服务结束时间')
+    start_time = models.DateTimeField('设置服务开始时间',null=True)
+    end_time = models.DateTimeField('设置服务结束时间',null=True)
 
     class Meta:
         db_table = 'Cart'

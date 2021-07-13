@@ -45,22 +45,25 @@ class RegisterView(View):
         email = data.get("user-email")
         addr = data.get("address")
         prov = data.get("prov")
+        city = data.get("city")
         county = data.get("county")
-
         if User.objects.filter(username=username):
             return HttpResponse('用户名已被注册')
         elif User.objects.filter(phone=phone_number):
             return HttpResponse("该手机号已被注册")
         code_rec = data.get("email_code")
+        if not EmailVerifyRecord.objects.filter(email=email):
+            return HttpResponse("请获取验证码并验证邮箱")
         code_db = EmailVerifyRecord.objects.filter(email=email)[0].code
         if code_rec != code_db:
             return HttpResponse("邮箱验证码错误")
         user = User.objects.create_user(username=username, password=password, phone=phone_number, email=email,
-                                        province=prov, district=county, details=addr)
+                                        province=prov, district=county, details=addr, city=city)
+
         if user:
             return HttpResponse("ok")
 
 
 class RetrieveView(View):
     def get(self, request):
-        return render(request,"retrieve.html")
+        return render(request, "retrieve.html")
