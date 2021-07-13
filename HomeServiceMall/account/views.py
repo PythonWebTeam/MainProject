@@ -13,6 +13,7 @@ class UserInfoManageView(View):
     def get(self, request):
         if not request.session.get("is_login"):
             return redirect("/passport/login/")
+
         username = request.session.get("username")
         user = User.objects.filter(username=username)[0]
         if user.is_vendor:

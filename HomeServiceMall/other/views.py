@@ -10,4 +10,4 @@ def QA_view(request):
     return render(request,"Q&A.html")
 
 def policy_view(request):
-    return HttpResponse("隐私政策")
+    return render(request,"privacy_policy.html")
