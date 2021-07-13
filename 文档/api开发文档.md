@@ -415,9 +415,9 @@ class Order(models.Model):
 
 **成功返回**
 
-| 参数名       | 参数类型       | 描述               |
-| ------------ | -------------- | ------------------ |
-| `return_msg` | `HttpResponse` | 返回`修改密码成功` |
+| 参数名       | 参数类型       | 描述     |
+| ------------ | -------------- | -------- |
+| `return_msg` | `HttpResponse` | 返回`ok` |
 
 **失败返回**
 
@@ -447,18 +447,18 @@ class Order(models.Model):
 
 **成功返回**
 
-| 参数名         | 参数类型    | 描述               |
-| -------------- | ----------- | ------------------ |
-| `user`         | `User`      | `User`对象         |
-| `services`     | `Service[]` | 购物车中的全部服务 |
-| `services_num` | `int`       | 购物车中的全部数量 |
-| `total_cost`   | `double`    | 总金额             |
+| 参数名       | 参数类型 | 描述               |
+| ------------ | -------- | ------------------ |
+| `user`       | `User`   | `User`对象         |
+| `carts`      | `Cart[]` | 购物车中的全部服务 |
+| `cart_size`  | `int`    | 购物车中的全部数量 |
+| `total_cost` | `double` | 总金额             |
 
 **失败返回**
 
-| 参数名 | 参数类型 | 描述 |
-| ------ | -------- | ---- |
-|        |          |      |
+| 参数名 | 参数类型       | 描述            |
+| ------ | -------------- | --------------- |
+|        | `HttpResponse` | `404 Not Found` |
 
 ---
 
@@ -488,12 +488,12 @@ class Order(models.Model):
 
 **成功返回**
 
-| 参数名         | 参数类型    | 描述               |
-| -------------- | ----------- | ------------------ |
-| `user`         | `User`      | `User`对象         |
-| `services`     | `Service[]` | 购物车中的全部服务 |
-| `services_num` | `int`       | 购物车中的全部数量 |
-| `total_cost`   | `double`    | 总金额             |
+| 参数名         | 参数类型 | 描述               |
+| -------------- | -------- | ------------------ |
+| `user`         | `User`   | `User`对象         |
+| `carts`        | `Cart[]` | 购物车中的全部服务 |
+| `services_num` | `int`    | 购物车中的全部数量 |
+| `total_cost`   | `double` | 总金额             |
 
 **失败返回**
 
@@ -504,6 +504,14 @@ class Order(models.Model):
 ---
 
 **说明/示例**
+
+```python
+class Cart(models.Model):
+    service = models.ForeignKey('Service', on_delete=models.CASCADE)  # 联接Service表
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # 联接User表
+    start_time = models.DateTimeField('设置服务开始时间')
+    end_time = models.DateTimeField('设置服务结束时间')
+```
 
 ---
 

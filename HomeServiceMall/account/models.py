@@ -11,7 +11,8 @@ class User(AbstractUser):
     district = models.IntegerField(verbose_name='区县', blank=True, null=True)
     details = models.CharField(verbose_name='详细地址', max_length=255, blank=True, null=True)
     mod_date = models.DateTimeField(verbose_name='Last modified', null=True, auto_now=True)
-    is_vendor=models.BooleanField(verbose_name="商贩",default=0)
+    is_vendor = models.BooleanField(verbose_name="商贩", default=0)
+
     class Meta:
         db_table = 'auth_user'
 
@@ -25,23 +26,25 @@ class User(AbstractUser):
 class Cart(models.Model):
     service = models.ForeignKey('Service', on_delete=models.CASCADE)  # 联接Service表
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # 联接User表
+    start_time = models.DateTimeField('设置服务开始时间')
+    end_time = models.DateTimeField('设置服务结束时间')
 
     class Meta:
         db_table = 'Cart'
 
     def __str__(self):
-        return str(self.user)+":"+str(self.service)
+        return str(self.user) + ":" + str(self.service)
 
     def __unicode__(self):
-        return str(self.user)+":"+str(self.service)
+        return str(self.user) + ":" + str(self.service)
 
 
 class Order(models.Model):
     service = models.ForeignKey('Service', null=True, blank=True, on_delete=models.SET_NULL)  # 联接Service表
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)  # 联接User表
     create_time = models.DateTimeField('订单创建时间')
-    start_time = models.DateTimeField('订单开始时间')
-    end_time = models.DateTimeField('订单结束时间')
+    start_time = models.DateTimeField('服务开始时间')
+    end_time = models.DateTimeField('服务结束时间')
     pay_status = models.BooleanField('订单支付状态')
     comment = models.CharField(verbose_name='评价', max_length=255, blank=True, null=True)
     star = models.IntegerField(verbose_name='服务星级', blank=True, null=True)
@@ -50,10 +53,10 @@ class Order(models.Model):
         db_table = 'Order'
 
     def __str__(self):
-        return str(self.user)+":"+str(self.service)
+        return str(self.user) + ":" + str(self.service)
 
     def __unicode__(self):
-        return str(self.user)+":"+str(self.service)
+        return str(self.user) + ":" + str(self.service)
 
 
 class Shop(models.Model):
