@@ -15,7 +15,9 @@ class LoginView(View):
     def get(self, request):
         if request.session.get("is_login"):
             return HttpResponse("用户 " + request.session.get("username") + ",您已登录")
-        return Util.get_page(request, "login.html")
+        username, services_sort, is_login = Util.get_basic_info(request)
+        return render(request, "login.html",
+                      {"username": username, "services_sort": services_sort, "is_login": is_login})
 
     def post(self, request):
 
@@ -64,21 +66,31 @@ class RegisterView(View):
 
 class RetrieveView(View):
     def get(self, request):
-        return render(request, "retrieve.html")
+        username, services_sort, is_login = Util.get_basic_info(request)
+        return render(request, "retrieve.html",
+                      {"username": username, "services_sort": services_sort, "is_login": is_login})
 
     def post(self, request):
         username = request.POST.get("username")
         email = request.POST.get("email")
         code_rec = request.POST.get("email_code")
         new_password = request.POST.get("new_password")
-        user = User.objects.filter(username=username)
-        if not user:
+        users = User.objects.filter(username=username)
+        if not users:
             return HttpResponse("此用户不存在")
         else:
+            user = users[0]
             if not EmailVerifyRecord.objects.filter(email=email):
                 return HttpResponse("请获取验证码并验证邮箱")
             code_db = EmailVerifyRecord.objects.filter(email=email)[0].code
             if code_rec != code_db:
                 return HttpResponse("邮箱验证码错误")
             user.set_password(new_password)
+            user.save()
             return HttpResponse("ok")
+
+
+class LogoutView(View):
+    def get(self, request):
+        request.session.flush()
+        return redirect("/")
