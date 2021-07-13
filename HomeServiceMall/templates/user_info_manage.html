@@ -328,7 +328,7 @@
                             <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
                                  aria-labelledby="account-dashboard-tab">
                                 <div class="myaccount-dashboard">
-                                    <form method="post" action="../../account/users/user_info_manage"
+                                    <form method="post" action="../../../account/users/user_info_manage/"
                                           class="myaccount-form">
                                         <div class="myaccount-form-inner">
                                             <div class="single-input single-input-half">
@@ -438,15 +438,15 @@
                                                 <script src="/static/JavaScript/province.js"></script>
                                                 <!-- 省份选择 -->
                                                 <select id="prov" name="prov" onchange="showCity(this)">
-                                                    <option>{{ user.province }}</option>
+                                                    <option>{{ prov }}</option>
                                                 </select>
                                                 <!-- 城市选择 -->
                                                 <select id="city" name="city" onchange="showCountry(this)">
-                                                    <option>{{ user.city }}</option>
+                                                    <option>{{ city }}</option>
                                                 </select>
                                                 <!-- 区县选择 -->
                                                 <select id="country" name="county" onchange="selectCountry(this)">
-                                                    <option>{{ user.district }}</option>
+                                                    <option>{{ county }}</option>
                                                 </select>
                                             </div>
                                             <div class="single-input">

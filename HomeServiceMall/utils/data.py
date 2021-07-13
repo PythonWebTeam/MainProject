@@ -1,17 +1,19 @@
-
+import datetime
 from urllib.parse import parse_qs
 import time
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from HomeServiceMall import settings
 from django.shortcuts import render, redirect
+
+from account.models import User, Cart, Service, Order
 from utils.pay import AliPay
 
 
 def aliPay():
     obj = AliPay(
         appid="2021000117687494",  # 支付宝沙箱里面的APPID，需要改成你自己的
-        app_notify_url="http://127.0.0.1:8000/update_order/",
+        app_notify_url="http://127.0.0.1:8000/service/pay/update/",
         # 如果支付成功，支付宝会向这个地址发送POST请求（校验是否支付已经完成），此地址要能够在公网进行访问，需要改成你自己的服务器地址
         return_url="http://127.0.0.1:8000/result/",  # 如果支付成功，重定向回到你的网站的地址。需要你自己改，这里是我的服务器地址
         alipay_public_key_path=settings.ALIPAY_PUBLIC,  # 支付宝公钥
@@ -33,23 +35,52 @@ def aliPay():
 
 
 @csrf_exempt
-def index(request):
-    if request.method == "GET":
-        return render(request, 'test.html')
-
+def alipay_index(request):
     # 实例化SDK里面的类AliPay
     alipay = aliPay()
-
     # 对购买的数据进行加密
-    money = float(request.POST.get('price'))  # 保留俩位小数  前端传回的数据
-    out_trade_no = "x2" + str(time.time())  # 商户订单号   # 订单号可以有多中生成方式，可以百度一下
+    data = request.POST
+
+    username = request.session.get("username")
+    user = User.objects.filter(username=username)[0]
+    user_id = user.id
+    orders = []
+    services_num = data.get("services_num")
+    total_cost = float(data.get("cost"))
+    order_code = "x2" + str(time.time())
+    if int(data.get("from_cart")) == 1:
+        carts = Cart.objects.filter(user_id=user_id)
+        if not carts:
+            return HttpResponse("购物车为空")
+        for cart in carts:
+            order = Order()
+            order.service = cart.service
+            order.create_time = datetime.datetime.now()
+            order.start_time = cart.start_time
+            order.end_time = cart.end_time
+            order.order_collection_id = order_code
+            order.user = user
+            order.save()
+            service = order.service
+    else:
+        se_id = data.get("se_id")
+        start_time = data.get("start_time")
+        end_time = data.get("end_time")
+        service = Service.objects.filter(id=se_id)[0]
+        order = Order()
+        order.service = service
+        order.create_time = datetime.datetime.now()
+        order.start_time = start_time
+        order.end_time = end_time
+        order.order_collection_id = order_code
+        order.user = user
+        order.save()
 
     # 1. 在数据库创建一条数据：状态（待支付）
-
     query_params = alipay.direct_pay(
-        subject="高彦昺",  # 商品简单描述 这里一般是从前端传过来的数据
-        out_trade_no=out_trade_no,  # 商户订单号  这里一般是从前端传过来的数据
-        total_amount=money,  # 交易金额(单位: 元 保留俩位小数)   这里一般是从前端传过来的数据
+        subject="服务名:{0}({1})|共{2}个服务".format(service.name, service.sort.name, services_num),  # 商品简单描述 这里一般是从前端传过来的数据
+        out_trade_no=order_code,  # 商户订单号  这里一般是从前端传过来的数据
+        total_amount=total_cost,  # 交易金额(单位: 元 保留俩位小数)   这里一般是从前端传过来的数据
     )
     # 拼接url，转到支付宝支付页面
     pay_url = "https://openapi.alipaydev.com/gateway.do?{}".format(query_params)

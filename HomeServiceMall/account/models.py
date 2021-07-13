@@ -26,8 +26,8 @@ class User(AbstractUser):
 class Cart(models.Model):
     service = models.ForeignKey('Service', on_delete=models.CASCADE)  # 联接Service表
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # 联接User表
-    start_time = models.DateTimeField('设置服务开始时间',null=True)
-    end_time = models.DateTimeField('设置服务结束时间',null=True)
+    start_time = models.DateTimeField('设置服务开始时间', null=True)
+    end_time = models.DateTimeField('设置服务结束时间', null=True)
 
     class Meta:
         db_table = 'Cart'
@@ -48,6 +48,7 @@ class Order(models.Model):
     pay_status = models.BooleanField('订单支付状态')
     comment = models.CharField(verbose_name='评价', max_length=255, blank=True, null=True)
     star = models.IntegerField(verbose_name='服务星级', blank=True, null=True)
+    order_collection_id = models.CharField('OrderCollection', blank=True, null=True, max_length=255)
 
     class Meta:
         db_table = 'Order'
