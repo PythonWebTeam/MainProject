@@ -471,28 +471,27 @@
                                 <div class="myaccount-address">
                                         <div class="myaccount-form-inner">
                                             <div class="single-input">
-                                                <label>当前密码(若空白则保持不修改)</label>
+                                                <label>当前密码</label>
                                                 <input type="password" id="current_password" minlength="6" maxlength="12">
                                                 <label style="color: red" id="oldPasswordInfo"></label>
                                             </div>
                                             <div class="single-input">
-                                                <label>新密码(若空白则保持不修改)</label>
+                                                <label>新密码</label>
                                                 <input type="password" id="new_password" minlength="6" maxlength="12">
                                             </div>
                                             <div class="single-input">
-                                                <label>验证密码</label>
+                                                <label>确认密码</label>
                                                 <input type="password" id="confirm_password" minlength="6" maxlength="12">
                                                 <label style="color: red" id="newPasswordInfo"></label>
                                             </div>
                                             <script>
                                                 function AjaxChangePassword() {
                                                     $.ajax({
-                                                        url: "../../account/users/user_info_manage",
+                                                        url: "../../../account/change_psw/",
                                                         type: "POST",
                                                         data: {
-                                                            "current_password": $("#current_password").val(),
+                                                            "old_password": $("#current_password").val(),
                                                             "new_password": $("#new_password").val(),
-                                                            "confirm_password":$("#confirm_password").val(),
                                                         },
                                                         beforeSend: function (xhr) {
                                                             if ($("#current_password").val().length<6||$("#current_password").val().length>12) {
@@ -516,12 +515,12 @@
                                                                 $("#newPasswordInfo").text("")
                                                             }
                                                         },
-                                                        success: function (response_data) {
-                                                            if (response_data === "ok") {
+                                                        success: function (return_msg) {
+                                                            if (return_msg === "ok") {
                                                                 alert("修改成功!")
                                                                 location.href = "../../"
                                                             } else {
-                                                                $("#newPasswordInfo").text(response_data)
+                                                                $("#oldPasswordInfo").text(return_msg)
                                                             }
                                                         }
                                                     })
