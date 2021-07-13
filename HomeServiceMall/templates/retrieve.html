@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <title>Let's购 注册/登录</title>
-    <meta name="description" content="Let's购 注册/登录"/>
+    <title>Let's购 找回密码</title>
+    <meta name="description" content="Let's购 找回密码"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
@@ -127,7 +127,6 @@
                        class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
                         <i class="icon-menu"></i>
                     </a>
-                </label>
             </div>
         </div>
 
@@ -154,11 +153,11 @@
                         </li>
                         <li>
                             <form action="../../other/Q&A/" method="GET"><a class="single-link"
-                                                                            href="../../other/Q&A/">常见问题</a></form>
+                                                                      href="../../other/Q&A/">常见问题</a>
                         </li>
                         <li>
                             <form action="../../other/about/" method="GET"><a class="single-link"
-                                                                              href="../../other/about/">关于我们</a></form>
+                                                                        href="../../other/about/">关于我们</a>
                         </li>
                     </ul>
                 </div>
@@ -232,48 +231,215 @@
 
 <!-- login area start -->
 <div class="login-register-area pt-100px pb-100px">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7 col-md-12 ml-auto mr-auto">
-                        <div class="login-register-wrapper">
-                            <div class="login-register-tab-list nav">
-                                <a class="active" data-bs-toggle="tab" href="../../retrieve">
-                                    <h4>找回密码</h4>
-                                </a>
-                            </div>
-                            <div class="tab-content">
-                                <div class="tab-pane active">
-                                    <div class="login-form-container">
-                                        <div class="login-register-form">
-                                            <form action="#" method="post">
-                                                <input type="text" name="user-name" placeholder="用户名" />
-                                                <input type="password" name="user-password" placeholder="手机号" />
-                                                <div class="login-toggle-btn" style="text-align: center">
-                                                    <button type="button" class="layui-btn" style="background-color: #93D1FF">获取验证码</button>
-                                                </div>
-                                                <div>
-                                                    <br>
-                                                </div>
-                                            </form>
-                                            <!--                                    hofee: action指向哪里?-->
-                                            <form action="" method="post">
-                                                <input type="text" name="user-verify-code"placeholder="验证码" width="30px" size="30px" maxlength="6"/>
-                                                <input type="password" name="new-password" placeholder="新密码" />
-                                                <input type="password" name="new-password-verify" placeholder="验证密码" />
-                                            </form>
-                                            <form action="" method="post">
-                                                <div class="login-toggle-btn" style="text-align: center">
-                                                    <button type="button" class="layui-btn" style="background-color: #93D1FF">确认</button>
-                                                </div></form>
-                                        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <a class="active" data-bs-toggle="tab" href="#lg2">
+                            <h4>找回密码</h4>
+                        </a>
+                    </div>
+                    <div class="tab-content">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+
+                                    <input id="user-nameReg" type="text" name="user-nameReg" minlength="3"
+                                           maxlength="12"
+                                           placeholder="用户名"/>
+                                    <label style="color: red" id="user-nameInfoReg"></label>
+
+                                    <input id="user-passwordReg" type="password" name="user-passwordReg" maxlength="12"
+                                           minlength="6" placeholder="新密码"/>
+                                    <label style="color: red" id="user-passwordInfoReg"></label>
+
+                                    <input id="user-passwordConfirm" type="password" name="user-passwordConfirm"
+                                           maxlength="12"
+                                           minlength="6" placeholder="验证密码"/>
+                                    <label style="color: red" id="user-passwordConfirmInfo"></label>
+
+
+                                    <div>
+                                        <div>
+                                        <input id="user-email" type="email" name="user-email" placeholder="邮箱"
+                                               style="width: 230px"/>
+                                        <a class="button-box"><button id="SendEmailCode" type="submit" onclick="AjaxEmailVerifyRegister(this)" style="width:150px; position: relative;" value="获取验证码">获取验证码</button></a>
+                                        <input id="email-verify" type="text" name="email-verify" placeholder="邮箱验证码" maxlength=6 style="width: 122px; position: relative; "/>
+                                        <label style="color: red" id="user-emailInfoReg"></label>
+                                        <label style="color: red" id="email-verifyInfoReg"></label>
+
+                                        <script>
+                                            var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                                            var countdown = 60;
+
+                                            function count(obj) {
+                                                cnt(obj,myvar);
+                                                var myvar=setInterval(function(){cnt(obj,myvar)}, 1000);
+                                            }
+
+                                            function cnt(obj,myvar) {
+                                                if (countdown === 0) {
+                                                    clearInterval(myvar);
+                                                    obj.removeAttribute("disabled");
+                                                    obj.value = "获取验证码";
+                                                    countdown = 60;
+                                                    return;
+                                                } else {
+                                                    obj.setAttribute("disabled", true);
+                                                    var tmp=document.getElementById("SendEmailCode");
+                                                    tmp.innerHTML="重新发送(" + countdown + ")";
+                                                    {#obj.value = "重新发送(" + countdown + ")";#}
+                                                    countdown--;
+
+                                                }
+                                            }
+
+
+                                            function AjaxEmailVerifyRegister(obj) {
+                                                $.ajax({
+                                                    url: "../../passport/email_auth/",
+                                                    type: "POST",
+                                                    data: {
+                                                        "email": $("#user-email").val(),
+
+                                                        "operate_type": "register",
+                                                    },
+                                                    beforeSend: function (xhr) {
+                                                        if ($("#user-email").val().length === 0) {
+                                                            $("#user-emailInfoReg").text("邮箱不能为空!")
+                                                            xhr.abort()
+                                                        } else if (!myreg.test($("#user-email").val())) {
+                                                            $("#user-emailInfoReg").text("邮箱格式错误!")
+                                                            xhr.abort()
+                                                        } else {
+                                                            $("#user-emailInfoReg").text("")
+                                                        }
+
+                                                    },
+                                                    success: function (response_data) {
+                                                        if (response_data === "ok") {
+                                                            count(obj);
+                                                        } else if (response_data === "发送失败") {
+                                                            $("#email-verifyInfoReg").text(response_data)
+                                                        } else {
+                                                            alert(response_data);
+                                                        }
+                                                    },
+                                                })
+                                            }
+
+
+                                        </script>
+
                                     </div>
+                                    <label style="color: red" id="user-emailInfoReg"></label>
+
+                                    <div class="button-box">
+                                        <button type="submit" onclick="AjaxSendRegister()">提交</button>
+                                    </div>
+                                    <script src="/static/JavaScript/jquery-1.8.3.min.js"></script>
+                                    <script>
+                                        function AjaxSendRegister() {
+                                            var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                                            $.ajax({
+                                                url: "../../passport/register/",
+                                                type: "POST",
+                                                data: {
+                                                    "user-name": $("#user-nameReg").val(),
+                                                    "user-password": $("#user-passwordReg").val(),
+                                                    "phone-number": $("#phone-number").val(),
+                                                    "user-email": $("#user-email").val(),
+                                                    "prov": $("#prov").val(),
+                                                    "county": $("#county").val(),
+                                                    "address": $("#address").val(),
+                                                    "email_code": $("#email-verify").val(),
+                                                },
+                                                beforeSend: function (xhr) {
+                                                    if ($("#user-nameReg").val() === "") {
+                                                        $("#user-nameInfoReg").text("用户名不能为空!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#user-nameInfoReg").text("")
+                                                    }
+                                                    if ($("#user-passwordReg").val().length < 6 || $("#user-passwordReg").val().length > 15) {
+                                                        $("#user-passwordInfoReg").text("密码长度不符合要求!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#user-passwordInfoReg").text("")
+                                                    }
+
+                                                    if ($("#user-passwordReg").val() !== $("#user-passwordConfirm").val()) {
+                                                        $("#user-passwordConfirmInfo").text("两次输入的密码不一致!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#user-passwordConfirmInfo").text("")
+                                                    }
+
+                                                    if ($("#phone-number").val().length !== 11) {
+                                                        $("#phone-numberInfoReg").text("手机号为11位数字!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#phone-numberInfoReg").text("")
+
+                                                    }
+
+                                                    if ($("#user-email").val().length === 0) {
+                                                        $("#user-emailInfoReg").text("邮箱不能为空!")
+                                                        xhr.abort()
+                                                    } else if (!myreg.test($("#user-email").val())) {
+                                                        $("#user-emailInfoReg").text("邮箱格式错误!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#user-emailInfoReg").text("")
+                                                    }
+
+                                                    if ($("#email-verify").val().length !== 6) {
+                                                        $("#email-verifyInfoReg").text("验证码为6位!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#email-verifyInfoReg").text("")
+                                                    }
+
+                                                    if ($("#prov").val() === "省份" || $("#city").val() === "城市" || $("#country").val() === "县区") {
+                                                        $("#addressSelectionInfoReg").text("省份/城市/县区未正确选择!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#addressSelectionInfoReg").text("")
+                                                    }
+
+                                                    if ($("#address").val() === "") {
+                                                        $("#addressEnterInfoReg").text("详细地址不能为空!")
+                                                        xhr.abort()
+                                                    } else {
+                                                        $("#addressEnterInfoReg").text("")
+
+                                                    }
+                                                },
+
+                                                success: function (response_data) {
+                                                    if (response_data === "ok") {
+                                                        alert("注册成功")
+                                                        location.href = "../../passport/login/"
+                                                    } else if (response_data === "用户名已被注册") {
+                                                        $("#user-nameInfoReg").text(response_data)
+                                                    } else if (response_data === "该手机号已被注册") {
+                                                        $("#phone-numberInfoReg").text(response_data)
+                                                    } else {
+                                                        $("#user-emailInfoReg").text(response_data)
+                                                    }
+                                                }
+                                            })
+                                        }
+                                    </script>
+
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 <!-- login area end -->
 
 <!-- Footer Area Start -->
@@ -424,7 +590,7 @@
 
 <!-- Main Js -->
 <script src="/static/JavaScript/main.js"></script>
-</div>
+
 </body>
 
 </html>
