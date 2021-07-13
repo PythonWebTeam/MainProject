@@ -63,7 +63,7 @@ class ChangePasswordView(View):
         else:
             user.set_password(new_password)
             user.save()
-            return HttpResponse("修改密码成功")
+            return HttpResponse("ok")
 
 
 def order_info_manage_view(request):
