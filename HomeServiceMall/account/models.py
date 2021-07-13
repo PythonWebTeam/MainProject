@@ -45,7 +45,7 @@ class Order(models.Model):
     create_time = models.DateTimeField('订单创建时间')
     start_time = models.DateTimeField('服务开始时间')
     end_time = models.DateTimeField('服务结束时间')
-    pay_status = models.BooleanField('订单支付状态')
+    pay_status = models.BooleanField('订单支付状态', default=False)
     comment = models.CharField(verbose_name='评价', max_length=255, blank=True, null=True)
     star = models.IntegerField(verbose_name='服务星级', blank=True, null=True)
     order_collection_id = models.CharField('OrderCollection', blank=True, null=True, max_length=255)

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from utils import send_email
-from utils.data import alipay_index, update_order
+from utils.data import alipay_index, update_order, pay_result
 from . import views
 from account import views as account_views
 from other import views as other_views
@@ -31,7 +31,7 @@ vendors_patterns = [
 account_patterns = [
     path("users/", include(users_patterns)),
     path("vendors/", include(vendors_patterns)),
-    path("change_psw/",account_views.ChangePasswordView.as_view()),
+    path("change_psw/", account_views.ChangePasswordView.as_view()),
 ]
 
 # passport urls
@@ -40,7 +40,7 @@ passport_patterns = [
     path("register/", passport_views.RegisterView.as_view()),
     path("retrieve/", passport_views.RetrieveView.as_view()),
     path("email_auth/", send_email.SendEmailView.as_view()),
-    path("logout/",passport_views.LogoutView.as_view())
+    path("logout/", passport_views.LogoutView.as_view())
 ]
 
 # shop urls
@@ -48,16 +48,16 @@ shop_patterns = [
     path("", shop_views.ShopView.as_view()),
     path("service/", shop_views.ServiceView.as_view()),
     path("service/pay/", shop_views.PayView.as_view()),
-    path("service/pay/alipay/",alipay_index),
-    path("service/pay/update/",update_order),
-    #path("service/pay/result/",)
+    path("service/pay/alipay/", alipay_index),
+    path("service/pay/update/", update_order),
+    path("service/pay/result/", pay_result)
 ]
 
 # other urls
 other_patterns = [
     path("about/", other_views.about_view),
     path("Q&A/", other_views.QA_view),
-    path("privacy_policy/",other_views.policy_view),
+    path("privacy_policy/", other_views.policy_view),
 ]
 
 # main urls

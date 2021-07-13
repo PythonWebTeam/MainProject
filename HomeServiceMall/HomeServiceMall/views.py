@@ -8,7 +8,6 @@ class HomeView(View):
 
     def get(self, request):
         username, services_sort, is_login = Util.get_basic_info(request)
-
         # 获取所有服务销量
         services_sales = Service.objects.order_by("sales")
         top_service = services_sales[:8]

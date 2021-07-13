@@ -15,7 +15,7 @@ def aliPay():
         appid="2021000117687494",  # 支付宝沙箱里面的APPID，需要改成你自己的
         app_notify_url="http://127.0.0.1:8000/service/pay/update/",
         # 如果支付成功，支付宝会向这个地址发送POST请求（校验是否支付已经完成），此地址要能够在公网进行访问，需要改成你自己的服务器地址
-        return_url="http://127.0.0.1:8000/result/",  # 如果支付成功，重定向回到你的网站的地址。需要你自己改，这里是我的服务器地址
+        return_url="http://127.0.0.1:8000/service/pay/result/",  # 如果支付成功，重定向回到你的网站的地址。需要你自己改，这里是我的服务器地址
         alipay_public_key_path=settings.ALIPAY_PUBLIC,  # 支付宝公钥
         app_private_key_path=settings.APP_PRIVATE,  # 应用私钥
 
@@ -40,12 +40,11 @@ def alipay_index(request):
     alipay = aliPay()
     # 对购买的数据进行加密
     data = request.POST
-
     username = request.session.get("username")
     user = User.objects.filter(username=username)[0]
     user_id = user.id
     orders = []
-    services_num = data.get("services_num")
+    services_num = 0
     total_cost = float(data.get("cost"))
     order_code = "x2" + str(time.time())
     if int(data.get("from_cart")) == 1:
@@ -61,6 +60,7 @@ def alipay_index(request):
             order.order_collection_id = order_code
             order.user = user
             order.save()
+            services_num += 1
             service = order.service
     else:
         se_id = data.get("se_id")
@@ -75,6 +75,7 @@ def alipay_index(request):
         order.order_collection_id = order_code
         order.user = user
         order.save()
+        services_num += 1
 
     # 1. 在数据库创建一条数据：状态（待支付）
     query_params = alipay.direct_pay(
@@ -82,9 +83,9 @@ def alipay_index(request):
         out_trade_no=order_code,  # 商户订单号  这里一般是从前端传过来的数据
         total_amount=total_cost,  # 交易金额(单位: 元 保留俩位小数)   这里一般是从前端传过来的数据
     )
+
     # 拼接url，转到支付宝支付页面
     pay_url = "https://openapi.alipaydev.com/gateway.do?{}".format(query_params)
-
     return redirect(pay_url)
 
 
@@ -111,6 +112,10 @@ def update_order(request):
             # 1.修改订单状态
             out_trade_no = post_dict.get('out_trade_no')
             print(out_trade_no)
+            orders=Order.objects.filter(order_collection_id=out_trade_no)
+            for order in orders:
+                order.pay_status=True
+                order.save()
             # 2. 根据订单号将数据库中的数据进行更新
             return HttpResponse('支付成功')
         else:
