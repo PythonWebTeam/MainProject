@@ -478,11 +478,14 @@
                                             <div class="single-input">
                                                 <label>新密码</label>
                                                 <input type="password" id="new_password" minlength="6" maxlength="12">
+                                                <label style="color: red" id="newPasswordInfo"></label>
+
                                             </div>
+
                                             <div class="single-input">
                                                 <label>确认密码</label>
                                                 <input type="password" id="confirm_password" minlength="6" maxlength="12">
-                                                <label style="color: red" id="newPasswordInfo"></label>
+                                                <label style="color: red" id="ConfirmPasswordInfo"></label>
                                             </div>
                                             <script>
                                                 function AjaxChangePassword() {
@@ -509,10 +512,10 @@
                                                             }
 
                                                             if ($("#new_password").val()!== $("#confirm_password").val()) {
-                                                                $("#newPasswordInfo").text("两次输入的新密码不一致!")
+                                                                $("#ConfirmPasswordInfo").text("两次输入的新密码不一致!")
                                                                 xhr.abort()
                                                             } else {
-                                                                $("#newPasswordInfo").text("")
+                                                                $("#ConfirmPasswordInfo").text("")
                                                             }
                                                         },
                                                         success: function (return_msg) {
@@ -530,6 +533,7 @@
                                                 <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit" onclick="AjaxChangePassword()">
                                                     <span>提交</span>
                                                 </button>
+                                            </div>
                                             </div>
                                         </div>
                                 </div>
