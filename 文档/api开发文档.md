@@ -429,7 +429,7 @@ class Order(models.Model):
 
 **描述**
 
-> 提交修改的密码，弹窗提示返回的`msg`
+> 用Ajax提交修改的密码
 
 **请求头**
 
@@ -446,25 +446,25 @@ class Order(models.Model):
 
 **成功返回**
 
-| 参数名       | 参数类型  | 描述                 |
-| ------------ | --------- | -------------------- |
-| `user`       | `User`    | `User`对象           |
-| `order_list` | `Order[]` | 该用户的全部订单列表 |
-| `msg`        | `string`  | 返回`修改密码成功`   |
+| 参数名       | 参数类型       | 描述                 |
+| ------------ | -------------- | -------------------- |
+| `user`       | `User`         | `User`对象           |
+| `order_list` | `Order[]`      | 该用户的全部订单列表 |
+| `return_msg` | `HttpResponse` | 返回`修改密码成功`   |
 
 **失败返回**
 
-| 参数名 | 参数类型 | 描述                   |
-| ------ | -------- | ---------------------- |
-| `msg`  | `string` | 返回修改密码失败的原因 |
+| 参数名       | 参数类型       | 描述                                |
+| ------------ | -------------- | ----------------------------------- |
+| `return_msg` | `HttpResponse` | 返回修改密码失败的原因:`原密码错误` |
 
-### 获取买家购物车页面
+### 删除购物车中选中服务
 
 方法`POST` 请求地址:`/account/users/shop_cart/`
 
 **描述**
 
-> 获取购物车页面，当用户未登录时跳转到登录页面
+> 删除购物车中的某一服务
 
 **请求头**
 
@@ -489,9 +489,9 @@ class Order(models.Model):
 
 **失败返回**
 
-| 参数名 | 参数类型       | 描述                  |
-| ------ | -------------- | --------------------- |
-|        | `HttpResponse` | 返回`"404 Not Found"` |
+| 参数名 | 参数类型 | 描述 |
+| ------ | -------- | ---- |
+|        |          |      |
 
 ---
 
@@ -499,7 +499,7 @@ class Order(models.Model):
 
 ---
 
-### 删除购物车中选中服务
+### 获取买家购物车页面
 
 方法`GET` 请求地址:`/account/users/shop_cart/`
 
@@ -589,4 +589,94 @@ class Shop(models.Model):
 ```
 
 ---
+
+## 五.算法
+
+### 推荐算法
+
+**描述**
+
+> 分析用户行为并返回推荐的服务
+
+**输入参数**
+
+| 参数名          | 必选 | 类型        | 说明                       |
+| --------------- | ---- | ----------- | -------------------------- |
+| `user`          | 是   | `User`      | 被推荐的用户对象           |
+| `services`      | 是   | `Service[]` | 所有服务的列表             |
+| `services_cart` | 是   | `Service[]` | 被推荐的用户购物车中的商品 |
+| `orders`        | 是   | `Order[]`   | 被推荐的用户买过的商品     |
+
+**返回参数**
+
+| 参数名     | 必选 | 类型        | 说明                 |
+| ---------- | ---- | ----------- | -------------------- |
+| `services` | 是   | `Service[]` | 推荐给用户的服务顺序 |
+
+**说明/示例**
+
+`User`对象所含属性如下
+
+```python
+class User(AbstractUser):
+    #继承了AbstractUser的username,password,email
+    phone = models.CharField(verbose_name='用户电话', max_length=32, unique=True, blank=True, null=True)
+    province = models.IntegerField(verbose_name='省份', blank=True, null=True)
+    city = models.IntegerField(verbose_name='城市', blank=True, null=True)
+    district = models.IntegerField(verbose_name='区县', blank=True, null=True)
+    details = models.CharField(verbose_name='详细地址', max_length=255, blank=True, null=True)
+    mod_date = models.DateTimeField(verbose_name='Last modified', null=True, auto_now=True)
+
+```
+
+`Order`对象所含属性如下
+
+```python
+class Order(models.Model):
+    service = models.ForeignKey('Service', null=True, blank=True, on_delete=models.SET_NULL)  # 联接Service表
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)  # 联接User表
+    create_time = models.DateTimeField('订单创建时间')
+    start_time = models.DateTimeField('订单开始时间')
+    end_time = models.DateTimeField('订单结束时间')
+    pay_status = models.BooleanField('订单支付状态')
+    comment = models.CharField(verbose_name='评价', max_length=255, blank=True, null=True)
+    star = models.IntegerField(verbose_name='星级', blank=True, null=True)#1~5的整数
+```
+
+`Service`对象所含属性如下
+
+```python
+class Service(models.Model):  
+    name = models.CharField('服务名称', max_length=32)
+    price = models.DecimalField('服务价格', max_digits=10, decimal_places=2)
+    status = models.BooleanField('服务状态')
+    img1 = models.CharField('服务图片位置', max_length=255, unique=True, blank=True, null=True)
+    img2 = models.CharField('服务图片位置', max_length=255, unique=True, blank=True, null=True)
+    intro = models.CharField('服务简介', max_length=255, unique=True, blank=True, null=True)
+    sales = models.IntegerField("销量", default=0)
+    shop = models.ForeignKey('Shop', on_delete=models.CASCADE)  # 联接Shop表
+    sort = models.ForeignKey('Type', on_delete=models.CASCADE)  # 联接Type表
+```
+
+数据库查询操作举例：
+
+​		查询`Service`的`name`
+
+```python
+se_name=Service.objects.filter(name='xxx')[0]
+```
+
+​		以`price`给`Service`排序
+
+```python
+se_order_by_price = Service.objects.order_by("price")
+```
+
+
+
+---
+
+## 六.第三方接口
+
+
 

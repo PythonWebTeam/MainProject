@@ -41,6 +41,13 @@
     <link rel="stylesheet" href="/static/CSS/plugins/plugins.min.css" />
     <link rel="stylesheet" href="/static/CSS/style.min.css">
 
+
+    <script src="/static/JavaScript/layui.js" type="text/javascript"></script>
+    <script src="/static/JavaScript/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/JavaScript/area.js" type="text/javascript"></script>
+    <script src="/static/JavaScript/selectMore.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../../js/demo.js"></script>
     <!-- Main Style -->
     <!-- <link rel="stylesheet" href="/static/CSS/style.css" /> -->
 
@@ -285,25 +292,140 @@
             <div class="col-lg-7">
                 <div class="billing-info-wrap">
                     <h3>收货信息</h3>
+                    <form action="" method="post">
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-4">
                                 <label>姓名</label>
-                                <input type="text" />
+                                <input type="text" value="{{ user.username }}"/>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="billing-info mb-4">
-                                <label>省份</label>
-                                <input type="text" />
-                            </div>
-                        </div>
+                                    <div>
+                                        <script>
+                                        $(function () {
+                                            var current_prov;
+                                            var current_city;
+                                            var current_country;
+                                            /* 自动加载省份列表 */
+                                            showPro();
+                                        });
+
+                                        function showPro() {
+                                            $(".btn").disabled = true;
+                                            var len = province.length;
+                                            for (var i = 0; i < len; i++) {
+                                                var provOpt = document.createElement("option");
+                                                provOpt.innerText = province[i]['name'];
+                                                provOpt.value = i;
+                                                prov.appendChild(provOpt);
+                                            }
+                                        };
+
+                                        /*根据所选的省份来显示城市列表*/
+                                        function showCity(obj) {
+                                            var val = obj.options[obj.selectedIndex].value;
+                                            current_prov = val;
+                                            if (val >= 0) {
+                                                city.style.display = 'inline-block';
+                                                country.style.display = 'none';
+                                            } else {
+                                                city.style.display = 'none';
+                                                country.style.display = 'none';
+                                            }
+                                            if (val != null) {
+                                                city.length = 1;
+                                                if (province[val]) {
+                                                    var cityLen = province[val]["city"].length;
+                                                }
+                                                for (var j = 0; j < cityLen; j++) {
+                                                    var cityOpt = document.createElement('option');
+                                                    cityOpt.innerText = province[val]["city"][j].name;
+                                                    cityOpt.value = j;
+                                                    city.appendChild(cityOpt);
+                                                }
+                                            }
+                                        };
+
+                                        /*根据所选的城市来显示县区列表*/
+                                        function showCountry(obj) {
+                                            var val = obj.options[obj.selectedIndex].value;
+                                            if (val >= 0) {
+                                                country.style.display = 'inline-block';
+                                            } else {
+                                                country.style.display = 'none';
+                                            }
+                                            current_city = val;
+                                            if (val != null) {
+                                                country.length = 1;
+                                                if (province[current_prov]["city"][val]) {
+                                                    var countryLen = province[current_prov]["city"][val].districtAndCounty.length;
+                                                }
+                                                if (countryLen == 0) {
+                                                    addrShow.value = province[current_prov].name + '-' + province[current_prov]["city"][val].name;
+                                                    return;
+                                                }
+                                                for (var n = 0; n < countryLen; n++) {
+                                                    var countryOpt = document.createElement('option');
+                                                    countryOpt.innerText = province[current_prov]["city"][val].districtAndCounty[n];
+                                                    countryOpt.value = n;
+                                                    country.appendChild(countryOpt);
+                                                }
+                                            }
+                                        };
+
+                                        function selectCountry(obj) {
+                                            current_country = obj.options[obj.selectedIndex].value;
+                                            $(".btn").disabled = false;
+
+                                        };
+
+                                        function showAddr() {
+                                            var ss = province[current_prov].name + "|" +
+                                                province[current_prov]['city'][current_city].name + "|" +
+                                                province[current_prov]['city'][current_city]['districtAndCounty'][current_country];
+                                            $("#addr-show").val(ss);
+                                        }
+
+                                        function getProvince(){
+                                            var val=province[{{ user.province }}]["name"];
+                                            var opt=document.getElementById("provOpt");
+                                        }
+                                    </script>
+                                    <script src="/static/JavaScript/province.js"></script>
+                                    <!-- 省份选择 -->
+                                    <select id="prov" name="prov" onchange="showCity(this)">
+                                        <option>省份</option>
+                                    </select>
+                                    <!-- 城市选择 -->
+                                    <select id="city" onchange="showCountry(this)">
+                                        <option>城市</option>
+                                    </select>
+                                    <!-- 区县选择 -->
+                                    <select id="country" onchange="selectCountry(this)">
+                                        <option>区县</option>
+                                    </select>
+                                    <div style="height: 15px"></div>
+                                    <label style="color: red" id="addressSelectionInfoReg"></label>
+
                         <div class="col-lg-12">
                             <div class="billing-info mb-4">
-                                <label>县/区</label>
-                                <input type="text" />
+                                <label>详细地址</label>
+                                <input class="billing-address" type="text"/>
                             </div>
                         </div>
+                        </div>
+{#                        <div class="col-lg-6 col-md-6">#}
+{#                            <div class="billing-info mb-4">#}
+{#                                <label>省份</label>#}
+{#                                <input type="text" />#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-lg-12">#}
+{#                            <div class="billing-info mb-4">#}
+{#                                <label>县/区</label>#}
+{#                                <input type="text" />#}
+{#                            </div>#}
+{#                        </div>#}
                         <div class="col-lg-12">
                             <div class="billing-info mb-4">
                                 <label>具体信息</label>
@@ -313,7 +435,7 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-4">
                                 <label>电话</label>
-                                <input type="text" />
+                                <input type="text" value="{{ user.phone }}" />
                             </div>
                         </div>
                     </div>
@@ -323,6 +445,7 @@
                             <textarea name="message"></textarea>
                         </div>
                     </div>
+                        </form>
                 </div>
             </div>
             <div class="col-lg-5 mt-md-30px mt-lm-30px ">
@@ -346,14 +469,7 @@
                             <div class="your-order-total">
                                 <ul>
                                     <li class="order-total">总金额</li>
-                                    <script>
-                                    console.log({{ services }});
-                                        var sum=0;
-                                        {% for serv in services %}
-                                            sum=sum+{{ serv.price }}
-                                        {% endfor %}
-                                    </script>
-                                    <li>{{sum_price}}</li>
+                                    <li>{{total_cost}}</li>
                                 </ul>
                             </div>
                         </div>
