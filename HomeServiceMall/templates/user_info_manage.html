@@ -102,9 +102,9 @@
                                     <li>
 
                                         <form action="../../../passport/logout/" method="POST"><a name="logout"
-                                                                                                 class="dropdown-item"
-                                                                                                 href="../../../passport/logout/"
-                                                                                                 onclick="logout()">注销</a>
+                                                                                                  class="dropdown-item"
+                                                                                                  href="../../../passport/logout/"
+                                                                                                  onclick="logout()">注销</a>
                                         </form>
                                     </li>
 
@@ -349,107 +349,133 @@
                                                 <input type="number" name="phone-number" value="{{ user.phone }}">
                                             </div>
                                             <div class="single-input">
-                                                <label>用户地址</label>
+                                                <label>店铺地址</label>
+                                                <input type="text" name="address_pvd"
+                                                       value="省份：{{ prov }}  城市：{{ city }}  区县：{{ county }}"
+                                                       disabled="true">
+                                                <div style="height: 5px"></div>
                                                 <input type="text" name="address" value="{{ user.details }}">
+
                                                 <script>
-                                                    $(function () {
-                                                        var current_prov;
-                                                        var current_city;
-                                                        var current_country;
-                                                        /* 自动加载省份列表 */
-                                                        showPro();
-                                                    });
-
-                                                    function showPro() {
-                                                        $(".btn").disabled = true;
-                                                        var len = province.length;
-                                                        for (var i = 0; i < len; i++) {
-                                                            var provOpt = document.createElement("option");
-                                                            provOpt.innerText = province[i]['name'];
-                                                            provOpt.value = i;
-                                                            prov.appendChild(provOpt);
-                                                        }
-                                                    };
-
-                                                    /*根据所选的省份来显示城市列表*/
-                                                    function showCity(obj) {
-                                                        var val = obj.options[obj.selectedIndex].value;
-                                                        current_prov = val;
-                                                        if (val >= 0) {
-                                                            city.style.display = 'inline-block';
-                                                            country.style.display = 'none';
+                                                    function ifChangeSelection() {
+                                                        var tmp = document.getElementById("ifChangeTrue").checked;
+                                                        if (tmp) {
+                                                            document.getElementById("AddrSelection").style.visibility = "visible";
+                                                            document.getElementById("AddrSelection").hidden = false;
                                                         } else {
-                                                            city.style.display = 'none';
-                                                            country.style.display = 'none';
+                                                            document.getElementById("AddrSelection").style.visibility = "hidden";
                                                         }
-                                                        if (val != null) {
-                                                            city.length = 1;
-                                                            if (province[val]) {
-                                                                var cityLen = province[val]["city"].length;
-                                                            }
-                                                            for (var j = 0; j < cityLen; j++) {
-                                                                var cityOpt = document.createElement('option');
-                                                                cityOpt.innerText = province[val]["city"][j].name;
-                                                                cityOpt.value = j;
-                                                                city.appendChild(cityOpt);
-                                                            }
-                                                        }
-                                                    };
-
-                                                    /*根据所选的城市来显示县区列表*/
-                                                    function showCountry(obj) {
-                                                        var val = obj.options[obj.selectedIndex].value;
-                                                        if (val >= 0) {
-                                                            country.style.display = 'inline-block';
-                                                        } else {
-                                                            country.style.display = 'none';
-                                                        }
-                                                        current_city = val;
-                                                        if (val != null) {
-                                                            country.length = 1;
-                                                            if (province[current_prov]["city"][val]) {
-                                                                var countryLen = province[current_prov]["city"][val].districtAndCounty.length;
-                                                            }
-                                                            if (countryLen == 0) {
-                                                                addrShow.value = province[current_prov].name + '-' + province[current_prov]["city"][val].name;
-                                                                return;
-                                                            }
-                                                            for (var n = 0; n < countryLen; n++) {
-                                                                var countryOpt = document.createElement('option');
-                                                                countryOpt.innerText = province[current_prov]["city"][val].districtAndCounty[n];
-                                                                countryOpt.value = n;
-                                                                country.appendChild(countryOpt);
-                                                            }
-                                                        }
-                                                    };
-
-                                                    function selectCountry(obj) {
-                                                        current_country = obj.options[obj.selectedIndex].value;
-                                                        $(".btn").disabled = false;
-
-                                                    };
-
-                                                    function showAddr() {
-                                                        var ss = province[current_prov].name + "|" +
-                                                            province[current_prov]['city'][current_city].name + "|" +
-                                                            province[current_prov]['city'][current_city]['districtAndCounty'][current_country];
-                                                        $("#addr-show").val(ss);
                                                     }
                                                 </script>
-                                                <script src="/static/JavaScript/province.js"></script>
-                                                <!-- 省份选择 -->
-                                                <select id="prov" name="prov" onchange="showCity(this)">
-                                                    <option>{{ prov }}</option>
-                                                </select>
-                                                <!-- 城市选择 -->
-                                                <select id="city" name="city" onchange="showCountry(this)">
-                                                    <option>{{ city }}</option>
-                                                </select>
-                                                <!-- 区县选择 -->
-                                                <select id="country" name="county" onchange="selectCountry(this)">
-                                                    <option>{{ county }}</option>
-                                                </select>
+                                                <div>
+                                                    <input id="ifChangeTrue" name="change" value=1 type="checkbox"
+                                                           style="height: 15px;size: 15px;width: 100px"
+                                                           onchange="ifChangeSelection()">修改</input>
+                                                </div>
+                                                <div id="AddrSelection" hidden="hidden">
+                                                    <div style="height: 5px"></div>
+                                                    <script>
+                                                        $(function () {
+                                                            var current_prov;
+                                                            var current_city;
+                                                            var current_country;
+                                                            /* 自动加载省份列表 */
+                                                            showPro();
+                                                        });
+
+                                                        function showPro() {
+                                                            $(".btn").disabled = true;
+                                                            var len = province.length;
+                                                            for (var i = 0; i < len; i++) {
+                                                                var provOpt = document.createElement("option");
+                                                                provOpt.innerText = province[i]['name'];
+                                                                provOpt.value = i;
+                                                                prov.appendChild(provOpt);
+                                                            }
+                                                        };
+
+                                                        /*根据所选的省份来显示城市列表*/
+                                                        function showCity(obj) {
+                                                            var val = obj.options[obj.selectedIndex].value;
+                                                            current_prov = val;
+                                                            if (val >= 0) {
+                                                                city.style.display = 'inline-block';
+                                                                country.style.display = 'none';
+                                                            } else {
+                                                                city.style.display = 'none';
+                                                                country.style.display = 'none';
+                                                            }
+                                                            if (val != null) {
+                                                                city.length = 1;
+                                                                if (province[val]) {
+                                                                    var cityLen = province[val]["city"].length;
+                                                                }
+                                                                for (var j = 0; j < cityLen; j++) {
+                                                                    var cityOpt = document.createElement('option');
+                                                                    cityOpt.innerText = province[val]["city"][j].name;
+                                                                    cityOpt.value = j;
+                                                                    city.appendChild(cityOpt);
+                                                                }
+                                                            }
+                                                        };
+
+                                                        /*根据所选的城市来显示县区列表*/
+                                                        function showCountry(obj) {
+                                                            var val = obj.options[obj.selectedIndex].value;
+                                                            if (val >= 0) {
+                                                                country.style.display = 'inline-block';
+                                                            } else {
+                                                                country.style.display = 'none';
+                                                            }
+                                                            current_city = val;
+                                                            if (val != null) {
+                                                                country.length = 1;
+                                                                if (province[current_prov]["city"][val]) {
+                                                                    var countryLen = province[current_prov]["city"][val].districtAndCounty.length;
+                                                                }
+                                                                if (countryLen == 0) {
+                                                                    addrShow.value = province[current_prov].name + '-' + province[current_prov]["city"][val].name;
+                                                                    return;
+                                                                }
+                                                                for (var n = 0; n < countryLen; n++) {
+                                                                    var countryOpt = document.createElement('option');
+                                                                    countryOpt.innerText = province[current_prov]["city"][val].districtAndCounty[n];
+                                                                    countryOpt.value = n;
+                                                                    country.appendChild(countryOpt);
+                                                                }
+                                                            }
+                                                        };
+
+                                                        function selectCountry(obj) {
+                                                            current_country = obj.options[obj.selectedIndex].value;
+                                                            $(".btn").disabled = false;
+
+                                                        };
+
+                                                        function showAddr() {
+                                                            var ss = province[current_prov].name + "|" +
+                                                                province[current_prov]['city'][current_city].name + "|" +
+                                                                province[current_prov]['city'][current_city]['districtAndCounty'][current_country];
+                                                            $("#addr-show").val(ss);
+                                                        }
+                                                    </script>
+                                                    <script src="/static/JavaScript/province.js"></script>
+                                                    <!-- 省份选择 -->
+                                                    <select id="prov" name="prov" onchange="showCity(this)">
+                                                        <option>省份</option>
+                                                    </select>
+                                                    <!-- 城市选择 -->
+                                                    <select id="city" name="city" onchange="showCountry(this)">
+                                                        <option>城市</option>
+                                                    </select>
+                                                    <!-- 区县选择 -->
+                                                    <select id="country" name="county" onchange="selectCountry(this)">
+                                                        <option>县区</option>
+                                                    </select>
+                                                    <input type="text" name="address" value="{{ user.details }}">
+                                                </div>
                                             </div>
+
                                             <div class="single-input">
                                                 <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0"
                                                         type="submit">
@@ -594,7 +620,8 @@
                          data-aos-delay="200">
                         <div class="single-wedge" style="width: 590px">
                             <form action="../../../other/about/" method="GET">
-                                <li class="li"><a class="single-link" href="../../../other/about/" style="color: #ff7004">关于我们</a></li>
+                                <li class="li"><a class="single-link" href="../../../other/about/"
+                                                  style="color: #ff7004">关于我们</a></li>
                             </form>
                             <p class="about-text" style="width: 490px">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
                                 以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业
