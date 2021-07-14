@@ -753,7 +753,7 @@ class Shop(models.Model):
 
 ### 获取商家经营数据
 
-方法`POST` 请求地址:`/account/vendors/business_data/`
+方法`GET` 请求地址:`/account/vendors/business_data/`
 
 **描述**
 
@@ -876,12 +876,12 @@ class Shop(models.Model):
 
 **请求参数**
 
-| 参数名            | 参数类型 | 描述     |
-| ----------------- | -------- | -------- |
-| `service_name`    | `string` | 服务名   |
-| `service_sort`    | `string` | 服务种类 |
-| `service_price`   | `double` | 服务价格 |
-| `service_details` | `string` | 服务简介 |
+| 参数名          | 参数类型 | 描述     |
+| --------------- | -------- | -------- |
+| `service_name`  | `string` | 服务名   |
+| `service_sort`  | `string` | 服务种类 |
+| `service_price` | `double` | 服务价格 |
+| `service_intro` | `string` | 服务简介 |
 
 **成功返回**
 
