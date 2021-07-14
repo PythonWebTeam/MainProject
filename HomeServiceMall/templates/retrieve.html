@@ -294,8 +294,9 @@
                                                     clearInterval(myvar);
                                                     obj.removeAttribute("disabled");
                                                     obj.value = "获取验证码";
+                                                    var tmp = document.getElementById("SendEmailCodeRet");
+                                                    tmp.innerHTML = "获取验证码";
                                                     countdown = 60;
-                                                    return;
                                                 } else {
                                                     obj.setAttribute("disabled", true);
                                                     var tmp = document.getElementById("SendEmailCodeRet");
