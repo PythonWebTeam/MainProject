@@ -443,6 +443,16 @@ datetime格式：'2019-03-17 11:00:00'
 | `se_id`     | `int`     | 服务id号           |
 | `from_cart` | `boolean` | 是否通过购物车购买 |
 
+<<<<<<< Updated upstream
+=======
+`from_cart=0`时，请求须带上以下参数
+
+| 参数名       | 参数类型   | 描述           |
+| ------------ | ---------- | -------------- |
+| `start_time` | `datetime` | 订单的开始时间 |
+|              |            |                |
+
+>>>>>>> Stashed changes
 **成功返回**
 
 | 参数名       | 参数类型    | 描述              |
@@ -631,6 +641,22 @@ datetime格式：'2019-03-17 11:00:00'
 
 
 
+### 删除购物车中全部服务
+
+方法`POST` 请求地址:`/account/users/shop_cart/removeall`
+
+**描述**
+
+> 删除购物车中的全部，提交请求后删除该账户的全部服务
+
+**请求头**
+
+| 参数名         | 参数类型 | 描述 |
+| -------------- | -------- | ---- |
+| `content-type` | `string` | HTML |
+
+
+
 ### 获取买家购物车页面
 
 方法`GET` 请求地址:`/account/users/shop_cart/`
@@ -730,6 +756,12 @@ class Shop(models.Model):
 
 ---
 
+### 获取商家经营数据页面
+
+
+
+---
+
 ### 修改商家个人信息页面
 
 方法`POST` 请求地址:`/account/vendors/vendor_info_manage/`
@@ -794,10 +826,16 @@ class Shop(models.Model):
 
 **请求参数**
 
+<<<<<<< Updated upstream
 | 参数名         | 参数类型 | 描述     |
 | -------------- | -------- | -------- |
 | `s_id`         | `int`    | 店铺服务 |
 | `service_name` | `string` | 服务名   |
+=======
+| 参数名         | 参数类型 | 描述   |
+| -------------- | -------- | ------ |
+| `service_name` | `string` | 服务名 |
+>>>>>>> Stashed changes
 
 **成功返回**
 
