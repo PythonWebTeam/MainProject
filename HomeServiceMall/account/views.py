@@ -107,18 +107,28 @@ class ShopCartView(View):
         else:
             username = request.session.get("username")
             user = User.objects.filter(username=username)[0]
-
             service_id = int(request.POST.get("service_id"))
-            removeAll = request.POST.get("removeAll")
             carts = Cart.objects.filter(user=user)
             for cart in carts:
-                if not removeAll:
-                    if cart.service.id == service_id:
-                        Cart.objects.filter(id=cart.id)[0].delete()
-                else:
+                if cart.service.id == service_id:
                     Cart.objects.filter(id=cart.id)[0].delete()
             return self.get(request)
 
+
+class CartRemoveAll(View):
+    def post(self, request):
+        if not request.session.get("is_login"):
+            return redirect("/passport/login/")
+        else:
+            username = request.session.get("username")
+            user = User.objects.filter(username=username)[0]
+            carts = Cart.objects.filter(user=user)
+            if carts:
+                for cart in carts:
+                    Cart.objects.get(id=cart.id).delete()
+                return redirect("/account/users/shop_cart")
+            else:
+                return redirect("/account/users/shop_cart")
 
 
 class VendorInfoManageView(View):
