@@ -479,7 +479,13 @@
                                                     <td>{{ order.service.name }}</td>
                                                     <td>{{ order.start_time }}</td>
                                                     <td>{{ order.end_time }}</td>
-                                                    <td>{{ order.pay_status }}</td>
+                                                    {% if order.pay_status %}
+                                                        <td>已支付</td>
+                                                    {% else %}
+                                                        <td>未支付</td>
+                                                    {% endif %}
+
+
                                                     </td>
                                                 </tr>
                                             {% endfor %}
