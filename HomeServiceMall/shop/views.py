@@ -60,7 +60,7 @@ class ShopView(View):
         shop = Shop.objects.get(id=s_id)
         services = Service.objects.filter(shop_id=s_id)
         for service in services:
-            
+            pass
         response_data = {
             "username": username,
             "services_sort": services_sort,
