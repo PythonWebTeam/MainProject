@@ -104,6 +104,7 @@ class PayView(View):
             "is_login": is_login,
             "prov": addr[0],
             "city": addr[1],
-            "county": addr[2]
+            "county": addr[2],
+            "from_cart":from_cart,
         }
         return render(request, "pay.html", return_data)
