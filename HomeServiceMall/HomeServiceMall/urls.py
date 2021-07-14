@@ -17,12 +17,13 @@ users_patterns = [
     path("user_info_manage/", account_views.UserInfoManageView.as_view()),
     path("order_info_manage/", account_views.order_info_manage_view),
     path("shop_cart/", account_views.ShopCartView.as_view()),
+    path("shop_cart/removeall", account_views.CartRemoveAll.as_view()),
 ]
 
 # vendors urls
 vendors_patterns = [
     path("vendor_info_manage/", account_views.VendorInfoManageView.as_view()),
-    path("shop_info_manage/", account_views.shop_info_manage_view),
+    path("shop_info_manage/delete", account_views.DeleteService.as_view()),
     path("product_manage/", account_views.product_manage_view),
     path("order_manage/", account_views.order_manage_view),
     path("service_manage/", account_views.service_manage_view),

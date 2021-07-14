@@ -107,18 +107,28 @@ class ShopCartView(View):
         else:
             username = request.session.get("username")
             user = User.objects.filter(username=username)[0]
-
             service_id = int(request.POST.get("service_id"))
-            removeAll = request.POST.get("removeAll")
             carts = Cart.objects.filter(user=user)
             for cart in carts:
-                if not removeAll:
-                    if cart.service.id == service_id:
-                        Cart.objects.filter(id=cart.id)[0].delete()
-                else:
+                if cart.service.id == service_id:
                     Cart.objects.filter(id=cart.id)[0].delete()
             return self.get(request)
 
+
+class CartRemoveAll(View):
+    def post(self, request):
+        if not request.session.get("is_login"):
+            return redirect("/passport/login/")
+        else:
+            username = request.session.get("username")
+            user = User.objects.filter(username=username)[0]
+            carts = Cart.objects.filter(user=user)
+            if carts:
+                for cart in carts:
+                    Cart.objects.get(id=cart.id).delete()
+                return redirect("/account/users/shop_cart")
+            else:
+                return redirect("/account/users/shop_cart")
 
 
 class VendorInfoManageView(View):
@@ -134,15 +144,31 @@ class VendorInfoManageView(View):
             order_list = []
             for service in services:
                 order_list.extend(Order.objects.filter(service_id=service.id))
+            response_data = {
+                "user": user,
+                "shop": shop,
+                "order_list": order_list,
+                "username": username,
+                "services_sort": services_sort,
+                "is_login": is_login
+            }
+            return render(request, "vendor_info_manage.html", response_data)
 
-            return render(request, "vendor_info_manage.html",
-                          {"user": user, "shop": shop, "order_list": order_list, "username": username,
-                           "services_sort": services_sort, "is_login": is_login})
 
-
-def shop_info_manage_view(request):
-    return render(request, "shop_info_manage.html")
-
+class DeleteService(View):
+    def post(self,request):
+        data=request.POST.get
+        service_name = data.get("service_name")
+        s_id = int(data.get("s_id"))
+        search_dict= dict()
+        search_dict["service_name"]=service_name
+        search_dict["s_id"]=s_id
+        service = Service.objects.filter(**search_dict)
+        if not service:
+            return HttpResponse("您要删除的服务不存在")
+        else:
+            Service.objects.get(**search_dict).delete()
+            return HttpResponse("ok")
 
 def product_manage_view(request):
     return render(request, "product_manage.html")

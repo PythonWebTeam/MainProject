@@ -1,5 +1,6 @@
 import datetime
 
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -59,13 +60,16 @@ class ShopView(View):
         page_num = int(data.get("page"))
         shop = Shop.objects.get(id=s_id)
         services = Service.objects.filter(shop_id=s_id)
-        for service in services:
-            pass
+        per_page = 12
+        paginator = Paginator(services, per_page)
+        curr_page = paginator.page(page_num)
         response_data = {
             "username": username,
             "services_sort": services_sort,
             "is_login": is_login,
             "shop": shop,
+            "curr_page": curr_page,
+            "paginator": paginator
         }
         return render(request, "shop.html", response_data)
 
