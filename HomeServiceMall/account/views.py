@@ -33,9 +33,7 @@ class UserInfoManageView(View):
         new_username = data.get("username")  #
         if User.objects.filter(username=new_username):
             msg = "该用户名已存在"
-            return render(request, "user_info_manage.html",
-                          {"user": user, "order_list": order_list, "msg": msg, "username": username,
-                           "services_sort": services_sort, "is_login": is_login})
+            return self.get(request,msg)
         phone = data.get("phone")  #
         fChangeTrue = data.get("ChangeAddr")  #
         if fChangeTrue == 0:
