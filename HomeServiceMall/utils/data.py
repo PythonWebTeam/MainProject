@@ -34,6 +34,12 @@ def aliPay():
     return obj
 
 
+def get_delta_hours(start_time, end_time):
+    delta_seconds = (end_time - start_time).seconds
+    delta_hours = delta_seconds / 3600
+    return delta_hours
+
+
 @csrf_exempt
 def alipay_index(request):
     # 实例化SDK里面的类AliPay
@@ -41,12 +47,12 @@ def alipay_index(request):
     # 对购买的数据进行加密
     data = request.POST
     username = request.session.get("username")
-    user = User.objects.filter(username=username)[0]
+    user = User.objects.get(username=username)
     user_id = user.id
     orders = []
     services_num = 0
-    total_cost = float(data.get("cost"))
     order_code = "x2" + str(time.time())
+    total_cost = 0
     if int(data.get("from_cart")) == 1:
         carts = Cart.objects.filter(user_id=user_id)
         if not carts:
@@ -54,6 +60,7 @@ def alipay_index(request):
         for cart in carts:
             order = Order()
             order.service = cart.service
+            total_cost += cart.service.price * get_delta_hours(cart.start_time, cart.end_time)
             order.create_time = datetime.datetime.now()
             order.start_time = cart.start_time
             order.end_time = cart.end_time
@@ -65,9 +72,12 @@ def alipay_index(request):
         Cart.objects.filter(user_id=user_id).delete()
     else:
         se_id = data.get("se_id")
-        start_time = data.get("start_time")
-        end_time = data.get("end_time")
-        service = Service.objects.filter(id=se_id)[0]
+        start_time_str = data.get("start_time")
+        end_time_str = data.get("end_time")
+        start_time = datetime.datetime.strptime(start_time_str, "%Y-%m-%d %H:%M")
+        end_time = datetime.datetime.strptime(end_time_str, "%Y-%m-%d %H:%M")
+        service = Service.objects.get(id=se_id)
+        total_cost +=service.price*get_delta_hours(start_time,end_time)
         order = Order()
         order.service = service
         order.create_time = datetime.datetime.now()
@@ -113,9 +123,9 @@ def update_order(request):
             # 1.修改订单状态
             out_trade_no = post_dict.get('out_trade_no')
             print(out_trade_no)
-            orders=Order.objects.filter(order_collection_id=out_trade_no)
+            orders = Order.objects.filter(order_collection_id=out_trade_no)
             for order in orders:
-                order.pay_status=True
+                order.pay_status = True
                 order.save()
             # 2. 根据订单号将数据库中的数据进行更新
             return HttpResponse('支付成功')
