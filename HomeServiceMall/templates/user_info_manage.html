@@ -334,7 +334,8 @@
                                         <div class="myaccount-form-inner">
                                             <div class="single-input single-input-half">
                                                 <label>用户名</label>
-                                                <input type="text" value="{{ user.username }}">
+                                                <input name="username" type="text" value="{{ user.username }}">
+                                                <label style="color: red" id="UsernameInfo">{{ msg }}</label>
                                             </div>
                                             <div class="single-input single-input-half">
                                                 <label>用户ID</label>
@@ -346,15 +347,15 @@
                                             </div>
                                             <div class="single-input">
                                                 <label>手机号</label>
-                                                <input type="number" name="phone-number" value="{{ user.phone }}">
+                                                <input type="number" name="phone" value="{{ user.phone }}" maxlength="11">
                                             </div>
                                             <div class="single-input">
-                                                <label>店铺地址</label>
+                                                <label>地址</label>
                                                 <input type="text" name="address_pvd"
                                                        value="省份：{{ prov }}  城市：{{ city }}  区县：{{ county }}"
                                                        disabled="true">
                                                 <div style="height: 5px"></div>
-                                                <input type="text" name="address" value="{{ user.details }}">
+                                                <input type="text" name="addr" value="{{ user.details }}" disabled="true">
 
                                                 <script>
                                                     function ifChangeSelection() {
@@ -362,15 +363,19 @@
                                                         if (tmp) {
                                                             document.getElementById("AddrSelection").style.visibility = "visible";
                                                             document.getElementById("AddrSelection").hidden = false;
+                                                            tmp.value=1
+                                                            console.log(document.getElementById("ifChangeTrue").checked);
                                                         } else {
+                                                            tmp.value=0
                                                             document.getElementById("AddrSelection").style.visibility = "hidden";
+                                                            console.log(document.getElementById("ifChangeTrue").checked);
                                                         }
                                                     }
                                                 </script>
                                                 <div>
-                                                    <input id="ifChangeTrue" name="change" value=1 type="checkbox"
+                                                    <input id="ifChangeTrue" name="ifChangeTrue" type="checkbox"
                                                            style="height: 15px;size: 15px;width: 100px"
-                                                           onchange="ifChangeSelection()">修改</input>
+                                                           onchange="ifChangeSelection()" value=0>修改地址</input>
                                                 </div>
                                                 <div id="AddrSelection" hidden="hidden">
                                                     <div style="height: 5px"></div>
@@ -472,7 +477,7 @@
                                                     <select id="country" name="county" onchange="selectCountry(this)">
                                                         <option>县区</option>
                                                     </select>
-                                                    <input type="text" name="address" value="{{ user.details }}">
+                                                    <input id="addr" type="text" name="addr" placeholder="详细地址">
                                                 </div>
                                             </div>
 

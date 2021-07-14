@@ -31,22 +31,25 @@ class UserInfoManageView(View):
         user = User.objects.get(username=username)
         Order.objects.filter(user_id=user.id)
         new_username = data.get("username")  #
-        if len(User.objects.filter(username=new_username)) > 1:
+        if User.objects.filter(username=new_username):
             msg = "该用户名已存在"
-            return self.get(request, msg)
-        phone = data.get("phone")
-        edit_addr = data.get("ifChangeTrue")  #
-        if edit_addr is None:
+            return render(request, "user_info_manage.html",
+                          {"user": user, "order_list": order_list, "msg": msg, "username": username,
+                           "services_sort": services_sort, "is_login": is_login})
+        phone = data.get("phone")  #
+        fChangeTrue = data.get("ChangeAddr")  #
+        if fChangeTrue == 0:
             user.username = new_username
             user.phone = phone
-            user.save()
         else:
-            user.username = new_username
-            user.phone = phone
-            user.province = int(data.get("prov"))
+            user.prov = int(data.get("prov"))
             user.city = int(data.get("city"))
-            user.district = int(data.get("county"))
+            user.county = int(data.get("county"))
+
             user.details = data.get("addr")
+            print(user.prov, user.city, user.county, user.details)
+            print(user.prov, user.city, user.county, user.details)
+
             user.save()
         return self.get(request)
 
@@ -205,7 +208,8 @@ class BusinessDataView(View):
             data_by_type.update(init_type_dict)
         for order in shop_orders:
             if (now_time - order.create_time).days < 30:
-                data_by_type = data_by_type.get(order.service.sort.name, 0) + 1  # TODO:可简化
+                data_by_type = data_by_type.get(
+                    order.service.sort.name, 0) + 1  # TODO:可简化
         return data_by_type
 
     def get_recent_month_orders_data(self, vendor):

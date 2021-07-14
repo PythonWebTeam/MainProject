@@ -273,10 +273,17 @@
                             <p>共找到{{ paginator.count }}个: </p>
                             <!--                    Searched_sum：某一服务种类的商品个数-->
                             <!-- Left Side End -->
+
                             <!-- Right Side Start -->
                             <div class="select-shoing-wrap d-flex align-items-center">
                             </div>
                         </div>
+                        <form method="post">
+                            <select name="" id="" style="align-items: center">
+                                <option value="1">按价格排序</option>
+                                <option value="2">按销量排序</option>
+                            </select>
+                        </form>
                         <!-- Right Side End -->
                     </div>
                 </div>
@@ -317,7 +324,7 @@
                                                 href="../../shop/service/?se_id={{ service.id }}">{{ service.name }}({{ service.sort.name }})</a>
                                         </h5>
                                         <span class="price">
-                                            <span class="new">{{ service.price }}</span>
+                                            <span class="new">{{ service.price }}元/小时  销量:{{ service.sales }}</span>
                                         </span>
                                     </div>
                                 </div>
