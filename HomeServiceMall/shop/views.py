@@ -93,6 +93,17 @@ class PayView(View):
         total_cost = 0
         for service in services:
             total_cost += service.price
-        return render(request, "pay.html",
-                      {"services": services, "total_cost": total_cost, "user": user, "username": username,
-                       "services_sort": services_sort, "is_login": is_login})
+        # 获取用户的地址信息
+        addr = Util.transform(user.province, user.city, user.district)
+        return_data = {
+            "services": services,
+            "total_cost": total_cost,
+            "user": user,
+            "username": username,
+            "services_sort": services_sort,
+            "is_login": is_login,
+            "prov": addr[0],
+            "city": addr[1],
+            "county": addr[2]
+        }
+        return render(request, "pay.html", return_data)
