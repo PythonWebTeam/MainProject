@@ -107,13 +107,18 @@ class ShopCartView(View):
         else:
             username = request.session.get("username")
             user = User.objects.filter(username=username)[0]
+
             service_id = int(request.POST.get("service_id"))
-            u_id = user.id
-            carts = Cart.objects.filter(user_id=u_id)
+            removeAll = request.POST.get("removeAll")
+            carts = Cart.objects.filter(user=user)
             for cart in carts:
-                if cart.service.id == service_id:
-                    Cart.objects.filter(id=cart.id).delete()
+                if not removeAll:
+                    if cart.service.id == service_id:
+                        Cart.objects.filter(id=cart.id)[0].delete()
+                else:
+                    Cart.objects.filter(id=cart.id)[0].delete()
             return self.get(request)
+
 
 
 class VendorInfoManageView(View):

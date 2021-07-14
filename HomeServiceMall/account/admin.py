@@ -18,7 +18,7 @@ admin.site.register(Service, ServiceAdmin)
 
 
 class ShopAdmin(admin.ModelAdmin):
-    list_display = ('name', 'status', 'create_time', 'user')
+    list_display = ('id','name', 'status', 'create_time', 'user')
 
 
 admin.site.register(Shop, ShopAdmin)
