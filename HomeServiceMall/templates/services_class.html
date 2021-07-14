@@ -58,7 +58,8 @@
                     <div class="dropdown_search">
                         <form class="action-form" action="../../services/" method="get">
                             <input class="form-control" name="search" placeholder="输入要搜索的服务" type="text">
-                            <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
+                            <input hidden="hidden" name="page" value="1">
+                            <button class="submit" type="submit" ><i class="icon-magnifier"></i></button>
                         </form>
                     </div>
                     <!-- Search End -->
@@ -269,7 +270,7 @@
                     <div class="shop-top-bar d-flex">
                         <!-- Left Side start -->
                         <div>
-                            <p>共找到{{ services_num }}个: </p>
+                            <p>共找到{{ paginator.count }}个: </p>
                             <!--                    Searched_sum：某一服务种类的商品个数-->
                             <!-- Left Side End -->
                             <!-- Right Side Start -->
@@ -284,7 +285,7 @@
                 <!-- Shop Bottom Area Start -->
                 <div class="shop-bottom-area">
                     <div class="row">
-                        {% for service in services %}
+                        {% for service in curr_page %}
                             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6" data-aos="fade-up" data-aos-delay="200">
                                 <!-- Single Prodect -->
                                 <div class="product mb-5">
@@ -326,56 +327,20 @@
                     <!--                      Pagination Area Start -->
                     <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-6" data-aos="fade-up">
                         <ul>
-                            <li>
-                                <a class="prev" href="./?search={{ key }}&page={{ page_num|add:'-1' }}" method="post"><i
-                                        class="ion-ios-arrow-left"></i></a>
-                            </li>
-                            <li><a class="active" class="midcir" href="./?search={{ key }}&page={{ page_num }}"
-                                   method="post">{{ page_num }}</a></li>
-                            <li><a class="midcir" href="./?search={{ key }}&page={{ page_num|add:'1' }}"
-                                   method="post">{{ page_num|add:'1' }}</a></li>
-                            <li><a class="midcir" href="./?search={{ key }}&page={{ page_num|add:'2' }}"
-                                   method="post">{{ page_num|add:'2' }}</a></li>
-                            <li><a class="midcir" href="./?search={{ key }}&page={{ page_num|add:'3' }}"
-                                   method="post">{{ page_num|add:'3' }}</a></li>
-                            <li><a class="midcir" href="./?search={{ key }}&page={{ page_num|add:'4' }}"
-                                   method="post">{{ page_num|add:'4' }}</a></li>
-                            <li>
-                                <a class="next" href="./?search={{ key }}&page={{ page_num|add:'1' }}" method="post"><i
-                                        class="ion-ios-arrow-right"></i></a>
-                            </li>
-                            <script>
-                                function check() {
-                                    var i ={{ page_num }};
-                                    var j = 1;
-                                    var x = document.getElementsByClassName("prev")[0];
-                                    if (i === j) {
-                                        x.setAttribute("hidden", "hidden");
-                                    }
-                                }
+                            {% if curr_page.has_previous %}
+                                <a class="prev" href="./?search={{ key }}&page={{ curr_page.previous_page_number}}" method="post" ><i class="ion-ios-arrow-left"></i></a>
+                            {% endif %}
 
-                                check();
-
-                                function check2() {
-                                    var totalnum ={{ services_num }};
-                                    var Maxpage = Math.ceil(totalnum / 12);
-                                    var pagenum ={{ page_num }};
-                                    var a = document.getElementsByClassName("next")[0];
-                                    console.log(pagenum);
-                                    console.log(Maxpage);
-                                    if (pagenum === Maxpage) {
-                                        a.setAttribute("hidden", "hidden");
-                                    }
-                                    for (let i = 0; i < 5; i++) {
-                                        var b = document.getElementsByClassName("midcir")[i];
-                                        if (b.innerHTML > Maxpage) {
-                                            b.setAttribute("hidden", "hidden");
-                                        }
-                                    }
-                                }
-
-                                check2();
-                            </script>
+                            {% for page_num in paginator.page_range %}
+                                {% if page_num == curr_page.number %}
+                                    <a class="active">{{ page_num }}</a>
+                                {% else %}
+                                    <a href="./?search={{ key }}&page={{ page_num }}" method="post" >{{ page_num }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            {% if curr_page.has_next %}
+                                <a class="next" href="./?search={{ key }}&page={{ curr_page.next_page_number }}" method="post" ><i class="ion-ios-arrow-right"></i></a>
+                            {% endif %}
                         </ul>
                     </div>
                     <!--                      Pagination Area End -->

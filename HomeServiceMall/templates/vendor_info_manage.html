@@ -205,38 +205,36 @@
     <!-- Header Bottom  End -->
     <!-- Main Menu Start -->
     <div class="bg-black d-none d-lg-block sticky-nav">
-        <div class="container position-relative">
-            <div class="row">
-                <div class="col-md-12 align-self-center">
-                    <div class="main-menu">
-                        <ul>
-                            <li>
-                                <form action="../../../" method="GET"><a class="single-link" href="../../../">首页</a>
-                                </form>
-                            </li>
-                            <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
-                                <ul class="sub-menu">
-                                    {% for service in services_sort %}
-                                        <li>
-                                            <a href="../../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                            <li>
-                                <form action="../../../other/Q&A/" method="GET"><a class="single-link"
-                                                                                   href="../../../other/Q&A/">常见问题</a>
-                            </li>
-                            <li>
-                                <form action="../../../other/about/" method="GET"><a class="single-link"
-                                                                                     href="../../../other/about/">关于我们</a>
-                            </li>
-                        </ul>
-                    </div>
+    <div class="container position-relative">
+        <div class="row">
+            <div class="col-md-12 align-self-center">
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <form action="../../../" method="GET"><a class="single-link" href="../../../">首页</a></form>
+                        </li>
+                        <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
+                            <ul class="sub-menu">
+                                {% for service in services_sort %}
+                                    <li><a href="../../../services/?search={{ service.name }}&page=1">{{ service.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li>
+                            <form action="../../../other/Q&A/" method="GET"><a class="single-link"
+                                                                      href="../../../other/Q&A/">常见问题</a>
+                        </li>
+                        <li>
+                            <form action="../../../other/about/" method="GET"><a class="single-link"
+                                                                        href="../../../other/about/">关于我们</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
     <!-- Main Menu End -->
 
     <!-- OffCanvas Cart Start -->
@@ -323,9 +321,26 @@
                                 <a class="nav-link" id="account-change-tab" data-bs-toggle="tab" href="#account-change"
                                    role="tab" aria-controls="account-change" aria-selected="false">商品管理</a>
                             </li>
+                            <script>
+                                function getSaleData() {
+                                    $.ajax({
+                                        url: "",
+                                        type: "GET",
+                                        data: {},
+                                        beforeSend: function (xhr) {
+
+                                        },
+                                        success: function (response_data) {
+
+                                        }
+                                    })
+
+                                }
+                            </script>
                             <li class="nav-item">
                                 <a class="nav-link" id="account-sale-tab" data-bs-toggle="tab" href="#account-sale"
-                                   role="tab" aria-controls="account-address" aria-selected="false">经营数据</a>
+                                   role="tab" aria-controls="account-address" aria-selected="false"
+                                   onclick="getSaleData()">经营数据</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="account-address-tab" data-bs-toggle="tab"
@@ -343,39 +358,44 @@
                                         <div class="myaccount-form-inner">
                                             <div class="single-input single-input-half">
                                                 <label>用户名</label>
-                                                <input type="text" placeholder="{{ User_username }}">
+                                                <input type="text" value="{{ user.username }}">
                                             </div>
                                             <div class="single-input single-input-half">
                                                 <label>用户ID</label>
-                                                <input type="text" placeholder="{{ User_u_id }}" disabled="true">
+                                                <input type="text" value="{{ user.id }}" disabled="true">
                                             </div>
                                             <div class="single-input">
                                                 <label>店铺名</label>
-                                                <input type="text" placeholder="{{ Shop_name }}">
+                                                <input type="text" value="{{ shop.name }}">
                                             </div>
                                             <div class="single-input">
                                                 <label>店铺状态</label>
                                                 <select>
-                                                    <option value="is_open">运营</option>
+                                                    {% if shop.status %}
+                                                    <option value="is_open" selected="true">运营</option>
                                                     <option value="is_close">停业</option>
+                                                    {% else %}
+                                                    <option value="is_open">运营</option>
+                                                    <option value="is_close" selected="true">停业</option>
+                                                    {% endif %}
                                                 </select>
                                             </div>
                                             <div class="single-input">
                                                 <label>邮箱</label>
-                                                <input type="email" placeholder="{{ User_email }}">
+                                                <input type="email" value="{{ user.email }}">
                                             </div>
                                             <div class="single-input">
                                                 <label>创建时间</label>
-                                                <input type="create_time" placeholder="{{ create_time }}"
+                                                <input type="create_time" value="{{ shop.create_time }}"
                                                        disabled="true">
                                             </div>
                                             <div class="single-input">
                                                 <label>手机号</label>
-                                                <input type="number" name="phone-number" placeholder="手机号">
+                                                <input type="number" name="phone-number" value="{{ user.phone }}">
                                             </div>
                                             <div class="single-input">
                                                 <label>店铺地址</label>
-                                                <input type="text" name="address" placeholder="地址">
+                                                <input type="text" name="address" value="{{ user.details }}">
                                                 <script>
                                                     $(function () {
                                                         var current_prov;
@@ -488,7 +508,7 @@
                             <div class="tab-pane fade" id="account-orders" role="tabpanel"
                                  aria-labelledby="account-orders-tab">
                                 <div class="myaccount-orders">
-                                    <h4 class="small-title">正在进行中的订单</h4>
+                                    <h4 class="small-title">我的订单</h4>
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover">
                                             <tbody>
@@ -497,19 +517,24 @@
                                                 <th>服务名称</th>
                                                 <th>订单开始时间</th>
                                                 <th>订单结束时间</th>
-                                                <th>订单状态</th>
-                                                <th>查看订单</th>
+                                                <th>支付状态</th>
                                             </tr>
-                                            <tr>
-                                                <td>{{ Order_o_id }}</td>
-                                                <td>{{ Order_service }}</td>
-                                                <td>{{ start_time }}</td>
-                                                <td>{{ end_time }}</td>
-                                                <td>{{ order_state }}</td>
-                                                <td><a href="../../../account/users/order_info_manage.html"
-                                                       class="btn btn-secondary btn-primary-hover"><span>查看</span></a>
-                                                </td>
-                                            </tr>
+                                            {% for order in order_list %}
+                                                <tr>
+                                                    <td>{{ order.id }}</td>
+                                                    <td>{{ order.service.name }}</td>
+                                                    <td>{{ order.start_time }}</td>
+                                                    <td>{{ order.end_time }}</td>
+                                                    {% if order.pay_status %}
+                                                        <td>已支付</td>
+                                                    {% else %}
+                                                        <td>未支付</td>
+                                                    {% endif %}
+
+
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
@@ -610,24 +635,51 @@
                                             var myChart = echarts.init(dom);
                                             var app = {};
 
+                                            var i, j, order;
+                                            var sort_count = [];
+
+                                            {% for i in services_sort.length  %}
+                                                sort_count[i] = 0
+                                                console.log(sort_count)
+                                            {% endfor %}
+
+                                            console.log(sort_count)
+
+
+
+                                            {% for order in order_list %}
+                                                {% for j in services_sort.length %}
+                                                    {% if order.service.sort.name == services_sort.j.name %}
+                                                        sort_count[j] += 1;
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
+
+                                            var services_sort_var = [];
+                                            {% for service in services_sort %}
+                                                services_sort_var.add({{ service.sort.name }})
+                                            {% endfor %}
+
+                                            console.log(services_sort_var)
+
                                             var option;
 
                                             option = {
                                                 title: {
-                                                    text: 'ECharts 入门示例'
+                                                    text: '各种类服务销量条形图'
                                                 },
                                                 tooltip: {},
                                                 legend: {
                                                     data: ['销量']
                                                 },
                                                 xAxis: {
-                                                    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+                                                    data: services_sort_var,
                                                 },
                                                 yAxis: {},
                                                 series: [{
                                                     name: '销量',
                                                     type: 'bar',
-                                                    data: [5, 20, 36, 10, 10, 20]
+                                                    data: sort_count,
                                                 }]
                                             };
 
@@ -636,35 +688,294 @@
                                             }
 
                                         </script>
+                                        <script type="text/javascript">
+                                            var dom = document.getElementById("GraphDemoOne");
+                                            var myChart = echarts.init(dom);
+                                            var app = {};
 
+                                            var option;
+
+                                            option = {
+                                                title: {
+                                                    text: '最近6个月订单情况'
+                                                },
+                                                tooltip: {},
+                                                legend: {
+                                                    data: ['销量']
+                                                },
+                                                xAxis: {
+                                                    data: [
+                                                        {% for i in recent_months_orders %}
+                                                            {{ i.month_name }},
+                                                        {% endfor %}
+                                                    ],
+                                                    {#    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]#}
+                                                },
+                                                yAxis: {},
+                                                series: [{
+                                                    name: '销量',
+                                                    type: 'bar',
+                                                    data:[
+                                                        {% for i in recent_months_orders %}
+                                                            {{ i.recent_order_num }},
+                                                        {% endfor %}
+                                                    ],
+                                                    {#data: [5, 20, 36, 10, 10, 20]#}
+                                                }]
+                                            };
+
+                                            if (option && typeof option === 'object') {
+                                                myChart.setOption(option);
+                                            }
+
+                                        </script>
+                                    </div>
+                                    {#                                    <div>#}
+                                    {#                                        <div id="GraphDemoTwo" style="height: 500px"></div>#}
+                                    {#                                        <script type="text/javascript"#}
+                                    {#                                                src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>#}
+                                    {#                                        <script type="text/javascript">#}
+                                    {#                                            var dom = document.getElementById("GraphDemoTwo");#}
+                                    {#                                            var myChart = echarts.init(dom);#}
+                                    {#                                            var app = {};#}
+                                    {##}
+                                    {#                                            var option;#}
+                                    {##}
+                                    {##}
+                                    {#                                            option = {#}
+                                    {#                                                title: {#}
+                                    {#                                                    text: '最近1个月按服务分类订单情况'#}
+                                    {#                                                },#}
+                                    {#                                                backgroundColor: '#FFFFFF',#}
+                                    {#                                                series: [#}
+                                    {#                                                    {#}
+                                    {#                                                        name: '订单来源',#}
+                                    {#                                                        type: 'pie',#}
+                                    {#                                                        radius: '55%',#}
+                                    {#                                                        data: [#}
+                                    {#                                                        {% for i in recent_months_orders %}}#}
+                                    {#                                                            {value: i."val", name: i."month_name"},#}
+                                    {#                                                        {% endfor %}#}
+                                    {#                                                ],#}
+                                    {#                                                roseType: 'angle',#}
+                                    {#                                                label: {#}
+                                    {#                                                    normal: {#}
+                                    {#                                                        textStyle: {#}
+                                    {#                                                            color: 'rgba(0, 0, 0, 0.3)'#}
+                                    {#                                                        }#}
+                                    {#                                                    }#}
+                                    {#                                                },#}
+                                    {#                                                labelLine: {#}
+                                    {#                                                    normal: {#}
+                                    {#                                                        lineStyle: {#}
+                                    {#                                                            color: 'rgba(255, 255, 255, 0.3)'#}
+                                    {#                                                        }#}
+                                    {#                                                    }#}
+                                    {#                                                },#}
+                                    {#                                                itemStyle: {#}
+                                    {#                                                    normal: {#}
+                                    {#                                                        shadowBlur: 200,#}
+                                    {#                                                        shadowColor: 'rgba(0, 0, 0, 0.5)'#}
+                                    {#                                                    }#}
+                                    {#                                                }#}
+                                    {#                                            }#}
+                                    {#                                            ]#}
+                                    {#                                            }#}
+                                    {#                                            ;#}
+                                    {##}
+                                    {#                                            if (option && typeof option === 'object') {#}
+                                    {#                                                myChart.setOption(option);#}
+                                    {#                                            }#}
+                                    {##}
+                                    {#                                        </script>#}
+                                    {#                                    </div>#}
+                                    <div>
+                                        <div id="GraphDemoThree" style="height: 700px">
+                                            <script type="text/javascript"
+                                                    src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+                                            <script type="text/javascript">
+                                                var dom = document.getElementById("GraphDemoThree");
+                                                var myChart = echarts.init(dom);
+                                                var app = {};
+
+                                                var option;
+
+
+                                                option = {
+                                                    tooltip: {
+                                                        trigger: 'item',
+                                                        formatter: '{a} <br/>{b}: {c} ({d}%)'
+                                                    },
+                                                    legend: {
+                                                        {#data: ['直达', '营销广告', '搜索引擎', '邮件营销', '联盟广告', '视频广告', '百度', '谷歌', '必应', '其他']#}
+                                                        data:[
+                                                            {% for j in current_month_orders %}
+                                                                {{ j.sort_name }}
+                                                            {% endfor %}
+                                                        ]
+                                                    },
+                                                    series: [
+                                                        {
+                                                            name: '订单来源',
+                                                            type: 'pie',
+                                                            selectedMode: 'single',
+                                                            radius: [0, '30%'],
+                                                            label: {
+                                                                position: 'inner',
+                                                                fontSize: 14,
+                                                            },
+                                                            labelLine: {
+                                                                show: false
+                                                            },
+
+                                                            {#data: [#}
+                                                            {#    {value: 1548, name: '搜索引擎'},#}
+                                                            {#    {value: 775, name: '直达'},#}
+                                                            {#    {value: 679, name: '营销广告',}#}
+                                                            {#]#}
+                                                        },
+                                                        {
+                                                            name: '访问来源',
+                                                            type: 'pie',
+                                                            radius: ['45%', '60%'],
+                                                            labelLine: {
+                                                                length: 30,
+                                                            },
+                                                            label: {
+                                                                formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                                                                backgroundColor: '#F6F8FC',
+                                                                borderColor: '#8C8D8E',
+                                                                borderWidth: 1,
+                                                                borderRadius: 4,
+
+                                                                rich: {
+                                                                    a: {
+                                                                        color: '#6E7079',
+                                                                        lineHeight: 22,
+                                                                        align: 'center'
+                                                                    },
+                                                                    hr: {
+                                                                        borderColor: '#8C8D8E',
+                                                                        width: '100%',
+                                                                        borderWidth: 1,
+                                                                        height: 0
+                                                                    },
+                                                                    b: {
+                                                                        color: '#4C5058',
+                                                                        fontSize: 14,
+                                                                        fontWeight: 'bold',
+                                                                        lineHeight: 33
+                                                                    },
+                                                                    per: {
+                                                                        color: '#fff',
+                                                                        backgroundColor: '#4C5058',
+                                                                        padding: [3, 4],
+                                                                        borderRadius: 4
+                                                                    }
+                                                                }
+                                                            },
+                                                            {#data: [{value: 1048, name: '百度'},#}
+                                                            {#    {value: 335, name: '直达'},#}
+                                                            {#    {value: 310, name: '邮件营销'},#}
+                                                            {#    {value: 251, name: '谷歌'},#}
+                                                            {#    {value: 234, name: '联盟广告'},#}
+                                                            {#    {value: 147, name: '必应'},#}
+                                                            {#    {value: 135, name: '视频广告'},#}
+                                                            {#    {value: 102, name: '其他'}]#}
+                                                            data:[
+                                                                {% for k in current_month_orders %}
+                                                                    {value: {{k.month_order_num}}, name: {{ k.sort_name }}}
+                                                                {% endfor %}
+                                                            ]
+                                                        }
+                                                    ]
+                                                };
+
+                                                if (option && typeof option === 'object') {
+                                                    myChart.setOption(option);
+                                                }
+
+                                            </script>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="account-address" role="tabpanel"
                                  aria-labelledby="account-address-tab">
                                 <div class="myaccount-address">
-                                    <form method="post" action="" class="myaccount-form">
-                                        <div class="myaccount-form-inner">
-                                            <div class="single-input">
-                                                <label>当前密码(若空白则保持不修改)</label>
-                                                <input type="password">
-                                            </div>
-                                            <div class="single-input">
-                                                <label>新密码(若空白则保持不修改)</label>
-                                                <input type="password">
-                                            </div>
-                                            <div class="single-input">
-                                                <label>验证密码</label>
-                                                <input type="password">
-                                            </div>
-                                            <div class="single-input">
-                                                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0"
-                                                        type="submit">
-                                                    <span>保存改变</span>
-                                                </button>
-                                            </div>
+                                    <div class="myaccount-form-inner">
+                                        <div class="single-input">
+                                            <label>当前密码</label>
+                                            <input type="password" id="current_password" minlength="6" maxlength="12">
+                                            <label style="color: red" id="oldPasswordInfo"></label>
                                         </div>
-                                    </form>
+                                        <div class="single-input">
+                                            <label>新密码</label>
+                                            <input type="password" id="new_password" minlength="6" maxlength="12">
+                                            <label style="color: red" id="newPasswordInfo"></label>
+
+                                        </div>
+
+                                        <div class="single-input">
+                                            <label>确认密码</label>
+                                            <input type="password" id="confirm_password" minlength="6" maxlength="12">
+                                            <label style="color: red" id="ConfirmPasswordInfo"></label>
+                                        </div>
+                                        <script>
+                                            function AjaxChangePassword() {
+                                                $.ajax({
+                                                    url: "../../../account/change_psw/",
+                                                    type: "POST",
+                                                    data: {
+                                                        "old_password": $("#current_password").val(),
+                                                        "new_password": $("#new_password").val(),
+                                                    },
+                                                    beforeSend: function (xhr) {
+                                                        if ($("#current_password").val().length < 6 || $("#current_password").val().length > 12) {
+                                                            $("#oldPasswordInfo").text("原密码长度不符合要求!")
+                                                            xhr.abort()
+                                                        } else {
+                                                            $("#oldPasswordInfo").text("")
+                                                            if ($("#new_password").val().length < 6 || $("#new_password").val().length > 12) {
+                                                                $("#newPasswordInfo").text("新密码长度不符合要求!")
+                                                                xhr.abort()
+                                                            } else {
+                                                                $("#newPasswordInfo").text("")
+                                                                if (($("#new_password").val() !== "") && ($("#new_password").val() === $("#current_password").val())) {
+                                                                    $("#newPasswordInfo").text("新密码不能与旧密码相同！")
+                                                                    xhr.abort()
+                                                                } else {
+                                                                    $("#newPasswordInfo").text("")
+                                                                    if ($("#new_password").val() !== $("#confirm_password").val()) {
+                                                                        $("#ConfirmPasswordInfo").text("两次输入的新密码不一致!")
+                                                                        xhr.abort()
+                                                                    } else {
+                                                                        $("#ConfirmPasswordInfo").text("")
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+
+
+                                                    },
+                                                    success: function (return_msg) {
+                                                        if (return_msg === "ok") {
+                                                            alert("修改成功!")
+                                                            location.href = "../../../account/users/user_info_manage"
+                                                        } else {
+                                                            $("#oldPasswordInfo").text(return_msg)
+                                                        }
+                                                    }
+                                                })
+                                            }
+                                        </script>
+                                        <div class="single-input">
+                                            <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0"
+                                                    type="submit" onclick="AjaxChangePassword()">
+                                                <span>提交</span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

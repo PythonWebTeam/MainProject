@@ -182,7 +182,7 @@
                         <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 {% for service in services_sort %}
-                                    <li><a href="../../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
+                                    <li><a href="../../../services/?search={{ service.name }}&page=1">{{ service.name }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -201,6 +201,7 @@
         </div>
     </div>
 </div>
+
 <!-- Main Menu End -->
 
 <!-- Header Area End  -->
@@ -273,7 +274,7 @@
                                 <td class="product-remove">
                                     <form method="post">
                                         <button>
-                                            <a href="../../../account/users/shop_cart"><button type="submit" name="service_id" value={{ cart.service.id }} class="icon-close"></button></a>
+                                            <a href="../../../account/users/shop_cart"><button type="submit" name="service_id" value="{{ cart.service.id }}" class="icon-close"></button></a>
                                         </button>
                                     </form>
                                 </td>
