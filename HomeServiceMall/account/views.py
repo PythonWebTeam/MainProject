@@ -144,15 +144,31 @@ class VendorInfoManageView(View):
             order_list = []
             for service in services:
                 order_list.extend(Order.objects.filter(service_id=service.id))
+            response_data = {
+                "user": user,
+                "shop": shop,
+                "order_list": order_list,
+                "username": username,
+                "services_sort": services_sort,
+                "is_login": is_login
+            }
+            return render(request, "vendor_info_manage.html", response_data)
 
-            return render(request, "vendor_info_manage.html",
-                          {"user": user, "shop": shop, "order_list": order_list, "username": username,
-                           "services_sort": services_sort, "is_login": is_login})
 
-
-def shop_info_manage_view(request):
-    return render(request, "shop_info_manage.html")
-
+class DeleteService(View):
+    def post(self,request):
+        data=request.POST.get
+        service_name = data.get("service_name")
+        s_id = int(data.get("s_id"))
+        search_dict= dict()
+        search_dict["service_name"]=service_name
+        search_dict["s_id"]=s_id
+        service = Service.objects.filter(**search_dict)
+        if not service:
+            return HttpResponse("您要删除的服务不存在")
+        else:
+            Service.objects.get(**search_dict).delete()
+            return HttpResponse("ok")
 
 def product_manage_view(request):
     return render(request, "product_manage.html")
