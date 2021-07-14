@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -43,3 +45,46 @@ class PayView(View):
         return render(request, "pay.html",
                       {"services": services, "total_cost": total_cost, "user": user, "username": username,
                        "services_sort": services_sort, "is_login": is_login})
+
+
+class CartAddView(View):
+    def post(self,request):
+        if not request.session.get("is_login"):
+            return redirect("/passport/login/")
+        data = request.POST
+        se_id = data.get("se_id")
+        username = request.session.get("username")
+        user = User.objects.filter(username=username)[0]
+        start_time = data.get("start_time")
+        end_time = data.get("end_time")
+        start_time = datetime.datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
+        end_time = datetime.datetime.strptime(end_time, "%Y-%m-%d %H:%M:%S")
+        CartNum = len(Cart.objects.filter(user=user))
+        if CartNum >= 10:
+            return HttpResponse("购物车最多添加10件服务")
+        search_dict = dict()
+        search_dict["user"]=user
+        search_dict["se_id"]=se_id
+        cart = Cart.objects.filter(**search_dict)[0]
+        if not cart:
+            CartAdd = Cart()
+            CartAdd.se_id = se_id
+            CartAdd.user = user
+            CartAdd.start_time = start_time
+            CartAdd.end_time = end_time
+            CartAdd.save()
+            return HttpResponse("ok")
+        else:
+            if start_time == cart.start_time and end_time == cart.end_time:
+                return HttpResponse("已添加该服务")
+            else:
+                cart.start_time = start_time
+                cart.end_time = end_time
+                cart.save()
+                return HttpResponse("购物车该服务时间修改成功")
+
+
+
+
+
+
