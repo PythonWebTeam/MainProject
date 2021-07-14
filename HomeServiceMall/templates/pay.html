@@ -3,26 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>Let's购 支付</title>
-    <meta name="description" content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world." />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description"
+          content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Furns - Responsive eCommerce HTML Template" />
-    <meta property="og:url" content="PAGE_URL" />
-    <meta property="og:site_name" content="Furns - Responsive eCommerce HTML Template" />
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Furns - Responsive eCommerce HTML Template"/>
+    <meta property="og:url" content="PAGE_URL"/>
+    <meta property="og:site_name" content="Furns - Responsive eCommerce HTML Template"/>
     <!-- For the og:image content, replace the # with a link of an image -->
-    <meta property="og:image" content="#" />
-    <meta property="og:description" content="Furns - Responsive eCommerce HTML Template" />
-    <meta name="robots" content="noindex, follow" />
+    <meta property="og:image" content="#"/>
+    <meta property="og:description" content="Furns - Responsive eCommerce HTML Template"/>
+    <meta name="robots" content="noindex, follow"/>
     <!-- Add site Favicon -->
-    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="32x32" />
-    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="/static/Images/favicon/favicon.png" />
-    <meta name="msapplication-TileImage" content="/static/Images/favicon/favicon.png" />
+    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="32x32"/>
+    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="192x192"/>
+    <link rel="apple-touch-icon" href="/static/Images/favicon/favicon.png"/>
+    <meta name="msapplication-TileImage" content="/static/Images/favicon/favicon.png"/>
 
     <!-- vendor css (Bootstrap & Icon Font) -->
     <!-- <link rel="stylesheet" href="/static/CSS/vendor/simple-line-icons.css" />
@@ -37,8 +38,8 @@
     <link rel="stylesheet" href="/static/CSS/plugins/venobox.css" /> -->
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
-    <link rel="stylesheet" href="/static/CSS/vendor/vendor.min.css" />
-    <link rel="stylesheet" href="/static/CSS/plugins/plugins.min.css" />
+    <link rel="stylesheet" href="/static/CSS/vendor/vendor.min.css"/>
+    <link rel="stylesheet" href="/static/CSS/plugins/plugins.min.css"/>
     <link rel="stylesheet" href="/static/CSS/style.min.css">
 
 
@@ -61,7 +62,8 @@
             <!-- Header Logo Start -->
             <div class="col-auto align-self-center">
                 <div class="header-logo">
-                    <form action="../../../" method="GET"><a href="../../../"><img src="/static/Images/logo/logo.png"></a></form>
+                    <form action="../../../" method="GET"><a href="../../../"><img
+                            src="/static/Images/logo/logo.png"></a></form>
 
                 </div>
             </div>
@@ -86,23 +88,25 @@
                         <ul class="dropdown-menu dropdown-menu-right">
                             {% if is_login %}
                                 <li>
-                                    <form action="../../../account/users/user_info_manage/" method="GET"><a class="dropdown-item"
-                                                                                                   href="../../../../account/users/user_info_manage/">我的账户{{ username }}</a>
+                                    <form action="../../../account/users/user_info_manage/" method="GET"><a
+                                            class="dropdown-item"
+                                            href="../../../../account/users/user_info_manage/">我的账户{{ username }}</a>
                                     </form>
                                 </li>
 
                                 <li>
 
-                                    <form action="../../../account/logout/" method="POST"><a name="logout" class="dropdown-item"
-                                                                                    href="../../../account/logout/"
-                                                                                    onclick="logout()">注销</a>
+                                    <form action="../../../account/logout/" method="POST"><a name="logout"
+                                                                                             class="dropdown-item"
+                                                                                             href="../../../account/logout/"
+                                                                                             onclick="logout()">注销</a>
                                     </form>
                                 </li>
 
                             {% else %}
                                 <li>
                                     <form action="../../../passport/login/" method="GET"><a class="dropdown-item"
-                                                                                   href="../../../passport/login/">登录/注册</a>
+                                                                                            href="../../../passport/login/">登录/注册</a>
                                     </form>
                                 </li>
                             {% endif %}
@@ -120,7 +124,8 @@
                         </a>
                     {% else %}
 
-                        <label style="margin-left: 10px;margin-top: 10px">您好,请<a href="../../../passport/login">登录</a></label>
+                        <label style="margin-left: 10px;margin-top: 10px">您好,请<a
+                                href="../../../passport/login">登录</a></label>
 
                     {% endif %}
                     <!-- Cart End -->
@@ -200,17 +205,19 @@
                         <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 {% for service in services_sort %}
-                                    <li><a href="../../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a></li>
+                                    <li>
+                                        <a href="../../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </li>
                         <li>
                             <form action="../../other/Q&A/" method="GET"><a class="single-link"
-                                                                      href="../../../other/Q&A/">常见问题</a>
+                                                                            href="../../../other/Q&A/">常见问题</a>
                         </li>
                         <li>
                             <form action="../../other/about/" method="GET"><a class="single-link"
-                                                                        href="../../../other/about/">关于我们</a>
+                                                                              href="../../../other/about/">关于我们</a>
                         </li>
                     </ul>
                 </div>
@@ -293,159 +300,147 @@
                 <div class="billing-info-wrap">
                     <h3>收货信息</h3>
                     <form action="" method="post">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="billing-info mb-4">
-                                <label>姓名</label>
-                                <input type="text" value="{{ user.username }}"/>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-4">
+                                    <label>姓名</label>
+                                    <input type="text" value="{{ user.username }}" disabled="true"/>
+                                </div>
                             </div>
-                        </div>
-                                    <div>
-                                        <script>
-                                        $(function () {
-                                            var current_prov;
-                                            var current_city;
-                                            var current_country;
-                                            /* 自动加载省份列表 */
-                                            showPro();
-                                        });
+                            <div>
+                                <script>
+                                    $(function () {
+                                        var current_prov;
+                                        var current_city;
+                                        var current_country;
+                                        /* 自动加载省份列表 */
+                                        showPro();
+                                    });
 
-                                        function showPro() {
-                                            $(".btn").disabled = true;
-                                            var len = province.length;
-                                            for (var i = 0; i < len; i++) {
-                                                var provOpt = document.createElement("option");
-                                                provOpt.innerText = province[i]['name'];
-                                                provOpt.value = i;
-                                                prov.appendChild(provOpt);
-                                            }
-                                        };
-
-                                        /*根据所选的省份来显示城市列表*/
-                                        function showCity(obj) {
-                                            var val = obj.options[obj.selectedIndex].value;
-                                            current_prov = val;
-                                            if (val >= 0) {
-                                                city.style.display = 'inline-block';
-                                                country.style.display = 'none';
-                                            } else {
-                                                city.style.display = 'none';
-                                                country.style.display = 'none';
-                                            }
-                                            if (val != null) {
-                                                city.length = 1;
-                                                if (province[val]) {
-                                                    var cityLen = province[val]["city"].length;
-                                                }
-                                                for (var j = 0; j < cityLen; j++) {
-                                                    var cityOpt = document.createElement('option');
-                                                    cityOpt.innerText = province[val]["city"][j].name;
-                                                    cityOpt.value = j;
-                                                    city.appendChild(cityOpt);
-                                                }
-                                            }
-                                        };
-
-                                        /*根据所选的城市来显示县区列表*/
-                                        function showCountry(obj) {
-                                            var val = obj.options[obj.selectedIndex].value;
-                                            if (val >= 0) {
-                                                country.style.display = 'inline-block';
-                                            } else {
-                                                country.style.display = 'none';
-                                            }
-                                            current_city = val;
-                                            if (val != null) {
-                                                country.length = 1;
-                                                if (province[current_prov]["city"][val]) {
-                                                    var countryLen = province[current_prov]["city"][val].districtAndCounty.length;
-                                                }
-                                                if (countryLen == 0) {
-                                                    addrShow.value = province[current_prov].name + '-' + province[current_prov]["city"][val].name;
-                                                    return;
-                                                }
-                                                for (var n = 0; n < countryLen; n++) {
-                                                    var countryOpt = document.createElement('option');
-                                                    countryOpt.innerText = province[current_prov]["city"][val].districtAndCounty[n];
-                                                    countryOpt.value = n;
-                                                    country.appendChild(countryOpt);
-                                                }
-                                            }
-                                        };
-
-                                        function selectCountry(obj) {
-                                            current_country = obj.options[obj.selectedIndex].value;
-                                            $(".btn").disabled = false;
-
-                                        };
-
-                                        function showAddr() {
-                                            var ss = province[current_prov].name + "|" +
-                                                province[current_prov]['city'][current_city].name + "|" +
-                                                province[current_prov]['city'][current_city]['districtAndCounty'][current_country];
-                                            $("#addr-show").val(ss);
+                                    function showPro() {
+                                        $(".btn").disabled = true;
+                                        var len = province.length;
+                                        for (var i = 0; i < len; i++) {
+                                            var provOpt = document.createElement("option");
+                                            provOpt.innerText = province[i]['name'];
+                                            provOpt.value = i;
+                                            prov.appendChild(provOpt);
                                         }
+                                    };
 
-                                        function getProvince(){
-                                            var val=province[{{ user.province }}]["name"];
-                                            var opt=document.getElementById("provOpt");
+                                    /*根据所选的省份来显示城市列表*/
+                                    function showCity(obj) {
+                                        var val = obj.options[obj.selectedIndex].value;
+                                        current_prov = val;
+                                        if (val >= 0) {
+                                            city.style.display = 'inline-block';
+                                            country.style.display = 'none';
+                                        } else {
+                                            city.style.display = 'none';
+                                            country.style.display = 'none';
                                         }
-                                    </script>
-                                    <script src="/static/JavaScript/province.js"></script>
-                                    <!-- 省份选择 -->
-                                    <select id="prov" name="prov" onchange="showCity(this)">
-                                        <option>省份</option>
-                                    </select>
-                                    <!-- 城市选择 -->
-                                    <select id="city" onchange="showCountry(this)">
-                                        <option>城市</option>
-                                    </select>
-                                    <!-- 区县选择 -->
-                                    <select id="country" onchange="selectCountry(this)">
-                                        <option>区县</option>
-                                    </select>
-                                    <div style="height: 15px"></div>
-                                    <label style="color: red" id="addressSelectionInfoReg"></label>
+                                        if (val != null) {
+                                            city.length = 1;
+                                            if (province[val]) {
+                                                var cityLen = province[val]["city"].length;
+                                            }
+                                            for (var j = 0; j < cityLen; j++) {
+                                                var cityOpt = document.createElement('option');
+                                                cityOpt.innerText = province[val]["city"][j].name;
+                                                cityOpt.value = j;
+                                                city.appendChild(cityOpt);
+                                            }
+                                        }
+                                    };
 
-                        <div class="col-lg-12">
-                            <div class="billing-info mb-4">
-                                <label>详细地址</label>
-                                <input class="billing-address" type="text"/>
+                                    /*根据所选的城市来显示县区列表*/
+                                    function showCountry(obj) {
+                                        var val = obj.options[obj.selectedIndex].value;
+                                        if (val >= 0) {
+                                            country.style.display = 'inline-block';
+                                        } else {
+                                            country.style.display = 'none';
+                                        }
+                                        current_city = val;
+                                        if (val != null) {
+                                            country.length = 1;
+                                            if (province[current_prov]["city"][val]) {
+                                                var countryLen = province[current_prov]["city"][val].districtAndCounty.length;
+                                            }
+                                            if (countryLen == 0) {
+                                                addrShow.value = province[current_prov].name + '-' + province[current_prov]["city"][val].name;
+                                                return;
+                                            }
+                                            for (var n = 0; n < countryLen; n++) {
+                                                var countryOpt = document.createElement('option');
+                                                countryOpt.innerText = province[current_prov]["city"][val].districtAndCounty[n];
+                                                countryOpt.value = n;
+                                                country.appendChild(countryOpt);
+                                            }
+                                        }
+                                    };
+
+                                    function selectCountry(obj) {
+                                        current_country = obj.options[obj.selectedIndex].value;
+                                        $(".btn").disabled = false;
+
+                                    };
+
+                                    function showAddr() {
+                                        var ss = province[current_prov].name + "|" +
+                                            province[current_prov]['city'][current_city].name + "|" +
+                                            province[current_prov]['city'][current_city]['districtAndCounty'][current_country];
+                                        $("#addr-show").val(ss);
+                                    }
+
+                                    function getProvince() {
+                                        var val = province[{{ user.province }}]["name"];
+                                        var opt = document.getElementById("provOpt");
+                                    }
+                                </script>
+                                <script src="/static/JavaScript/province.js"></script>
+                                <!-- 省份选择 -->
+                                <input type="text" name="address_pvd"
+                                       value="省份：{{ prov }}  城市：{{ city }}  区县：{{ county }}"
+                                       disabled="true">
+                                <div style="height: 5px"></div>
+
+                                <div style="height: 15px"></div>
+                                <label style="color: red" id="addressSelectionInfoReg"></label>
+
+                                <div class="col-lg-12">
+                                    <div class="billing-info mb-4">
+                                        <label>详细地址</label>
+                                        <input type="text" name="addr" value="{{ user.details }}" disabled="true">
+                                    </div>
+                                </div>
+                            </div>
+                            {#                        <div class="col-lg-6 col-md-6">#}
+                            {#                            <div class="billing-info mb-4">#}
+                            {#                                <label>省份</label>#}
+                            {#                                <input type="text" />#}
+                            {#                            </div>#}
+                            {#                        </div>#}
+                            {#                        <div class="col-lg-12">#}
+                            {#                            <div class="billing-info mb-4">#}
+                            {#                                <label>县/区</label>#}
+                            {#                                <input type="text" />#}
+                            {#                            </div>#}
+                            {#                        </div>#}
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-4">
+                                    <label>电话</label>
+                                    <input type="text" value="{{ user.phone }}" disabled="true"/>
+                                </div>
                             </div>
                         </div>
-                        </div>
-{#                        <div class="col-lg-6 col-md-6">#}
-{#                            <div class="billing-info mb-4">#}
-{#                                <label>省份</label>#}
-{#                                <input type="text" />#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="col-lg-12">#}
-{#                            <div class="billing-info mb-4">#}
-{#                                <label>县/区</label>#}
-{#                                <input type="text" />#}
-{#                            </div>#}
-{#                        </div>#}
-                        <div class="col-lg-12">
-                            <div class="billing-info mb-4">
-                                <label>具体信息</label>
-                                <input class="billing-address" type="text" />
+                        <div class="additional-info-wrap">
+                            <h4>备注</h4>
+                            <div class="additional-info">
+                                <textarea name="message"></textarea>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="billing-info mb-4">
-                                <label>电话</label>
-                                <input type="text" value="{{ user.phone }}" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="additional-info-wrap">
-                        <h4>备注</h4>
-                        <div class="additional-info">
-                            <textarea name="message"></textarea>
-                        </div>
-                    </div>
-                        </form>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-5 mt-md-30px mt-lm-30px ">
@@ -461,22 +456,25 @@
                             </div>
                             <div class="your-order-middle">
                                 <ul>
-                                    {%for service in services%}
-                                    <li><span class="order-middle-left">{{service.name}}</span> <span class="order-price">{{service.price}}</span></li>
+                                    {% for service in services %}
+                                        <li><span class="order-middle-left">{{ service.name }}</span> <span
+                                                class="order-price">{{ service.price }}</span></li>
                                     {% endfor %}
                                 </ul>
                             </div>
                             <div class="your-order-total">
                                 <ul>
                                     <li class="order-total">总金额</li>
-                                    <li>{{total_cost}}</li>
+                                    <li>{{ total_cost }}</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="Place-order mt-25">
-<!--                        Hofee改重新跳转到支付页面-->
-                        <form action="../../../shop/service/pay/?se_id=1&from_cart=false" method="get"><a class="btn-hover" href="../../../shop/service/pay/?se_id=1&from_cart=false">支付</a></form>
+                        <!--                        Hofee改重新跳转到支付页面-->
+                        <form action="../../../shop/service/pay/?se_id=1&from_cart=false" method="get"><a
+                                class="btn-hover" href="../../../shop/service/pay/?se_id=1&from_cart=false">支付</a>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -496,7 +494,7 @@
                          data-aos-delay="200">
                         <div class="single-wedge" style="width: 590px">
                             <form action="../../../other/about/" method="GET">
-                                <li class="li"><a class="single-link" href="../../../other/about/" >关于我们</a></li>
+                                <li class="li"><a class="single-link" href="../../../other/about/">关于我们</a></li>
                             </form>
                             <p class="about-text" style="width: 490px">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
                                 以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业
@@ -567,7 +565,8 @@
                                             <!--                                        </script>-->
                                         {% else %}
                                             <form action="../../../passport/login/" method="GET">
-                                                <li class="li"><a class="single-link" href="../../../passport/login/">登录</a>
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../../passport/login/">登录</a>
                                                 </li>
                                             </form>
                                         {% endif %}
@@ -605,11 +604,6 @@
     </div>
 </div>
 <!-- Footer Area End -->
-
-
-
-
-
 
 
 <!-- Global Vendor, plugins JS -->
