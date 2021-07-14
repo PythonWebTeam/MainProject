@@ -25,6 +25,3 @@ class ServicesClassView(View):
         return render(request, "services_class.html",
                       {"curr_page": curr_page, "paginator": paginator, "key": key,
                        "username": username, "services_sort": services_sort, "is_login": is_login})
-
-    def post(self, request):
-        pass

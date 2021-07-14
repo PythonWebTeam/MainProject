@@ -62,6 +62,7 @@ def alipay_index(request):
             order.save()
             services_num += 1
             service = order.service
+        Cart.objects.filter(user_id=user_id).delete()
     else:
         se_id = data.get("se_id")
         start_time = data.get("start_time")
