@@ -14,7 +14,7 @@ class UserInfoManageView(View):
         username = request.session.get("username")
         user = User.objects.filter(username=username)[0]
         if user.is_vendor:
-            return redirect("/account/vendors/vendor_info_manage")
+            return redirect("/accountendorsendor_info_manage")
         order_list = Order.objects.filter(user_id=user.id)
         addr = Util.transform(user.province, user.city, user.district)
         print(addr)
@@ -33,25 +33,25 @@ class UserInfoManageView(View):
         user = User.objects.filter(username=username)[0]
         order_list = Order.objects.filter(user_id=user.id)
         new_username = data.get("username")  #
-        email = data.get("email")  #
-        phone = data.get("phone")  #
-        prov = data.get("prov")
-        city = data.get("city")
-        county = data.get("county")
-        addr = data.get("addr")
         if User.objects.filter(username=new_username):
             msg = "该用户名已存在"
             return render(request, "user_info_manage.html",
                           {"user": user, "order_list": order_list, "msg": msg, "username": username,
                            "services_sort": services_sort, "is_login": is_login})
-        else:
+        phone = data.get("phone")  #
+        fChangeTrue = data.get("ChangeAddr")  #
+        if fChangeTrue == 0:
             user.username = new_username
-            user.email = email
             user.phone = phone
-            user.prov = prov
-            user.city = city
-            user.county = county
-            user.details = addr
+        else:
+            user.prov = int(data.get("prov"))
+            user.city = int(data.get("city"))
+            user.county = int(data.get("county"))
+
+            user.details = data.get("addr")
+            print(user.prov, user.city, user.county,user.details)
+            print(user.prov, user.city, user.county,user.details)
+
             user.save()
             return render(request, "user_info_manage.html",
                           {"user": user, "order_list": order_list, "username": username, "services_sort": services_sort,
