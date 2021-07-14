@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from account.models import *
@@ -7,20 +7,19 @@ from utils.util import Util
 
 
 class UserInfoManageView(View):
-    def get(self, request):
+    def get(self, request, msg=""):
         if not request.session.get("is_login"):
             return redirect("/passport/login/")
         username, services_sort, is_login = Util.get_basic_info(request)
         username = request.session.get("username")
-        user = User.objects.filter(username=username)[0]
+        user = User.objects.get(username=username)
         if user.is_vendor:
-            return redirect("/account/vendors/vendor_info_manage")
+            return redirect("/accountendorsendor_info_manage")
         order_list = Order.objects.filter(user_id=user.id)
         addr = Util.transform(user.province, user.city, user.district)
-        print(addr)
         return render(request, "user_info_manage.html",
                       {"user": user, "order_list": order_list, "username": username, "services_sort": services_sort,
-                       "is_login": is_login, "prov": addr[0], "city": addr[1], "county": addr[2]})
+                       "is_login": is_login, "prov": addr[0], "city": addr[1], "county": addr[2], "msg": msg})
 
     def post(self, request):
         if not request.session.get("is_login"):
@@ -28,34 +27,28 @@ class UserInfoManageView(View):
         data = request.POST
         if not request.session.get("is_login"):
             return redirect("/passport/login/")
-        username, services_sort, is_login = Util.get_basic_info(request)
         username = request.session.get("username")
-        user = User.objects.filter(username=username)[0]
-        order_list = Order.objects.filter(user_id=user.id)
+        user = User.objects.get(username=username)
+        Order.objects.filter(user_id=user.id)
         new_username = data.get("username")  #
-        email = data.get("email")  #
-        phone = data.get("phone")  #
-        prov = data.get("prov")
-        city = data.get("city")
-        county = data.get("county")
-        addr = data.get("addr")
-        if User.objects.filter(username=new_username):
+        if len(User.objects.filter(username=new_username)) > 1:
             msg = "该用户名已存在"
-            return render(request, "user_info_manage.html",
-                          {"user": user, "order_list": order_list, "msg": msg, "username": username,
-                           "services_sort": services_sort, "is_login": is_login})
+            return self.get(request, msg)
+        phone = data.get("phone")
+        edit_addr = data.get("ifChangeTrue")  #
+        if edit_addr is None:
+            user.username = new_username
+            user.phone = phone
+            user.save()
         else:
             user.username = new_username
-            user.email = email
             user.phone = phone
-            user.prov = prov
-            user.city = city
-            user.county = county
-            user.details = addr
+            user.province = int(data.get("prov"))
+            user.city = int(data.get("city"))
+            user.district = int(data.get("county"))
+            user.details = data.get("addr")
             user.save()
-            return render(request, "user_info_manage.html",
-                          {"user": user, "order_list": order_list, "username": username, "services_sort": services_sort,
-                           "is_login": is_login})
+        return self.get(request)
 
 
 class ChangePasswordView(View):
@@ -180,9 +173,42 @@ def service_manage_view(request):
 
 class BusinessDataView(View):
     def get(self, request):
-        json_data=self.get_recent_month_data()
+        # 通过session获取用户信息
+        vendor_name = request.session.get("username")
+        vendor = User.objects.get(username=vendor_name)
+        # 判断是否为商家
+        if not vendor.is_vendor:
+            return HttpResponse("您不是商家，请申请成为商家")
+        # 获取近几个月的订单数据
+        recent_months_orders = self.get_recent_month_orders_data(vendor)
+        # 获取近30天的不同类型订单数据
+        current_month_orders = self.get_current_month_orders_data(vendor)
+        # 以json形式返回响应
+        json_data = {
+            "recent_months_orders": recent_months_orders,
+            "current_month_orders": current_month_orders
+        }
+        # 将safe设为False以便序列化列表
+        return JsonResponse(json_data, safe=False)
 
-    def get_recent_month_data(self, vendor):
+    def get_current_month_orders_data(self, vendor):
+        # 获取vendor的id
+        vendor_id = vendor.id
+        now_time = datetime.now()
+        # 通过id找到
+        shop = Shop.objects.get(id=vendor_id)
+        shop_orders = self.get_total_orders(shop)
+        all_type = Type.objects.all()
+        data_by_type = dict()
+        for service_type in all_type:
+            init_type_dict = {service_type: 0}
+            data_by_type.update(init_type_dict)
+        for order in shop_orders:
+            if (now_time - order.create_time).days < 30:
+                data_by_type = data_by_type.get(order.service.sort.name, 0) + 1  # TODO:可简化
+        return data_by_type
+
+    def get_recent_month_orders_data(self, vendor):
         vendor_id = vendor.id
         now_time = datetime.now()
         shop = Shop.objects.get(id=vendor_id)
@@ -198,7 +224,7 @@ class BusinessDataView(View):
             sales = order_month_list[month]
             info = {month_name: sales}
             recent_month_data.update(info)
-            return recent_month_data
+        return recent_month_data
 
     def get_one_kind_orders(self, service):
         return Order.objects.filter(service_id=service.id)
