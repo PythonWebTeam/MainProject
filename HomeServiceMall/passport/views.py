@@ -25,6 +25,8 @@ class LoginView(View):
         password = request.POST.get("user-password")
         user = authenticate(request, username=username, password=password)
         if user:
+            if user.is_superuser:
+                return HttpResponse("您的账户为管理员账户，请从管理员界面登录")
             request.session["is_login"] = True
             request.session["username"] = username
             return HttpResponse("ok")
@@ -64,6 +66,12 @@ class RegisterView(View):
             return HttpResponse("ok")
 
 
+class LogoutView(View):
+    def get(self, request):
+        request.session.flush()
+        return redirect("/")
+
+
 class RetrieveView(View):
     def get(self, request):
         username, services_sort, is_login = Util.get_basic_info(request)
@@ -75,22 +83,18 @@ class RetrieveView(View):
         email = request.POST.get("email")
         code_rec = request.POST.get("email_code")
         new_password = request.POST.get("new_password")
-        users = User.objects.filter(username=username)
+        users = User.objects.get(username=username)
         if not users:
             return HttpResponse("此用户不存在")
+        elif users.email != email:
+            return HttpResponse("邮箱不匹配")
         else:
-            user = users[0]
+            user = users
             if not EmailVerifyRecord.objects.filter(email=email):
                 return HttpResponse("请获取验证码并验证邮箱")
-            code_db = EmailVerifyRecord.objects.filter(email=email)[0].code
+            code_db = EmailVerifyRecord.objects.get(email=email).code
             if code_rec != code_db:
                 return HttpResponse("邮箱验证码错误")
             user.set_password(new_password)
             user.save()
             return HttpResponse("ok")
-
-
-class LogoutView(View):
-    def get(self, request):
-        request.session.flush()
-        return redirect("/")

@@ -1,13 +1,8 @@
 from django.contrib.auth import authenticate
-from django.db import connection
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
-# Create your views here.
 from django.views import View
-
 from account.models import *
-from utils import util
 from utils.util import Util
 
 
@@ -156,19 +151,20 @@ class VendorInfoManageView(View):
 
 
 class DeleteService(View):
-    def post(self,request):
-        data=request.POST.get
+    def post(self, request):
+        data = request.POST.get
         service_name = data.get("service_name")
         s_id = int(data.get("s_id"))
-        search_dict= dict()
-        search_dict["service_name"]=service_name
-        search_dict["s_id"]=s_id
+        search_dict = dict()
+        search_dict["service_name"] = service_name
+        search_dict["s_id"] = s_id
         service = Service.objects.filter(**search_dict)
         if not service:
             return HttpResponse("您要删除的服务不存在")
         else:
             Service.objects.get(**search_dict).delete()
             return HttpResponse("ok")
+
 
 def product_manage_view(request):
     return render(request, "product_manage.html")
@@ -182,5 +178,40 @@ def service_manage_view(request):
     return render(request, "service_manage.html")
 
 
-def business_data_view(request):
-    return render(request, "business_data.html")
+class BusinessDataView(View):
+    def get(self, request):
+        json_data=self.get_recent_month_data()
+
+    def get_recent_month_data(self, vendor):
+        vendor_id = vendor.id
+        now_time = datetime.now()
+        shop = Shop.objects.get(id=vendor_id)
+        shop_orders = self.get_total_orders(shop)
+        order_month_list = [0, 0, 0, 0, 0, 0]
+        for order in shop_orders:
+            month = (now_time - order.create_time).days // 30
+            if month < 6:
+                order_month_list[month] += 1
+        recent_month_data = dict()
+        for month in range(0, 6):
+            month_name = "距今第{}月内".format(month + 1)
+            sales = order_month_list[month]
+            info = {month_name: sales}
+            recent_month_data.update(info)
+            return recent_month_data
+
+    def get_one_kind_orders(self, service):
+        return Order.objects.filter(service_id=service.id)
+
+    def get_total_orders(self, shop):
+        shop_services = Service.objects.filter(shop_id=shop.id)
+        shop_orders = []
+        for service in shop_services:
+            one_kind_orders = self.get_one_kind_orders(service)
+            shop_orders.extend(one_kind_orders)
+        return shop_orders
+
+
+class AppendService(View):
+    def post(self, request):
+        pass
