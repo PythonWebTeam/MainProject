@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from utils import send_email
-from utils.data import alipay_index, update_order, pay_result
+from utils.data import alipay_index,  pay_result
 from . import views
 from account import views as account_views
 from other import views as other_views
@@ -53,7 +53,7 @@ shop_patterns = [
     path("service/", shop_views.ServiceView.as_view()),
     path("service/pay/", shop_views.PayView.as_view()),
     path("service/pay/alipay/", alipay_index),
-    path("service/pay/update/", update_order),
+    #path("service/pay/update/", update_order), #TODO:取消注释
     path("service/pay/result/", pay_result)
 ]
 
