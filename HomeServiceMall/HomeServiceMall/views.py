@@ -17,3 +17,7 @@ class HomeView(View):
 
     def post(self, request):
         return self.get(request)
+
+
+def page_not_found(request, exception):
+    return render(request, "404.html")

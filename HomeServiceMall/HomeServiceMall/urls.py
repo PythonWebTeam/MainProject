@@ -11,6 +11,8 @@ from services import views as services_views
 from shop import views as shop_views
 
 # users urls
+from .views import page_not_found
+
 users_patterns = [
     path("user_info_manage/", account_views.UserInfoManageView.as_view()),
     path("order_info_manage/", account_views.order_info_manage_view),
@@ -71,3 +73,4 @@ urlpatterns = [
     path("other/", include(other_patterns)),
     path("admin/", admin.site.urls),
 ]
+handler404 = page_not_found
