@@ -780,7 +780,7 @@ class Shop(models.Model):
 
 ### 删除商家的服务
 
-方法`POST` 请求地址:`/account/vendors/shop_info_manage/`
+方法`POST` 请求地址:`/account/vendors/shop_info_manage/delete`
 
 **描述**
 
@@ -794,10 +794,10 @@ class Shop(models.Model):
 
 **请求参数**
 
-| 参数名         | 参数类型 | 描述                         |
-| -------------- | -------- | ---------------------------- |
-| `operate`      | `string` | 操作类型，`operate="delete"` |
-| `service_name` | `string` | 服务名                       |
+| 参数名         | 参数类型 | 描述     |
+| -------------- | -------- | -------- |
+| `s_id`         | `int`    | 店铺服务 |
+| `service_name` | `string` | 服务名   |
 
 **成功返回**
 
