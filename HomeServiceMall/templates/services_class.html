@@ -44,7 +44,8 @@
             <!-- Header Logo Start -->
             <div class="col-auto align-self-center">
                 <div class="header-logo">
-                    <form action="../../" method="GET"><a href="../../"><img src="/static/Images/logo/logo.png"></a></form>
+                    <form action="../../" method="GET"><a href="../../"><img src="/static/Images/logo/logo.png"></a>
+                    </form>
                 </div>
             </div>
             <!-- Header Logo End -->
@@ -68,23 +69,25 @@
                         <ul class="dropdown-menu dropdown-menu-right">
                             {% if is_login %}
                                 <li>
-                                    <form action="../../account/users/user_info_manage/" method="GET"><a class="dropdown-item"
-                                                                                                   href="../../account/users/user_info_manage/">我的账户{{ username }}</a>
+                                    <form action="../../account/users/user_info_manage/" method="GET"><a
+                                            class="dropdown-item"
+                                            href="../../account/users/user_info_manage/">我的账户{{ username }}</a>
                                     </form>
                                 </li>
 
                                 <li>
 
-                                    <form action="../../passport/logout/" method="POST"><a name="logout" class="dropdown-item"
-                                                                                     href="../../passport/logout/"
-                                                                                     onclick="logout()">注销</a>
+                                    <form action="../../passport/logout/" method="POST"><a name="logout"
+                                                                                           class="dropdown-item"
+                                                                                           href="../../passport/logout/"
+                                                                                           onclick="logout()">注销</a>
                                     </form>
                                 </li>
 
                             {% else %}
                                 <li>
                                     <form action="../../passport/login/" method="GET"><a class="dropdown-item"
-                                                                                   href="../../passport/login/">登录/注册</a>
+                                                                                         href="../../passport/login/">登录/注册</a>
                                     </form>
                                 </li>
                             {% endif %}
@@ -102,7 +105,8 @@
                         </a>
                     {% else %}
 
-                        <label style="margin-left: 10px;margin-top: 10px">您好,请<a href="../../passport/login">登录</a></label>
+                        <label style="margin-left: 10px;margin-top: 10px">您好,请<a
+                                href="../../passport/login">登录</a></label>
 
                     {% endif %}
                     <!-- Cart End -->
@@ -182,18 +186,19 @@
                         <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 {% for service in services_sort %}
-                                    <li><a href="../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
+                                    <li>
+                                        <a href="../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
                         </li>
                         <li>
                             <form action="../../other/Q&A/" method="GET"><a class="single-link"
-                                                                      href="../../other/Q&A/">常见问题</a>
+                                                                            href="../../other/Q&A/">常见问题</a>
                         </li>
                         <li>
                             <form action="../../other/about/" method="GET"><a class="single-link"
-                                                                        href="../../other/about/">关于我们</a>
+                                                                              href="../../other/about/">关于我们</a>
                         </li>
                     </ul>
                 </div>
@@ -285,26 +290,30 @@
                                 <div class="product mb-5">
                                     <div class="thumb">
                                         <!--       hofee                             跳转到服务详情页-->
-                                        <a href="../../shop/service/?se_id={{service.id}}" class="image">
+                                        <a href="../../shop/service/?se_id={{ service.id }}" class="image">
                                             <!--
                                             hofee 此处修改图片
                                             Service_namelist为具体的服务名称列表
                                             Service_pricelist为具体的服务价格列表
                                             -->
-                                            <img style="width:400px;height:300px" src="{{service.img1}}" alt="Product"/>
+                                            <img style="width:400px;height:300px" src="{{ service.img1 }}"
+                                                 alt="Product"/>
                                             <!--                                 hofee       鼠标移到上面时变化为第二幅图片，如不需要可直接删除此行代码-->
-                                            <img style="width:300px;height:400px" class="hover-image" src="{{service.img2}}"
+                                            <img style="width:300px;height:400px" class="hover-image"
+                                                 src="{{ service.img2 }}"
                                                  alt="Product"/>
                                         </a>
 
 
                                         <!--       hofee                             跳转到服务详情页-->
-                                        <form action="../../shop/service/?se_id={{  service.id  }}" method="post">
+                                        <form action="../../shop/service/?se_id={{ service.id }}" method="post">
                                             <button title="点击查看" class=" add-to-cart">点击查看</button>
                                         </form>
                                     </div>
                                     <div class="content">
-                                        <h5 class="title"><a href="shop-left-sidebar.html">{{ service.name }}({{ service.sort.name }})</a></h5>
+                                        <h5 class="title"><a
+                                                href="shop-left-sidebar.html">{{ service.name }}({{ service.sort.name }})</a>
+                                        </h5>
                                         <span class="price">
                                             <span class="new">{{ service.price }}</span>
                                         </span>
@@ -318,49 +327,53 @@
                     <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-6" data-aos="fade-up">
                         <ul>
                             <li>
-                                <a class="prev" href="./?search={{key}}&page={{page_num|add:'-1'}}" method="post" ><i class="ion-ios-arrow-left"></i></a>
+                                <a class="prev" href="./?search={{ key }}&page={{ page_num|add:'-1' }}" method="post"><i
+                                        class="ion-ios-arrow-left"></i></a>
                             </li>
-                            <li><a class="active" class="midcir" href="./?search={{key}}&page={{page_num}}" method="post" >{{ page_num }}</a></li>
-                            <li><a class="midcir" href="./?search={{key}}&page={{page_num|add:'1'}}" method="post">{{ page_num|add:'1'}}</a></li>
-                            <li><a class="midcir" href="./?search={{key}}&page={{page_num|add:'2'}}" method="post">{{ page_num|add:'2'}}</a></li>
-                            <li><a class="midcir" href="./?search={{key}}&page={{page_num|add:'3'}}" method="post">{{ page_num|add:'3'}}</a></li>
-                            <li><a class="midcir" href="./?search={{key}}&page={{page_num|add:'4'}}" method="post">{{ page_num|add:'4'}}</a></li>
+                            <li><a class="active" class="midcir" href="./?search={{ key }}&page={{ page_num }}"
+                                   method="post">{{ page_num }}</a></li>
+                            <li><a class="midcir" href="./?search={{ key }}&page={{ page_num|add:'1' }}"
+                                   method="post">{{ page_num|add:'1' }}</a></li>
+                            <li><a class="midcir" href="./?search={{ key }}&page={{ page_num|add:'2' }}"
+                                   method="post">{{ page_num|add:'2' }}</a></li>
+                            <li><a class="midcir" href="./?search={{ key }}&page={{ page_num|add:'3' }}"
+                                   method="post">{{ page_num|add:'3' }}</a></li>
+                            <li><a class="midcir" href="./?search={{ key }}&page={{ page_num|add:'4' }}"
+                                   method="post">{{ page_num|add:'4' }}</a></li>
                             <li>
-                                <a class="next" href="./?search={{key}}&page={{page_num|add:'1'}}" method="post"><i class="ion-ios-arrow-right"></i></a>
+                                <a class="next" href="./?search={{ key }}&page={{ page_num|add:'1' }}" method="post"><i
+                                        class="ion-ios-arrow-right"></i></a>
                             </li>
                             <script>
-                                function check()
-                                {
-                                    var i={{ page_num }};
-                                    var j=1;
-                                    var x=document.getElementsByClassName("prev")[0];
-                                    if(i===j)
-                                    {
-                                        x.setAttribute("hidden","hidden");
+                                function check() {
+                                    var i ={{ page_num }};
+                                    var j = 1;
+                                    var x = document.getElementsByClassName("prev")[0];
+                                    if (i === j) {
+                                        x.setAttribute("hidden", "hidden");
                                     }
                                 }
+
                                 check();
-                                function check2()
-                                {
-                                    var totalnum=8*{{ services_num }};
-                                    var Maxpage=Math.ceil(totalnum/12);
-                                    var pagenum={{ page_num }};
-                                    var a=document.getElementsByClassName("next")[0];
+
+                                function check2() {
+                                    var totalnum ={{ services_num }};
+                                    var Maxpage = Math.ceil(totalnum / 12);
+                                    var pagenum ={{ page_num }};
+                                    var a = document.getElementsByClassName("next")[0];
                                     console.log(pagenum);
                                     console.log(Maxpage);
-                                    if(pagenum===Maxpage)
-                                    {
-                                        a.setAttribute("hidden","hidden");
+                                    if (pagenum === Maxpage) {
+                                        a.setAttribute("hidden", "hidden");
                                     }
-                                    for(let i=0;i<5;i++)
-                                    {
-                                        var b=document.getElementsByClassName("midcir")[i];
-                                        if(b.innerHTML>Maxpage)
-                                        {
-                                            b.setAttribute("hidden","hidden");
+                                    for (let i = 0; i < 5; i++) {
+                                        var b = document.getElementsByClassName("midcir")[i];
+                                        if (b.innerHTML > Maxpage) {
+                                            b.setAttribute("hidden", "hidden");
                                         }
                                     }
                                 }
+
                                 check2();
                             </script>
                         </ul>
@@ -458,7 +471,8 @@
                                             <!--                                        </script>-->
                                         {% else %}
                                             <form action="../../passport/login/" method="GET">
-                                                <li class="li"><a class="single-link" href="../../passport/login/">登录</a>
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../passport/login/">登录</a>
                                                 </li>
                                             </form>
                                         {% endif %}

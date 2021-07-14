@@ -11,7 +11,6 @@ class HomeView(View):
         # 获取所有服务销量
         services_sales = Service.objects.order_by("sales")
         top_service = services_sales[:8]
-
         return render(request, "home.html",
                       {"username": username, "services_sort": services_sort, "top_service": top_service,
                        "is_login": is_login})
