@@ -205,38 +205,36 @@
     <!-- Header Bottom  End -->
     <!-- Main Menu Start -->
     <div class="bg-black d-none d-lg-block sticky-nav">
-        <div class="container position-relative">
-            <div class="row">
-                <div class="col-md-12 align-self-center">
-                    <div class="main-menu">
-                        <ul>
-                            <li>
-                                <form action="../../../" method="GET"><a class="single-link" href="../../../">首页</a>
-                                </form>
-                            </li>
-                            <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
-                                <ul class="sub-menu">
-                                    {% for service in services_sort %}
-                                        <li>
-                                            <a href="../../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                            <li>
-                                <form action="../../../other/Q&A/" method="GET"><a class="single-link"
-                                                                                   href="../../../other/Q&A/">常见问题</a>
-                            </li>
-                            <li>
-                                <form action="../../../other/about/" method="GET"><a class="single-link"
-                                                                                     href="../../../other/about/">关于我们</a>
-                            </li>
-                        </ul>
-                    </div>
+    <div class="container position-relative">
+        <div class="row">
+            <div class="col-md-12 align-self-center">
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <form action="../../../" method="GET"><a class="single-link" href="../../../">首页</a></form>
+                        </li>
+                        <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
+                            <ul class="sub-menu">
+                                {% for service in services_sort %}
+                                    <li><a href="../../../services/?search={{ service.name }}&page=1">{{ service.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li>
+                            <form action="../../../other/Q&A/" method="GET"><a class="single-link"
+                                                                      href="../../../other/Q&A/">常见问题</a>
+                        </li>
+                        <li>
+                            <form action="../../../other/about/" method="GET"><a class="single-link"
+                                                                        href="../../../other/about/">关于我们</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
     <!-- Main Menu End -->
 
     <!-- OffCanvas Cart Start -->
@@ -323,9 +321,26 @@
                                 <a class="nav-link" id="account-change-tab" data-bs-toggle="tab" href="#account-change"
                                    role="tab" aria-controls="account-change" aria-selected="false">商品管理</a>
                             </li>
+                            <script>
+                                function getSaleData() {
+                                    $.ajax({
+                                        url: "",
+                                        type: "GET",
+                                        data: {},
+                                        beforeSend: function (xhr) {
+
+                                        },
+                                        success: function (response_data) {
+
+                                        }
+                                    })
+
+                                }
+                            </script>
                             <li class="nav-item">
                                 <a class="nav-link" id="account-sale-tab" data-bs-toggle="tab" href="#account-sale"
-                                   role="tab" aria-controls="account-address" aria-selected="false">经营数据</a>
+                                   role="tab" aria-controls="account-address" aria-selected="false"
+                                   onclick="getSaleData()">经营数据</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="account-address-tab" data-bs-toggle="tab"
@@ -610,24 +625,51 @@
                                             var myChart = echarts.init(dom);
                                             var app = {};
 
+                                            var i, j, order;
+                                            var sort_count = [];
+
+                                            {% for i in services_sort.length  %}
+                                                sort_count[i] = 0
+                                                console.log(sort_count)
+                                            {% endfor %}
+
+                                            console.log(sort_count)
+
+
+
+                                            {% for order in order_list %}
+                                                {% for j in services_sort.length %}
+                                                    {% if order.service.sort.name == services_sort.j.name %}
+                                                        sort_count[j] += 1;
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
+
+                                            var services_sort_var = [];
+                                            {% for service in services_sort %}
+                                                services_sort_var.add({{ service.sort.name }})
+                                            {% endfor %}
+
+                                            console.log(services_sort_var)
+
                                             var option;
 
                                             option = {
                                                 title: {
-                                                    text: 'ECharts 入门示例'
+                                                    text: '各种类服务销量条形图'
                                                 },
                                                 tooltip: {},
                                                 legend: {
                                                     data: ['销量']
                                                 },
                                                 xAxis: {
-                                                    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+                                                    data: services_sort_var,
                                                 },
                                                 yAxis: {},
                                                 series: [{
                                                     name: '销量',
                                                     type: 'bar',
-                                                    data: [5, 20, 36, 10, 10, 20]
+                                                    data: sort_count,
                                                 }]
                                             };
 
@@ -636,7 +678,215 @@
                                             }
 
                                         </script>
+                                        <script type="text/javascript">
+                                            var dom = document.getElementById("GraphDemoOne");
+                                            var myChart = echarts.init(dom);
+                                            var app = {};
 
+                                            var option;
+
+                                            option = {
+                                                title: {
+                                                    text: '最近6个月订单情况'
+                                                },
+                                                tooltip: {},
+                                                legend: {
+                                                    data: ['销量']
+                                                },
+                                                xAxis: {
+                                                    data: [
+                                                        {% for i in recent_months_orders %}
+                                                            {{ i.month_name }},
+                                                        {% endfor %}
+                                                    ],
+                                                    {#    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]#}
+                                                },
+                                                yAxis: {},
+                                                series: [{
+                                                    name: '销量',
+                                                    type: 'bar',
+                                                    data:[
+                                                        {% for i in recent_months_orders %}
+                                                            {{ i.recent_order_num }},
+                                                        {% endfor %}
+                                                    ],
+                                                    {#data: [5, 20, 36, 10, 10, 20]#}
+                                                }]
+                                            };
+
+                                            if (option && typeof option === 'object') {
+                                                myChart.setOption(option);
+                                            }
+
+                                        </script>
+                                    </div>
+                                    {#                                    <div>#}
+                                    {#                                        <div id="GraphDemoTwo" style="height: 500px"></div>#}
+                                    {#                                        <script type="text/javascript"#}
+                                    {#                                                src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>#}
+                                    {#                                        <script type="text/javascript">#}
+                                    {#                                            var dom = document.getElementById("GraphDemoTwo");#}
+                                    {#                                            var myChart = echarts.init(dom);#}
+                                    {#                                            var app = {};#}
+                                    {##}
+                                    {#                                            var option;#}
+                                    {##}
+                                    {##}
+                                    {#                                            option = {#}
+                                    {#                                                title: {#}
+                                    {#                                                    text: '最近1个月按服务分类订单情况'#}
+                                    {#                                                },#}
+                                    {#                                                backgroundColor: '#FFFFFF',#}
+                                    {#                                                series: [#}
+                                    {#                                                    {#}
+                                    {#                                                        name: '订单来源',#}
+                                    {#                                                        type: 'pie',#}
+                                    {#                                                        radius: '55%',#}
+                                    {#                                                        data: [#}
+                                    {#                                                        {% for i in recent_months_orders %}}#}
+                                    {#                                                            {value: i."val", name: i."month_name"},#}
+                                    {#                                                        {% endfor %}#}
+                                    {#                                                ],#}
+                                    {#                                                roseType: 'angle',#}
+                                    {#                                                label: {#}
+                                    {#                                                    normal: {#}
+                                    {#                                                        textStyle: {#}
+                                    {#                                                            color: 'rgba(0, 0, 0, 0.3)'#}
+                                    {#                                                        }#}
+                                    {#                                                    }#}
+                                    {#                                                },#}
+                                    {#                                                labelLine: {#}
+                                    {#                                                    normal: {#}
+                                    {#                                                        lineStyle: {#}
+                                    {#                                                            color: 'rgba(255, 255, 255, 0.3)'#}
+                                    {#                                                        }#}
+                                    {#                                                    }#}
+                                    {#                                                },#}
+                                    {#                                                itemStyle: {#}
+                                    {#                                                    normal: {#}
+                                    {#                                                        shadowBlur: 200,#}
+                                    {#                                                        shadowColor: 'rgba(0, 0, 0, 0.5)'#}
+                                    {#                                                    }#}
+                                    {#                                                }#}
+                                    {#                                            }#}
+                                    {#                                            ]#}
+                                    {#                                            }#}
+                                    {#                                            ;#}
+                                    {##}
+                                    {#                                            if (option && typeof option === 'object') {#}
+                                    {#                                                myChart.setOption(option);#}
+                                    {#                                            }#}
+                                    {##}
+                                    {#                                        </script>#}
+                                    {#                                    </div>#}
+                                    <div>
+                                        <div id="GraphDemoThree" style="height: 700px">
+                                            <script type="text/javascript"
+                                                    src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+                                            <script type="text/javascript">
+                                                var dom = document.getElementById("GraphDemoThree");
+                                                var myChart = echarts.init(dom);
+                                                var app = {};
+
+                                                var option;
+
+
+                                                option = {
+                                                    tooltip: {
+                                                        trigger: 'item',
+                                                        formatter: '{a} <br/>{b}: {c} ({d}%)'
+                                                    },
+                                                    legend: {
+                                                        {#data: ['直达', '营销广告', '搜索引擎', '邮件营销', '联盟广告', '视频广告', '百度', '谷歌', '必应', '其他']#}
+                                                        data:[
+                                                            {% for j in current_month_orders %}
+                                                                {{ j.sort_name }}
+                                                            {% endfor %}
+                                                        ]
+                                                    },
+                                                    series: [
+                                                        {
+                                                            name: '订单来源',
+                                                            type: 'pie',
+                                                            selectedMode: 'single',
+                                                            radius: [0, '30%'],
+                                                            label: {
+                                                                position: 'inner',
+                                                                fontSize: 14,
+                                                            },
+                                                            labelLine: {
+                                                                show: false
+                                                            },
+
+                                                            {#data: [#}
+                                                            {#    {value: 1548, name: '搜索引擎'},#}
+                                                            {#    {value: 775, name: '直达'},#}
+                                                            {#    {value: 679, name: '营销广告',}#}
+                                                            {#]#}
+                                                        },
+                                                        {
+                                                            name: '访问来源',
+                                                            type: 'pie',
+                                                            radius: ['45%', '60%'],
+                                                            labelLine: {
+                                                                length: 30,
+                                                            },
+                                                            label: {
+                                                                formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                                                                backgroundColor: '#F6F8FC',
+                                                                borderColor: '#8C8D8E',
+                                                                borderWidth: 1,
+                                                                borderRadius: 4,
+
+                                                                rich: {
+                                                                    a: {
+                                                                        color: '#6E7079',
+                                                                        lineHeight: 22,
+                                                                        align: 'center'
+                                                                    },
+                                                                    hr: {
+                                                                        borderColor: '#8C8D8E',
+                                                                        width: '100%',
+                                                                        borderWidth: 1,
+                                                                        height: 0
+                                                                    },
+                                                                    b: {
+                                                                        color: '#4C5058',
+                                                                        fontSize: 14,
+                                                                        fontWeight: 'bold',
+                                                                        lineHeight: 33
+                                                                    },
+                                                                    per: {
+                                                                        color: '#fff',
+                                                                        backgroundColor: '#4C5058',
+                                                                        padding: [3, 4],
+                                                                        borderRadius: 4
+                                                                    }
+                                                                }
+                                                            },
+                                                            {#data: [{value: 1048, name: '百度'},#}
+                                                            {#    {value: 335, name: '直达'},#}
+                                                            {#    {value: 310, name: '邮件营销'},#}
+                                                            {#    {value: 251, name: '谷歌'},#}
+                                                            {#    {value: 234, name: '联盟广告'},#}
+                                                            {#    {value: 147, name: '必应'},#}
+                                                            {#    {value: 135, name: '视频广告'},#}
+                                                            {#    {value: 102, name: '其他'}]#}
+                                                            data:[
+                                                                {% for k in current_month_orders %}
+                                                                    {value: {{k.month_order_num}}, name: {{ k.sort_name }}}
+                                                                {% endfor %}
+                                                            ]
+                                                        }
+                                                    ]
+                                                };
+
+                                                if (option && typeof option === 'object') {
+                                                    myChart.setOption(option);
+                                                }
+
+                                            </script>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
