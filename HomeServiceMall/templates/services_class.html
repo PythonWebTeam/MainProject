@@ -188,7 +188,7 @@
                             <ul class="sub-menu">
                                 {% for service in services_sort %}
                                     <li>
-                                        <a href="../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
+                                        <a href="../../services/?search={{ service.name }}&page=1">{{ service.name }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -307,13 +307,14 @@
 
 
                                         <!--       hofee                             跳转到服务详情页-->
-                                        <form action="../../shop/service/?se_id={{ service.id }}" method="post">
+                                        <form action="../../shop/service/" method="get">
+                                            <input hidden="hidden" value="{{ service.id }}" name="se_id">
                                             <button title="点击查看" class=" add-to-cart">点击查看</button>
                                         </form>
                                     </div>
                                     <div class="content">
                                         <h5 class="title"><a
-                                                href="shop-left-sidebar.html">{{ service.name }}({{ service.sort.name }})</a>
+                                                href="../../shop/service/?se_id={{ service.id }}">{{ service.name }}({{ service.sort.name }})</a>
                                         </h5>
                                         <span class="price">
                                             <span class="new">{{ service.price }}</span>
