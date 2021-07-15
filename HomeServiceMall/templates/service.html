@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <title>Let's 购 商品详情</title>
-    <meta name="description" content="Home page of Let's购"/>
+    <title>HANDY 商品详情</title>
+    <meta name="description" content="Home page of HANDY"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
@@ -188,7 +188,7 @@
                             <ul class="sub-menu">
                                 {% for service in services_sort %}
                                     <li>
-                                        <a href="../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
+                                        <a href="../../services/?search={{ service.name }}&page=1">{{ service.name }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -449,7 +449,7 @@
                     <hr/>
                     <p>用户 {{ order.user.username }} </p>
                     <hr/>
-                    <p>评级：{% for cnt in order.star %}}<i class="ion-android-star"></i>{% endfor %}</p>
+                    <p>评级：{% for cnt in range(1,order.star) %}}<i class="ion-android-star"></i>{% endfor %}</p>
                     <p>评论内容: {{ order.comment }} </p>
                     <hr/>
                 {% endfor %}
@@ -474,7 +474,7 @@
                             <form action="../../other/about/" method="GET">
                                 <li class="li"><a class="single-link" href="../../other/about/">关于我们</a></li>
                             </form>
-                            <p class="about-text" style="width: 490px">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
+                            <p class="about-text" style="width: 490px">”HANDY“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
                                 以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业
                                 的运营生态。</p>
 
@@ -574,7 +574,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 text-left">
-                        <p class="copy-text">Copyright&copy; Let's购 2021. &nbsp;All rights reserved.</p>
+                        <p class="copy-text">Copyright&copy; HANDY 2021. &nbsp;All rights reserved.</p>
                     </div>
                 </div>
             </div>
