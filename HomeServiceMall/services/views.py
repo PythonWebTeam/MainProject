@@ -10,11 +10,13 @@ class ServicesClassView(View):
         username, services_sort, is_login = Util.get_basic_info(request)
         # 获取服务列表页面
         key = request.GET.get("search")
-        order_by = int(request.GET.get("Order_by"))
-        if order_by == 1:
-            order_key = "price"
-        else:
-            order_key = "-sales"
+        order_by = request.GET.get("Order_by")
+        order_key = "price"
+        if order_by:
+            if order_by == '1':
+                order_key = "price"
+            else:
+                order_key = "-sales"
         type_id = Type.objects.filter(name__contains=key)  # 通过关键字找该类服务id
         page_num = int(request.GET.get("page"))
         services = []
@@ -29,4 +31,4 @@ class ServicesClassView(View):
 
         return render(request, "services_class.html",
                       {"curr_page": curr_page, "paginator": paginator, "key": key,
-                       "username": username, "services_sort": services_sort, "is_login": is_login})
+                       "username": username, "services_sort": services_sort, "is_login": is_login, "order_by": order_by})
