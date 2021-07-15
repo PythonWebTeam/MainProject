@@ -93,28 +93,25 @@ class Order(models.Model):
         except:
             return "评论失败"
 
+    def get_order_price(self):
+        delta_time = self.end_time - self.start_time
+        delta_seconds = delta_time.total_seconds()
+        delta_hours = delta_seconds / 3600
+        service_price = float(self.service.price)
+        return delta_hours * service_price
 
-def get_order_price(self):
-    delta_time = self.end_time - self.start_time
-    delta_seconds = delta_time.total_seconds()
-    delta_hours = delta_seconds / 3600
-    service_price = float(self.service.price)
-    return delta_hours * service_price
+    def pay_order(self):
+        msg = ""
+        if self.pay_status:
+            msg = "已支付"
+            return msg
+        else:
+            self.pay_status = True
+            self.save()
+            msg = "支付成功"
 
-
-def pay_order(self):
-    msg = ""
-    if self.pay_status:
-        msg = "已支付"
-        return msg
-    else:
-        self.pay_status = True
-        self.save()
-        msg = "支付成功"
-
-
-class Meta:
-    db_table = 'Order'
+    class Meta:
+        db_table = 'Order'
 
 
 def __str__(self):
