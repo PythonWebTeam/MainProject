@@ -229,9 +229,13 @@
                 <div>
                     <div>
                         <h1 style="color: #ff7004"><b>{{ shop.name }}</b></h1>
-                        <p><b>店铺创建时间： {{ shop.create_time }}</b></p>
-                        <p><b>店铺状态： {{ shop.status }}</b></p>
-                        <p><b>店铺星级： {{ shop.star }}</b></p>
+                        <p><b>店铺创建时间: {{ shop.create_time }}</b></p>
+                        {% if shop.status %}
+                            <p><b>店铺状态: 停业 </b></p>
+                        {% else %}
+                            <p><b>店铺状态: 营业 </b></p>
+                        {% endif %}
+                        <p><b>店铺评分: {{ shop.get_shop_star }}</b></p>
                     </div>
                     <div class="shop-top-bar d-flex">
                         <!-- Left Side start -->
@@ -294,18 +298,20 @@
                     <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-6" data-aos="fade-up">
                         <ul>
                             {% if curr_page.has_previous %}
-                                <a class="prev" href="./?search={{ key }}&page={{ curr_page.previous_page_number}}" method="post" ><i class="ion-ios-arrow-left"></i></a>
+                                <a class="prev" href="./?search={{ key }}&page={{ curr_page.previous_page_number }}"
+                                   method="post"><i class="ion-ios-arrow-left"></i></a>
                             {% endif %}
 
                             {% for page_num in paginator.page_range %}
                                 {% if page_num == curr_page.number %}
                                     <a class="active">{{ page_num }}</a>
                                 {% else %}
-                                    <a href="./?search={{ key }}&page={{ page_num }}" method="post" >{{ page_num }}</a>
+                                    <a href="./?search={{ key }}&page={{ page_num }}" method="post">{{ page_num }}</a>
                                 {% endif %}
                             {% endfor %}
                             {% if curr_page.has_next %}
-                                <a class="next" href="./?search={{ key }}&page={{ curr_page.next_page_number }}" method="post" ><i class="ion-ios-arrow-right"></i></a>
+                                <a class="next" href="./?search={{ key }}&page={{ curr_page.next_page_number }}"
+                                   method="post"><i class="ion-ios-arrow-right"></i></a>
                             {% endif %}
                         </ul>
                     </div>

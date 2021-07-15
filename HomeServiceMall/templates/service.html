@@ -242,11 +242,25 @@
                     <div class="pro-details-rating-wrap">
                         <div class="rating-product">
                             <p>服务星级:
-                                <i class="ion-android-star"></i>
-                                <i class="ion-android-star"></i>
-                                <i class="ion-android-star"></i>
-                                <i class="ion-android-star"></i>
-                                <i class="ion-android-star"></i>
+
+                                {% if order.star == 0 %}
+
+                        {% endif %}
+                        {% if service.get_service_star >= 1 %}
+                            <i class="ion-android-star"></i>
+                        {% endif %}
+                        {% if service.get_service_star >= 2 %}
+                            <i class="ion-android-star"></i>
+                        {% endif %}
+                        {% if service.get_service_star >= 3 %}
+                            <i class="ion-android-star"></i>
+                        {% endif %}
+                        {% if service.get_service_star >= 4 %}
+                            <i class="ion-android-star"></i>
+                        {% endif %}
+                        {% if service.get_service_star >= 5 %}
+                            <i class="ion-android-star"></i>
+                        {% endif %}
                             </p>
                         </div>
                     </div>

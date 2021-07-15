@@ -124,8 +124,7 @@ class PayView(View):
             services = []
             for cart in carts:
                 services.append(cart.service)
-                total_cost += convert_digital_decimal(cart.service.price) * get_delta_hours(cart.start_time,
-                                                                                            cart.end_time)
+                total_cost += cart.get_cart_price()
             addr = Util.transform(user.province, user.city, user.district)
             return_data = {
                 "services": services,

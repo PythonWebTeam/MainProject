@@ -10,4 +10,4 @@ def pay_test_view(request):
 
 def test_view(request):
 
-    return render(request,"test.html")
+    return HttpResponse("OK")

@@ -250,11 +250,13 @@
                         <thead>
                         <tr>
                             <th>图片</th>
-                            <th>服务名称</th>
-                            <th>店铺名称</th>
+                            <th>服务名</th>
+                            <th>店铺名</th>
                             <th>开始时间</th>
                             <th>结束时间</th>
+                            <th>时长</th>
                             <th>单价</th>
+                            <th>总计</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -286,7 +288,9 @@
                                                value={{ cart.end_time|date:"H:i:s" }}/>
                                     </div>
                                 </td>
+                                <td class="product-subtotal">共 {{ cart.get_cart_hour }} 小时</td>
                                 <td class="product-subtotal">{{ cart.service.price }} 元/小时</td>
+                                <td class="product-subtotal">{{ cart.get_cart_price }} 元</td>
                                 <td class="product-remove">
                                     <form method="post">
                                         <button>

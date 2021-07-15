@@ -19,6 +19,15 @@ class User(AbstractUser):
     mod_date = models.DateTimeField(verbose_name='Last modified', null=True, auto_now=True)
     is_vendor = models.BooleanField(verbose_name="商贩", default=0)
 
+    class Meta:
+        db_table = 'auth_user'
+
+    def __str__(self):
+        return self.username
+
+    def __unicode__(self):
+        return self.username
+
     # 在session中写入数据
     def set_session_login(self, request):
         request.session["is_login"] = True
@@ -70,14 +79,6 @@ class User(AbstractUser):
         except:
             print("error")
             return False
-    class Meta:
-        db_table = 'auth_user'
-
-    def __str__(self):
-        return self.username
-
-    def __unicode__(self):
-        return self.username
 
 
 class Cart(models.Model):
@@ -95,6 +96,21 @@ class Cart(models.Model):
     def __unicode__(self):
         return str(self.user) + ":" + str(self.service)
 
+    # 获取购物车的时长
+    def get_cart_hour(self):
+        delta_time = self.end_time - self.start_time
+        delta_seconds = delta_time.total_seconds()
+        delta_hours = delta_seconds / 3600
+        return delta_hours
+
+    # 获取购物车的价格
+    def get_cart_price(self):
+        delta_time = self.end_time - self.start_time
+        delta_seconds = delta_time.total_seconds()
+        delta_hours = delta_seconds / 3600
+        service_price = float(self.service.price)
+        return delta_hours * service_price
+
 
 class Order(models.Model):
     service = models.ForeignKey('Service', null=True, blank=True, on_delete=models.SET_NULL)  # 联接Service表
@@ -107,16 +123,26 @@ class Order(models.Model):
     star = models.IntegerField(verbose_name='服务星级', blank=True, null=True)
     order_collection_id = models.CharField('OrderCollection', blank=True, null=True, max_length=255)
 
+    class Meta:
+        db_table = 'Order'
+
+    def __str__(self):
+        return str(self.user) + ":" + str(self.service)
+
+    def __unicode__(self):
+        return str(self.user) + ":" + str(self.service)
+
+    # 给该订单设置评价和星级
     def set_comment(self, comment, star):
         try:
             self.comment = comment
             self.star = star
-            print(comment)
             self.save()
             return "ok"
         except:
             return "评论失败"
 
+    # 获取订单的价格
     def get_order_price(self):
         delta_time = self.end_time - self.start_time
         delta_seconds = delta_time.total_seconds()
@@ -124,26 +150,16 @@ class Order(models.Model):
         service_price = float(self.service.price)
         return delta_hours * service_price
 
+    # 支付订单
     def pay_order(self):
-        msg = ""
         if self.pay_status:
-            msg = "已支付"
+            msg = "您已经支付过该订单，请勿重新支付"
             return msg
         else:
             self.pay_status = True
             self.save()
+            self.service.sales += 1  # 订单对应服务的销量加1
             msg = "支付成功"
-
-    class Meta:
-        db_table = 'Order'
-
-
-def __str__(self):
-    return str(self.user) + ":" + str(self.service)
-
-
-def __unicode__(self):
-    return str(self.user) + ":" + str(self.service)
 
 
 class Shop(models.Model):
@@ -162,6 +178,67 @@ class Shop(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_current_month_orders_data(self):
+        now_time = datetime.now()
+        shop_orders = self.get_total_orders()
+        all_type = Type.objects.all()
+        data_by_type = dict()
+        for service_type in all_type:
+            init_type_dict = {service_type.name: 0}
+            data_by_type.update(init_type_dict)
+        for order in shop_orders:
+            if (now_time - order.create_time).days < 30:
+                data_by_type[order.service.sort.name] = data_by_type.get(
+                    order.service.sort.name, 0) + 1
+        return data_by_type
+
+    def get_recent_month_orders_data(self):
+        now_time = datetime.now()
+        shop_orders = self.get_total_orders()
+        order_month_list = [0, 0, 0, 0, 0, 0]
+        for order in shop_orders:
+            month = (now_time - order.create_time).days // 30
+            if month < 6:
+                order_month_list[month] += 1
+        recent_month_data = dict()
+        for month in range(0, 6):
+            month_name = "距今第{}月内".format(month + 1)
+            sales = order_month_list[month]
+            info = {month_name: sales}
+            recent_month_data.update(info)
+
+        return recent_month_data
+
+    def get_total_orders(self):
+        shop_services = self.get_shop_services()
+        shop_orders = []
+        for service in shop_services:
+            one_kind_orders = Type.get_one_kind_orders(service)
+            shop_orders.extend(one_kind_orders)
+        return shop_orders
+
+    # 获取店铺的所有服务
+    def get_shop_services(self):
+        shop_services = Service.objects.filter(shop_id=self.id)
+        return shop_services
+
+    # 获取店铺的星级
+    def get_shop_star(self):
+        shop_services = self.get_shop_services()
+        stars = 0
+        service_num = len(shop_services)
+        if service_num==0:
+            return 5
+        for service in shop_services:
+            stars += service.get_service_star()
+        aver_star = stars / service_num
+        return aver_star
+
+    # 获取店铺店主的电话号码
+    def get_shop_phonenumber(self):
+        user = User.objects.get(id=self.user_id)
+        return user.phone
+
 
 class Type(models.Model):
     name = models.CharField('服务种类名称', max_length=32)
@@ -179,6 +256,10 @@ class Type(models.Model):
     def get_all_sort():
         return Type.objects.all()
 
+    @staticmethod
+    def get_one_kind_orders(service):
+        return Order.objects.filter(service_id=service.id)
+
 
 class Service(models.Model):
     name = models.CharField('服务名称', max_length=32)
@@ -191,6 +272,37 @@ class Service(models.Model):
     sales = models.IntegerField("销量", default=0)
     shop = models.ForeignKey('Shop', on_delete=models.CASCADE)  # 联接Shop表
     sort = models.ForeignKey('Type', on_delete=models.CASCADE)  # 联接Type表
+
+    class Meta:
+        db_table = 'Service'
+
+    def __str__(self):
+        return '{0}({1})'.format(self.name, self.sort)
+
+    def __unicode__(self):
+        return '{0}({1})'.format(self.name, self.sort)
+
+    # 新建服务
+    @staticmethod
+    def new_service(name, price, intro, shop_id, type_id):
+        service = Service.objects.create(name=name, price=price, status=True, intro=intro, shop_id=shop_id,
+                                         sort_id=type_id)
+        service.save()
+        return service
+
+    # 获取服务的星级
+    def get_service_star(self):
+        orders = Order.objects.filter(service_id=self.id)
+        stars = 0
+        order_num = len(orders)
+        if order_num==0:
+            return 5
+        for order in orders:
+            if order.star is None:
+                continue
+            stars += order.star
+        aver_star = stars / order_num
+        return aver_star
 
     # 上传服务的图片，当上传成功时返回True
     def upload_service_img(self, request):
@@ -208,6 +320,7 @@ class Service(models.Model):
                     f.write(content)
             # 在数据库中保存上传记录
             self.img = "img/%s" % pic.name
+            self.save()
             return True
         except:
             print("error")

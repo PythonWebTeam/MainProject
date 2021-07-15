@@ -241,7 +241,13 @@ class BusinessDataView(View):
 class UploadServiceView(View):
     @csrf_exempt
     def post(self, request):
-        service = Service.objects.get(id=1)
+        data = request.POST
+        name = data.get("service_name")
+        price = data.get("service_price")
+        intro = data.get("service_detail")
+        shop_id = data.get("shop_id")
+        type_id = 2  # TODO:前端增加输入类别
+        service = Service.new_service(name, price, intro, shop_id, type_id)
         service.upload_service_img(request)
         return HttpResponse("post")
 

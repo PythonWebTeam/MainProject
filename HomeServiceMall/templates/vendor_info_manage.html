@@ -226,10 +226,12 @@
                             <li>
                                 <form action="../../../other/Q&A/" method="GET"><a class="single-link"
                                                                                    href="../../../other/Q&A/">常见问题</a>
+                                </form>
                             </li>
                             <li>
                                 <form action="../../../other/about/" method="GET"><a class="single-link"
                                                                                      href="../../../other/about/">关于我们</a>
+                                </form>
                             </li>
                         </ul>
                     </div>
@@ -757,23 +759,22 @@
                                                         <div id="lg1" class="tab-pane active">
                                                             <div class="login-form-container">
                                                                 <div class="change-delete-form">
-
-                                                                    <input type="text" name="service_name"
-                                                                           maxlength="12" minlength="3"
-                                                                           placeholder="服务名称"/>
-                                                                    <input type="text" name="service_price"
-                                                                           maxlength="12" minlength="3"
-                                                                           placeholder="服务价格"/>
-                                                                    <input type="text" name="service_detail"
-                                                                           maxlength="500" minlength="6"
-                                                                           placeholder="备注（不超过五百字）"/>
-                                                                    <div class="layui-form-item">
-                                                                        <label class="layui-form-label">图片</label>
-                                                                        <div class="layui-input-block">
-                                                                            <form method="post"
-                                                                                  enctype="multipart/form-data"
-                                                                                  href="/account/vendors/shop_info_manage/append/">
-                                                                                <input type="hidden" id="img_url">
+                                                                    <form method="post" enctype="multipart/form-data"
+                                                                          action="/account/vendors/shop_info_manage/append/">
+                                                                        <input type="text" name="service_name"
+                                                                               maxlength="12" minlength="3"
+                                                                               placeholder="服务名称"/>
+                                                                        <input type="text" name="service_price"
+                                                                               maxlength="12" minlength="3"
+                                                                               placeholder="服务价格"/>
+                                                                        <input type="text" name="service_detail"
+                                                                               maxlength="500" minlength="6"
+                                                                               placeholder="备注（不超过五百字）"/>
+                                                                        <input hidden="hidden" name="shop_id"
+                                                                               value="{{ shop.id }}">
+                                                                        <div class="layui-form-item">
+                                                                            <label class="layui-form-label">图片</label>
+                                                                            <div class="layui-input-block">
                                                                                 <input type="file" name="picture"
                                                                                        onchange="showImg()"
                                                                                        id="img_file"><img src=""
@@ -782,16 +783,19 @@
                                                                                                           style="width: 100px">
 
                                                                                 <input type="submit" value="上传">
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="button-box">
-                                                                        <form method="post" action="#">
-                                                                            <button type="submit"><span>确认提交</span>
-                                                                            </button>
-                                                                        </form>
-                                                                    </div>
 
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="button-box">
+                                                                            <script> function success() {
+                                                                                alert("服务上传成功")
+                                                                            }</script>
+                                                                            <button type="submit" onclick="success()">
+                                                                                <span>确认提交</span>
+                                                                            </button>
+
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
