@@ -43,8 +43,9 @@ def convert_digital_decimal(value):
 
 
 def get_delta_hours(start_time, end_time):
-    delta_seconds = (end_time - start_time).seconds
-    delta_hours = delta_seconds / 3600
+
+    delta_seconds = (end_time - start_time).total_seconds()
+    delta_hours = delta_seconds/ 3600
     return delta_hours
 
 
@@ -69,6 +70,7 @@ def alipay_index(request):
             order = Order()
             order.service = cart.service
             price = convert_digital_decimal(cart.service.price)
+            print(cart.start_time, cart.end_time)
             total_cost += price * get_delta_hours(cart.start_time, cart.end_time)
             order.create_time = datetime.datetime.now()
             order.start_time = cart.start_time
@@ -100,7 +102,7 @@ def alipay_index(request):
         order.user = user
         order.save()
         services_num += 1
-
+    print(total_cost)
     # 1. 在数据库创建一条数据：状态（待支付）
     query_params = alipay.direct_pay(
         subject="服务名:{0}({1})|共{2}个服务".format(service.name, service.sort.name, services_num),  # 商品简单描述 这里一般是从前端传过来的数据
@@ -112,7 +114,9 @@ def alipay_index(request):
     pay_url = "https://openapi.alipaydev.com/gateway.do?{}".format(query_params)
     print("pay_url")
     return redirect(pay_url)
-#TODO:取消注释
+
+
+# TODO:取消注释
 '''
 @csrf_exempt
 def update_order(request):
@@ -146,6 +150,8 @@ def update_order(request):
         return HttpResponse('支付失败')
 
 '''
+
+
 @csrf_exempt
 def pay_result(request):
     """
