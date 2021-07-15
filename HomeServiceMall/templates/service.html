@@ -257,8 +257,8 @@
                     </div>
 
                     <div class="pro-details-quality">
-
                         <div class="pro-details-cart">
+                            <form action="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0" method="get">
                             <p>请选择服务开始时间</p>
                             <input id="starttime" name="starttime" type="datetime-local" onchange="CheckD()"/>
                             <p></p>
@@ -367,15 +367,15 @@
                                 }
                             </script>
                             <div style="width: 350px">
-                                <form action="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0" method="get">
+
                                     <button href="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0"
                                             class="add-cart btn btn-primary btn-hover-primary ml-4"
                                             id="buyNow" disabled="true">立即购买
                                     </button>
                                     <input hidden="hidden" name="se_id" value="{{ service.id }}">
                                     <input hidden="hidden" name="from_cart" value="0">
-                                </form>
                             </div>
+                                </form>
                             <button type="submit"
                                     class="add-cart btn btn-primary btn-hover-primary ml-4" name="addCartNow"
                                     id="addCartNow"
