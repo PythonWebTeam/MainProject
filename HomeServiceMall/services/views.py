@@ -26,7 +26,6 @@ class ServicesClassView(View):
         per_page = 12
         paginator = Paginator(services, per_page)
         curr_page = paginator.page(page_num)
-
         return render(request, "services_class.html",
                       {"curr_page": curr_page, "paginator": paginator, "key": key,
                        "username": username, "services_sort": services_sort, "is_login": is_login})
