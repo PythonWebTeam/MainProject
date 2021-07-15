@@ -143,7 +143,7 @@ class VendorInfoManageView(View):
             return render(request, "vendor_info_manage.html", response_data)
 
 
-class DeleteService(View):
+class DeleteServiceView(View):
     def post(self, request):
         data = request.POST.get
         service_name = data.get("service_name")
@@ -227,6 +227,8 @@ class BusinessDataView(View):
         return shop_orders
 
 
-class AppendService(View):
+class UploadServiceView(View):
     def post(self, request):
+        s=Service.objects.get(id=1)
+
         pass
