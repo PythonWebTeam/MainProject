@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
-from account.models import Service, User, Cart, Shop
+from account.models import Service, User, Cart, Shop, Order
 from utils.util import Util
 
 
@@ -12,9 +12,16 @@ class ServiceView(View):
     def get(self, request):
         username, services_sort, is_login = Util.get_basic_info(request)
         se_id = request.GET.get("se_id")
-        service = Service.objects.filter(id=int(se_id))[0]
-        return render(request, "service.html",
-                      {"service": service, "username": username, "services_sort": services_sort, "is_login": is_login})
+        service = Service.objects.get(id=int(se_id))
+        orders = Order.objects.filter(service_id=int(se_id))
+        response_data = {
+            "service": service,
+            "username": username,
+            "services_sort": services_sort,
+            "is_login": is_login,
+            "order_list": orders
+        }
+        return render(request, "service.html", response_data)
 
     def post(self, request):
         if not request.session.get("is_login"):
@@ -28,7 +35,7 @@ class ServiceView(View):
         start_time = datetime.datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
         end_time = datetime.datetime.strptime(end_time, "%Y-%m-%dT%H:%M")
         CartNum = len(Cart.objects.filter(user=user))
-        service=Service.objects.get(id=se_id)
+        service = Service.objects.get(id=se_id)
         if CartNum >= 10:
             return HttpResponse("购物车最多添加10件服务")
         u_id = user.id
