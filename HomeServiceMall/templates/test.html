@@ -1,31 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>自定义图片上传</title>
 </head>
 <body>
-<span id="te"></span>
-<button type="submit" onclick="AjaxSend()">提交</button>
-<script src="/static/JavaScript/jquery-1.8.3.min.js"></script>
-<script>
-    function AjaxSend() {
-        $.ajax({
-            url: "../test/",
-            type: "POST",
-            data: {
-                "user-name": "test successfully",
-            },
-            success: function (return_data) {
-                if (return_data === "ok") {
-                    alert("ok!!!")
-                } else {
-                    $("#te").text("not ok")
-                }
-            }
-        })
-    }
 
-</script>
+<!-- 【1】图片上传必须要设置enctype="multipart/form-data"，
+后台才能接收到数据 -->
+<form method='post' enctype="multipart/form-data" action="/account/vendors/shop_info_manage/append/">
+    {% csrf_token %} {# 【2】post上传别忘记带上验证标识 #}
+    <input type="file" name="picture"><br/>
+    <input type="submit" value="上传">
+</form>
+
 </body>
 </html>

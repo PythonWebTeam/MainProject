@@ -19,14 +19,14 @@ users_patterns = [
     path("order_info_manage/submit_comment/", account_views.submit_comment),
     path("order_info_manage/delete_order/", account_views.delete_order),
     path("shop_cart/", account_views.ShopCartView.as_view()),
-    path("shop_cart/removeall", account_views.CartRemoveAll.as_view()),
+    path("shop_cart/removeall/", account_views.CartRemoveAll.as_view()),
 ]
 
 # vendors urls
 vendors_patterns = [
     path("vendor_info_manage/", account_views.VendorInfoManageView.as_view()),
-    path("shop_info_manage/delete", account_views.DeleteServiceView.as_view()),
-    path("shop_info_manage/append", account_views.UploadServiceView.as_view()),
+    path("shop_info_manage/delete/", account_views.DeleteServiceView.as_view()),
+    path("shop_info_manage/append/", account_views.UploadServiceView.as_view()),
     path("business_data/", account_views.BusinessDataView.as_view()),
 ]
 
@@ -72,6 +72,6 @@ urlpatterns = [
     path("services/", services_views.ServicesClassView.as_view()),
     path("other/", include(other_patterns)),
     path("admin/", admin.site.urls),
-    path("test/", pay_test_view)
+    path("test/", test_view)
 ]
 handler404 = page_not_found

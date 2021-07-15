@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+
 from account.models import *
 from utils.util import Util
 
@@ -235,9 +237,17 @@ class BusinessDataView(View):
 
 
 class UploadServiceView(View):
+    @csrf_exempt
     def post(self, request):
-        s = Service.objects.get(id=1)
-        pass
+        service = Service.objects.get(id=1)
+        service.upload_service_img(request)
+        return HttpResponse("post")
+
+    def get(self, request):
+        return HttpResponse("get")
+        # s = Service.objects.get(id=1)
+        # s.upload_service_img(request)
+        # return HttpResponse("fuck")
 
 
 def delete_order(request):
@@ -253,7 +263,7 @@ def submit_comment(request):
     comment = data.get("comment")
     star = int(data.get("star"))
     order_id = data.get("order_id")
-    print(star,comment)
+    print(star, comment)
     order = Order.objects.get(id=order_id)
 
     return HttpResponse(order.set_comment(comment, star))

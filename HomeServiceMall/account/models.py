@@ -1,3 +1,4 @@
+import time
 from datetime import datetime
 
 from django.contrib.auth import authenticate
@@ -43,10 +44,32 @@ class User(AbstractUser):
         else:
             return HttpResponse("账号或密码错误!")
 
+    # 修改密码
     def change_password(self, new_password):
         self.set_password(new_password)
         self.save()
 
+    # 上传头像
+    def upload_portrait_img(self, request):
+        try:
+            # 获取上传的图片
+            pic = request.FILES["picture"]
+            now = datetime.now()
+
+            time_str = "{}年{}月{}日{}时{}分{}秒".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
+            # 以带时间格式创建一个文件
+            file_url = '%s/portrait/%s_%s' % (settings.MEDIA_ROOT, time_str, pic.name)
+
+            with open(file_url, "wb") as f:
+                # 获取上传文件内容并写入创建文件中
+                for content in pic.chunks():
+                    f.write(content)
+            # 在数据库中保存上传记录
+            self.img = "img/%s" % pic.name
+            return True
+        except:
+            print("error")
+            return False
     class Meta:
         db_table = 'auth_user'
 
@@ -169,22 +192,16 @@ class Service(models.Model):
     shop = models.ForeignKey('Shop', on_delete=models.CASCADE)  # 联接Shop表
     sort = models.ForeignKey('Type', on_delete=models.CASCADE)  # 联接Type表
 
-    class Meta:
-        db_table = 'Service'
-
-    def __str__(self):
-        return '{0}({1})'.format(self.name, self.sort)
-
-    def __unicode__(self):
-        return '{0}({1})'.format(self.name, self.sort)
-
     # 上传服务的图片，当上传成功时返回True
     def upload_service_img(self, request):
         try:
             # 获取上传的图片
-            pic = request.FILES["pic"]
-            # 创建一个文件
-            file_url = '%s/img/%s' % (settings.MEDIA_ROOT, pic.name)
+            pic = request.FILES["picture"]
+            now = datetime.now()
+
+            time_str = "{}年{}月{}日{}时{}分{}秒".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
+            # 以带时间格式创建一个文件
+            file_url = '%s/img/%s_%s' % (settings.MEDIA_ROOT, time_str, pic.name)
             with open(file_url, "wb") as f:
                 # 获取上传文件内容并写入创建文件中
                 for content in pic.chunks():
@@ -193,6 +210,7 @@ class Service(models.Model):
             self.img = "img/%s" % pic.name
             return True
         except:
+            print("error")
             return False
 
 

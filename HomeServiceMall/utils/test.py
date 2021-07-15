@@ -9,8 +9,5 @@ def pay_test_view(request):
 
 
 def test_view(request):
-    services = Service.objects.all()
-    for service in services:
-        path = service.img1
-        print(path)
-    return HttpResponse("ok")
+
+    return render(request,"test.html")
