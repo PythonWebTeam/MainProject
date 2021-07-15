@@ -31,23 +31,22 @@ class UserInfoManageView(View):
         user = User.objects.get(username=username)
         Order.objects.filter(user_id=user.id)
         new_username = data.get("username")  #
-        if User.objects.filter(username=new_username):
+        if len(User.objects.filter(username=new_username))>1:
             msg = "该用户名已存在"
-            return self.get(request,msg)
+            return self.get(request, msg)
         phone = data.get("phone")  #
-        fChangeTrue = data.get("ChangeAddr")  #
-        if fChangeTrue == 0:
+        edit = data.get("ifChangeTrue")  #
+        if not edit:
             user.username = new_username
             user.phone = phone
+            user.save()
         else:
-            user.prov = int(data.get("prov"))
+            user.username = new_username
+            user.phone = phone
+            user.province = int(data.get("prov"))
             user.city = int(data.get("city"))
-            user.county = int(data.get("county"))
-
+            user.district = int(data.get("county"))
             user.details = data.get("addr")
-            print(user.prov, user.city, user.county, user.details)
-            print(user.prov, user.city, user.county, user.details)
-
             user.save()
         return self.get(request)
 
@@ -105,7 +104,7 @@ class ShopCartView(View):
 
 
 class CartRemoveAll(View):
-    def post(self, request):
+    def get(self, request):
         if not request.session.get("is_login"):
             return redirect("/passport/login/")
         else:
@@ -158,18 +157,6 @@ class DeleteService(View):
         else:
             Service.objects.get(**search_dict).delete()
             return HttpResponse("ok")
-
-
-def product_manage_view(request):
-    return render(request, "product_manage.html")
-
-
-def order_manage_view(request):
-    return render(request, "order_manage.html")
-
-
-def service_manage_view(request):
-    return render(request, "service_manage.html")
 
 
 class BusinessDataView(View):

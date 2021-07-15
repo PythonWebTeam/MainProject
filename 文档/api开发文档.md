@@ -767,11 +767,17 @@ class Shop(models.Model):
 
 **成功返回**
 
-| 参数名 | 参数类型 | 描述 |
-| ------ | -------- | ---- |
-|        |          |      |
+| 参数名      | 参数类型       | 描述         |
+| ----------- | -------------- | ------------ |
+| `json_data` | `JsonResponse` | 商家经营数据 |
 
+**说明/示例**
 
+```python
+json_data 为 {"recent_months_orders":recent_months_orders,"current_month_orders":current_month_orders}
+recent_months_orders 为 {"距今第1月内":订单数量,"距今第2月内":订单数量.....}
+current_month_orders 为 {服务种类1:订单数量,服务种类2:订单数量}
+```
 
 ---
 
