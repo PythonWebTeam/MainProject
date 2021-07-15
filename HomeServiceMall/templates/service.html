@@ -113,7 +113,7 @@
                        class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
                         <i class="icon-menu"></i>
                     </a>
-                </label>>
+                </label>
             </div>
 
         </div>
@@ -196,12 +196,14 @@
                         <li>
                             <form action="../../other/Q&A/" method="GET"><a class="single-link"
                                                                             href="../../other/Q&A/">常见问题</a>
-                            </form>>
+                            </form>
+                            >
                         </li>
                         <li>
                             <form action="../../other/about/" method="GET"><a class="single-link"
                                                                               href="../../other/about/">关于我们</a>
-                            </form>>
+                            </form>
+                            >
                         </li>
                     </ul>
                 </div>
@@ -235,7 +237,8 @@
                     <div style="height: 150px"></div>
                     <h2>{{ service.name }}</h2>
                     <p class="reference">所属分类: <span>{{ service.sort.name }}</span></p>
-                    <p class="reference">所属店铺: <a href="/shop/?s_id={{service.shop.id}}&page=1"><b>{{ service.shop.name }}</b></a></p>
+                    <p class="reference">所属店铺: <a
+                            href="/shop/?s_id={{ service.shop.id }}&page=1"><b>{{ service.shop.name }}</b></a></p>
                     <div class="pro-details-rating-wrap">
                         <div class="rating-product">
                             <p>服务星级:
@@ -270,6 +273,7 @@
                                 {#var difftime = etime - stime;#}
                                 var stime = new Date();
                                 var etime = new Date();
+
                                 function fix(num, length) {
                                     return ('' + num).length < length ? ((new Array(length + 1)).join('0') + num).slice(-length) : '' + num;
                                 }
@@ -284,7 +288,6 @@
                                     $("#starttime").val(strx);
 
 
-
                                     etime.setHours(etime.getHours());
                                     var stry = etime.getFullYear() + "-" + fix((etime.getMonth() + 1), 2) + "-" + fix(etime.getDate(), 2) + "T" + fix(etime.getHours(), 2) + ":" + fix(etime.getMinutes(), 2);
 
@@ -292,7 +295,6 @@
 
                                     $("#endtime").val(stry);
                                 }
-
 
 
                                 {#var x = $("#starttime").val();#}
@@ -315,7 +317,7 @@
                                     stime.setHours(parseInt(x.substring(11, 13)));
                                     stime.setMinutes(parseInt(x.substring(14, 16)));
 
-                                    console.log("stime: "+stime);
+                                    console.log("stime: " + stime);
 
 
                                     {#var etime = new Date();#}
@@ -327,15 +329,15 @@
                                     etime.setMinutes(parseInt(y.substring(14, 16)));
 
 
-                                    console.log("etime: "+etime);
+                                    console.log("etime: " + etime);
 
 
                                     if (etime <= stime) {
                                         alert("服务时间设置有误，请重新设置！");
                                         var buy = document.getElementById("buyNow");
-                                        buy.setAttribute("disabled",true);
+                                        buy.setAttribute("disabled", true);
                                         var addcart = document.getElementById("addCartNow");
-                                        addcart.setAttribute("disabled",true);
+                                        addcart.setAttribute("disabled", true);
                                     } else {
                                         var buy = document.getElementById("buyNow");
                                         buy.removeAttribute("disabled");
@@ -365,19 +367,20 @@
                                 }
                             </script>
                             <div style="width: 350px">
-                            <form action="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0" method="get" >
-                            <button href="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0"
-                                    class="add-cart btn btn-primary btn-hover-primary ml-4"
-                                    id="buyNow"  disabled="true">立即购买
-                            </button>
-                                <input hidden="hidden" name="se_id" value="{{ service.id }}">
-                                <input hidden="hidden" name="from_cart" value="0" >
-                            </form>
-                        </div>
+                                <form action="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0" method="get">
+                                    <button href="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0"
+                                            class="add-cart btn btn-primary btn-hover-primary ml-4"
+                                            id="buyNow" disabled="true">立即购买
+                                    </button>
+                                    <input hidden="hidden" name="se_id" value="{{ service.id }}">
+                                    <input hidden="hidden" name="from_cart" value="0">
+                                </form>
+                            </div>
                             <button type="submit"
                                     class="add-cart btn btn-primary btn-hover-primary ml-4" name="addCartNow"
                                     id="addCartNow"
-                                    value="{{ service.id }}" onclick="AddCart()" disabled="true" style="float: right ;margin-top: -50px;">加入购物车
+                                    value="{{ service.id }}" onclick="AddCart()" disabled="true"
+                                    style="float: right ;margin-top: -50px;">加入购物车
                             </button>
 
                         </div>
@@ -449,7 +452,26 @@
                     <hr/>
                     <p>用户 {{ order.user.username }} </p>
                     <hr/>
-                    <p>评级：{% for cnt in range(1,order.star) %}}<i class="ion-android-star"></i>{% endfor %}</p>
+                    <p>评级：
+                        {% if order.star == 0 %}
+                            0
+                        {% endif %}
+                        {% if order.star >= 1 %}
+                            <i class="ion-android-star"></i>
+                        {% endif %}
+                        {% if order.star >= 2 %}
+                            <i class="ion-android-star"></i>
+                        {% endif %}
+                        {% if order.star >= 3 %}
+                            <i class="ion-android-star"></i>
+                        {% endif %}
+                        {% if order.star >= 4 %}
+                            <i class="ion-android-star"></i>
+                        {% endif %}
+                        {% if order.star >= 5 %}
+                            <i class="ion-android-star"></i>
+                        {% endif %}
+                    </p>
                     <p>评论内容: {{ order.comment }} </p>
                     <hr/>
                 {% endfor %}
