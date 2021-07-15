@@ -11,10 +11,12 @@ class ServicesClassView(View):
         # 获取服务列表页面
         key = request.GET.get("search")
         order_by = request.GET.get("Order_by")
-        if order_by == 2:
-            order_key = "-price"
-        else:
-            order_key = "-sales"
+        order_key = "-sales"
+        if order_by:
+            if int(order_by) == 1:
+                order_key = "price"
+            else:
+                order_key = "-sales"
         type_id = Type.objects.filter(name__contains=key)  # 通过关键字找该类服务id
         page_num = int(request.GET.get("page"))
         services = []
