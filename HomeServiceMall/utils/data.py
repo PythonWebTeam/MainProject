@@ -1,5 +1,4 @@
 import datetime
-from urllib.parse import parse_qs
 import time
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt

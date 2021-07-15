@@ -14,7 +14,7 @@ class UserInfoManageView(View):
         username = request.session.get("username")
         user = User.objects.get(username=username)
         if user.is_vendor:
-            return redirect("/accountendorsendor_info_manage")
+            return redirect("/account/vendors/vendor_info_manage")
         order_list = Order.objects.filter(user_id=user.id)
         addr = Util.transform(user.province, user.city, user.district)
         return render(request, "user_info_manage.html",
