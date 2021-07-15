@@ -3,31 +3,32 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>Let's购 购物车</title>
-    <meta name="description" content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world." />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description"
+          content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Furns - Responsive eCommerce HTML Template" />
-    <meta property="og:url" content="PAGE_URL" />
-    <meta property="og:site_name" content="Furns - Responsive eCommerce HTML Template" />
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Furns - Responsive eCommerce HTML Template"/>
+    <meta property="og:url" content="PAGE_URL"/>
+    <meta property="og:site_name" content="Furns - Responsive eCommerce HTML Template"/>
     <!-- For the og:image content, replace the # with a link of an image -->
-    <meta property="og:image" content="#" />
-    <meta property="og:description" content="Furns - Responsive eCommerce HTML Template" />
-    <meta name="robots" content="noindex, follow" />
+    <meta property="og:image" content="#"/>
+    <meta property="og:description" content="Furns - Responsive eCommerce HTML Template"/>
+    <meta name="robots" content="noindex, follow"/>
     <!-- Add site Favicon -->
-    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="32x32" />
-    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="/static/Images/favicon/favicon.png" />
-    <meta name="msapplication-TileImage" content="/static/Images/favicon/favicon.png" />
+    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="32x32"/>
+    <link rel="icon" href="/static/Images/favicon/favicon.png" sizes="192x192"/>
+    <link rel="apple-touch-icon" href="/static/Images/favicon/favicon.png"/>
+    <meta name="msapplication-TileImage" content="/static/Images/favicon/favicon.png"/>
 
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
-    <link rel="stylesheet" href="/static/CSS/vendor/vendor.min.css" />
-    <link rel="stylesheet" href="/static/CSS/plugins/plugins.min.css" />
+    <link rel="stylesheet" href="/static/CSS/vendor/vendor.min.css"/>
+    <link rel="stylesheet" href="/static/CSS/plugins/plugins.min.css"/>
     <link rel="stylesheet" href="/static/CSS/style.min.css">
 
     <!-- Main Style -->
@@ -43,7 +44,8 @@
             <!-- Header Logo Start -->
             <div class="col-auto align-self-center">
                 <div class="header-logo">
-                    <form action="../../../" method="GET"><a href="../../../"><img src="/static/Images/logo/logo.png"></a></form>
+                    <form action="../../../" method="GET"><a href="../../../"><img
+                            src="/static/Images/logo/logo.png"></a></form>
 
                 </div>
             </div>
@@ -68,14 +70,16 @@
                     <ul class="dropdown-menu dropdown-menu-right">
                         {% if is_login %}
                             <li>
-                                <form action="../../../account/users/user_info_manage/" method="GET"><a class="dropdown-item"
-                                                                                                        href="../../../account/users/user_info_manage/">我的账户{{ username }}</a>
+                                <form action="../../../account/users/user_info_manage/" method="GET"><a
+                                        class="dropdown-item"
+                                        href="../../../account/users/user_info_manage/">我的账户{{ username }}</a>
                                 </form>
                             </li>
 
                             <li>
 
-                                <form action="../../../passport/logout/" method="POST"><a name="logout" class="dropdown-item"
+                                <form action="../../../passport/logout/" method="POST"><a name="logout"
+                                                                                          class="dropdown-item"
                                                                                           href="../../../passport/logout/"
                                                                                           onclick="logout()">注销</a>
                                 </form>
@@ -102,7 +106,8 @@
                     </a>
                 {% else %}
 
-                    <label style="margin-left: 10px;margin-top: 10px">您好,请<a href="../../../passport/login">登录</a></label>
+                    <label style="margin-left: 10px;margin-top: 10px">您好,请<a
+                            href="../../../passport/login">登录</a></label>
 
                 {% endif %}
                 <!-- Cart End -->
@@ -110,7 +115,7 @@
                    class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
                     <i class="icon-menu"></i>
                 </a>
-        </label>
+            </label>
         </div>
 
     </div>
@@ -182,18 +187,21 @@
                         <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 {% for service in services_sort %}
-                                    <li><a href="../../../services/?search={{ service.name }}&page=1">{{ service.name }}</a>
+                                    <li>
+                                        <a href="../../../services/?search={{ service.name }}&page=1">{{ service.name }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
                         </li>
                         <li>
                             <form action="../../../other/Q&A/" method="GET"><a class="single-link"
-                                                                               href="../../../other/Q&A/">常见问题</a></form>
+                                                                               href="../../../other/Q&A/">常见问题</a>
+                            </form>
                         </li>
                         <li>
                             <form action="../../../other/about/" method="GET"><a class="single-link"
-                                                                        href="../../../other/about/">关于我们</a></form>
+                                                                                 href="../../../other/about/">关于我们</a>
+                            </form>
                         </li>
                     </ul>
                 </div>
@@ -237,66 +245,78 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
 
-                    <div class="table-content table-responsive cart-table-content">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>图片</th>
-                                <th>服务名称</th>
-                                <th>店铺名称</th>
-                                <th>开始时间</th>
-                                <th>结束时间</th>
-                                <th>金额</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for cart in carts %}
+                <div class="table-content table-responsive cart-table-content">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>图片</th>
+                            <th>服务名称</th>
+                            <th>店铺名称</th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
+                            <th>单价</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for cart in carts %}
                             <tr>
                                 <td class="product-thumbnail">
-                                    <a href="../../../shop/service/?se_id={{cart.service.id}}"><img class="img-responsive ml-3" src="{{cart.service.img1}}" alt="" /></a>
+                                    <a href="../../../shop/service/?se_id={{ cart.service.id }}"><img
+                                            class="img-responsive ml-3" src="{{ cart.service.img1 }}" alt=""/></a>
                                 </td>
-                                <td class="product-name"><a href="../../../shop/service/?se_id={{cart.service.id}}">{{cart.service.name}}</a></td>
-                                <td class="product-price-cart"><span class="amount">{{cart.service.shop.name}}</span></td>
+                                <td class="product-name"><a
+                                        href="../../../shop/service/?se_id={{ cart.service.id }}">{{ cart.service.name }}</a>
+                                </td>
+                                <td class="product-price-cart"><span class="amount">{{ cart.service.shop.name }}</span>
+                                </td>
                                 <td class="product-quantity">
                                     <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value={{cart.start_time|date:"Y-m-d"}} />
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value={{cart.start_time|date:"H:i:s"}} />
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                               value={{ cart.start_time|date:"Y-m-d" }}/>
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                               value={{ cart.start_time|date:"H:i:s" }}/>
                                     </div>
                                 </td>
                                 <td class="product-quantity">
                                     <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value={{cart.end_time|date:"Y-m-d"}} />
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value={{cart.end_time|date:"H:i:s"}} />
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                               value={{ cart.end_time|date:"Y-m-d" }}/>
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                               value={{ cart.end_time|date:"H:i:s" }}/>
                                     </div>
                                 </td>
-                                <td class="product-subtotal">{{cart.service.price}}</td>
+                                <td class="product-subtotal">{{ cart.service.price }} 元/小时</td>
                                 <td class="product-remove">
                                     <form method="post">
                                         <button>
                                             <a href="../../../account/users/shop_cart">
-                                                <button type="submit" name="service_id" value="{{ cart.service.id }}" class="icon-close"></button>
+                                                <button type="submit" name="service_id" value="{{ cart.service.id }}"
+                                                        class="icon-close"></button>
                                             </a>
                                         </button>
                                     </form>
                                 </td>
                             </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="cart-shiping-update-wrapper">
-                                <div class="cart-shiping-update">
-                                   <a href="../../../account/users/shop_cart/removeall" ><button type="submit" name="service_id" value="{{ cart.service.id }}"><b >清空购物车</b></button></a>
-                                </div>
-                                <div class="cart-clear">
-                                    <a href="../../../services/?search={{key}}&page=1">继续购物</a>
-                                </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="cart-shiping-update-wrapper">
+                            <div class="cart-shiping-update">
+                                <a href="../../../account/users/shop_cart/removeall">
+                                    <button type="submit" name="service_id" value="{{ cart.service.id }}"><b>清空购物车</b>
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="cart-clear">
+                                <a href="../../../services/?search={{ key }}&page=1">继续购物</a>
                             </div>
                         </div>
                     </div>
+                </div>
 
                 <div class="row">
                     <div class="col-lg-4 col-md-12 mt-md-30px">
@@ -304,8 +324,8 @@
                             <div class="title-wrap">
                                 <h4 class="cart-bottom-title section-bg-gary-cart">购物车总和</h4>
                             </div>
-                            <h5>服务数量<span>{{cart_size}}</span></h5>
-                            <h4 class="grand-totall-title">总金额<span>{{total_cost}}</span></h4>
+                            <h5>服务数量<span>{{ cart_size }}</span></h5>
+                            <h4 class="grand-totall-title">总金额<span>{{ total_cost }}</span></h4>
                             <a href="../../../shop/service/pay/?se_id=0&from_cart=1">前往支付</a>
                         </div>
                     </div>
@@ -437,7 +457,6 @@
     </div>
 </div>
 <!-- Footer Area End -->
-
 
 
 <!-- Use the minified version files listed below for better performance and remove the files listed above -->
