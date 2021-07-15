@@ -113,7 +113,9 @@
                        class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
                         <i class="icon-menu"></i>
                     </a>
+                </label>>
             </div>
+
         </div>
 
     </div>
@@ -194,10 +196,12 @@
                         <li>
                             <form action="../../other/Q&A/" method="GET"><a class="single-link"
                                                                             href="../../other/Q&A/">常见问题</a>
+                            </form>>
                         </li>
                         <li>
                             <form action="../../other/about/" method="GET"><a class="single-link"
                                                                               href="../../other/about/">关于我们</a>
+                            </form>>
                         </li>
                     </ul>
                 </div>
@@ -225,8 +229,6 @@
 
                     </div>
                 </div>
-
-
             </div>
             <div class="col-lg-7 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
                 <div class="product-details-content quickview-content">
@@ -361,20 +363,25 @@
                                     })
                                 }
                             </script>
-                            <form action="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0" method="get">
+                            <div style="width: 350px">
+                            <form action="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0" method="get" >
                             <button href="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0"
                                     class="add-cart btn btn-primary btn-hover-primary ml-4"
-                                    id="buyNow" name="buyNow" disabled="true">立即购买
+                                    id="buyNow"  disabled="true">立即购买
                             </button>
+                                <input hidden="hidden" name="se_id" value="{{ service.id }}">
+                                <input hidden="hidden" name="from_cart" value="0" >
                             </form>
-
+                        </div>
                             <button type="submit"
                                     class="add-cart btn btn-primary btn-hover-primary ml-4" name="addCartNow"
                                     id="addCartNow"
-                                    value="{{ service.id }}" onclick="AddCart()" disabled="true">加入购物车
+                                    value="{{ service.id }}" onclick="AddCart()" disabled="true" style="float: right">加入购物车
                             </button>
+
                         </div>
                     </div>
+
                     <script>
                         function AddCart() {
                             $.ajax({
@@ -424,7 +431,6 @@
             <div class="tab-content description-review-bottom">
                 <p>{{ service.intro }}
                 </p>
-
             </div>
         </div>
     </div>
@@ -439,7 +445,6 @@
             <h2 data-bs-toggle="tab" href="#des-details1" align="center">服务评论</h2>
             <div class="tab-content description-review-bottom">
                 {% for order in order_list %}
-                    <
                     <hr/>
                     <p>用户 {{ order.user.username }} </p>
                     <hr/>
