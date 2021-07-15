@@ -15,7 +15,7 @@ class UserInfoManageView(View):
         user = User.objects.get(username=username)
         if user.is_vendor:
             return redirect("/account/vendors/vendor_info_manage")
-        order_list = Order.objects.filter(user_id=user.id) ####
+        order_list = Order.objects.filter(user_id=user.id)  ####
         addr = Util.transform(user.province, user.city, user.district)
         return render(request, "user_info_manage.html",
                       {"user": user, "order_list": order_list, "username": username, "services_sort": services_sort,
@@ -253,6 +253,7 @@ def submit_comment(request):
     comment = data.get("comment")
     star = int(data.get("star"))
     order_id = data.get("order_id")
+    print(star,comment)
     order = Order.objects.get(id=order_id)
 
     return HttpResponse(order.set_comment(comment, star))

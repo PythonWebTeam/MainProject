@@ -88,6 +88,7 @@ class Order(models.Model):
         try:
             self.comment = comment
             self.star = star
+            print(comment)
             self.save()
             return "ok"
         except:
