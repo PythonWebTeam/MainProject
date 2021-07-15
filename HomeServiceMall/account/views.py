@@ -31,7 +31,7 @@ class UserInfoManageView(View):
         user = User.objects.get(username=username)
         Order.objects.filter(user_id=user.id)
         new_username = data.get("username")  #
-        if len(User.objects.filter(username=new_username))>1:
+        if len(User.objects.filter(username=new_username)) > 1:
             msg = "该用户名已存在"
             return self.get(request, msg)
         phone = data.get("phone")  #
@@ -62,8 +62,7 @@ class ChangePasswordView(View):
         if not user:
             return HttpResponse("原密码错误")
         else:
-            user.set_password(new_password)
-            user.save()
+            user.change_password(new_password)
             return HttpResponse("ok")
 
 
@@ -171,11 +170,14 @@ class BusinessDataView(View):
         recent_months_orders = self.get_recent_month_orders_data(vendor)
         # 获取近30天的不同类型订单数据
         current_month_orders = self.get_current_month_orders_data(vendor)
+
         # 以json形式返回响应
         json_data = {
             "recent_months_orders": recent_months_orders,
             "current_month_orders": current_month_orders
         }
+
+        print(json_data)
         # 将safe设为False以便序列化列表
         return JsonResponse(json_data, safe=False)
 
@@ -184,35 +186,40 @@ class BusinessDataView(View):
         vendor_id = vendor.id
         now_time = datetime.now()
         # 通过id找到
-        shop = Shop.objects.get(id=vendor_id)
+
+        shop = Shop.objects.get(user_id=vendor_id)
+
         shop_orders = self.get_total_orders(shop)
         all_type = Type.objects.all()
         data_by_type = dict()
         for service_type in all_type:
-            init_type_dict = {service_type: 0}
+            init_type_dict = {service_type.name: 0}
             data_by_type.update(init_type_dict)
         for order in shop_orders:
             if (now_time - order.create_time).days < 30:
-                data_by_type = data_by_type.get(
+                data_by_type[order.service.sort.name] = data_by_type.get(
                     order.service.sort.name, 0) + 1  # TODO:可简化
         return data_by_type
 
     def get_recent_month_orders_data(self, vendor):
         vendor_id = vendor.id
         now_time = datetime.now()
-        shop = Shop.objects.get(id=vendor_id)
+
+        shop = Shop.objects.get(user_id=vendor_id)
         shop_orders = self.get_total_orders(shop)
         order_month_list = [0, 0, 0, 0, 0, 0]
         for order in shop_orders:
             month = (now_time - order.create_time).days // 30
             if month < 6:
                 order_month_list[month] += 1
+
         recent_month_data = dict()
         for month in range(0, 6):
             month_name = "距今第{}月内".format(month + 1)
             sales = order_month_list[month]
             info = {month_name: sales}
             recent_month_data.update(info)
+
         return recent_month_data
 
     def get_one_kind_orders(self, service):
@@ -229,6 +236,18 @@ class BusinessDataView(View):
 
 class UploadServiceView(View):
     def post(self, request):
-        s=Service.objects.get(id=1)
-
+        s = Service.objects.get(id=1)
         pass
+
+
+def delete_order(request):
+    data = request.POST
+
+
+def submit_comment(request):
+    data = request.POST
+    comment = data.get("comment")
+    star = int(data.get("star"))
+    order_id = data.get("order_id")
+    order = Order.objects.get(id=order_id)
+    return HttpResponse(order.set_comment(comment, star))

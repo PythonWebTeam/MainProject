@@ -1,6 +1,10 @@
 from datetime import datetime
+
+from django.contrib.auth import authenticate
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.http import HttpResponse
+from django.shortcuts import redirect
 
 from HomeServiceMall import settings
 
@@ -13,6 +17,35 @@ class User(AbstractUser):
     details = models.CharField(verbose_name='详细地址', max_length=255, blank=True, null=True)
     mod_date = models.DateTimeField(verbose_name='Last modified', null=True, auto_now=True)
     is_vendor = models.BooleanField(verbose_name="商贩", default=0)
+
+    # 在session中写入数据
+    def set_session_login(self, request):
+        request.session["is_login"] = True
+        request.session["username"] = self.username
+
+    # 检查是否登录，没有登录则重定向至登录页面
+    @staticmethod
+    def login_check(request):
+        if not request.session.get("is_login"):
+            return redirect("/passport/login/")
+
+    # 将用户登录进入登录态,返回登录
+    @staticmethod
+    def login(request):
+        username = request.POST.get("user-name")
+        password = request.POST.get("user-password")
+        user = authenticate(request, username=username, password=password)
+        if user:
+            if user.is_superuser:
+                return HttpResponse("您的账户为管理员账户，请从管理员界面登录")
+            user.set_session_login(request)
+            return HttpResponse("ok")
+        else:
+            return HttpResponse("账号或密码错误!")
+
+    def change_password(self, new_password):
+        self.set_password(new_password)
+        self.save()
 
     class Meta:
         db_table = 'auth_user'
@@ -51,14 +84,45 @@ class Order(models.Model):
     star = models.IntegerField(verbose_name='服务星级', blank=True, null=True)
     order_collection_id = models.CharField('OrderCollection', blank=True, null=True, max_length=255)
 
-    class Meta:
-        db_table = 'Order'
+    def set_comment(self, comment, star):
+        try:
+            self.comment = comment
+            self.star = star
+            self.save()
+            return "ok"
+        except:
+            return "评论失败"
 
-    def __str__(self):
-        return str(self.user) + ":" + str(self.service)
 
-    def __unicode__(self):
-        return str(self.user) + ":" + str(self.service)
+def get_order_price(self):
+    delta_time = self.end_time - self.start_time
+    delta_seconds = delta_time.total_seconds()
+    delta_hours = delta_seconds / 3600
+    service_price = float(self.service.price)
+    return delta_hours * service_price
+
+
+def pay_order(self):
+    msg = ""
+    if self.pay_status:
+        msg = "已支付"
+        return msg
+    else:
+        self.pay_status = True
+        self.save()
+        msg = "支付成功"
+
+
+class Meta:
+    db_table = 'Order'
+
+
+def __str__(self):
+    return str(self.user) + ":" + str(self.service)
+
+
+def __unicode__(self):
+    return str(self.user) + ":" + str(self.service)
 
 
 class Shop(models.Model):
@@ -90,6 +154,10 @@ class Type(models.Model):
     def __unicode__(self):
         return self.name
 
+    @staticmethod
+    def get_all_sort():
+        return Type.objects.all()
+
 
 class Service(models.Model):
     name = models.CharField('服务名称', max_length=32)
@@ -112,19 +180,22 @@ class Service(models.Model):
     def __unicode__(self):
         return '{0}({1})'.format(self.name, self.sort)
 
-    @staticmethod
-    def upload_service_img(request):
-        # 获取上传的图片
-        pic = request.FILES["pic"]
-
-        # 创建一个文件
-        file_url = '%s/img/%s' % (settings.MEDIA_ROOT, pic.name)
-        with open(file_url,"wb") as f:
-            pass
-        # 获取上传文件内容并写入创建文件中
-        # 在数据库中保存上传记录
-        # 返回
-        pass
+    # 上传服务的图片，当上传成功时返回True
+    def upload_service_img(self, request):
+        try:
+            # 获取上传的图片
+            pic = request.FILES["pic"]
+            # 创建一个文件
+            file_url = '%s/img/%s' % (settings.MEDIA_ROOT, pic.name)
+            with open(file_url, "wb") as f:
+                # 获取上传文件内容并写入创建文件中
+                for content in pic.chunks():
+                    f.write(content)
+            # 在数据库中保存上传记录
+            self.img = "img/%s" % pic.name
+            return True
+        except:
+            return False
 
 
 class EmailVerifyRecord(models.Model):
