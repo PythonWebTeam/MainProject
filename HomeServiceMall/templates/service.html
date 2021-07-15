@@ -34,14 +34,15 @@
 
 </head>
 
-<body>
+<body onload="finishLoad()">
 <div class="header-bottom d-none d-lg-block">
     <div class="container position-relative">
         <div class="row align-self-center">
             <!-- Header Logo Start -->
             <div class="col-auto align-self-center">
                 <div class="header-logo">
-                    <form action="../../" method="GET"><a href="../../"><img src="/static/Images/logo/logo.png"></a></form>
+                    <form action="../../" method="GET"><a href="../../"><img src="/static/Images/logo/logo.png"></a>
+                    </form>
 
                 </div>
             </div>
@@ -67,23 +68,25 @@
                         <ul class="dropdown-menu dropdown-menu-right">
                             {% if is_login %}
                                 <li>
-                                    <form action="../../account/users/user_info_manage/" method="GET"><a class="dropdown-item"
-                                                                                                   href="../../account/users/user_info_manage/">我的账户{{ username }}</a>
+                                    <form action="../../account/users/user_info_manage/" method="GET"><a
+                                            class="dropdown-item"
+                                            href="../../account/users/user_info_manage/">我的账户{{ username }}</a>
                                     </form>
                                 </li>
 
                                 <li>
 
-                                    <form action="../../passport/logout/" method="POST"><a name="logout" class="dropdown-item"
-                                                                                     href="../../passport/logout/"
-                                                                                     onclick="logout()">注销</a>
+                                    <form action="../../passport/logout/" method="POST"><a name="logout"
+                                                                                           class="dropdown-item"
+                                                                                           href="../../passport/logout/"
+                                                                                           onclick="logout()">注销</a>
                                     </form>
                                 </li>
 
                             {% else %}
                                 <li>
                                     <form action="../../passport/login/" method="GET"><a class="dropdown-item"
-                                                                                   href="../../passport/login/">登录/注册</a>
+                                                                                         href="../../passport/login/">登录/注册</a>
                                     </form>
                                 </li>
                             {% endif %}
@@ -101,7 +104,8 @@
                         </a>
                     {% else %}
 
-                        <label style="margin-left: 10px;margin-top: 10px">您好,请<a href="../../passport/login">登录</a></label>
+                        <label style="margin-left: 10px;margin-top: 10px">您好,请<a
+                                href="../../passport/login">登录</a></label>
 
                     {% endif %}
                     <!-- Cart End -->
@@ -181,18 +185,19 @@
                         <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 {% for service in services_sort %}
-                                    <li><a href="../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
+                                    <li>
+                                        <a href="../../services/?search={{ service.sort.name }}&page=1">{{ service.name }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
                         </li>
                         <li>
                             <form action="../../other/Q&A/" method="GET"><a class="single-link"
-                                                                      href="../../other/Q&A/">常见问题</a>
+                                                                            href="../../other/Q&A/">常见问题</a>
                         </li>
                         <li>
                             <form action="../../other/about/" method="GET"><a class="single-link"
-                                                                        href="../../other/about/">关于我们</a>
+                                                                              href="../../other/about/">关于我们</a>
                         </li>
                     </ul>
                 </div>
@@ -226,80 +231,170 @@
             <div class="col-lg-7 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
                 <div class="product-details-content quickview-content">
                     <div style="height: 150px"></div>
-                    <h2>{{service.name}}</h2>
-                    <p class="reference">所属分类: <span>{{service.sort.name}}</span></p>
+                    <h2>{{ service.name }}</h2>
+                    <p class="reference">所属分类: <span>{{ service.sort.name }}</span></p>
                     <div class="pro-details-rating-wrap">
                         <div class="rating-product">
                             <p>服务星级:
-                            <i class="ion-android-star"></i>
-                            <i class="ion-android-star"></i>
-                            <i class="ion-android-star"></i>
-                            <i class="ion-android-star"></i>
-                            <i class="ion-android-star"></i>
+                                <i class="ion-android-star"></i>
+                                <i class="ion-android-star"></i>
+                                <i class="ion-android-star"></i>
+                                <i class="ion-android-star"></i>
+                                <i class="ion-android-star"></i>
                             </p>
                         </div>
                     </div>
                     <div class="pricing-meta">
                         <ul>
-                            <li class="old-price not-cut">价格:{{service.price}}￥/小时</li>
+                            <li class="old-price not-cut">价格:{{ service.price }}￥/小时</li>
                         </ul>
                     </div>
 
                     <div class="pro-details-quality">
 
                         <div class="pro-details-cart">
-                                <p>请选择服务开始时间</p>
-                                <input id="starttime" type="datetime-local" value="2021-07-16T00:00"/>
-                                <p></p>
-                                <p></p>
-                                <p>请选择服务结束时间</p>
-                                <input id="endtime" type="datetime-local" value="2021-07-15T00:00"/>
-                                <p></p>
-                                <p></p>
-                                <script>
-                                    var stime=new Date($("#starttime").val());
-                                    var etime=new Date($("#endtime").val());
-                                    var difftime=stime-etime;
-                                    function CheckDate(){
-                                        $.ajax({
-                                            url: "../../shop/service/pay/?se_id={{ service.id }}&from_cart=0"
-                                            beforeSend: function (xhr){
-                                                if(difftime>0)
-                                                {
-                                                    alert("结束日期不能小于开始日期");
-                                                    xhr.abort();
-                                                }
-                                            }
-                                            success: function (response_data){
+                            <p>请选择服务开始时间</p>
+                            <input id="starttime" name="starttime" type="datetime-local" onchange="CheckD()"/>
+                            <p></p>
+                            <p></p>
+                            <p>请选择服务结束时间</p>
+                            <input id="endtime" name="endtime" type="datetime-local" onchange="CheckD()"/>
+                            <p></p>
+                            <p></p>
+                            <script>
+                                {#var stime = new Date($("#starttime").val());#}
+                                {#var etime = new Date($("#endtime").val());#}
+                                {#var difftime = etime - stime;#}
+                                var stime = new Date();
+                                var etime = new Date();
+                                function fix(num, length) {
+                                    return ('' + num).length < length ? ((new Array(length + 1)).join('0') + num).slice(-length) : '' + num;
+                                }
 
-                                            }
-                                        })
+                                function finishLoad() {
+
+                                    stime.setHours(stime.getHours());
+                                    var strx = stime.getFullYear() + "-" + fix((stime.getMonth() + 1), 2) + "-" + fix(stime.getDate(), 2) + "T" + fix(stime.getHours(), 2) + ":" + fix(stime.getMinutes(), 2);
+
+                                    console.log("strx: " + strx);
+
+                                    $("#starttime").val(strx);
+
+
+
+                                    etime.setHours(etime.getHours());
+                                    var stry = etime.getFullYear() + "-" + fix((etime.getMonth() + 1), 2) + "-" + fix(etime.getDate(), 2) + "T" + fix(etime.getHours(), 2) + ":" + fix(etime.getMinutes(), 2);
+
+                                    console.log("stry: " + stry);
+
+                                    $("#endtime").val(stry);
+                                }
+
+
+
+                                {#var x = $("#starttime").val();#}
+                                {#stime.setFullYear(parseInt(x.substring(0, 4)));#}
+                                {#stime.setMonth(parseInt(x.substring(5, 7)) - 1);#}
+                                {#stime.setDate(parseInt(x.substring(8, 10)));#}
+                                {#stime.setHours(parseInt(x.substring(11, 13)));#}
+                                {#stime.setMinutes(parseInt(x.substring(14, 16)));#}
+
+
+                                function CheckD() {
+                                    {#var stime = new Date();#}
+                                    {#stime.setHours(stime.getHours() + 1);#}
+
+
+                                    var x = $("#starttime").val();
+                                    stime.setFullYear(parseInt(x.substring(0, 4)));
+                                    stime.setMonth(parseInt(x.substring(5, 7)) - 1);
+                                    stime.setDate(parseInt(x.substring(8, 10)));
+                                    stime.setHours(parseInt(x.substring(11, 13)));
+                                    stime.setMinutes(parseInt(x.substring(14, 16)));
+
+                                    console.log("stime: "+stime);
+
+
+                                    {#var etime = new Date();#}
+                                    var y = $("#endtime").val();
+                                    etime.setFullYear(parseInt(y.substring(0, 4)));
+                                    etime.setMonth(parseInt(y.substring(5, 7)) - 1);
+                                    etime.setDate(parseInt(y.substring(8, 10)));
+                                    etime.setHours(parseInt(y.substring(11, 13)));
+                                    etime.setMinutes(parseInt(y.substring(14, 16)));
+
+
+                                    console.log("etime: "+etime);
+
+
+                                    if (etime <= stime) {
+                                        alert("服务时间设置有误，请重新设置！");
+                                        var buy = document.getElementById("buyNow");
+                                        buy.setAttribute("disabled",true);
+                                        var addcart = document.getElementById("addCartNow");
+                                        addcart.setAttribute("disabled",true);
+                                    } else {
+                                        var buy = document.getElementById("buyNow");
+                                        buy.removeAttribute("disabled");
+                                        var addcart = document.getElementById("addCartNow");
+                                        addcart.removeAttribute("disabled");
                                     }
-                                </script>
-                                <a href="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0" onclick="CheckDate()">立即购买</a></button>
+                                }
 
-                            <button href="../../shop/service/pay/" type="submit" class="add-cart btn btn-primary btn-hover-primary ml-4" name="se_id" value="{{ service.id }}" onclick="AddCart()" >加入购物车</button>
+                                function CheckDate() {
+                                    $.ajax({
+                                        url: "../../shop/service/pay/?se_id={{ service.id }}&from_cart=0",
+                                        type: "GET",
+                                        data: {
+                                            "se_id":{{ service.id }},
+                                            "start_time": $("#starttime").val(),
+                                            "end_time": $("#endtime").val(),
+                                        },
+
+                                        success: function (response_data) {
+                                            if (response_data === "ok") {
+                                            } else {
+                                                console.log("fail")
+                                                alert(response_data)
+                                            }
+                                        },
+                                    })
+                                }
+                            </script>
+                            <form action="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0" method="get">
+                            <button href="../../shop/service/pay/?se_id={{ service.id }}&from_cart=0"
+                                    class="add-cart btn btn-primary btn-hover-primary ml-4"
+                                    id="buyNow" name="buyNow" disabled="true">立即购买
+                            </button>
+                            </form>
+
+                            <button type="submit"
+                                    class="add-cart btn btn-primary btn-hover-primary ml-4" name="addCartNow"
+                                    id="addCartNow"
+                                    value="{{ service.id }}" onclick="AddCart()" disabled="true">加入购物车
+                            </button>
                         </div>
                     </div>
                     <script>
-                        function AddCart(){
+                        function AddCart() {
                             $.ajax({
-                                url:"../../shop/service/",
-                                type:"POST",
-                                data:{
+                                url: "../../shop/service/",
+                                type: "POST",
+                                data: {
                                     "se_id":{{ service.id }},
+                                    "start_time": $("#starttime").val(),
+                                    "end_time": $("#endtime").val(),
                                 },
-                                beforeSend: function (xhr){
+                                beforeSend: function (xhr) {
                                     console.log("send")
                                     console.log({{ service.id }})
                                 },
-                                success: function (response_data){
+                                success: function (response_data) {
                                     console.log(response_data)
-                                    if (response_data==="ok"){
+                                    if (response_data === "ok") {
                                         console.log("success")
                                         alert("加入购物车成功！")
-                                    }
-                                    else{
+                                    } else {
                                         console.log("fail")
                                         alert(response_data)
                                     }
@@ -307,13 +402,13 @@
                             })
                         }
                     </script>
-{#                    <div class="pro-details-policy">#}
-{#                        <ul>#}
-{#                            <li><img src="/static/Images/icons/policy.png" alt="" /><span>安全可靠</span></li>#}
-{#                            <li><img src="/static/Images/icons/policy-2.png" alt="" /><span>快速到达</span></li>#}
-{#                            <li><img src="/static/Images/icons/policy-3.png" alt="" /><span>可退订</span></li>#}
-{#                        </ul>#}
-{#                    </div>#}
+                    {#                    <div class="pro-details-policy">#}
+                    {#                        <ul>#}
+                    {#                            <li><img src="/static/Images/icons/policy.png" alt="" /><span>安全可靠</span></li>#}
+                    {#                            <li><img src="/static/Images/icons/policy-2.png" alt="" /><span>快速到达</span></li>#}
+                    {#                            <li><img src="/static/Images/icons/policy-3.png" alt="" /><span>可退订</span></li>#}
+                    {#                        </ul>#}
+                    {#                    </div>#}
                 </div>
             </div>
         </div>
@@ -325,10 +420,10 @@
 <div class="description-review-area pb-100px" data-aos="fade-up" data-aos-delay="200">
     <div class="container">
         <div class="description-review-wrapper">
-                <h2 data-bs-toggle="tab" href="#des-details1" align="center">服务简介</h2>
+            <h2 data-bs-toggle="tab" href="#des-details1" align="center">服务简介</h2>
             <div class="tab-content description-review-bottom">
-                        <p>{{service.intro}}
-                        </p>
+                <p>{{ service.intro }}
+                </p>
 
             </div>
         </div>
@@ -341,16 +436,16 @@
 <div class="description-review-area pb-100px" data-aos="fade-up" data-aos-delay="200">
     <div class="container">
         <div class="description-review-wrapper">
-                <h2 data-bs-toggle="tab" href="#des-details1" align="center">服务评论</h2>
+            <h2 data-bs-toggle="tab" href="#des-details1" align="center">服务评论</h2>
             <div class="tab-content description-review-bottom">
                 {% for order in order_list %}
                     <
-                        <hr />
-                            <p>用户 {{ order.user.username }} </p>
-                        <hr />
-                            <p>评级：{% for cnt in order.star %}}<i class="ion-android-star"></i>{% endfor %}</p>
-                            <p>评论内容: {{ order.comment }} </p>
-                        <hr />
+                    <hr/>
+                    <p>用户 {{ order.user.username }} </p>
+                    <hr/>
+                    <p>评级：{% for cnt in order.star %}}<i class="ion-android-star"></i>{% endfor %}</p>
+                    <p>评论内容: {{ order.comment }} </p>
+                    <hr/>
                 {% endfor %}
             </div>
         </div>
@@ -442,7 +537,8 @@
                                             <!--                                        </script>-->
                                         {% else %}
                                             <form action="../../passport/login/" method="GET">
-                                                <li class="li"><a class="single-link" href="../../passport/login/">登录</a>
+                                                <li class="li"><a class="single-link"
+                                                                  href="../../passport/login/">登录</a>
                                                 </li>
                                             </form>
                                         {% endif %}

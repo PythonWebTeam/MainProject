@@ -20,23 +20,26 @@ class ServiceView(View):
         if not request.session.get("is_login"):
             return redirect("/passport/login/")
         data = request.POST
-        se_id = data.get("se_id")
+        se_id = int(data.get("se_id"))
         username = request.session.get("username")
         user = User.objects.filter(username=username)[0]
         start_time = data.get("start_time")
         end_time = data.get("end_time")
-        start_time = datetime.datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
-        end_time = datetime.datetime.strptime(end_time, "%Y-%m-%d %H:%M:%S")
+        start_time = datetime.datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
+        end_time = datetime.datetime.strptime(end_time, "%Y-%m-%dT%H:%M")
         CartNum = len(Cart.objects.filter(user=user))
+        service=Service.objects.get(id=se_id)
         if CartNum >= 10:
             return HttpResponse("购物车最多添加10件服务")
-        search_dict = dict()
-        search_dict["user"] = user
-        search_dict["se_id"] = se_id
-        cart = Cart.objects.filter(**search_dict)[0]
-        if not cart:
+        u_id = user.id
+        carts = Cart.objects.filter(user_id=u_id)
+        exist = False
+        for cart in carts:
+            if cart.service.id == se_id:
+                exist = True
+        if not exist:
             CartAdd = Cart()
-            CartAdd.se_id = se_id
+            CartAdd.service = service
             CartAdd.user = user
             CartAdd.start_time = start_time
             CartAdd.end_time = end_time
@@ -105,6 +108,6 @@ class PayView(View):
             "prov": addr[0],
             "city": addr[1],
             "county": addr[2],
-            "from_cart":from_cart,
+            "from_cart": from_cart,
         }
         return render(request, "pay.html", return_data)

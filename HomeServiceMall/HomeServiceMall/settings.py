@@ -12,7 +12,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -33,7 +32,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -69,14 +68,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': "django_mysql",
-        'USER': "root", # 远程数据库账号密码
+        'USER': "root",  # 远程数据库账号密码
         'PASSWORD': "123456",
         'HOST': "119.45.125.97",
-        'PORT': "3306", # 远程数据库映射到本地的端口
+        'PORT': "3306",  # 远程数据库映射到本地的端口
         'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB;'}
-        }
+    }
 }
-
 
 # Password validation
 
@@ -108,23 +106,23 @@ USE_L10N = True
 
 USE_TZ = False
 
-
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS=(
-    os.path.join(BASE_DIR,"static"),
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
 )
+MEDIA_ROOT = os.path.join(BASE_DIR, "static/media")
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-ALIPAY_PUBLIC = os.path.join(BASE_DIR,'keys','alipay_public.txt')
-APP_PUBLIC = os.path.join(BASE_DIR,'keys','app_public.txt')
-APP_PRIVATE = os.path.join(BASE_DIR,'keys','app_private.txt')
+ALIPAY_PUBLIC = os.path.join(BASE_DIR, 'keys', 'alipay_public.txt')
+APP_PUBLIC = os.path.join(BASE_DIR, 'keys', 'app_public.txt')
+APP_PRIVATE = os.path.join(BASE_DIR, 'keys', 'app_private.txt')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = "smtp.163.com"   # 服务器
-EMAIL_PORT = 25               # 一般情况下都为25
-EMAIL_HOST_USER = "lets_go2011@163.com"   # 账号
+EMAIL_HOST = "smtp.163.com"  # 服务器
+EMAIL_PORT = 25  # 一般情况下都为25
+EMAIL_HOST_USER = "lets_go2011@163.com"  # 账号
 EMAIL_HOST_PASSWORD = "NBMBWKTLJEYOSJLX"  # 密码
-EMAIL_USE_TLS = False             # 一般都为False
-EMAIL_FROM = "lets_go2011@163.com"        # 邮箱来自
+EMAIL_USE_TLS = False  # 一般都为False
+EMAIL_FROM = "lets_go2011@163.com"  # 邮箱来自
