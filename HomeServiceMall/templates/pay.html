@@ -98,9 +98,9 @@
                                 <li>
 
                                     <form action="../../../passport/logout/" method="POST"><a name="logout"
-                                                                                             class="dropdown-item"
-                                                                                             href="../../../passport/logout/"
-                                                                                             onclick="logout()">注销</a>
+                                                                                              class="dropdown-item"
+                                                                                              href="../../../passport/logout/"
+                                                                                              onclick="logout()">注销</a>
                                     </form>
                                 </li>
 
@@ -463,28 +463,26 @@
                                             <span class="order-price" id="endtime"></span>
                                             <span class="order-price">{{ service.price }}</span></li>
                                         <script>
-                                            var stime1={{ cart.start_time }};
-                                            var stime2={{ start_time }};
-                                            var etime1={{ cart.end_time }};
-                                            var etime2={{ end_time }};
-                                            var i={{ from_cart }};
-                                            function CheckStart(){
-                                                if(i===0)
-                                                {
-                                                    document.getElementById("starttime").innerHTML=stime2;
-                                                }
-                                                else {
-                                                    document.getElementById("starttime").innerHTML=stime1;
+                                            var stime1 ={{ cart.start_time }};
+                                            var stime2 ={{ start_time }};
+                                            var etime1 ={{ cart.end_time }};
+                                            var etime2 ={{ end_time }};
+                                            var i ={{ from_cart }};
+
+                                            function CheckStart() {
+                                                if (i === 0) {
+                                                    document.getElementById("starttime").innerHTML = stime2;
+                                                } else {
+                                                    document.getElementById("starttime").innerHTML = stime1;
                                                 }
                                                 CheckStart();
                                             }
-                                            function CheckEnd(){
-                                                if(i===0)
-                                                {
-                                                    document.getElementById("endtime").innerHTML=etime2;
-                                                }
-                                                else {
-                                                    document.getElementById("endtime").innerHTML=etime1;
+
+                                            function CheckEnd() {
+                                                if (i === 0) {
+                                                    document.getElementById("endtime").innerHTML = etime2;
+                                                } else {
+                                                    document.getElementById("endtime").innerHTML = etime1;
                                                 }
                                                 CheckEnd();
                                             }
@@ -502,8 +500,17 @@
                     </div>
                     <div class="Place-order mt-25">
                         <!--                        Hofee改重新跳转到支付页面-->
-                        <form action="../../../shop/service/pay/alipay/?se_id={{ services.0.id }}&from_cart={{ from_cart }}" method="get"><a
-                                class="btn-hover" href="../../../shop/service/pay/alipay/?se_id={{ services.0.id }}&from_cart={{ from_cart }}">支付</a>
+                        <form action="../../../shop/service/pay/alipay/?se_id={{ services.0.id }}&from_cart={{ from_cart }}"
+                              method="get"><a
+                                class="btn-hover"
+                                href="../../../shop/service/pay/alipay/?se_id={{ services.0.id }}&from_cart={{ from_cart }}">支付</a>
+                            {% if from_cart == 0 %}
+                                <input name="start_time" value="{{ start_time }} " hidden="true">
+                                <input name="end_time" value="{{ end_time }}" hidden="true">
+                            {% else %}
+                                <input name="start_time" value=" 12345678 " hidden="true">
+                                <input name="end_time" value="123213" hidden="true">
+                            {% endif %}
                         </form>
                     </div>
                 </div>
