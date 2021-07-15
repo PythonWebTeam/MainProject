@@ -33,7 +33,7 @@ class UserInfoManageView(View):
         new_username = data.get("username")  #
         if User.objects.filter(username=new_username):
             msg = "该用户名已存在"
-            return self.get(request,msg)
+            return self.get(request, msg)
         phone = data.get("phone")  #
         fChangeTrue = data.get("ChangeAddr")  #
         if fChangeTrue == 0:
@@ -158,18 +158,6 @@ class DeleteService(View):
         else:
             Service.objects.get(**search_dict).delete()
             return HttpResponse("ok")
-
-
-def product_manage_view(request):
-    return render(request, "product_manage.html")
-
-
-def order_manage_view(request):
-    return render(request, "order_manage.html")
-
-
-def service_manage_view(request):
-    return render(request, "service_manage.html")
 
 
 class BusinessDataView(View):
