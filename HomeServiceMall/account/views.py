@@ -35,8 +35,8 @@ class UserInfoManageView(View):
             msg = "该用户名已存在"
             return self.get(request, msg)
         phone = data.get("phone")  #
-        ifChangeTrue = data.get("ifChangeTrue")  #
-        if ifChangeTrue is None:
+        edit = data.get("ifChangeTrue")  #
+        if not edit:
             user.username = new_username
             user.phone = phone
             user.save()
@@ -104,7 +104,7 @@ class ShopCartView(View):
 
 
 class CartRemoveAll(View):
-    def post(self, request):
+    def get(self, request):
         if not request.session.get("is_login"):
             return redirect("/passport/login/")
         else:
