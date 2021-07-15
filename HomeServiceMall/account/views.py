@@ -242,6 +242,10 @@ class UploadServiceView(View):
 
 def delete_order(request):
     data = request.POST
+    order_id = data.get("order_id")
+    order = Order.objects.get(id=order_id)
+    order.delete()
+    return HttpResponse("ok")
 
 
 def submit_comment(request):
