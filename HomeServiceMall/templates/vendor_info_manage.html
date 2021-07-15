@@ -383,7 +383,7 @@
                                                 },
                                                 legend: {
                                                     {#data: ['直达', '营销广告', '搜索引擎', '邮件营销', '联盟广告', '视频广告', '百度', '谷歌', '必应', '其他']#}
-                                                    data: ['直达', '营销广告', '搜索引擎', '邮件营销', '联盟广告', '视频广告', '百度', '谷歌', '必应', '其他']
+                                                    data: ['家庭清洁', '保姆服务', '电器维修', '居民搬家', '二手回收', '鲜花绿植', '生活配送', '管道疏通', '开锁换锁', '房屋维修']
 
                                                 },
                                                 series: [
@@ -407,7 +407,7 @@
                                                         {#]#}
                                                     },
                                                     {
-                                                        name: '访问来源',
+                                                        name: '服务种类',
                                                         type: 'pie',
                                                         radius: ['45%', '60%'],
                                                         labelLine: {
@@ -417,7 +417,7 @@
                                                             formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
                                                             backgroundColor: '#F6F8FC',
                                                             borderColor: '#8C8D8E',
-                                                            borderWidth: 1,
+                                                            borderWidth: 2,
                                                             borderRadius: 4,
 
                                                             rich: {
@@ -446,14 +446,17 @@
                                                                 }
                                                             }
                                                         },
-                                                        data: [{value: 1048, name: '百度'},
-                                                            {value: 335, name: '直达'},
-                                                            {value: 310, name: '邮件营销'},
-                                                            {value: 251, name: '谷歌'},
-                                                            {value: 234, name: '联盟广告'},
-                                                            {value: 147, name: '必应'},
-                                                            {value: 135, name: '视频广告'},
-                                                            {value: 102, name: '其他'}]
+                                                        data: [
+                                                            {value: json_data['current_month_orders']['家庭清洁'], name: '家庭清洁'},
+                                                            {value: json_data['current_month_orders']['保姆服务'], name: '保姆服务'},
+                                                            {value: json_data['current_month_orders']['电器维修'], name: '电器维修'},
+                                                            {value: json_data['current_month_orders']['居民搬家'], name: '居民搬家'},
+                                                            {value: json_data['current_month_orders']['二手回收'], name: '二手回收'},
+                                                            {value: json_data['current_month_orders']['鲜花绿植'], name: '鲜花绿植'},
+                                                            {value: json_data['current_month_orders']['生活配送'], name: '生活配送'},
+                                                            {value: json_data['current_month_orders']['管道疏通'], name: '管道疏通'},
+                                                            {value: json_data['current_month_orders']['开锁换锁'], name: '开锁换锁'},
+                                                            {value: json_data['current_month_orders']['房屋维修'], name: '房屋维修'}]
                                                     }
                                                 ]
                                             };
@@ -791,7 +794,7 @@
                             <div class="tab-pane fade" id="account-sale" role="tabpanel"
                                  aria-labelledby="account-address-tab">
                                 <div class="myaccount-address">
-                                    <p>此部分为店铺经营数据可视化图表部分，待完成。。。。。。</p>
+                                    <p>店铺经营数据可视化图表</p>
                                     <div>
                                         <div id="GraphDemoOne" style="height:500px"></div>
                                         {#                                        <script type="text/javascript">#}

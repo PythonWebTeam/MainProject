@@ -31,7 +31,7 @@ class UserInfoManageView(View):
         user = User.objects.get(username=username)
         Order.objects.filter(user_id=user.id)
         new_username = data.get("username")  #
-        if len(User.objects.filter(username=new_username))>1:
+        if len(User.objects.filter(username=new_username)) > 1:
             msg = "该用户名已存在"
             return self.get(request, msg)
         phone = data.get("phone")  #
@@ -62,8 +62,7 @@ class ChangePasswordView(View):
         if not user:
             return HttpResponse("原密码错误")
         else:
-            user.set_password(new_password)
-            user.save()
+            user.change_password(new_password)
             return HttpResponse("ok")
 
 
@@ -237,6 +236,22 @@ class BusinessDataView(View):
 
 class UploadServiceView(View):
     def post(self, request):
-        s=Service.objects.get(id=1)
-
+        s = Service.objects.get(id=1)
         pass
+
+
+def delete_order(request):
+    data = request.POST
+    order_id = data.get("order_id")
+    order = Order.objects.get(id=order_id)
+    order.delete()
+    return HttpResponse("ok")
+
+
+def submit_comment(request):
+    data = request.POST
+    comment = data.get("comment")
+    star = int(data.get("star"))
+    order_id = data.get("order_id")
+    order = Order.objects.get(id=order_id)
+    return HttpResponse(order.set_comment(comment, star))
