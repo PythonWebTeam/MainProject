@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <title>Let's购 店铺详情</title>
-    <meta name="description" content="Let's购 店铺详情"/>
+    <title>HANDY 店铺详情</title>
+    <meta name="description" content="HANDY 店铺详情"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
@@ -228,15 +228,15 @@
                 <!-- Shop Top Area Start -->
                 <div>
                     <div>
-                        <h1>{{ shop.name }}</h1>
-                        <p>店铺创建时间： {{ create_time }}</p>
-                        <p>店铺状态： {{ status }}</p>
-                        <p>店铺星级： {{ star }}</p>
+                        <h1 style="color: #ff7004"><b>{{ shop.name }}</b></h1>
+                        <p><b>店铺创建时间： {{ shop.create_time }}</b></p>
+                        <p><b>店铺状态： {{ shop.status }}</b></p>
+                        <p><b>店铺星级： {{ shop.star }}</b></p>
                     </div>
                     <div class="shop-top-bar d-flex">
                         <!-- Left Side start -->
                         <div>
-                            <h5>本店服务列表</h5>
+                            <h6><b>本店服务列表</b></h6>
                             <!-- Left Side End -->
                             <!-- Right Side Start -->
                             <div class="select-shoing-wrap d-flex align-items-center">
@@ -249,54 +249,66 @@
 
                 <!-- Shop Bottom Area Start -->
                 <div class="shop-bottom-area">
-                    {% for service in Shop_services %}
-                        <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6" data-aos="fade-up" data-aos-delay="200">
-                            <!-- Single Prodect -->
-                            <div class="product mb-5">
-                                <div class="thumb">
-                                    <!--       hofee                             跳转到服务详情页-->
-                                    <a href="../shop/<str:service>/" class="image">
-                                        <!--
-                                        hofee 此处修改图片
-                                        Service_namelist为具体的服务名称列表
-                                        Service_pricelist为具体的服务价格列表
-                                        -->
-                                        <img src="/static/Images/product-image/1.jpg" alt="Product"/>
-                                        <!--                                 hofee       鼠标移到上面时变化为第二幅图片，如不需要可直接删除此行代码-->
-                                        <img class="hover-image" src="/static/Images/product-image/2.jpg"
-                                             alt="Product"/>
-                                    </a>
+                    <div class="row">
+                        {% for service in curr_page %}
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6" data-aos="fade-up" data-aos-delay="200">
+                                <!-- Single Prodect -->
+                                <div class="product mb-5">
+                                    <div class="thumb">
+                                        <!--       hofee                             跳转到服务详情页-->
+                                        <a href="../../shop/service/?se_id={{ service.id }}" class="image">
+                                            <!--
+                                            hofee 此处修改图片
+                                            Service_namelist为具体的服务名称列表
+                                            Service_pricelist为具体的服务价格列表
+                                            -->
+                                            <img style="width:400px;height:300px" src="{{ service.img1 }}"
+                                                 alt="Product"/>
+                                            <!--                                 hofee       鼠标移到上面时变化为第二幅图片，如不需要可直接删除此行代码-->
+                                            <img style="width:300px;height:400px" class="hover-image"
+                                                 src="{{ service.img2 }}"
+                                                 alt="Product"/>
+                                        </a>
 
 
-                                    <!--       hofee                             跳转到服务详情页-->
-                                    <form action="../shop/<str:service>/" method="post">
-                                        <button title="点击查看" class=" add-to-cart">点击查看</button>
-                                    </form>
-                                </div>
-                                <div class="content">
-                                    <h5 class="title"><a href="shop-left-sidebar.html">{{ service.name }}</a></h5>
-                                    <span class="price">
-                                            <span class="new">{{ service.price }}</span>
+                                        <!--       hofee                             跳转到服务详情页-->
+                                        <form action="../../shop/service/" method="get">
+                                            <input hidden="hidden" value="{{ service.id }}" name="se_id">
+                                            <button title="点击查看" class=" add-to-cart">点击查看</button>
+                                        </form>
+                                    </div>
+                                    <div class="content">
+                                        <h5 class="title"><a
+                                                href="../../shop/service/?se_id={{ service.id }}">{{ service.name }}({{ service.sort.name }})</a>
+                                        </h5>
+                                        <span class="price">
+                                            <span class="new">{{ service.price }}元/小时  销量:{{ service.sales }}</span>
                                         </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
-
+                        {% endfor %}
                     </div>
+
                     <!--                      Pagination Area Start -->
-                    <!--                    <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-6" data-aos="fade-up">-->
-                    <!--                        <ul>-->
-                    <!--                            <li>-->
-                    <!--                                <a class="prev" href="#"><i class="ion-ios-arrow-left"></i></a>-->
-                    <!--                            </li>-->
-                    <!--                            <li><a class="active" href="#">1</a></li>-->
-                    <!--                            <li>-->
-                    <!--                                <a class="next" href="#"><i class="ion-ios-arrow-right"></i></a>-->
-                    <!--                            </li>-->
-                    <!--                        </ul>-->
-                    <!--                    </div>-->
+                    <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-6" data-aos="fade-up">
+                        <ul>
+                            {% if curr_page.has_previous %}
+                                <a class="prev" href="./?search={{ key }}&page={{ curr_page.previous_page_number}}" method="post" ><i class="ion-ios-arrow-left"></i></a>
+                            {% endif %}
+
+                            {% for page_num in paginator.page_range %}
+                                {% if page_num == curr_page.number %}
+                                    <a class="active">{{ page_num }}</a>
+                                {% else %}
+                                    <a href="./?search={{ key }}&page={{ page_num }}" method="post" >{{ page_num }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            {% if curr_page.has_next %}
+                                <a class="next" href="./?search={{ key }}&page={{ curr_page.next_page_number }}" method="post" ><i class="ion-ios-arrow-right"></i></a>
+                            {% endif %}
+                        </ul>
+                    </div>
                     <!--                      Pagination Area End -->
                 </div>
                 <!-- Shop Bottom Area End -->
@@ -321,7 +333,7 @@
                             <form action="../other/about/" method="GET">
                                 <li class="li"><a class="single-link" href="../other/about/">关于我们</a></li>
                             </form>
-                            <p class="about-text" style="width: 490px">”Let's 购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
+                            <p class="about-text" style="width: 490px">”HANDY“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
                                 以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业
                                 的运营生态。</p>
 
@@ -420,7 +432,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 text-left">
-                        <p class="copy-text">Copyright&copy; Let's购 2021. &nbsp;All rights reserved.</p>
+                        <p class="copy-text">Copyright&copy; HANDY 2021. &nbsp;All rights reserved.</p>
                     </div>
                 </div>
             </div>
