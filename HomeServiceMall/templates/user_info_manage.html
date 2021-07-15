@@ -570,6 +570,8 @@
                                                         <td><button onclick="AjaxdeleteOrder();" style="width: 80px; background-color: #ff2e00; color: #ffffff;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer;">删除</button></td>
                                                     <script>
                                                     function CancelComment(){
+                                                        $("#star").val(5)
+                                                        $("#comment").val("")
                                                         document.getElementById('shadow').classList.add('hide')
                                                         document.getElementById('modal_test').classList.add('hide')
                                                     }
