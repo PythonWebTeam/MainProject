@@ -23,8 +23,8 @@ users_patterns = [
 # vendors urls
 vendors_patterns = [
     path("vendor_info_manage/", account_views.VendorInfoManageView.as_view()),
-    path("shop_info_manage/delete", account_views.DeleteService.as_view()),
-    path("shop_info_manage/append", account_views.AppendService.as_view()),
+    path("shop_info_manage/delete", account_views.DeleteServiceView.as_view()),
+    path("shop_info_manage/append", account_views.UploadServiceView.as_view()),
     path("business_data/", account_views.BusinessDataView.as_view()),
 ]
 
