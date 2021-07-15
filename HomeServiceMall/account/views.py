@@ -5,6 +5,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from account.models import *
+from utils.data import get_delta_hours, convert_digital_decimal
 from utils.util import Util
 
 
@@ -84,7 +85,8 @@ class ShopCartView(View):
             carts = Cart.objects.filter(user_id=u_id)
             total_cost = 0
             for cart in carts:
-                total_cost += cart.service.price
+                price = convert_digital_decimal(cart.service.price)
+                total_cost += price * get_delta_hours(cart.start_time, cart.end_time)
             cart_size = len(carts)
             return render(request, "shop_cart.html",
                           {"user": user, "carts": carts, "cart_size": cart_size, "total_cost": total_cost,

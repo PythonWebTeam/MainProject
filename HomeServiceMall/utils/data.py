@@ -87,12 +87,11 @@ def alipay_index(request):
         se_id = data.get("se_id")
         start_time_str = data.get("start_time")
         end_time_str = data.get("end_time")
-        start_time = datetime.datetime.strptime(start_time_str, "%Y-%m-%d %H:%M")
-        end_time = datetime.datetime.strptime(end_time_str, "%Y-%m-%d %H:%M")
+        start_time = datetime.datetime.strptime(start_time_str, "%Y-%m-%dT%H:%M")
+        end_time = datetime.datetime.strptime(end_time_str, "%Y-%m-%dT%H:%M")
         service = Service.objects.get(id=se_id)
         price = convert_digital_decimal(service.price)
         total_cost += price * get_delta_hours(start_time, end_time)
-
         order = Order()
         order.service = service
         order.create_time = datetime.datetime.now()
