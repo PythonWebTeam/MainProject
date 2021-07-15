@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from HomeServiceMall import settings
 from django.shortcuts import render, redirect
-
+import decimal
 from account.models import User, Cart, Service, Order
 from utils.pay import AliPay
 
@@ -33,6 +33,15 @@ def aliPay():
     return obj
 
 
+def convert_digital_decimal(value):
+    # 判断decimal类型
+    if type(value) is type(decimal.Decimal.from_float(0.0)):
+        # 转换
+        return float(value.quantize(decimal.Decimal('0.00000000000')))
+    else:
+        return value
+
+
 def get_delta_hours(start_time, end_time):
     delta_seconds = (end_time - start_time).seconds
     delta_hours = delta_seconds / 3600
@@ -59,7 +68,8 @@ def alipay_index(request):
         for cart in carts:
             order = Order()
             order.service = cart.service
-            total_cost += float(cart.service.price) * get_delta_hours(cart.start_time, cart.end_time)
+            price = convert_digital_decimal(cart.service.price)
+            total_cost += price * get_delta_hours(cart.start_time, cart.end_time)
             order.create_time = datetime.datetime.now()
             order.start_time = cart.start_time
             order.end_time = cart.end_time
@@ -69,7 +79,7 @@ def alipay_index(request):
             services_num += 1
             service = order.service
         Cart.objects.filter(user_id=user_id).delete()
-        print(total_cost)
+
 
     else:
         se_id = data.get("se_id")
@@ -78,7 +88,8 @@ def alipay_index(request):
         start_time = datetime.datetime.strptime(start_time_str, "%Y-%m-%d %H:%M")
         end_time = datetime.datetime.strptime(end_time_str, "%Y-%m-%d %H:%M")
         service = Service.objects.get(id=se_id)
-        total_cost += service.price * get_delta_hours(start_time, end_time)
+        price = convert_digital_decimal(service.price)
+        total_cost += price * get_delta_hours(start_time, end_time)
 
         order = Order()
         order.service = service
@@ -94,7 +105,7 @@ def alipay_index(request):
     query_params = alipay.direct_pay(
         subject="服务名:{0}({1})|共{2}个服务".format(service.name, service.sort.name, services_num),  # 商品简单描述 这里一般是从前端传过来的数据
         out_trade_no=order_code,  # 商户订单号  这里一般是从前端传过来的数据
-        total_amount=100.0,  # 交易金额(单位: 元 保留俩位小数)   这里一般是从前端传过来的数据
+        total_amount=total_cost,  # 交易金额(单位: 元 保留俩位小数)   这里一般是从前端传过来的数据
     )
 
     # 拼接url，转到支付宝支付页面

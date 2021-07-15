@@ -278,11 +278,15 @@
                             <div class="select-shoing-wrap d-flex align-items-center">
                             </div>
                         </div>
-                        <form method="post">
+                        <form method="get" >
+
+                            <input name="search" value="{{ key }}" hidden="hidden">
+                            <input name="page" value=1 hidden="hidden">
                             <select name="Order_by" id="Order_by" style="align-items: center">
-                                <option value="1">按价格排序</option>
-                                <option value="2">按销量排序</option>
+                                <option value="1">按价格升序排序</option>
+                                <option value="2">按销量降序排序</option>
                             </select>
+                            <button type="submit" style="color: #dc9a0e">排序</button>
                         </form>
                         <!-- Right Side End -->
                     </div>
