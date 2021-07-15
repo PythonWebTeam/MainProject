@@ -12,18 +12,20 @@ class ServicesClassView(View):
         key = request.GET.get("search")
         order_by = request.GET.get("Order_by")
         order_key = "price"
+        page_num = int(request.GET.get("page"))
+        services = []
         if order_by:
             if int(order_by) == 1:
                 order_key = "price"
             else:
                 order_key = "-sales"
-        type_id = Type.objects.filter(name__contains=key)  # 通过关键字找该类服务id
-        page_num = int(request.GET.get("page"))
-        services = []
-
-        if type_id:
-            type_id = type_id[0]
-            services = Service.objects.filter(sort=type_id).order_by(order_key)  # 通过id找出所有满足关键字的服务
+        if key =="" or key is None:
+            services = Service.objects.filter().order_by(order_key)
+        else:
+            type_id = Type.objects.filter(name__contains=key)  # 通过关键字找该类服务id
+            if type_id:
+                type_id = type_id[0]
+                services = Service.objects.filter(sort=type_id).order_by(order_key)  # 通过id找出所有满足关键字的服务
 
         per_page = 12
         paginator = Paginator(services, per_page)
