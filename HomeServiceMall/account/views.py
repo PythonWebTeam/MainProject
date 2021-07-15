@@ -31,23 +31,22 @@ class UserInfoManageView(View):
         user = User.objects.get(username=username)
         Order.objects.filter(user_id=user.id)
         new_username = data.get("username")  #
-        if User.objects.filter(username=new_username):
+        if len(User.objects.filter(username=new_username))>1:
             msg = "该用户名已存在"
             return self.get(request, msg)
         phone = data.get("phone")  #
-        fChangeTrue = data.get("ChangeAddr")  #
-        if fChangeTrue == 0:
+        ifChangeTrue = data.get("ifChangeTrue")  #
+        if ifChangeTrue is None:
             user.username = new_username
             user.phone = phone
+            user.save()
         else:
-            user.prov = int(data.get("prov"))
+            user.username = new_username
+            user.phone = phone
+            user.province = int(data.get("prov"))
             user.city = int(data.get("city"))
-            user.county = int(data.get("county"))
-
+            user.district = int(data.get("county"))
             user.details = data.get("addr")
-            print(user.prov, user.city, user.county, user.details)
-            print(user.prov, user.city, user.county, user.details)
-
             user.save()
         return self.get(request)
 
