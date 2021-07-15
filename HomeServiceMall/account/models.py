@@ -2,6 +2,8 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from HomeServiceMall import settings
+
 
 class User(AbstractUser):
     phone = models.CharField(verbose_name='用户电话', max_length=32, unique=True, blank=True, null=True)
@@ -94,7 +96,7 @@ class Service(models.Model):
     price = models.DecimalField('服务价格', max_digits=10, decimal_places=2)
     status = models.BooleanField('服务状态')
     img1 = models.CharField('服务图片位置', max_length=255, unique=True, blank=True, null=True)
-    img = models.ImageField(upload_to="img",null=True)
+    img = models.ImageField(upload_to="img", null=True)
     img2 = models.CharField('服务图片位置', max_length=255, unique=True, blank=True, null=True)
     intro = models.CharField('服务简介', max_length=255, unique=True, blank=True, null=True)
     sales = models.IntegerField("销量", default=0)
@@ -109,6 +111,20 @@ class Service(models.Model):
 
     def __unicode__(self):
         return '{0}({1})'.format(self.name, self.sort)
+
+    @staticmethod
+    def upload_service_img(request):
+        # 获取上传的图片
+        pic = request.FILES["pic"]
+
+        # 创建一个文件
+        file_url = '%s/img/%s' % (settings.MEDIA_ROOT, pic.name)
+        with open(file_url,"wb") as f:
+            pass
+        # 获取上传文件内容并写入创建文件中
+        # 在数据库中保存上传记录
+        # 返回
+        pass
 
 
 class EmailVerifyRecord(models.Model):
