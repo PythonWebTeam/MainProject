@@ -97,12 +97,27 @@ class PayView(View):
         username = request.session.get("username")
         user = User.objects.get(username=username)
         if int(from_cart) == 0:
-            services = Service.objects.get(id=int(se_id))
-            start_time = request.GET.get("start_time")
-            end_time = request.GET.get("end_time")
+            services = Service.objects.filter(id=int(se_id))
+            start_time = request.GET.get("starttime")
+            end_time = request.GET.get("endtime")
             start_time_dec = datetime.datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
             end_time_dec = datetime.datetime.strptime(end_time, "%Y-%m-%dT%H:%M")
-            total_cost = convert_digital_decimal(services.price)*get_delta_hours(start_time_dec, end_time_dec)
+            total_cost = convert_digital_decimal(services[0].price)*get_delta_hours(start_time_dec, end_time_dec)
+            addr = Util.transform(user.province, user.city, user.district)
+            return_data = {
+                "services": services,
+                "total_cost": total_cost,
+                "user": user,
+                "username": username,
+                "services_sort": services_sort,
+                "is_login": is_login,
+                "prov": addr[0],
+                "city": addr[1],
+                "county": addr[2],
+                "from_cart": from_cart,
+                "start_time":start_time,
+                "end_time":end_time,
+            }
         else:
             total_cost = 0
             carts = Cart.objects.filter(user_id=user.id)
@@ -111,22 +126,21 @@ class PayView(View):
                 services.append(cart.service)
                 total_cost += convert_digital_decimal(cart.service.price) * get_delta_hours(cart.start_time,
                                                                                             cart.end_time)
-
+            addr = Util.transform(user.province, user.city, user.district)
+            return_data = {
+                "services": services,
+                "total_cost": total_cost,
+                "user": user,
+                "username": username,
+                "services_sort": services_sort,
+                "is_login": is_login,
+                "prov": addr[0],
+                "city": addr[1],
+                "county": addr[2],
+                "from_cart": from_cart,
+            }
 
 
         # 获取用户的地址信息
-        addr = Util.transform(user.province, user.city, user.district)
-        return_data = {
-            "services": services,
-            "total_cost": total_cost,
-            "user": user,
-            "username": username,
-            "services_sort": services_sort,
-            "is_login": is_login,
-            "prov": addr[0],
-            "city": addr[1],
-            "county": addr[2],
-            "from_cart": from_cart,
-            
-        }
+
         return render(request, "pay.html", return_data)
