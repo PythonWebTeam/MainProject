@@ -504,6 +504,7 @@
                                                 <th>订单开始时间</th>
                                                 <th>订单结束时间</th>
                                                 <th>支付状态</th>
+                                                <th>评论/删除</th>
                                             </tr>
                                             {% for order in order_list %}
                                                 <tr>
@@ -513,8 +514,10 @@
                                                     <td>{{ order.end_time }}</td>
                                                     {% if order.pay_status %}
                                                         <td>已支付</td>
+                                                        <td><button type="submit" style="width: 80px; background-color: #9bff9c;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer">评论</button></td>
                                                     {% else %}
                                                         <td>未支付</td>
+                                                        <td><button type="submit" style="width: 80px; background-color: #ff2e00; color: #ffffff;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer;">删除</button></td>
                                                     {% endif %}
 
 
