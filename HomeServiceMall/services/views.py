@@ -11,9 +11,9 @@ class ServicesClassView(View):
         # 获取服务列表页面
         key = request.GET.get("search")
         order_by = request.GET.get("Order_by")
-        order_key = "price"
+        order_key = "-sales"
         if order_by:
-            if order_by == '1':
+            if int(order_by) == 1:
                 order_key = "price"
             else:
                 order_key = "-sales"
@@ -28,7 +28,6 @@ class ServicesClassView(View):
         per_page = 12
         paginator = Paginator(services, per_page)
         curr_page = paginator.page(page_num)
-
         return render(request, "services_class.html",
                       {"curr_page": curr_page, "paginator": paginator, "key": key,
-                       "username": username, "services_sort": services_sort, "is_login": is_login, "order_by": order_by})
+                       "username": username, "services_sort": services_sort, "is_login": is_login})
