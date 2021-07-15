@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from account.models import Service, User, Cart, Shop, Order
+from utils.data import get_delta_hours, convert_digital_decimal
 from utils.util import Util
 
 
@@ -94,17 +95,25 @@ class PayView(View):
         se_id = request.GET.get("se_id")
         from_cart = request.GET.get("from_cart")
         username = request.session.get("username")
-        user = User.objects.filter(username=username)[0]
+        user = User.objects.get(username=username)
         if int(from_cart) == 0:
-            services = Service.objects.filter(id=int(se_id))
+            services = Service.objects.get(id=int(se_id))
+            start_time = request.GET.get("start_time")
+            end_time = request.GET.get("end_time")
+            start_time_dec = datetime.datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
+            end_time_dec = datetime.datetime.strptime(end_time, "%Y-%m-%dT%H:%M")
+            total_cost = convert_digital_decimal(services.price)*get_delta_hours(start_time_dec, end_time_dec)
         else:
+            total_cost = 0
             carts = Cart.objects.filter(user_id=user.id)
             services = []
             for cart in carts:
                 services.append(cart.service)
-        total_cost = 0
-        for service in services:
-            total_cost += service.price
+                total_cost += convert_digital_decimal(cart.service.price) * get_delta_hours(cart.start_time,
+                                                                                            cart.end_time)
+
+
+
         # 获取用户的地址信息
         addr = Util.transform(user.province, user.city, user.district)
         return_data = {
@@ -118,5 +127,6 @@ class PayView(View):
             "city": addr[1],
             "county": addr[2],
             "from_cart": from_cart,
+            
         }
         return render(request, "pay.html", return_data)
