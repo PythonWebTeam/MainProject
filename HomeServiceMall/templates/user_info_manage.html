@@ -545,23 +545,21 @@
                                                 {% for order in order_list %}
                                                     <tr>
                                                         <td>{{ order.id }}</td>
+                                                        <input hidden="hidden" value="{{order.id}}" id="order_id_input">
                                                         <td>[{{ order.service.sort.name }}]{{ order.service.name }}</td>
                                                         <td>{{ order.start_time }}</td>
                                                         <td>{{ order.end_time }}</td>
                                                         <script>
-                                                            function ShowComment() {
-                                                                document.getElementById('shadow').classList.remove('hide')
-                                                                document.getElementById('modal_test').classList.remove('hide')
 
-                                                            }
-
-                                                            function AjaxdeleteOrder() {
+                                                            function AjaxdeleteOrder(order_id) {
                                                                 $.ajax({
                                                                     url: '../order_info_manage/delete_order/',
                                                                     type: 'POST',
                                                                     data: {
-                                                                        'order_id':{{ order.id }}
+                                                                        'order_id': order_id
+
                                                                     },
+                                                                    async:false,
                                                                     success: function (data) {
                                                                         if (data === 'ok') {
                                                                             alert("删除成功")
@@ -575,7 +573,7 @@
                                                         {% if order.pay_status %}
                                                             <td>已支付</td>
                                                             <td>
-                                                                <button onclick="ShowComment();"
+                                                                <button onclick="ShowComment({{ order.id }});"
                                                                         style="width: 80px; background-color: #9bff9c;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer">
                                                                     评论
                                                                 </button>
@@ -583,11 +581,12 @@
                                                         {% else %}
                                                             <td>支付失败</td>
                                                             <td>
-                                                                <button onclick="AjaxdeleteOrder();"
+                                                                <button onclick="AjaxdeleteOrder({{order.id}});"
                                                                         style="width: 80px; background-color: #ff2e00; color: #ffffff;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer;">
                                                                     删除
                                                                 </button>
                                                             </td>
+                                                        {% endif %}
                                                             <script>
                                                                 function CancelComment() {
                                                                     $("#star").val(5)
@@ -595,6 +594,12 @@
                                                                     document.getElementById('shadow').classList.add('hide')
                                                                     document.getElementById('modal_test').classList.add('hide')
                                                                 }
+                                                                function ShowComment(order_id) {
+                                                                    document.getElementById('shadow').classList.remove('hide')
+                                                                    document.getElementById('modal_test').classList.remove('hide')
+                                                                    $('#order_id_input').val(order_id)
+                                                                }
+
 
                                                                 function AjaxComment() {
                                                                     $.ajax({
@@ -603,10 +608,13 @@
                                                                         data: {
                                                                             'star': $("#star").val(),
                                                                             'comment': $("#comment").val(),
-                                                                            'order_id':{{ order.id }}
+                                                                            'order_id':$('#order_id_input').val()
                                                                         },
+                                                                        async:false,
                                                                         beforeSend: function (xhr) {
+                                                                            console.log("#comment")
                                                                             if($("#comment").val() === ""){
+
                                                                                 $("errormsg").text("评论为空，请输入评论");
                                                                                 xhr.abort()
                                                                             }
@@ -620,12 +628,12 @@
                                                                                 document.getElementById('shadow').classList.add('hide')
                                                                                 document.getElementById('modal_test').classList.add('hide')
                                                                             } else {
-
+                                                                                alert(data)
                                                                             }
                                                                         }
 
 
-                                                                    })
+                                                                    })(order)
 
                                                                 }
                                                             </script>
@@ -644,8 +652,10 @@
                                                                 <p style="position: relative; left: 20px; top: 40px;">
                                                                 <div style="position: relative; left: 20px;">评价:</div>
                                                                 <textarea id="comment" name="comment"
-                                                                          style="height: 170px; width: 350px; position: relative; left: 20px; "></textarea>
+                                                                          style="height: 150px; width: 350px; position: relative; left: 20px; "></textarea>
                                                                 </p>
+                                                                <span id="order_id_input"></span>
+
                                                                 <input type="button" onclick="AjaxComment()" value="提交"
                                                                        style="position: relative; height: 30px; width: 40px;left: 20px;">
                                                                 <input type="button" onclick="CancelComment();"
@@ -653,7 +663,7 @@
                                                                        style="position: relative; left: 20px; height: 30px; width: 40px;">
                                                                 <span id="errormsg"></span>
                                                             </div>
-                                                        {% endif %}
+
                                                     </tr>
                                                 {% endfor %}
                                                 </tr>
