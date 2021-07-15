@@ -33,10 +33,10 @@ class UserInfoManageView(View):
         new_username = data.get("username")  #
         if len(User.objects.filter(username=new_username))>1:
             msg = "该用户名已存在"
-            return self.get(request,msg)
+            return self.get(request, msg)
         phone = data.get("phone")  #
-        ifChangeTrue = data.get("ifChangeTrue")  #
-        if ifChangeTrue is None:
+        edit = data.get("ifChangeTrue")  #
+        if not edit:
             user.username = new_username
             user.phone = phone
             user.save()
@@ -104,7 +104,7 @@ class ShopCartView(View):
 
 
 class CartRemoveAll(View):
-    def post(self, request):
+    def get(self, request):
         if not request.session.get("is_login"):
             return redirect("/passport/login/")
         else:
@@ -157,18 +157,6 @@ class DeleteService(View):
         else:
             Service.objects.get(**search_dict).delete()
             return HttpResponse("ok")
-
-
-def product_manage_view(request):
-    return render(request, "product_manage.html")
-
-
-def order_manage_view(request):
-    return render(request, "order_manage.html")
-
-
-def service_manage_view(request):
-    return render(request, "service_manage.html")
 
 
 class BusinessDataView(View):
