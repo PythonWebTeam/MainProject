@@ -547,7 +547,7 @@
                                                         }
                                                         function AjaxdeleteOrder(){
                                                             $.ajax({
-                                                                url: '../delete_order/',
+                                                                url: '../order_info_manage/delete_order/',
                                                                 type: 'POST',
                                                                 data: {
                                                                     'order_id':{{ order.id }}
@@ -577,7 +577,7 @@
                                                     }
                                                     function AjaxComment(){
                                                         $.ajax({
-                                                            url:'../submit_comment/',
+                                                            url:'../order_info_manage/submit_comment/',
                                                             type: 'POST',
                                                             data:{
                                                                 'star':$("#star").val(),
@@ -587,6 +587,8 @@
                                                         success: function (data){
                                                             if (data === 'ok'){
                                                                 alert("评价成功")
+                                                                $("#star").val(5)
+                                                                $("#comment").val("")
                                                                 document.getElementById('shadow').classList.add('hide')
                                                                 document.getElementById('modal_test').classList.add('hide')
                                                             }else{
