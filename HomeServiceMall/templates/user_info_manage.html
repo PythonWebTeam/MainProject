@@ -54,11 +54,37 @@
     <!-- Style CSS -->
     <!-- <link rel="stylesheet" href="/static/CSS/style.css"> -->
     <link rel="stylesheet" href="/static/CSS/style.min1.css">
-
+    <style>
+        .hide{
+            display: none;
+        }
+        .shadow{
+            position:fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background-color: black;
+            opacity: 0.4;
+            z-index: 500;
+        }
+        .modal_test{
+            position: fixed;
+            left: 50%;
+            top:50%;
+            height: 300px;
+            width: 400px;
+            background-color: white;
+            z-index: 550;
+            margin-left: -200px ;
+            margin-top:-150px;
+        }
+    </style>
 </head>
 
 <body>
 
+<div>
 <div class="main-wrapper">
     <div class="header-bottom d-none d-lg-block">
         <div class="container position-relative">
@@ -138,6 +164,7 @@
                            class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
                             <i class="icon-menu"></i>
                         </a>
+                    </label>
                 </div>
             </div>
 
@@ -219,11 +246,11 @@
                             </li>
                             <li>
                                 <form action="../../../other/Q&A/" method="GET"><a class="single-link"
-                                                                                   href="../../../other/Q&A/">常见问题</a>
+                                                                                   href="../../../other/Q&A/">常见问题</a></form>
                             </li>
                             <li>
                                 <form action="../../../other/about/" method="GET"><a class="single-link"
-                                                                                     href="../../../other/about/">关于我们</a>
+                                                                                     href="../../../other/about/">关于我们</a></form>
                             </li>
                         </ul>
                     </div>
@@ -509,22 +536,92 @@
                                             {% for order in order_list %}
                                                 <tr>
                                                     <td>{{ order.id }}</td>
-                                                    <td>{{ order.service.name }}</td>
+                                                    <td>[{{ order.service.sort.name }}]{{ order.service.name }}</td>
                                                     <td>{{ order.start_time }}</td>
                                                     <td>{{ order.end_time }}</td>
+                                                    <script>
+                                                        function ShowComment(){
+                                                            document.getElementById('shadow').classList.remove('hide')
+                                                            document.getElementById('modal_test').classList.remove('hide')
+
+                                                        }
+                                                        function AjaxdeleteOrder(){
+                                                            $.ajax({
+                                                                url: 'delete_order/',
+                                                                type: 'POST',
+                                                                data: {
+                                                                    'order_id':{{ order.id }}
+                                                                },
+                                                                success: function (data) {
+                                                                    if (data === 'ok') {
+                                                                        alert("删除成功")
+                                                                    } else {
+                                                                        alert(data)
+                                                                    }
+                                                                }
+                                                            })
+                                                        }
+                                                    </script>
                                                     {% if order.pay_status %}
                                                         <td>已支付</td>
-                                                        <td><button type="submit" style="width: 80px; background-color: #9bff9c;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer">评论</button></td>
+                                                        <td><button onclick="ShowComment({{order.id}});" style="width: 80px; background-color: #9bff9c;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer">评论</button></td>
                                                     {% else %}
-                                                        <td>未支付</td>
-                                                        <td><button type="submit" style="width: 80px; background-color: #ff2e00; color: #ffffff;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer;">删除</button></td>
+                                                        <td>支付失败</td>
+                                                        <td><button onclick="AjaxdeleteOrder();" style="width: 80px; background-color: #ff2e00; color: #ffffff;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer;">删除</button></td>
+                                                    <script>
+                                                    function CancelComment(){
+                                                        document.getElementById('shadow').classList.add('hide')
+                                                        document.getElementById('modal_test').classList.add('hide')
+                                                    }
+                                                    function AjaxComment(){
+                                                        $.ajax({
+                                                            url:'submit_comment/',
+                                                            type: 'POST',
+                                                            data:{
+                                                                'star':$("#star").val(),
+                                                                'comment':$("#comment").val(),
+                                                                'order_id':{{ order.id }}
+                                                            },
+                                                        success: function (data){
+                                                            if (data === 'ok'){
+                                                                alert("评价成功")
+                                                                document.getElementById('shadow').classList.add('hide')
+                                                                document.getElementById('modal_test').classList.add('hide')
+                                                            }else{
+                                                                $("errormsg").text(data);
+                                                            }
+                                                        }
+
+
+                                                    })
+
+                                                }
+                                            </script>
+                                            <div id="shadow" class="shadow hide"></div>
+                                            <div id="modal_test" class="modal_test hide">
+                                                <p style="position: relative; left: 20px; top: 20px;">
+                                                    星级:
+                                                    <select name="star" id="star">
+                                                       <option value=5>5星</option>
+                                                        <option value=4>4星</option>
+                                                        <option value=3>3星</option>
+                                                        <option value=2>2星</option>
+                                                        <option value=1>1星</option>
+                                                    </select>
+                                                </p>
+                                                <p style="position: relative; left: 20px; top: 40px;">
+                                                    <div style="position: relative; left: 20px;">评价:</div>
+                                                    <textarea id="comment" name="comment" style="height: 170px; width: 350px; position: relative; left: 20px; "></textarea>
+                                                </p>
+                                                <input type="button" onclick="AjaxComment()" value="提交" style="position: relative; height: 30px; width: 40px;left: 20px;">
+                                                <input type="button" onclick="CancelComment();" value="取消" style="position: relative; left: 20px; height: 30px; width: 40px;">
+                                                <span id="errormsg"></span>
+                                            </div>
                                                     {% endif %}
-
-
-                                                    </td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>
+
                                         </table>
                                     </div>
                                 </div>
@@ -612,6 +709,7 @@
                 </div>
             </div>
         </div>
+    </main>
 </div>
 </main>
 <!-- Main Content Area End Here -->
