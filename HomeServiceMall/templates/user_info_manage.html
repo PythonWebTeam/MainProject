@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <title>Let's购 信息修改</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>HANDY 信息修改</title>
     <meta name="description"
           content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world."/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -498,6 +498,15 @@
                                                                     province[current_prov]['city'][current_city]['districtAndCounty'][current_country];
                                                                 $("#addr-show").val(ss);
                                                             }
+
+                                                            function RequestToBeSeller() {
+                                                                $.ajax({
+                                                                    url: '../order_info_manage/delete_order/',
+                                                                    type: 'POST',
+                                                                    data: {},
+                                                                })
+                                                                alert("已提交申请！")
+                                                            }
                                                         </script>
                                                         <script src="/static/JavaScript/province.js"></script>
                                                         <!-- 省份选择 -->
@@ -522,6 +531,11 @@
                                                             type="submit">
                                                         <span>保存改变</span>
                                                     </button>
+                                                    
+                                                    <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0"
+                                                            onclick="RequestToBeSeller()" style="position: relative; left: 350px">
+                                                        <span>申请成为商家</span>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>
@@ -545,7 +559,8 @@
                                                 {% for order in order_list %}
                                                     <tr>
                                                         <td>{{ order.id }}</td>
-                                                        <input hidden="hidden" value="{{order.id}}" id="order_id_input">
+                                                        <input hidden="hidden" value="{{ order.id }}"
+                                                               id="order_id_input">
                                                         <td>[{{ order.service.sort.name }}]{{ order.service.name }}</td>
                                                         <td>{{ order.start_time }}</td>
                                                         <td>{{ order.end_time }}</td>
@@ -559,7 +574,7 @@
                                                                         'order_id': order_id
 
                                                                     },
-                                                                    async:false,
+                                                                    async: false,
                                                                     success: function (data) {
                                                                         if (data === 'ok') {
                                                                             alert("删除成功")
@@ -581,88 +596,89 @@
                                                         {% else %}
                                                             <td>支付失败</td>
                                                             <td>
-                                                                <button onclick="AjaxdeleteOrder({{order.id}});"
+                                                                <button onclick="AjaxdeleteOrder({{ order.id }});"
                                                                         style="width: 80px; background-color: #ff2e00; color: #ffffff;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer;">
                                                                     删除
                                                                 </button>
                                                             </td>
                                                         {% endif %}
-                                                            <script>
-                                                                function CancelComment() {
-                                                                    $("#star").val(5)
-                                                                    $("#comment").val("")
-                                                                    document.getElementById('shadow').classList.add('hide')
-                                                                    document.getElementById('modal_test').classList.add('hide')
-                                                                }
-                                                                function ShowComment(order_id) {
-                                                                    document.getElementById('shadow').classList.remove('hide')
-                                                                    document.getElementById('modal_test').classList.remove('hide')
-                                                                    $('#order_id_input').val(order_id)
-                                                                }
+                                                        <script>
+                                                            function CancelComment() {
+                                                                $("#star").val(5)
+                                                                $("#comment").val("")
+                                                                document.getElementById('shadow').classList.add('hide')
+                                                                document.getElementById('modal_test').classList.add('hide')
+                                                            }
+
+                                                            function ShowComment(order_id) {
+                                                                document.getElementById('shadow').classList.remove('hide')
+                                                                document.getElementById('modal_test').classList.remove('hide')
+                                                                $('#order_id_input').val(order_id)
+                                                            }
 
 
-                                                                function AjaxComment() {
-                                                                    $.ajax({
-                                                                        url: '../order_info_manage/submit_comment/',
-                                                                        type: 'POST',
-                                                                        data: {
-                                                                            'star': $("#star").val(),
-                                                                            'comment': $("#comment").val(),
-                                                                            'order_id':$('#order_id_input').val()
-                                                                        },
-                                                                        async:false,
-                                                                        beforeSend: function (xhr) {
-                                                                            console.log("#comment")
-                                                                            if($("#comment").val() === ""){
+                                                            function AjaxComment() {
+                                                                $.ajax({
+                                                                    url: '../order_info_manage/submit_comment/',
+                                                                    type: 'POST',
+                                                                    data: {
+                                                                        'star': $("#star").val(),
+                                                                        'comment': $("#comment").val(),
+                                                                        'order_id': $('#order_id_input').val()
+                                                                    },
+                                                                    async: false,
+                                                                    beforeSend: function (xhr) {
+                                                                        console.log("#comment")
+                                                                        if ($("#comment").val() === "") {
 
-                                                                                $("errormsg").text("评论为空，请输入评论");
-                                                                                xhr.abort()
-                                                                            }
-                                                                        },
-
-                                                                        success: function (data) {
-                                                                            if (data === 'ok') {
-                                                                                alert("评价成功")
-                                                                                $("#star").val(5)
-                                                                                $("#comment").val("")
-                                                                                document.getElementById('shadow').classList.add('hide')
-                                                                                document.getElementById('modal_test').classList.add('hide')
-                                                                            } else {
-                                                                                alert(data)
-                                                                            }
+                                                                            $("errormsg").text("评论为空，请输入评论");
+                                                                            xhr.abort()
                                                                         }
+                                                                    },
+
+                                                                    success: function (data) {
+                                                                        if (data === 'ok') {
+                                                                            alert("评价成功")
+                                                                            $("#star").val(5)
+                                                                            $("#comment").val("")
+                                                                            document.getElementById('shadow').classList.add('hide')
+                                                                            document.getElementById('modal_test').classList.add('hide')
+                                                                        } else {
+                                                                            alert(data)
+                                                                        }
+                                                                    }
 
 
-                                                                    })(order)
+                                                                })(order)
 
-                                                                }
-                                                            </script>
-                                                            <div id="shadow" class="shadow hide"></div>
-                                                            <div id="modal_test" class="modal_test hide">
-                                                                <p style="position: relative; left: 20px; top: 20px;">
-                                                                    星级:
-                                                                    <select name="star" id="star">
-                                                                        <option value=5>5星</option>
-                                                                        <option value=4>4星</option>
-                                                                        <option value=3>3星</option>
-                                                                        <option value=2>2星</option>
-                                                                        <option value=1>1星</option>
-                                                                    </select>
-                                                                </p>
-                                                                <p style="position: relative; left: 20px; top: 40px;">
-                                                                <div style="position: relative; left: 20px;">评价:</div>
-                                                                <textarea id="comment" name="comment"
-                                                                          style="height: 150px; width: 350px; position: relative; left: 20px; "></textarea>
-                                                                </p>
-                                                                <span id="order_id_input"></span>
+                                                            }
+                                                        </script>
+                                                        <div id="shadow" class="shadow hide"></div>
+                                                        <div id="modal_test" class="modal_test hide">
+                                                            <p style="position: relative; left: 20px; top: 20px;">
+                                                                星级:
+                                                                <select name="star" id="star">
+                                                                    <option value=5>5星</option>
+                                                                    <option value=4>4星</option>
+                                                                    <option value=3>3星</option>
+                                                                    <option value=2>2星</option>
+                                                                    <option value=1>1星</option>
+                                                                </select>
+                                                            </p>
+                                                            <p style="position: relative; left: 20px; top: 40px;">
+                                                            <div style="position: relative; left: 20px;">评价:</div>
+                                                            <textarea id="comment" name="comment"
+                                                                      style="height: 150px; width: 350px; position: relative; left: 20px; "></textarea>
+                                                            </p>
+                                                            <span id="order_id_input"></span>
 
-                                                                <input type="button" onclick="AjaxComment()" value="提交"
-                                                                       style="position: relative; height: 30px; width: 40px;left: 20px;">
-                                                                <input type="button" onclick="CancelComment();"
-                                                                       value="取消"
-                                                                       style="position: relative; left: 20px; height: 30px; width: 40px;">
-                                                                <span id="errormsg"></span>
-                                                            </div>
+                                                            <input type="button" onclick="AjaxComment()" value="提交"
+                                                                   style="position: relative; height: 30px; width: 40px;left: 20px;">
+                                                            <input type="button" onclick="CancelComment();"
+                                                                   value="取消"
+                                                                   style="position: relative; left: 20px; height: 30px; width: 40px;">
+                                                            <span id="errormsg"></span>
+                                                        </div>
 
                                                     </tr>
                                                 {% endfor %}
@@ -778,8 +794,7 @@
                                     <li class="li"><a class="single-link" href="../../../other/about/"
                                                       style="color: #ff7004">关于我们</a></li>
                                 </form>
-                                <p class="about-text" style="width: 490px">”Let's
-                                    购“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
+                                <p class="about-text" style="width: 490px">”HANDY“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
                                     以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及
                                     评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业
                                     的运营生态。</p>
@@ -883,7 +898,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 text-left">
-                            <p class="copy-text">Copyright&copy; Let's购 2021. &nbsp;All rights reserved.</p>
+                            <p class="copy-text">Copyright&copy; HANDY 2021. &nbsp;All rights reserved.</p>
                         </div>
                     </div>
                 </div>
