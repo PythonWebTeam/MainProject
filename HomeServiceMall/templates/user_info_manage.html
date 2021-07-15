@@ -547,7 +547,7 @@
                                                         }
                                                         function AjaxdeleteOrder(){
                                                             $.ajax({
-                                                                url: 'delete_order/',
+                                                                url: '../delete_order/',
                                                                 type: 'POST',
                                                                 data: {
                                                                     'order_id':{{ order.id }}
@@ -564,7 +564,7 @@
                                                     </script>
                                                     {% if order.pay_status %}
                                                         <td>已支付</td>
-                                                        <td><button onclick="ShowComment({{order.id}});" style="width: 80px; background-color: #9bff9c;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer">评论</button></td>
+                                                        <td><button onclick="ShowComment();" style="width: 80px; background-color: #9bff9c;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer">评论</button></td>
                                                     {% else %}
                                                         <td>支付失败</td>
                                                         <td><button onclick="AjaxdeleteOrder();" style="width: 80px; background-color: #ff2e00; color: #ffffff;border: 1px solid #868686; border-width: 3px;border-radius: 2px;cursor: pointer;">删除</button></td>
@@ -575,7 +575,7 @@
                                                     }
                                                     function AjaxComment(){
                                                         $.ajax({
-                                                            url:'submit_comment/',
+                                                            url:'../submit_comment/',
                                                             type: 'POST',
                                                             data:{
                                                                 'star':$("#star").val(),
@@ -620,6 +620,7 @@
                                                     {% endif %}
                                                 </tr>
                                             {% endfor %}
+                                            </tr>
                                             </tbody>
 
                                         </table>
