@@ -3,6 +3,7 @@ from django.urls import path, include
 
 from utils import send_email
 from utils.data import alipay_index, pay_result
+from utils.test import test_view
 from . import views
 from account import views as account_views
 from other import views as other_views
@@ -71,5 +72,6 @@ urlpatterns = [
     path("services/", services_views.ServicesClassView.as_view()),
     path("other/", include(other_patterns)),
     path("admin/", admin.site.urls),
+    path("test/",test_view)
 ]
 handler404 = page_not_found
