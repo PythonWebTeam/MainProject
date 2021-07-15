@@ -500,17 +500,10 @@
                     </div>
                     <div class="Place-order mt-25">
                         <!--                        Hofee改重新跳转到支付页面-->
-                        <form action="../../../shop/service/pay/alipay/?se_id={{ services.0.id }}&from_cart={{ from_cart }}"
+                        <form action="../../../shop/service/pay/alipay/?se_id={{ services.0.id }}&from_cart={{ from_cart }}&start_time={{ start_time }}&end_time={{ end_time }}"
                               method="get"><a
                                 class="btn-hover"
-                                href="../../../shop/service/pay/alipay/?se_id={{ services.0.id }}&from_cart={{ from_cart }}">支付</a>
-                            {% if from_cart == 0 %}
-                                <input name="start_time" value="{{ start_time }} " hidden="true">
-                                <input name="end_time" value="{{ end_time }}" hidden="true">
-                            {% else %}
-                                <input name="start_time" value=" 12345678 " hidden="true">
-                                <input name="end_time" value="123213" hidden="true">
-                            {% endif %}
+                                href="../../../shop/service/pay/alipay/?se_id={{ services.0.id }}&from_cart={{ from_cart }}&start_time={{ start_time }}&end_time={{ end_time }}">支付</a>
                         </form>
                     </div>
                 </div>
