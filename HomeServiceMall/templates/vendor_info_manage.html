@@ -447,16 +447,46 @@
                                                             }
                                                         },
                                                         data: [
-                                                            {value: json_data['current_month_orders']['家庭清洁'], name: '家庭清洁'},
-                                                            {value: json_data['current_month_orders']['保姆服务'], name: '保姆服务'},
-                                                            {value: json_data['current_month_orders']['电器维修'], name: '电器维修'},
-                                                            {value: json_data['current_month_orders']['居民搬家'], name: '居民搬家'},
-                                                            {value: json_data['current_month_orders']['二手回收'], name: '二手回收'},
-                                                            {value: json_data['current_month_orders']['鲜花绿植'], name: '鲜花绿植'},
-                                                            {value: json_data['current_month_orders']['生活配送'], name: '生活配送'},
-                                                            {value: json_data['current_month_orders']['管道疏通'], name: '管道疏通'},
-                                                            {value: json_data['current_month_orders']['开锁换锁'], name: '开锁换锁'},
-                                                            {value: json_data['current_month_orders']['房屋维修'], name: '房屋维修'}]
+                                                            {
+                                                                value: json_data['current_month_orders']['家庭清洁'],
+                                                                name: '家庭清洁'
+                                                            },
+                                                            {
+                                                                value: json_data['current_month_orders']['保姆服务'],
+                                                                name: '保姆服务'
+                                                            },
+                                                            {
+                                                                value: json_data['current_month_orders']['电器维修'],
+                                                                name: '电器维修'
+                                                            },
+                                                            {
+                                                                value: json_data['current_month_orders']['居民搬家'],
+                                                                name: '居民搬家'
+                                                            },
+                                                            {
+                                                                value: json_data['current_month_orders']['二手回收'],
+                                                                name: '二手回收'
+                                                            },
+                                                            {
+                                                                value: json_data['current_month_orders']['鲜花绿植'],
+                                                                name: '鲜花绿植'
+                                                            },
+                                                            {
+                                                                value: json_data['current_month_orders']['生活配送'],
+                                                                name: '生活配送'
+                                                            },
+                                                            {
+                                                                value: json_data['current_month_orders']['管道疏通'],
+                                                                name: '管道疏通'
+                                                            },
+                                                            {
+                                                                value: json_data['current_month_orders']['开锁换锁'],
+                                                                name: '开锁换锁'
+                                                            },
+                                                            {
+                                                                value: json_data['current_month_orders']['房屋维修'],
+                                                                name: '房屋维修'
+                                                            }]
                                                     }
                                                 ]
                                             };
@@ -740,11 +770,16 @@
                                                                         <div class="layui-form-item">
                                                                             <label class="layui-form-label">图片</label>
                                                                             <div class="layui-input-block">
-                                                                                <input type="hidden" id="img_url">
-                                                                                <input type="file" onchange="showImg()"
-                                                                                       id="img_file"><img src="" alt=""
-                                                                                                          id="img_id"
-                                                                                                          style="width: 100px">
+                                                                                <form method="post"
+                                                                                      enctype="multipart/form-data">
+                                                                                    <input type="hidden" id="img_url">
+                                                                                    <input type="file" name="pic"
+                                                                                           onchange="showImg()"
+                                                                                           id="img_file"><img src=""
+                                                                                                              alt=""
+                                                                                                              id="img_id"
+                                                                                                              style="width: 100px">
+                                                                                </form>
                                                                             </div>
                                                                         </div>
                                                                         <div class="button-box">
