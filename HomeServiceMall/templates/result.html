@@ -176,12 +176,12 @@
                 <div class="main-menu">
                     <ul>
                         <li>
-                            <form action="" method="GET"><a class="single-link" href="">首页</a></form>
+                            <form action="" method="GET"><a class="single-link" href="/">首页</a></form>
                         </li>
                         <li class="dropdown"><a href="#">服务类别 <i class="ion-ios-arrow-down"></i></a>
                             <ul class="sub-menu">
                                 {% for service in services_sort %}
-                                    <li><a href="services/?search={{ service.name }}&page=1">{{ service.name }}</a>
+                                    <li><a href="/services/?search={{ service.name }}&page=1">{{ service.name }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -245,7 +245,7 @@
                     <!-- 1st tab start -->
                     <div class="tab-pane fade show active" id="tab-product-new-arrivals">
                         <div class="row">
-                            {% for service in top_service %}
+                            {% for service in services %}
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6" data-aos="fade-up"
                                      data-aos-delay="200">
                                     <!-- Single Prodect -->
@@ -255,9 +255,7 @@
 
                                                 <a href="/shop/service?se_id={{ service.id }}" class="image">
                                                     <img style="width:300px;height:400px" alt="Product"
-                                                         src={{ service.img1 }}/>
-                                                    <img alt="Product" style="width:200px;height:300px"
-                                                         class="hover-image" src={{ service.img2 }}/>
+                                                         src={{ service.get_img_path }}/>
                                                 </a>
                                                 <span class="badges">
                                                     <span class="new" style="background-color:orangered">hot</span>
