@@ -194,7 +194,7 @@ class DeleteServiceView(View):
         shop_id = int(data.get("s_id"))
         services = Service.objects.filter(name=service_name)
         for service in services:
-            if service.shop_id == shop_id :
+            if service.shop_id == shop_id:
                 service.delete()
                 return HttpResponse("ok")
         return HttpResponse("您要删除的服务不存在")
@@ -319,7 +319,12 @@ def submit_comment(request):
 def apply_for_shop(request):
     username = request.session.get("username")
     user = User.objects.get(username=username)
-
+    shop = Shop()
+    shop.name = username + "的店铺"
+    shop.create_time = datetime.now()
+    shop.user = user
+    shop.status = True
+    shop.save()
     apply = ApplyforShop()
     apply.user = user
     apply.save()
