@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <title>Let's购 信息修改</title>
+    <title>HANDY 信息修改</title>
     <meta name="description"
           content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world."/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -347,7 +347,7 @@
                                                 xAxis: {
                                                     type: 'category',
                                                     {#data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']#}
-                                                    data: ['1', '2', '3', '4', '5', '6']
+                                                    data: ['距今第1月内', '距今第2月内', '距今第3月内', '距今第4月内', '距今第5月内', '距今第6月内']
 
                                                 },
                                                 yAxis: {
@@ -528,7 +528,7 @@
                                         <div class="myaccount-form-inner">
                                             <div class="single-input single-input-half">
                                                 <label>用户名</label>
-                                                <input type="text" value="{{ user.username }}">
+                                                <input name="username" type="text" value="{{ user.username }}">
                                                 <label style="color: red" id="UsernameInfo">{{ msg }}</label>
                                             </div>
                                             <div class="single-input single-input-half">
@@ -537,11 +537,11 @@
                                             </div>
                                             <div class="single-input">
                                                 <label>店铺名</label>
-                                                <input type="text" value="{{ shop.name }}">
+                                                <input name="shop_name" type="text" value="{{ shop.name }}">
                                             </div>
                                             <div class="single-input">
                                                 <label>店铺状态</label>
-                                                <select>
+                                                <select disabled="disabled">
                                                     {% if shop.status %}
                                                         <option value="is_open" selected="true">运营</option>
                                                         <option value="is_close">停业</option>
@@ -553,7 +553,8 @@
                                             </div>
                                             <div class="single-input">
                                                 <label>邮箱</label>
-                                                <input type="email" value="{{ user.email }}" disabled="true">
+                                                <input type="email" value="{{ user.email }}" disabled="true"
+                                                       onchange="checkEmail()">
                                             </div>
                                             <div class="single-input">
                                                 <label>创建时间</label>
@@ -562,8 +563,10 @@
                                             </div>
                                             <div class="single-input">
                                                 <label>手机号</label>
-                                                <input type="number" name="phone-number" value="{{ user.phone }}"
-                                                       maxlength="11">
+                                                <input type="text" name="phone" id="phone" value="{{ user.phone }}"
+                                                       oninput="value=value.replace(/[^\d]/g,'')"
+                                                       maxlength="11" minlength="11" onchange="checkPhone()">
+                                                <label style="color: red" id="phone-numberInfoReg"></label>
                                             </div>
                                             <div class="single-input">
                                                 <label>店铺地址</label>
@@ -575,6 +578,19 @@
                                                        disabled="true">
 
                                                 <script>
+                                                    function checkPhone() {
+                                                        if ($("#phone").val().length !== 11) {
+                                                            $("#phone-numberInfoReg").text("手机号为11位数字!")
+                                                            var setDisabled = document.getElementById("saveChange")
+                                                            setDisabled.setAttribute("disabled", "true")
+                                                        } else {
+                                                            $("#phone-numberInfoReg").text("")
+                                                            var setDisabled = document.getElementById("saveChange")
+                                                            setDisabled.removeAttribute("disabled")
+                                                        }
+                                                    }
+
+
                                                     function ifChangeSelection() {
                                                         var tmp = document.getElementById("ifChangeTrue").checked;
                                                         if (tmp) {
@@ -596,6 +612,11 @@
                                                 <div id="AddrSelection" hidden="hidden">
                                                     <div style="height: 5px"></div>
                                                     <script>
+                                                        function varifyValue() {
+
+                                                        }
+
+
                                                         $(function () {
                                                             var current_prov;
                                                             var current_city;
@@ -695,10 +716,11 @@
                                                     </select>
                                                     <input type="text" name="addr" placeholder="详细地址">
                                                 </div>
+                                                <label style="color: red">{{ msg }}</label>
                                             </div>
                                             <div class="single-input">
                                                 <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0"
-                                                        type="submit">
+                                                        type="submit" id="saveChange">
                                                     <span>保存改变</span>
                                                 </button>
                                             </div>
@@ -760,73 +782,219 @@
                                                         <div id="lg1" class="tab-pane active">
                                                             <div class="login-form-container">
                                                                 <div class="change-delete-form">
-                                                                    <form method="post" enctype="multipart/form-data"
-                                                                          action="/account/vendors/shop_info_manage/append/">
-                                                                        <input type="text" name="service_name"
-                                                                               maxlength="12" minlength="3"
-                                                                               placeholder="服务名称"/>
-                                                                        <input type="text" name="service_price"
-                                                                               maxlength="12" minlength="3"
-                                                                               placeholder="服务价格"/>
-                                                                        <input type="text" name="service_detail"
-                                                                               maxlength="500" minlength="6"
-                                                                               placeholder="备注（不超过五百字）"/>
-                                                                        <input hidden="hidden" name="shop_id"
-                                                                               value="{{ shop.id }}">
-                                                                        <div class="layui-form-item">
-                                                                            <label class="layui-form-label">图片</label>
-                                                                            <div class="layui-input-block">
-                                                                                <input type="file" name="picture"
-<<<<<<< HEAD
-                                                                                       onchange="showImg()"
-                                                                               th        id="img_file"><img src=""
-=======
-                                                                                       onchange="previewImage(this)"
-                                                                                       id="img_file"><img src=""
->>>>>>> 902bbab03eb9b8916296725e39827c338c325dd1
-                                                                                                          alt=""
-                                                                                                          id="img_id"
-                                                                                                          style="width: 100px">
+                                                                    <input type="text" name="service_name_add"
+                                                                           id="service_name_add"
+                                                                           maxlength="12" minlength="3"
+                                                                           placeholder="服务名称"/>
+                                                                    {#                                                                        <input type="checkbox" name="service_name"#}
+                                                                    {#                                                                               maxlength="4" minlength="4"#}
+                                                                    {#                                                                               placeholder="服务类型"/>{{ type_list }}#}
+                                                                    <div>
+                                                                        <p style="font-size: 14px;position: relative;left: 20px">
+                                                                            服务类型</p>
+                                                                        <select name="service_type_add"
+                                                                                id="service_type_add"
+                                                                                style="position: relative;left: 100px;top: -40px">
+                                                                            {% for type in type_list %}
+                                                                                <option value="{{ type.id }}">{{ type }}</option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                    </div>
+                                                                    <input type="number" name="service_price_add"
+                                                                           id="service_price_add"
+                                                                           placeholder="服务价格" value="10"
+                                                                           oninput="value=value.replace(/[^\d]/g,'')"
+                                                                           onchange="checkPrice()"/>
+                                                                    <input type="text" name="service_detail_add"
+                                                                           id="service_detail_add"
+                                                                           maxlength="500" minlength="6"
+                                                                           placeholder="详情（不超过五百字）"/>
+                                                                    <input hidden="hidden" name="shop_id_add"
+                                                                           id="shop_id_add"
+                                                                           value="{{ shop.id }}">
+                                                                    <div class="button-box">
+                                                                        <script>
+                                                                            function checkPrice() {
+                                                                                if ($("#service_price_add").val() <= 0) {
+                                                                                    alert("服务价格不能小于等于0！")
+                                                                                    var disableSubmit = document.getElementById("submitBtn");
+                                                                                    disableSubmit.setAttribute("disabled", "true")
+                                                                                } else {
+                                                                                    var disableSubmit = document.getElementById("submitBtn");
+                                                                                    disableSubmit.removeAttribute("disabled")
+                                                                                }
+                                                                            }
 
-                                                                                <input type="submit" value="上传">
 
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="button-box">
-                                                                            <script> function success() {
-                                                                                alert("服务上传成功")
+                                                                            function SendRequest() {
+                                                                                $.ajax({
+                                                                                    url: "../../../account/vendors/shop_info_manage/append/",
+                                                                                    type: "GET",
+                                                                                    data: {
+                                                                                        "service_name": $("#service_name_add").val(),
+                                                                                        "service_type": $("#service_type_add").val(),
+                                                                                        "service_price": $("#service_price_add").val(),
+                                                                                        "service_detail": $("#service_detail_add").val(),
+                                                                                        "shop_id": $("#shop_id_add").val(),
+                                                                                    },
+                                                                                    beforeSend: function (xhr) {
+                                                                                        console.log("service_name_add" + $("#service_name_add").val())
+                                                                                        console.log("service_type_add" + $("#service_type_add").val())
+                                                                                        console.log("service_price_add" + $("#service_price_add").val())
+                                                                                        console.log("service_detail_add" + $("#service_detail_add").val())
+                                                                                        console.log("shop_id_add" + $("#shop_id_add").val())
+                                                                                        if ($("#service_name_add").val().length===0) {
+                                                                                            alert("服务名称不能为空！")
+                                                                                            xhr.abort()
+                                                                                        }
+                                                                                        if ($("#service_detail_add").val().length===0) {
+                                                                                            alert("服务详情不能为空！")
+                                                                                            xhr.abort()
+                                                                                        }
+                                                                                        if ($("#service_price_add").val() < 0) {
+                                                                                            alert("服务价格不能小于0！")
+                                                                                            xhr.abort()
+                                                                                        }
+                                                                                    }
+
+                                                                                    ,
+                                                                                    success: function (response_data) {
+                                                                                        if (response_data === "ok") {
+                                                                                            alert("服务信息已提交，请上传服务图片！")
+                                                                                            var uploadPic = document.getElementById("uploadPicture")
+                                                                                            uploadPic.removeAttribute("hidden")
+                                                                                        } else {
+                                                                                            alert(response_data)
+                                                                                        }
+                                                                                    }
+                                                                                })
+
                                                                             }</script>
-                                                                            <button type="submit" onclick="success()">
-                                                                                <span>确认提交</span>
-                                                                            </button>
+                                                                        <button type="submit"
+                                                                                onclick="SendRequest();"
+                                                                                style="position: relative;left: 135px"
+                                                                                id="submitBtn">
+                                                                            <span>确认提交</span>
+                                                                        </button>
+                                                                        <div style="height: 20px"></div>
+                                                                        <div class="layui-form-item" id="uploadPicture"
+                                                                             hidden="true">
+                                                                            <label class="layui-form-label">上传服务图片</label>
+                                                                            <div style="height: 5px"></div>
+                                                                            <script>
+                                                                                function previewImage(file) {
+                                                                                    {#var file = document.getElementById("img_id");#}
+                                                                                    fileName = $("#picture").val();
+                                                                                    $("#imgName").attr("value", fileName);
 
+                                                                                    var MAXWIDTH = 190;     //用来显示上传图片的宽度
+                                                                                    var MAXHEIGHT = 290;     //用来显示上传图片的高度
+                                                                                    var div = document.getElementById('img_id');
+                                                                                    if (file.files && file.files[0]) {
+                                                                                        div.innerHTML = '<img id=img_id>';
+                                                                                        var img = document.getElementById('img_id');
+                                                                                        img.onload = function () {
+                                                                                            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                                                                                            img.width = rect.width;
+                                                                                            img.height = rect.height;
+                                                                                            img.style.marginLeft = rect.left + 'px';
+                                                                                            img.style.marginTop = rect.top + 'px';
+                                                                                        };
+                                                                                        var reader = new FileReader();
+                                                                                        reader.onload = function (evt) {
+                                                                                            img.src = evt.target.result;
+                                                                                        };
+                                                                                        reader.readAsDataURL(file.files[0]);
+                                                                                    } else {
+                                                                                        var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+                                                                                        file.select();
+                                                                                        var src = document.selection.createRange().text;
+                                                                                        div.innerHTML = '<img id=img_id>';
+                                                                                        var img = document.getElementById('img_id');
+                                                                                        img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+                                                                                        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                                                                                        status = ('rect:' + rect.top + ',' + rect.left + ',' + rect.width + ',' + rect.height);
+                                                                                        div.innerHTML = "<div id=divhead style='width:" + rect.width + "px;height:" + rect.height + "px;margin-top:" + rect.top + "px;margin-left:" + rect.left + "px;" + sFilter + src + "\"'></div>";
+                                                                                    }
+                                                                                }
+
+                                                                                function clacImgZoomParam(maxWidth, maxHeight, width, height) {
+                                                                                    var param = {
+                                                                                        top: 0,
+                                                                                        left: 0,
+                                                                                        width: width,
+                                                                                        height: height
+                                                                                    };
+                                                                                    if (width > maxWidth || height > maxHeight) {
+                                                                                        rateWidth = width / maxWidth;
+                                                                                        rateHeight = height / maxHeight;
+                                                                                        if (rateWidth > rateHeight) {
+                                                                                            param.width = maxWidth;
+                                                                                            param.height = Math.round(height / rateWidth);
+                                                                                        } else {
+                                                                                            param.width = Math.round(width / rateHeight);
+                                                                                            param.height = maxHeight;
+                                                                                        }
+                                                                                    }
+                                                                                    param.left = Math.round((maxWidth - param.width) / 2);
+                                                                                    param.top = Math.round((maxHeight - param.height) / 2);
+                                                                                    return param;
+                                                                                }
+                                                                            </script>
+                                                                            <form method="post"
+                                                                                  action="../../../account/vendors/shop_info_manage/append/"
+                                                                                  enctype="multipart/form-data">
+                                                                                <div class="layui-input-block">
+                                                                                    <input type="file"
+                                                                                           name="picture"
+                                                                                           onchange="previewImage(this)"
+                                                                                           id="picture">
+                                                                                    <img src=""
+                                                                                         alt=""
+                                                                                         id="img_id"
+                                                                                         style="width: 200px;height: 300px">
+                                                                                </div>
+                                                                                <div style="height: 15px"></div>
+                                                                                <button type="submit"
+                                                                                        style="position: relative;left: 135px">
+                                                                                    <span>提交图片</span>
+                                                                                </button>
+                                                                            </form>
                                                                         </div>
-                                                                    </form>
+
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div id="lg2" class="tab-pane">
                                                             <div class="login-form-container">
                                                                 <div class="change-delete-form">
-                                                                    <form action="#" method="post">
-                                                                        <label>待删除的服务名称</label>
-                                                                        <input type="text" name="service_input"
-                                                                               maxlength="12" minlength="3"
-                                                                               placeholder="服务名称"/>
-                                                                        <div class="button-box">
-                                                                            <form method="post" action="#">
-                                                                                <button type="submit"><span>确认删除</span>
-                                                                                </button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </form>
+                                                                    <label>待删除的服务名称</label>
+                                                                    <input type="text" name="service_name"
+                                                                           id="service_name"
+                                                                           placeholder="服务名称"/>
+                                                                    <div class="button-box">
+                                                                        <button type="submit" onclick="checkDelete()">
+                                                                            <span>确认删除</span>
+                                                                        </button>
+                                                                    </div>
                                                                     <script>
-                                                                        function check() {
-                                                                            var service = document.getElementById("a").value;
-                                                                            var service_input = document.getElementById("b").value;
-                                                                            if (service != service_input) {
-                                                                                alert("服务名称不存在，请核查！");
-                                                                            }
+                                                                        function checkDelete() {
+                                                                            $.ajax({
+                                                                                url: "../../../account/vendors/shop_info_manage/delete/",
+                                                                                type: "post",
+                                                                                data: {
+                                                                                    "service_name": $("#service_name").val(),
+                                                                                    "s_id": {{ shop.id }},
+                                                                                },
+                                                                                success: function (response_data) {
+                                                                                    if (response_data === "ok") {
+                                                                                        alert("已删除！")
+                                                                                    } else {
+                                                                                        alert(response_data)
+                                                                                    }
+                                                                                }
+                                                                            })
                                                                         }
                                                                     </script>
                                                                 </div>
@@ -843,6 +1011,7 @@
                                  aria-labelledby="account-address-tab">
                                 <div class="myaccount-address">
                                     <p>店铺经营数据可视化图表</p>
+                                    <p style="position: relative;margin-left: 300px">近6月每月订单总量图</p>
                                     <div>
                                         <div id="GraphDemoOne" style="height:500px"></div>
                                         {#                                        <script type="text/javascript">#}
@@ -970,6 +1139,7 @@
                                     {#                                        </script>#}
                                     {#                                    </div>#}
                                     <div>
+                                        <p style="position: relative; margin-left: 300px">本月订单分类图</p>
                                         <div id="GraphDemoThree" style="height: 700px">
                                             <script type="text/javascript"
                                                     src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
@@ -1177,7 +1347,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 text-left">
-                            <p class="copy-text">Copyright&copy; Let's购 2021. &nbsp;All rights reserved.</p>
+                            <p class="copy-text">Copyright&copy; HANDY 2021. &nbsp;All rights reserved.</p>
                         </div>
                     </div>
                 </div>
