@@ -350,25 +350,28 @@ class Service(models.Model):
 
     # 上传服务的图片，当上传成功时返回True
     def upload_service_img(self, request):
-        try:
-            # 获取上传的图片
-            pic = request.FILES["picture"]
-            now = datetime.now()
+        # try:
+        # 获取上传的图片
+        pic = request.FILES["picture"]
+        now = datetime.now()
 
-            time_str = "{}年{}月{}日{}时{}分{}秒".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
-            # 以带时间格式创建一个文件
-            file_url = '%s/img/%s_%s' % (settings.MEDIA_ROOT, time_str, pic.name)
-            with open(file_url, "wb") as f:
-                # 获取上传文件内容并写入创建文件中
-                for content in pic.chunks():
-                    f.write(content)
-            # 在数据库中保存上传记录
-            self.img = "img/%s" % pic.name
-            self.save()
-            return True
-        except:
-            print("error")
-            return False
+        time_str = "{}年{}月{}日{}时{}分{}秒".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
+        # 以带时间格式创建一个文件
+        file_url = '%s/img/%s_%s' % (settings.MEDIA_ROOT, time_str, pic.name)
+
+        with open(file_url, "wb") as f:
+            # 获取上传文件内容并写入创建文件中
+            for content in pic.chunks():
+                f.write(content)
+
+        # 在数据库中保存上传记录
+        self.img = "img/%s_%s" % (time_str, pic.name)
+        self.save()
+        print("fuck")
+        return True
+    # except:
+    # print("error")
+    # return False
 
 
 class EmailVerifyRecord(models.Model):
