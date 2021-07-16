@@ -778,7 +778,6 @@
                                                                         </select>
                                                                     </div>
                                                                     <input type="text" name="service_price"
-                                                                           maxlength="12" minlength="3"
                                                                            placeholder="服务价格"/>
                                                                     <input type="text" name="service_detail"
                                                                            maxlength="500" minlength="6"
@@ -789,7 +788,7 @@
                                                                         <script> function SendRequest() {
                                                                             $.ajax({
                                                                                 url: "../../../account/vendors/shop_info_manage/append/",
-                                                                                type: "POST",
+                                                                                type: "get",
                                                                                 data: {
                                                                                     "service_name": $("#service_name").val(),
                                                                                     "service_type": $("#service_type").val(),
@@ -800,6 +799,8 @@
                                                                                 success: function (response_data) {
                                                                                     if (response_data === "ok") {
                                                                                         alert("服务信息已提交，请上传服务图片！")
+                                                                                        var uploadPic=document.getElementById("uploadPicture")
+                                                                                        uploadPic.setAttribute("hidden","false")
                                                                                     } else {
                                                                                         alert(response_data)
                                                                                     }
@@ -815,7 +816,7 @@
                                                                         <div style="height: 20px"></div>
                                                                         <div class="layui-form-item">
                                                                             <form method="post"
-                                                                                  action="../../../account/vendors/shop_info_manage/append/">
+                                                                                  action="../../../account/vendors/shop_info_manage/append/" hidden="true" id="uploadPicture">
                                                                                 <label class="layui-form-label">上传服务图片</label>
                                                                                 <div style="height: 5px"></div>
                                                                                 <script>
