@@ -72,6 +72,7 @@ urlpatterns = [
     path("services/", services_views.ServicesClassView.as_view()),
     path("other/", include(other_patterns)),
     path("admin/", admin.site.urls),
-    path("test/", pay_test_view)
+    path("test/", pay_test_view),
+    path("test2/",test_view)
 ]
 handler404 = page_not_found
