@@ -135,8 +135,8 @@ class Order(models.Model):
     start_time = models.DateTimeField('服务开始时间')
     end_time = models.DateTimeField('服务结束时间')
     pay_status = models.BooleanField('订单支付状态', default=False)
-    comment = models.CharField(verbose_name='评价', max_length=255, blank=True, null=True)
-    star = models.IntegerField(verbose_name='服务星级', blank=True, null=True)
+    comment = models.CharField(verbose_name='评价', max_length=255, blank=True, null=True,default="该用户尚未评价,默认5星好评")
+    star = models.IntegerField(verbose_name='服务星级', blank=True, null=True,default=5)
     order_collection_id = models.CharField('OrderCollection', blank=True, null=True, max_length=255)
 
     class Meta:
@@ -167,7 +167,6 @@ class Order(models.Model):
         return delta_hours * service_price
 
     # 支付订单
-
     def pay_order(self):
         if self.pay_status:
             msg = "您已经支付过该订单，请勿重新支付"
@@ -196,6 +195,7 @@ class Shop(models.Model):
     def __unicode__(self):
         return self.name
 
+    # 获取当前月的全部订单数据
     def get_current_month_orders_data(self):
         now_time = datetime.now()
         shop_orders = self.get_total_orders()
@@ -210,6 +210,7 @@ class Shop(models.Model):
                     order.service.sort.name, 0) + 1
         return data_by_type
 
+    # 获取近几个月的全部订单数据
     def get_recent_month_orders_data(self):
         now_time = datetime.now()
         shop_orders = self.get_total_orders()
@@ -227,6 +228,7 @@ class Shop(models.Model):
 
         return recent_month_data
 
+    # 以类别分类获取店铺的全部订单
     def get_total_orders(self):
         shop_services = self.get_shop_services()
         shop_orders = []
@@ -283,9 +285,7 @@ class Service(models.Model):
     name = models.CharField('服务名称', max_length=32)
     price = models.DecimalField('服务价格', max_digits=10, decimal_places=2)
     status = models.BooleanField('服务状态')
-    img1 = models.CharField('服务图片位置', max_length=255, unique=True, blank=True, null=True)
     img = models.ImageField(upload_to="img", null=True)
-    img2 = models.CharField('服务图片位置', max_length=255, unique=True, blank=True, null=True)
     intro = models.CharField('服务简介', max_length=255, unique=True, blank=True, null=True)
     sales = models.IntegerField("销量", default=0)
     shop = models.ForeignKey('Shop', on_delete=models.CASCADE)  # 联接Shop表
@@ -300,9 +300,15 @@ class Service(models.Model):
     def __unicode__(self):
         return '{0}({1})'.format(self.name, self.sort)
 
+    # 获取服务的图片路径
     def get_img_path(self):
         path = "/static/media/" + str(self.img)
         return path
+
+    # 获取该服务的全部订单
+    def get_all_orders(self):
+        orders = Order.objects.all(service_id=self.id)
+        return orders
 
     # 新建服务
     @staticmethod
@@ -364,3 +370,10 @@ class EmailVerifyRecord(models.Model):
 
     def __unicode__(self):
         return '{0}({1})'.format(self.code, self.email)
+
+    # 验证邮箱验证码是否正确
+    def verify(self, code):
+        if self.code == code:
+            return True
+        else:
+            return False
