@@ -46,11 +46,3 @@ def recommend(service, count):  # 用户购买过serviceId服务,推荐数量为
             recommend_services.append(service_add)
     return recommend_services
 
-
-'''
-[{'id': 2, 'img': '商品2图片路径', 'title': '商品2'}, {'id': 4, 'img': '商品4图片路径', 'title': '商品4'}, {'id': 3, 'img': '商品3图片路径', 'title': '商品3'}]
-'''
-if __name__ == '__main__':
-    # get_data(1)
-    for service in recommend(1, 3):
-        print(service)
