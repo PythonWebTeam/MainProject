@@ -1,0 +1,14 @@
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (1, 'hofee店铺', '2021-07-08 16:05:38.000000', 1, 1, NULL);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (2, 'eric店铺', '2021-07-08 16:12:00.000000', 1, 2, NULL);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (3, 'alex店铺', '2021-07-08 20:16:00.000000', 0, 4, NULL);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (4, 'george店铺', '2021-07-08 20:17:47.000000', 1, 5, NULL);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (5, 'jack店铺', '2021-07-08 20:18:12.000000', 1, 6, NULL);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (10, '测试用店铺', '2021-07-13 15:13:00.000000', 1, 159, 5);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (15, '123456的店铺', '2021-07-16 19:37:39.263120', 1, 160, NULL);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (16, 'wytt的店铺', '2021-07-16 20:16:36.962028', 1, 165, NULL);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (17, '青青草原顶流的店铺', '2021-07-16 21:11:55.512254', 1, 167, 5);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (18, 'NANA的店铺', '2021-07-16 21:35:33.577944', 1, 171, 5);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (19, '莉兹的店铺', '2021-07-16 22:21:00.552150', 1, 372, 5);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (21, 'handy2的店铺', '2021-07-17 00:04:03.383476', 1, 374, 5);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (24, 'handy3的店铺', '2021-07-17 00:13:54.059581', 1, 375, 5);
+INSERT INTO `Shop` (`id`, `name`, `create_time`, `status`, `user_id`, `star`) VALUES (26, 'handy5的店铺', '2021-07-17 00:18:37.059196', 1, 376, 5);

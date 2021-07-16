@@ -1,0 +1,10 @@
+INSERT INTO `Type` (`id`, `name`) VALUES (1, '家庭清洁');
+INSERT INTO `Type` (`id`, `name`) VALUES (2, '保姆服务');
+INSERT INTO `Type` (`id`, `name`) VALUES (3, '电器维修');
+INSERT INTO `Type` (`id`, `name`) VALUES (4, '居民搬家');
+INSERT INTO `Type` (`id`, `name`) VALUES (5, '二手回收');
+INSERT INTO `Type` (`id`, `name`) VALUES (6, '鲜花绿植');
+INSERT INTO `Type` (`id`, `name`) VALUES (7, '生活配送');
+INSERT INTO `Type` (`id`, `name`) VALUES (8, '管道疏通');
+INSERT INTO `Type` (`id`, `name`) VALUES (9, '开锁换锁');
+INSERT INTO `Type` (`id`, `name`) VALUES (10, '房屋维修');
