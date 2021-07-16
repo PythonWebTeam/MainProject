@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
+
 from account.models import *
 from utils.data import get_delta_hours, convert_digital_decimal
 from utils.util import Util
@@ -125,7 +126,7 @@ class CartRemoveAll(View):
 
 
 class VendorInfoManageView(View):
-    def get(self, request):
+    def get(self, request,msg=""):
         if not request.session.get("is_login"):
             return redirect("/passport/login/")
         else:
@@ -140,6 +141,7 @@ class VendorInfoManageView(View):
             type_list = Type.get_all_sort()
             # 保持最新订单在最顶上
             order_list.reverse()
+            addr = user.transform_address()
             response_data = {
                 "user": user,
                 "shop": shop,
@@ -147,9 +149,43 @@ class VendorInfoManageView(View):
                 "username": username,
                 "services_sort": services_sort,
                 "is_login": is_login,
-                "type_list": type_list
+                "type_list": type_list,
+                "prov": addr[0],
+                "city": addr[1],
+                "county": addr[2],
+                "msg": msg,
             }
             return render(request, "vendor_info_manage.html", response_data)
+
+    def post(self, request):
+        data = request.POST
+        if not request.session.get("is_login"):
+            return redirect("/passport/login/")
+        username = request.session.get("username")
+        user = User.objects.get(username=username)
+        Order.objects.filter(user_id=user.id)
+        new_username = data.get("username")  #
+        shop_name = data.get("shop_name")
+        if len(User.objects.filter(username=new_username)) > 1:
+            msg = "该用户名已存在"
+            return self.get(request, msg)
+        phone = data.get("phone")  #
+        edit = data.get("ifChangeTrue")  #
+        shop = Shop.objects.get(user=user)
+        shop.name= shop_name
+        shop.save()
+        if not edit:
+            user.phone = phone
+            user.save()
+        else:
+            user.phone = phone
+            user.province = int(data.get("prov"))
+            user.city = int(data.get("city"))
+            user.district = int(data.get("county"))
+            user.details = data.get("addr")
+            user.save()
+        user.change_username(request, new_username)
+        return self.get(request)
 
 
 class DeleteServiceView(View):

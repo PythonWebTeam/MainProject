@@ -527,7 +527,7 @@
                                         <div class="myaccount-form-inner">
                                             <div class="single-input single-input-half">
                                                 <label>用户名</label>
-                                                <input type="text" value="{{ user.username }}">
+                                                <input name="username" type="text" value="{{ user.username }}">
                                                 <label style="color: red" id="UsernameInfo">{{ msg }}</label>
                                             </div>
                                             <div class="single-input single-input-half">
@@ -536,11 +536,11 @@
                                             </div>
                                             <div class="single-input">
                                                 <label>店铺名</label>
-                                                <input type="text" value="{{ shop.name }}">
+                                                <input name="shop_name" type="text" value="{{ shop.name }}">
                                             </div>
                                             <div class="single-input">
                                                 <label>店铺状态</label>
-                                                <select>
+                                                <select disabled="disabled">
                                                     {% if shop.status %}
                                                         <option value="is_open" selected="true">运营</option>
                                                         <option value="is_close">停业</option>
@@ -561,8 +561,7 @@
                                             </div>
                                             <div class="single-input">
                                                 <label>手机号</label>
-                                                <input type="number" name="phone-number" value="{{ user.phone }}"
-                                                       maxlength="11">
+                                                <input type="number" name="phone" value="{{ user.phone }}" maxlength="11">
                                             </div>
                                             <div class="single-input">
                                                 <label>店铺地址</label>
@@ -694,6 +693,7 @@
                                                     </select>
                                                     <input type="text" name="addr" placeholder="详细地址">
                                                 </div>
+                                                <label style="color: red">{{ msg }}</label>
                                             </div>
                                             <div class="single-input">
                                                 <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0"
@@ -759,11 +759,87 @@
                                                         <div id="lg1" class="tab-pane active">
                                                             <div class="login-form-container">
                                                                 <div class="change-delete-form">
+                                                                    <script>
+
+                                                                        function previewImage(file) {
+
+                                                                            fileName = $("#img").val();
+                                                                            $("#imgName").attr("value", fileName);
+
+                                                                            var MAXWIDTH = 218;     //用来显示上传图片的宽度
+                                                                            var MAXHEIGHT = 158;     //用来显示上传图片的高度
+                                                                            var div = document.getElementById('preview');
+                                                                            if (file.files && file.files[0]) {
+                                                                                div.innerHTML = '<img id=imghead>';
+                                                                                var img = document.getElementById('imghead');
+                                                                                img.onload = function () {
+                                                                                    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                                                                                    img.width = rect.width;
+                                                                                    img.height = rect.height;
+                                                                                    img.style.marginLeft = rect.left + 'px';
+                                                                                    img.style.marginTop = rect.top + 'px';
+                                                                                };
+                                                                                var reader = new FileReader();
+                                                                                reader.onload = function (evt) {
+                                                                                    img.src = evt.target.result;
+                                                                                };
+                                                                                reader.readAsDataURL(file.files[0]);
+                                                                            } else {
+                                                                                var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+                                                                                file.select();
+                                                                                var src = document.selection.createRange().text;
+                                                                                div.innerHTML = '<img id=imghead>';
+                                                                                var img = document.getElementById('imghead');
+                                                                                img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+                                                                                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                                                                                status = ('rect:' + rect.top + ',' + rect.left + ',' + rect.width + ',' + rect.height);
+                                                                                div.innerHTML = "<div id=divhead style='width:" + rect.width + "px;height:" + rect.height + "px;margin-top:" + rect.top + "px;margin-left:" + rect.left + "px;" + sFilter + src + "\"'></div>";
+                                                                            }
+                                                                        }
+
+                                                                        function clacImgZoomParam(maxWidth, maxHeight, width, height) {
+                                                                            var param = {
+                                                                                top: 0,
+                                                                                left: 0,
+                                                                                width: width,
+                                                                                height: height
+                                                                            };
+                                                                            if (width > maxWidth || height > maxHeight) {
+                                                                                rateWidth = width / maxWidth;
+                                                                                rateHeight = height / maxHeight;
+                                                                                if (rateWidth > rateHeight) {
+                                                                                    param.width = maxWidth;
+                                                                                    param.height = Math.round(height / rateWidth);
+                                                                                } else {
+                                                                                    param.width = Math.round(width / rateHeight);
+                                                                                    param.height = maxHeight;
+                                                                                }
+                                                                            }
+                                                                            param.left = Math.round((maxWidth - param.width) / 2);
+                                                                            param.top = Math.round((maxHeight - param.height) / 2);
+                                                                            return param;
+                                                                        }
+                                                                    </script>
+
                                                                     <form method="post" enctype="multipart/form-data"
                                                                           action="/account/vendors/shop_info_manage/append/">
                                                                         <input type="text" name="service_name"
                                                                                maxlength="12" minlength="3"
                                                                                placeholder="服务名称"/>
+                                                                        {#                                                                        <input type="checkbox" name="service_name"#}
+                                                                        {#                                                                               maxlength="4" minlength="4"#}
+                                                                        {#                                                                               placeholder="服务类型"/>{{ type_list }}#}
+                                                                        <div>
+                                                                            <p style="font-size: 14px;position: relative;left: 20px">
+                                                                                服务类型</p>
+                                                                            <select name="service_type"
+                                                                                    id="service_type"
+                                                                                    style="position: relative;left: 100px;top: -40px">
+                                                                                {% for type in type_list %}
+                                                                                    <option value="{{ type }}">{{ type }}</option>
+                                                                                {% endfor %}
+                                                                            </select>
+                                                                        </div>
                                                                         <input type="text" name="service_price"
                                                                                maxlength="12" minlength="3"
                                                                                placeholder="服务价格"/>
@@ -776,21 +852,21 @@
                                                                             <label class="layui-form-label">图片</label>
                                                                             <div class="layui-input-block">
                                                                                 <input type="file" name="picture"
-                                                                                       onchange="previewImage(this)"
+                                                                                       onchange=""
                                                                                        id="img_file"><img src=""
                                                                                                           alt=""
                                                                                                           id="img_id"
-                                                                                                          style="width: 100px">
+                                                                                                          style="width: 200px;height: 300px">
 
                                                                                 <input type="submit" value="上传">
 
                                                                             </div>
                                                                         </div>
                                                                         <div class="button-box">
-                                                                            <script> function success() {
-                                                                                alert("服务上传成功")
+                                                                            <script> function SendRequest() {
+                                                                                alert("已提交上传请求！")
                                                                             }</script>
-                                                                            <button type="submit" onclick="success()">
+                                                                            <button type="submit" onclick="SendRequest()" style="position: relative;left: 135px">
                                                                                 <span>确认提交</span>
                                                                             </button>
 
