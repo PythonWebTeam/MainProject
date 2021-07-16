@@ -64,8 +64,6 @@ class User(AbstractUser):
         self.set_password(new_password)
         self.save()
 
-    # 修改用户信息
-
     # 上传头像
     def upload_portrait_img(self, request):
         try:

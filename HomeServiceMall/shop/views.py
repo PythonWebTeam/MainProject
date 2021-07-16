@@ -32,7 +32,7 @@ class ServiceView(View):
         data = request.POST
         se_id = int(data.get("se_id"))
         username = request.session.get("username")
-        user = User.objects.filter(username=username)[0]
+        user = User.objects.get(username=username)
         start_time = data.get("start_time")
         end_time = data.get("end_time")
         start_time = datetime.datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
@@ -97,12 +97,15 @@ class PayView(View):
         username = request.session.get("username")
         user = User.objects.get(username=username)
         if int(from_cart) == 0:
-            services = Service.objects.filter(id=int(se_id))
+            service = Service.objects.get(id=int(se_id))
+            if not service.shop.status:
+                return HttpResponse("该店铺已停业")
+            services=[service]
             start_time = request.GET.get("starttime")
             end_time = request.GET.get("endtime")
             start_time_dec = datetime.datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
             end_time_dec = datetime.datetime.strptime(end_time, "%Y-%m-%dT%H:%M")
-            total_cost = convert_digital_decimal(services[0].price)*get_delta_hours(start_time_dec, end_time_dec)
+            total_cost = convert_digital_decimal(services[0].price) * get_delta_hours(start_time_dec, end_time_dec)
             addr = Util.transform(user.province, user.city, user.district)
             return_data = {
                 "services": services,
@@ -115,8 +118,8 @@ class PayView(View):
                 "city": addr[1],
                 "county": addr[2],
                 "from_cart": from_cart,
-                "start_time":start_time,
-                "end_time":end_time,
+                "start_time": start_time,
+                "end_time": end_time,
             }
         else:
             total_cost = 0
@@ -138,7 +141,6 @@ class PayView(View):
                 "county": addr[2],
                 "from_cart": from_cart,
             }
-
 
         # 获取用户的地址信息
 
