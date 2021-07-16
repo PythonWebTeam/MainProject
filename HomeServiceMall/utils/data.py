@@ -57,7 +57,6 @@ def alipay_index(request):
     alipay = aliPay()
     # 对购买的数据进行加密
     data = request.GET
-    print(data)
     username = request.session.get("username")
     user = User.objects.get(username=username)
     user_id = user.id
@@ -72,7 +71,6 @@ def alipay_index(request):
             order = Order()
             order.service = cart.service
             price = convert_digital_decimal(cart.service.price)
-            print(cart.start_time, cart.end_time)
             total_cost += cart.get_cart_price()
             order.create_time = datetime.datetime.now()
             order.start_time = cart.start_time
@@ -103,7 +101,6 @@ def alipay_index(request):
         order.user = user
         order.save()
         services_num += 1
-    print(total_cost)
     # 1. 在数据库创建一条数据：状态（待支付）
     query_params = alipay.direct_pay(
         subject="服务名:{0}({1})|共{2}个服务".format(service.name, service.sort.name, services_num),  # 商品简单描述 这里一般是从前端传过来的数据
@@ -113,7 +110,6 @@ def alipay_index(request):
 
     # 拼接url，转到支付宝支付页面
     pay_url = "https://openapi.alipaydev.com/gateway.do?{}".format(query_params)
-    print("pay_url")
     return redirect(pay_url)
 
 
@@ -140,7 +136,6 @@ def update_order(request):
     if status:
         # 1.修改订单状态
         out_trade_no = post_dict.get('out_trade_no')
-        print(out_trade_no)
         orders = Order.objects.filter(order_collection_id=out_trade_no)
         for order in orders:
             order.pay_status = True
@@ -179,7 +174,6 @@ def pay_result(request):
             recommend_info="暂无推荐"
         else:
             recommend_info = "购买了该商品的用户还购买了:"
-        print(recommend_services_all)
         data={
             "username": username,
             "services_sort": services_sort,

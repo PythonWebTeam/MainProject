@@ -94,7 +94,6 @@ class User(AbstractUser):
             self.img = "img/%s" % pic.name
             return True
         except:
-            print("error")
             return False
 
     # 将地址代码转换为文字

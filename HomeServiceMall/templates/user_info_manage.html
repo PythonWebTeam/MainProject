@@ -414,11 +414,9 @@
                                                                 document.getElementById("AddrSelection").style.visibility = "visible";
                                                                 document.getElementById("AddrSelection").hidden = false;
                                                                 tmp.value = 1
-                                                                console.log(document.getElementById("ifChangeTrue").checked);
                                                             } else {
                                                                 tmp.value = 0
                                                                 document.getElementById("AddrSelection").style.visibility = "hidden";
-                                                                console.log(document.getElementById("ifChangeTrue").checked);
                                                             }
                                                         }
                                                     </script>
@@ -644,7 +642,6 @@
                                                                     },
                                                                     async: false,
                                                                     beforeSend: function (xhr) {
-                                                                        console.log("#comment")
                                                                         if ($("#comment").val() === "") {
 
                                                                             $("errormsg").text("评论为空，请输入评论");

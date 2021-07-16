@@ -219,7 +219,7 @@ class BusinessDataView(View):
             "current_month_orders": current_month_orders
         }
 
-        print(json_data)
+
         # 将safe设为False以便序列化列表
         return JsonResponse(json_data, safe=False)
 
@@ -310,7 +310,6 @@ def submit_comment(request):
     comment = data.get("comment")
     star = int(data.get("star"))
     order_id = data.get("order_id")
-    print(star, comment)
     order = Order.objects.get(id=order_id)
 
     return HttpResponse(order.set_comment(comment, star))
