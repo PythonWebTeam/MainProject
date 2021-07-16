@@ -538,18 +538,7 @@
                                                 <label>店铺名</label>
                                                 <input name="shop_name" type="text" value="{{ shop.name }}">
                                             </div>
-                                            <div class="single-input">
-                                                <label>店铺状态</label>
-                                                <select disabled="disabled">
-                                                    {% if shop.status %}
-                                                        <option value="is_open" selected="true">运营</option>
-                                                        <option value="is_close">停业</option>
-                                                    {% else %}
-                                                        <option value="is_open">运营</option>
-                                                        <option value="is_close" selected="true">停业</option>
-                                                    {% endif %}
-                                                </select>
-                                            </div>
+                                           
                                             <div class="single-input">
                                                 <label>邮箱</label>
                                                 <input type="email" value="{{ user.email }}" disabled="true"
