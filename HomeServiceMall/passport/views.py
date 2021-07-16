@@ -41,7 +41,6 @@ class RegisterView(View):
     def post(self, request):
 
         data = request.POST
-        print(data)
         username = data.get("user-name")
         password = data.get("user-password")
         phone_number = data.get("phone-number")

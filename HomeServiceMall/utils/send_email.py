@@ -35,14 +35,12 @@ class SendEmailView(View):  # email, send_type="register"
 
         code = random_str(6)
         flag = EmailVerifyRecord.objects.filter(email=email)
-        print(code)
 
         if flag:
             flag = flag[0]
             t1 = flag.send_time
             t1 = t1.replace(tzinfo=None)
             t2 = datetime.now()
-            print((t2 - t1).seconds)
             if (t2 - t1).seconds < 60 :
                 return HttpResponse("请求发送过快，请{}s之后尝试".format(60 - (t2 - t1).seconds))
             flag.code = code
