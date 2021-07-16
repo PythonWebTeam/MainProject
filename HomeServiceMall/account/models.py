@@ -66,7 +66,6 @@ class User(AbstractUser):
 
     # 修改用户信息
 
-
     # 上传头像
     def upload_portrait_img(self, request):
         try:
@@ -292,6 +291,10 @@ class Service(models.Model):
 
     def __unicode__(self):
         return '{0}({1})'.format(self.name, self.sort)
+
+    def get_img_path(self):
+        path = "/static/media/" + str(self.img)
+        return path
 
     # 新建服务
     @staticmethod
