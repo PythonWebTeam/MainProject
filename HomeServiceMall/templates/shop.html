@@ -271,12 +271,9 @@
                                             Service_namelist为具体的服务名称列表
                                             Service_pricelist为具体的服务价格列表
                                             -->
-                                            <img style="width:400px;height:300px" src="{{ service.img1 }}"
+                                            <img style="width:400px;height:300px" src="{{ service.get_img_path }}"
                                                  alt="Product"/>
                                             <!--                                 hofee       鼠标移到上面时变化为第二幅图片，如不需要可直接删除此行代码-->
-                                            <img style="width:300px;height:400px" class="hover-image"
-                                                 src="{{ service.img2 }}"
-                                                 alt="Product"/>
                                         </a>
 
 
