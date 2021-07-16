@@ -66,12 +66,12 @@ class User(AbstractUser):
 
     # 获取用户所有订单
     def get_all_orders(self):
-        orders = Order.objects.all(user_id=self.id)
+        orders = Order.objects.filter(user_id=self.id)
         return orders
 
     # 获取用户购物车信息
     def get_cart(self):
-        carts = Cart.objects.all(user_id=self.id)
+        carts = Cart.objects.filter(user_id=self.id)
         return carts
 
     # 上传头像
