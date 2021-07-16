@@ -403,7 +403,7 @@ class ApplyforShop(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # 联接User表
 
     class Meta:
-        db_table = 'ApplyforShop'
+        db_table = 'Apply for Shop'
 
     def __str__(self):
         return self.user.username
