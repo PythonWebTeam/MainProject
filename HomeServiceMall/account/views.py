@@ -135,13 +135,15 @@ class VendorInfoManageView(View):
             order_list = []
             for service in services:
                 order_list.extend(Order.objects.filter(service_id=service.id))
+            type_list=Type.get_all_sort()
             response_data = {
                 "user": user,
                 "shop": shop,
                 "order_list": order_list,
                 "username": username,
                 "services_sort": services_sort,
-                "is_login": is_login
+                "is_login": is_login,
+                "type_list":type_list
             }
             return render(request, "vendor_info_manage.html", response_data)
 
