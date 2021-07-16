@@ -274,9 +274,9 @@
                                 </td>
                                 <td class="product-quantity">
                                     <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" disabled="true"
                                                value={{ cart.start_time|date:"Y-m-d" }}/>
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" disabled="true"
                                                value={{ cart.start_time|date:"H:i:s" }}/>
                                     </div>
                                 </td>
@@ -288,9 +288,9 @@
                                                value={{ cart.end_time|date:"H:i:s" }}/>
                                     </div>
                                 </td>
-                                <td class="product-subtotal">共 {{ cart.get_cart_hour }} 小时</td>
-                                <td class="product-subtotal">{{ cart.service.price }} 元/小时</td>
-                                <td class="product-subtotal">{{ cart.get_cart_price }} 元</td>
+                                <td class="product-subtotal" disabled="true">共 {{ cart.get_cart_hour }} 小时</td>
+                                <td class="product-subtotal" disabled="true">{{ cart.service.price }} 元/小时</td>
+                                <td class="product-subtotal" disabled="true">{{ cart.get_cart_price }} 元</td>
                                 <td class="product-remove">
                                     <form method="post">
                                         <button>
@@ -328,8 +328,8 @@
                             <div class="title-wrap">
                                 <h4 class="cart-bottom-title section-bg-gary-cart">购物车总和</h4>
                             </div>
-                            <h5>服务数量<span>{{ cart_size }}</span></h5>
-                            <h4 class="grand-totall-title">总金额<span>{{ total_cost }}</span></h4>
+                            <h5 disabled="true">服务数量<span>{{ cart_size }}</span></h5>
+                            <h4 class="grand-totall-title" disabled="true">总金额<span>{{ total_cost }}</span></h4>
                             <a href="../../../shop/service/pay/?se_id=0&from_cart=1">前往支付</a>
                         </div>
                     </div>
