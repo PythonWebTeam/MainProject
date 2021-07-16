@@ -22,7 +22,7 @@ class UserInfoManageView(View):
         order_list = Order.objects.filter(user_id=user.id)
         # 保持最新订单在最顶上
         order_list.reverse()
-        addr = Util.transform(user.province, user.city, user.district)
+        addr = user.transform_address()
         return render(request, "user_info_manage.html",
                       {"user": user, "order_list": order_list, "username": username, "services_sort": services_sort,
                        "is_login": is_login, "prov": addr[0], "city": addr[1], "county": addr[2], "msg": msg})

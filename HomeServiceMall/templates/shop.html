@@ -234,6 +234,7 @@
                     <div>
                         <h1 style="color: #ff7004"><b>{{ shop.name }}</b></h1>
                         <p><b>店铺创建时间: {{ shop.create_time }}</b></p>
+                        <p><b>店铺联系方式: {{ shop.get_shop_phonenumber }}</b></p>
                         {% if shop.status %}
                             <p><b>店铺状态: 营业 </b></p>
                         {% else %}

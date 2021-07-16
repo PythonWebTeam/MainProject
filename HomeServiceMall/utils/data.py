@@ -61,7 +61,7 @@ def alipay_index(request):
     user = User.objects.get(username=username)
     user_id = user.id
     services_num = 0
-    order_code = "x2" + str(time.time())
+    order_code = Order.order_no_generator()
     total_cost = 0
     if int(data.get("from_cart")) == 1:
         carts = Cart.objects.filter(user_id=user_id)
@@ -72,7 +72,7 @@ def alipay_index(request):
             order.service = cart.service
             price = convert_digital_decimal(cart.service.price)
             print(cart.start_time, cart.end_time)
-            total_cost += price * get_delta_hours(cart.start_time, cart.end_time)
+            total_cost += cart.get_cart_price()
             order.create_time = datetime.datetime.now()
             order.start_time = cart.start_time
             order.end_time = cart.end_time

@@ -17,15 +17,6 @@ class Util:
         services_sort = Type.objects.all()
         return username, services_sort, is_login
 
-    @staticmethod
-    def transform(prov, city, county):
-        dict_prov = province[prov]
-        str_prov = dict_prov.get("name")
-        dict_city = dict_prov.get("city")[city]
-        str_city = dict_city.get("name")
-        str_county = dict_city.get("districtAndCounty")[county]
-        return str_prov, str_city, str_county
 
-    @staticmethod
-    def login_check(request):
-        is_login = request.session.get("is_login", False)
+
+

@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 
 from HomeServiceMall import settings
+from utils.province import province
 
 
 class User(AbstractUser):
@@ -39,7 +40,7 @@ class User(AbstractUser):
         if not request.session.get("is_login"):
             return redirect("/passport/login/")
 
-    # 将用户登录进入登录态,返回登录
+    # 将用户登录进入登录态,返回登录信息
     @staticmethod
     def login(request):
         username = request.POST.get("user-name")
@@ -96,6 +97,15 @@ class User(AbstractUser):
             print("error")
             return False
 
+    # 将地址代码转换为文字
+    def transform_address(self):
+        dict_prov = province[self.province]
+        str_prov = dict_prov.get("name")
+        dict_city = dict_prov.get("city")[self.city]
+        str_city = dict_city.get("name")
+        str_county = dict_city.get("districtAndCounty")[self.district]
+        return str_prov, str_city, str_county
+
 
 class Cart(models.Model):
     service = models.ForeignKey('Service', on_delete=models.CASCADE)  # 联接Service表
@@ -135,8 +145,8 @@ class Order(models.Model):
     start_time = models.DateTimeField('服务开始时间')
     end_time = models.DateTimeField('服务结束时间')
     pay_status = models.BooleanField('订单支付状态', default=False)
-    comment = models.CharField(verbose_name='评价', max_length=255, blank=True, null=True,default="该用户尚未评价,默认5星好评")
-    star = models.IntegerField(verbose_name='服务星级', blank=True, null=True,default=5)
+    comment = models.CharField(verbose_name='评价', max_length=255, blank=True, null=True, default="该用户尚未评价,默认5星好评")
+    star = models.IntegerField(verbose_name='服务星级', blank=True, null=True, default=5)
     order_collection_id = models.CharField('OrderCollection', blank=True, null=True, max_length=255)
 
     class Meta:
@@ -177,6 +187,15 @@ class Order(models.Model):
             self.service.sales += 1  # 订单对应服务的销量加1
             self.service.save()
             msg = "支付成功"
+
+    # 获取订单号
+    def get_order_no(self):
+        return self.order_collection_id
+
+    # 订单号生成器
+    @staticmethod
+    def order_no_generator():
+        return "x2" + str(time.time().hex())
 
 
 class Shop(models.Model):
@@ -233,8 +252,8 @@ class Shop(models.Model):
         shop_services = self.get_shop_services()
         shop_orders = []
         for service in shop_services:
-            one_kind_orders = Type.get_one_kind_orders(service)
-            shop_orders.extend(one_kind_orders)
+            orders = service.get_all_orders()
+            shop_orders.extend(orders)
         return shop_orders
 
     # 获取店铺的所有服务
@@ -272,13 +291,10 @@ class Type(models.Model):
     def __unicode__(self):
         return self.name
 
+    # 获取所有订单种类
     @staticmethod
     def get_all_sort():
         return Type.objects.all()
-
-    @staticmethod
-    def get_one_kind_orders(service):
-        return Order.objects.filter(service_id=service.id)
 
 
 class Service(models.Model):
@@ -307,7 +323,7 @@ class Service(models.Model):
 
     # 获取该服务的全部订单
     def get_all_orders(self):
-        orders = Order.objects.all(service_id=self.id)
+        orders = Order.objects.filter(service_id=self.id)
         return orders
 
     # 新建服务
