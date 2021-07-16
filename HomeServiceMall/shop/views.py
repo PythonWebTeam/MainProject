@@ -28,7 +28,7 @@ class ServiceView(View):
 
     def post(self, request):
         if not request.session.get("is_login"):
-            return redirect("/passport/login/")
+            return HttpResponse("not login")
         data = request.POST
         se_id = int(data.get("se_id"))
         username = request.session.get("username")
@@ -70,6 +70,7 @@ class ShopView(View):
         username, services_sort, is_login = Util.get_basic_info(request)
         data = request.GET
         s_id = int(data.get("s_id"))
+        key = data.get("search")
         page_num = int(data.get("page"))
         shop = Shop.objects.get(id=s_id)
         services = Service.objects.filter(shop_id=s_id)
@@ -82,7 +83,8 @@ class ShopView(View):
             "is_login": is_login,
             "shop": shop,
             "curr_page": curr_page,
-            "paginator": paginator
+            "paginator": paginator,
+            "key":key
         }
         return render(request, "shop.html", response_data)
 
