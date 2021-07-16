@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
-
 from account.models import *
 from utils.data import get_delta_hours, convert_digital_decimal
 from utils.util import Util
@@ -126,7 +125,7 @@ class CartRemoveAll(View):
 
 
 class VendorInfoManageView(View):
-    def get(self, request,msg=""):
+    def get(self, request, msg=""):
         if not request.session.get("is_login"):
             return redirect("/passport/login/")
         else:
@@ -172,7 +171,7 @@ class VendorInfoManageView(View):
         phone = data.get("phone")  #
         edit = data.get("ifChangeTrue")  #
         shop = Shop.objects.get(user=user)
-        shop.name= shop_name
+        shop.name = shop_name
         shop.save()
         if not edit:
             user.phone = phone
@@ -282,14 +281,15 @@ class BusinessDataView(View):
 
 class UploadServiceView(View):
     # 静态变量
-    __service=None
+    __service = None
+
     @csrf_exempt
     def post(self, request):
         UploadServiceView.__service.upload_service_img(request)
         return redirect("")
 
     def get(self, request):
-        data = request.POST
+        data = request.GET
         name = data.get("service_name")
         price = data.get("service_price")
         intro = data.get("service_detail")
@@ -317,3 +317,13 @@ def submit_comment(request):
     order = Order.objects.get(id=order_id)
 
     return HttpResponse(order.set_comment(comment, star))
+
+
+def apply_for_shop(request):
+    username = request.session.get("username")
+    user = User.objects.get(username=username)
+
+    apply = ApplyforShop()
+    apply.user = user
+    apply.save()
+    return HttpResponse("ok")
