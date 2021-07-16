@@ -161,13 +161,17 @@ class Order(models.Model):
 
     # 给该订单设置评价和星级
     def set_comment(self, comment, star):
+        msg = ""
         try:
             self.comment = comment
             self.star = star
             self.save()
-            return "ok"
+            msg = "ok"
+
         except:
-            return "评论失败"
+            msg = "评论失败"
+        finally:
+            return msg
 
     # 获取订单的价格
     def get_order_price(self):
@@ -175,7 +179,8 @@ class Order(models.Model):
         delta_seconds = delta_time.total_seconds()
         delta_hours = delta_seconds / 3600
         service_price = float(self.service.price)
-        return delta_hours * service_price
+        order_price = delta_hours * service_price
+        return order_price
 
     # 支付订单
     def pay_order(self):
@@ -193,17 +198,23 @@ class Order(models.Model):
     def get_order_no(self):
         return self.order_collection_id
 
+    # 获取同订单号的全部订单
+    def get_orders_by_order_no(self):
+        orders = Order.objects.filter(order_collection_id=self.get_order_no())
+        return orders
+
     # 订单号生成器
     @staticmethod
     def order_no_generator():
-        return "x2" + str(time.time().hex())
+        order_no = "x2" + str(time.time().hex())
+        return order_no
 
 
 class Shop(models.Model):
     name = models.CharField('店铺名称', max_length=32, unique=True)
     create_time = models.DateTimeField('店铺创建时间')
     status = models.BooleanField('店铺状态')
-    star = models.IntegerField(verbose_name='店铺星级', blank=True, null=True)
+    star = models.IntegerField(verbose_name='店铺星级', blank=True, null=True, default=5)
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # 联接User表
 
     class Meta:
@@ -248,7 +259,7 @@ class Shop(models.Model):
 
         return recent_month_data
 
-    # 以类别分类获取店铺的全部订单
+    # 以获取店铺的全部订单
     def get_total_orders(self):
         shop_services = self.get_shop_services()
         shop_orders = []
@@ -277,7 +288,8 @@ class Shop(models.Model):
     # 获取店铺店主的电话号码
     def get_shop_phonenumber(self):
         user = User.objects.get(id=self.user_id)
-        return user.phone
+        phone_num = user.phone
+        return phone_num
 
 
 class Type(models.Model):
@@ -349,30 +361,30 @@ class Service(models.Model):
         aver_star = stars / order_num
         return aver_star
 
-    # 上传服务的图片，当上传成功时返回True
+    # 上传服务的图片
     def upload_service_img(self, request):
-        # try:
-        # 获取上传的图片
-        pic = request.FILES["picture"]
-        now = datetime.now()
+        try:
+            # 获取上传的图片
+            pic = request.FILES["picture"]
+            now = datetime.now()
 
-        time_str = "{}年{}月{}日{}时{}分{}秒".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
-        # 以带时间格式创建一个文件
-        file_url = '%s/img/%s_%s' % (settings.MEDIA_ROOT, time_str, pic.name)
+            time_str = "{}年{}月{}日{}时{}分{}秒".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
+            # 以带时间格式创建一个文件
+            file_url = '%s/img/%s_%s' % (settings.MEDIA_ROOT, time_str, pic.name)
 
-        with open(file_url, "wb") as f:
-            # 获取上传文件内容并写入创建文件中
-            for content in pic.chunks():
-                f.write(content)
+            with open(file_url, "wb") as f:
+                # 获取上传文件内容并写入创建文件中
+                for content in pic.chunks():
+                    f.write(content)
 
-        # 在数据库中保存上传记录
-        self.img = "img/%s_%s" % (time_str, pic.name)
-        self.save()
-        print("fuck")
-        return True
-    # except:
-    # print("error")
-    # return False
+            # 在数据库中保存上传记录
+            self.img = "img/%s_%s" % (time_str, pic.name)
+            self.save()
+            return True
+        except:
+            return False
+
+
 
 
 class EmailVerifyRecord(models.Model):
