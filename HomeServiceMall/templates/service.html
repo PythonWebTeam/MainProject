@@ -297,7 +297,6 @@
                                     stime.setHours(stime.getHours());
                                     var strx = stime.getFullYear() + "-" + fix((stime.getMonth() + 1), 2) + "-" + fix(stime.getDate(), 2) + "T" + fix(stime.getHours(), 2) + ":" + fix(stime.getMinutes(), 2);
 
-                                    console.log("strx: " + strx);
 
                                     $("#starttime").val(strx);
 
@@ -305,7 +304,6 @@
                                     etime.setHours(etime.getHours());
                                     var stry = etime.getFullYear() + "-" + fix((etime.getMonth() + 1), 2) + "-" + fix(etime.getDate(), 2) + "T" + fix(etime.getHours(), 2) + ":" + fix(etime.getMinutes(), 2);
 
-                                    console.log("stry: " + stry);
 
                                     $("#endtime").val(stry);
                                 }
@@ -331,7 +329,6 @@
                                     stime.setHours(parseInt(x.substring(11, 13)));
                                     stime.setMinutes(parseInt(x.substring(14, 16)));
 
-                                    console.log("stime: " + stime);
 
 
                                     {#var etime = new Date();#}
@@ -343,7 +340,6 @@
                                     etime.setMinutes(parseInt(y.substring(14, 16)));
 
 
-                                    console.log("etime: " + etime);
 
 
                                     if (etime <= stime) {
@@ -373,7 +369,6 @@
                                         success: function (response_data) {
                                             if (response_data === "ok") {
                                             } else {
-                                                console.log("fail")
                                                 alert(response_data)
                                             }
                                         },
@@ -411,20 +406,15 @@
                                     "end_time": $("#endtime").val(),
                                 },
                                 beforeSend: function (xhr) {
-                                    console.log("send")
-                                    console.log({{ service.id }})
                                 },
                                 success: function (response_data) {
-                                    console.log(response_data)
                                     if (response_data === "ok") {
-                                        console.log("success")
                                         alert("加入购物车成功！")
                                     }else if(response_data==="not login"){
                                         alert("请登录账号")
                                         location.href="/passport/login/"
                                     }
                                     else {
-                                        console.log("fail")
                                         alert(response_data)
                                     }
                                 }
@@ -515,7 +505,7 @@
                                 <li class="li"><a class="single-link" href="../../other/about/">关于我们</a></li>
                             </form>
                             <p class="about-text" style="width: 490px">”HANDY“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
-                                以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业
+                                以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务B2B2C平台，建设家政服务行业
                                 的运营生态。</p>
 
                         </div>

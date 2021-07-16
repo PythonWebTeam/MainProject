@@ -15,8 +15,6 @@ class ServiceView(View):
         se_id = request.GET.get("se_id")
         service = Service.objects.get(id=int(se_id))
         orders = Order.objects.filter(service_id=int(se_id))
-        for order in orders:
-            print(order.comment, order.star)
         response_data = {
             "service": service,
             "username": username,
