@@ -164,26 +164,27 @@ def pay_result(request):
     sign = params.pop('sign', None)
     username, services_sort, is_login = Util.get_basic_info(request)
     alipay = aliPay()
-
     status = alipay.verify(params, sign)
     out_trade_no = params.get('out_trade_no')
-    print("ooo" + out_trade_no)
+    recommend_services_all=[]
     if status:
         orders = Order.objects.filter(order_collection_id=out_trade_no)
         for order in orders:
             order.pay_order()
-        recommend_services = recommend(orders[0].service,count=12)
-        recommend_info=""
-        print(recommend_services)
-        if not len(recommend_services):
+            recommend_services = recommend(order.service,count=12)
+            for service in recommend_services:
+                if service not in recommend_services_all:
+                    recommend_services_all.append(service)
+        if not len(recommend_services_all):
             recommend_info="暂无推荐"
-
+        else:
+            recommend_info = "购买了该商品的用户还购买了:"
         data={
             "username": username,
             "services_sort": services_sort,
             "is_login": is_login,
             "result":"支付成功",
-            "services":recommend_services,
+            "services":recommend_services_all,
             "recommend_info":recommend_info
         }
         return render(request, "result.html" , data)
