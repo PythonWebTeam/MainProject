@@ -179,6 +179,7 @@ def pay_result(request):
             recommend_info="暂无推荐"
         else:
             recommend_info = "购买了该商品的用户还购买了:"
+        print(recommend_services_all)
         data={
             "username": username,
             "services_sort": services_sort,

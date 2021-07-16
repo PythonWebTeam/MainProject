@@ -18,6 +18,7 @@ users_patterns = [
     path("user_info_manage/", account_views.UserInfoManageView.as_view()),
     path("order_info_manage/submit_comment/", account_views.submit_comment),
     path("order_info_manage/delete_order/", account_views.delete_order),
+    path("user_info_manage/apply_for_shop/", account_views.apply_for_shop,name="apply"),
     path("shop_cart/", account_views.ShopCartView.as_view()),
     path("shop_cart/removeall/", account_views.CartRemoveAll.as_view()),
 ]

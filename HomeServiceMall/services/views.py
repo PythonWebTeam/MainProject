@@ -23,6 +23,7 @@ class ServicesClassView(View):
             services = Service.objects.filter().order_by(order_key)
         else:
             type_id = Type.objects.filter(name__contains=key)  # 通过关键字找该类服务id
+            services = Service.objects.filter(name__contains=key)
             if type_id:
                 type_id = type_id[0]
                 services = Service.objects.filter(sort=type_id).order_by(order_key)  # 通过id找出所有满足关键字的服务

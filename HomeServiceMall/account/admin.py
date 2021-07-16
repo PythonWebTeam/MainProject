@@ -35,4 +35,6 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('service', 'user', 'create_time', 'start_time', 'end_time', 'pay_status', 'star')
 
 
+admin.site.register(ApplyforShop)
+
 admin.site.register(Order, OrderAdmin)
