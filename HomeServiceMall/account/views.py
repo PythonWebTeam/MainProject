@@ -319,7 +319,11 @@ def submit_comment(request):
 def apply_for_shop(request):
     username = request.session.get("username")
     user = User.objects.get(username=username)
-
+    shop = Shop()
+    shop.name = username + "的店铺"
+    shop.create_time = datetime.now()
+    shop.user = user
+    shop.save()
     apply = ApplyforShop()
     apply.user = user
     apply.save()
