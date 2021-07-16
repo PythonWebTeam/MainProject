@@ -275,17 +275,17 @@
                                 <td class="product-quantity">
                                     <div class="cart-plus-minus">
                                         <input class="cart-plus-minus-box" type="text" name="qtybutton" disabled="true"
-                                               value={{ cart.start_time|date:"Y-m-d" }}/>
+                                               value="{{ cart.start_time|date:"Y-m-d" }}" />
                                         <input class="cart-plus-minus-box" type="text" name="qtybutton" disabled="true"
-                                               value={{ cart.start_time|date:"H:i:s" }}/>
+                                               value="{{ cart.start_time|date:"H:i:s" }}" />
                                     </div>
                                 </td>
                                 <td class="product-quantity">
                                     <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"
-                                               value={{ cart.end_time|date:"Y-m-d" }}/>
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"
-                                               value={{ cart.end_time|date:"H:i:s" }}/>
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" disabled="true"
+                                               value="{{ cart.end_time|date:"Y-m-d" }}" />
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" disabled="true"
+                                               value="{{ cart.end_time|date:"H:i:s" }}" />
                                     </div>
                                 </td>
                                 <td class="product-subtotal" disabled="true">共 {{ cart.get_cart_hour }} 小时</td>
