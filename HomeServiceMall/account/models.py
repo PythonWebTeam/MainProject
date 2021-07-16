@@ -393,3 +393,10 @@ class EmailVerifyRecord(models.Model):
             return True
         else:
             return False
+
+
+class ApplyforShop(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # 联接User表
+
+    class Meta:
+        db_table = 'ApplyforShop'
