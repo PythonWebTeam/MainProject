@@ -128,7 +128,7 @@ class PayView(View):
             for cart in carts:
                 services.append(cart.service)
                 total_cost += cart.get_cart_price()
-            addr = Util.transform(user.province, user.city, user.district)
+            addr = user.transform_address()
             return_data = {
                 "services": services,
                 "total_cost": total_cost,
