@@ -53,6 +53,7 @@ class User(AbstractUser):
         else:
             return HttpResponse("账号或密码错误!")
 
+    # 修改用户名
     def change_username(self, request, new_username):
         self.username = new_username
         request.session["username"] = new_username
@@ -62,6 +63,9 @@ class User(AbstractUser):
     def change_password(self, new_password):
         self.set_password(new_password)
         self.save()
+
+    # 修改用户信息
+
 
     # 上传头像
     def upload_portrait_img(self, request):
