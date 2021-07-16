@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 import decimal
 from account.models import User, Cart, Service, Order
 from utils.pay import AliPay
+from utils.recommend import recommend
 
 
 def aliPay():
@@ -170,6 +171,14 @@ def pay_result(request):
         orders = Order.objects.filter(order_collection_id=out_trade_no)
         for order in orders:
             order.pay_order()
-        return HttpResponse('支付成功')
-    return HttpResponse('支付失败')
+        recommend_services = recommend(orders[0].service)
+        data={
+            "msg":"支付成功",
+            "services":recommend_services
+        }
+        return render(request, "result.html" , data)
+    data={
+            "msg":"支付失败,请重新购买"
+        }
+    return render(request, "result.html" , data)
 # http://127.0.0.1:8000/shop/service/pay/result/?charset=utf-8&out_trade_no=x21626277188.7983813&method=alipay.trade.page.pay.return&total_amount=100.00&sign=hxzf0A6pNL8WDB8Q6vSJ%2FyAaFlhO8hxFCd4CBsqs7bMTtSCRQ%2FfEhqdtve7wzoF0T%2FByhQkpdyoPYpqcF54clxdEpIJfUCPdK4paw1vlnSV5bEzdZgLD5PLRoIEtZTN0V1J72uOpFEB%2Brmq1FGTLayCBh9zjG46D7hNu62pEv9p12bIvmwtolYT%2FPvy9r0F1hODw1whTG%2Fpwk574IAwEubA%2FOr93nJ3S9X8wtEPE4ESEtHwmEc8%2FHRCMH2zZhwq9tLwVjtZemLzEa56%2B0xkdVPBskeDpVxGjJ%2BWw5KclqfXRUPF5BFelL7WrO%2BGevKNfrHS2zrkh5KwU4d7VDT6EWw%3D%3D&trade_no=2021071422001457990501358213&auth_app_id=2021000117687494&version=1.0&app_id=2021000117687494&sign_type=RSA2&seller_id=2088621956124101&timestamp=2021-07-14+23%3A40%3A13
