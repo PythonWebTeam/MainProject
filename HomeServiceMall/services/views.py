@@ -26,7 +26,8 @@ class ServicesClassView(View):
             services = Service.objects.filter(name__contains=key)
             if type_id:
                 type_id = type_id[0]
-                services = Service.objects.filter(sort=type_id).order_by(order_key)  # 通过id找出所有满足关键字的服务
+                services = services|Service.objects.filter(sort=type_id)
+            services.order_by(order_key)                      # 通过id找出所有满足关键字的服务
 
         per_page = 12
         paginator = Paginator(services, per_page)

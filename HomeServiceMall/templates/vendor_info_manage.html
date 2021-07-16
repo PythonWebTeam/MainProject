@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -145,7 +146,6 @@
                            class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
                             <i class="icon-menu"></i>
                         </a>
-                    </label>
                 </div>
             </div>
 
@@ -348,7 +348,7 @@
                                                 xAxis: {
                                                     type: 'category',
                                                     {#data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']#}
-                                                    data: ['1', '2', '3', '4', '5', '6']
+                                                    data: ['距今第1月内', '距今第2月内', '距今第3月内', '距今第4月内', '距今第5月内', '距今第6月内']
 
                                                 },
                                                 yAxis: {
@@ -540,7 +540,6 @@
                                                 <label>店铺名</label>
                                                 <input name="shop_name" type="text" value="{{ shop.name }}">
                                             </div>
-
                                             <div class="single-input">
                                                 <label>邮箱</label>
                                                 <input type="email" value="{{ user.email }}" disabled="true"
@@ -1001,6 +1000,7 @@
                                  aria-labelledby="account-address-tab">
                                 <div class="myaccount-address">
                                     <p>店铺经营数据可视化图表</p>
+                                    <p style="position: relative;margin-left: 300px">近6月每月订单总量图</p>
                                     <div>
                                         <div id="GraphDemoOne" style="height:500px"></div>
                                         {#                                        <script type="text/javascript">#}
@@ -1128,6 +1128,7 @@
                                     {#                                        </script>#}
                                     {#                                    </div>#}
                                     <div>
+                                        <p style="position: relative; margin-left: 300px">本月订单分类图</p>
                                         <div id="GraphDemoThree" style="height: 700px">
                                             <script type="text/javascript"
                                                     src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
@@ -1224,6 +1225,7 @@
     </main>
     <!-- Main Content Area End Here -->
 
+
     <!-- Footer Area Start -->
     <div class="footer-area">
         <div class="footer-container">
@@ -1239,7 +1241,7 @@
                                     <li class="li"><a class="single-link" href="../../../other/about/" style="color: #ff7004">关于我们</a></li>
                                 </form>
                                 <p class="about-text" style="width: 490px">”HANDY“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
-                                    以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务O2O平台，建设家政服务行业
+                                    以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务B2B2C平台，建设家政服务行业
                                     的运营生态。</p>
 
                             </div>
