@@ -14,7 +14,7 @@ admin.site.register(Type)
 
 
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'price', "status", "sort", "sales", "shop")
+    list_display = ('id', 'name', 'price', "sort", "sales", "shop")
     ordering = ("-sales",)
     search_fields = ('id', 'name', "shop", "sort",)
 
@@ -23,7 +23,7 @@ admin.site.register(Service, ServiceAdmin)
 
 
 class ShopAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'status', 'create_time', 'user')
+    list_display = ('id', 'name', 'create_time', 'user')
     search_fields = ('name',)
 
 
