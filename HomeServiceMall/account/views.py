@@ -41,17 +41,16 @@ class UserInfoManageView(View):
         phone = data.get("phone")  #
         edit = data.get("ifChangeTrue")  #
         if not edit:
-            user.username = new_username
             user.phone = phone
             user.save()
         else:
-            user.username = new_username
             user.phone = phone
             user.province = int(data.get("prov"))
             user.city = int(data.get("city"))
             user.district = int(data.get("county"))
             user.details = data.get("addr")
             user.save()
+        user.change_username(request,new_username)
         return self.get(request)
 
 
