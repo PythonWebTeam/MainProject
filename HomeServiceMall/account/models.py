@@ -135,7 +135,8 @@ class Cart(models.Model):
         delta_seconds = delta_time.total_seconds()
         delta_hours = delta_seconds / 3600
         service_price = float(self.service.price)
-        return delta_hours * service_price
+        total_cost = delta_hours * service_price
+        return total_cost
 
 
 class Order(models.Model):
