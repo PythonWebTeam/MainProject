@@ -799,8 +799,8 @@
                                                                                 success: function (response_data) {
                                                                                     if (response_data === "ok") {
                                                                                         alert("服务信息已提交，请上传服务图片！")
-                                                                                        var uploadPic=document.getElementById("uploadPicture")
-                                                                                        uploadPic.setAttribute("hidden","false")
+                                                                                        var uploadPic = document.getElementById("uploadPicture")
+                                                                                        uploadPic.setAttribute("hidden", "false")
                                                                                     } else {
                                                                                         alert(response_data)
                                                                                     }
@@ -816,7 +816,8 @@
                                                                         <div style="height: 20px"></div>
                                                                         <div class="layui-form-item">
                                                                             <form method="post"
-                                                                                  action="../../../account/vendors/shop_info_manage/append/" hidden="true" id="uploadPicture">
+                                                                                  action="../../../account/vendors/shop_info_manage/append/"
+                                                                                  hidden="true" id="uploadPicture">
                                                                                 <label class="layui-form-label">上传服务图片</label>
                                                                                 <div style="height: 5px"></div>
                                                                                 <script>
@@ -905,24 +906,30 @@
                                                         <div id="lg2" class="tab-pane">
                                                             <div class="login-form-container">
                                                                 <div class="change-delete-form">
-                                                                    <form action="#" method="post">
                                                                         <label>待删除的服务名称</label>
-                                                                        <input type="text" name="service_input"
+                                                                        <input type="text" name="service_name" id="service_name"
                                                                                placeholder="服务名称"/>
                                                                         <div class="button-box">
-                                                                            <form method="post" action="#">
-                                                                                <button type="submit"><span>确认删除</span>
-                                                                                </button>
-                                                                            </form>
+                                                                            <button type="submit"><span>确认删除</span>
+                                                                            </button>
                                                                         </div>
-                                                                    </form>
                                                                     <script>
-                                                                        function check() {
-                                                                            var service = document.getElementById("a").value;
-                                                                            var service_input = document.getElementById("b").value;
-                                                                            if (service != service_input) {
-                                                                                alert("服务名称不存在，请核查！");
-                                                                            }
+                                                                        function checkDelete() {
+                                                                            $.ajax({
+                                                                                url: "../../../account/vendors/shop_info_manage/delete/",
+                                                                                type: "post",
+                                                                                data: {
+                                                                                    "service_name": $("#service_name").val(),
+                                                                                    "s_id": {{ shop.id }},
+                                                                                },
+                                                                                success: function (response_data) {
+                                                                                    if (response_data === "ok") {
+                                                                                        alert("已删除！")
+                                                                                    } else {
+                                                                                        alert(response_data)
+                                                                                    }
+                                                                                }
+                                                                            })
                                                                         }
                                                                     </script>
                                                                 </div>
