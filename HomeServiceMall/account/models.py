@@ -64,6 +64,16 @@ class User(AbstractUser):
         self.set_password(new_password)
         self.save()
 
+    # 获取用户所有订单
+    def get_all_orders(self):
+        orders = Order.objects.all(user_id=self.id)
+        return orders
+
+    # 获取用户购物车信息
+    def get_cart(self):
+        carts = Cart.objects.all(user_id=self.id)
+        return carts
+
     # 上传头像
     def upload_portrait_img(self, request):
         try:

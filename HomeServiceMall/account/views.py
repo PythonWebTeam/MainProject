@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
@@ -19,7 +19,9 @@ class UserInfoManageView(View):
         user = User.objects.get(username=username)
         if user.is_vendor:
             return redirect("/account/vendors/vendor_info_manage")
-        order_list = Order.objects.filter(user_id=user.id)  ####
+        order_list = Order.objects.filter(user_id=user.id)
+        # 保持最新订单在最顶上
+        order_list.reverse()
         addr = Util.transform(user.province, user.city, user.district)
         return render(request, "user_info_manage.html",
                       {"user": user, "order_list": order_list, "username": username, "services_sort": services_sort,
@@ -50,7 +52,7 @@ class UserInfoManageView(View):
             user.district = int(data.get("county"))
             user.details = data.get("addr")
             user.save()
-        user.change_username(request,new_username)
+        user.change_username(request, new_username)
         return self.get(request)
 
 
@@ -135,7 +137,9 @@ class VendorInfoManageView(View):
             order_list = []
             for service in services:
                 order_list.extend(Order.objects.filter(service_id=service.id))
-            type_list=Type.get_all_sort()
+            type_list = Type.get_all_sort()
+            # 保持最新订单在最顶上
+            order_list.reverse()
             response_data = {
                 "user": user,
                 "shop": shop,
@@ -143,7 +147,7 @@ class VendorInfoManageView(View):
                 "username": username,
                 "services_sort": services_sort,
                 "is_login": is_login,
-                "type_list":type_list
+                "type_list": type_list
             }
             return render(request, "vendor_info_manage.html", response_data)
 
