@@ -333,10 +333,8 @@
                                         url: "../../../account/vendors/business_data/",
                                         type: "GET",
                                         beforeSend: function (xhr) {
-                                            console.log("beforeSend")
                                         },
                                         success: function (json_data) {
-                                            console.log("success")
                                             {#var obj = JSON.parse(json_data);#}
                                             var dom = document.getElementById("GraphDemoOne");
                                             var myChart = echarts.init(dom);
@@ -827,11 +825,6 @@
                                                                                         "shop_id": $("#shop_id_add").val(),
                                                                                     },
                                                                                     beforeSend: function (xhr) {
-                                                                                        console.log("service_name_add" + $("#service_name_add").val())
-                                                                                        console.log("service_type_add" + $("#service_type_add").val())
-                                                                                        console.log("service_price_add" + $("#service_price_add").val())
-                                                                                        console.log("service_detail_add" + $("#service_detail_add").val())
-                                                                                        console.log("shop_id_add" + $("#shop_id_add").val())
                                                                                         if ($("#service_name_add").val().length===0) {
                                                                                             alert("服务名称不能为空！")
                                                                                             xhr.abort()
@@ -1024,7 +1017,6 @@
                                         {#                                                services_sort_var.add(service.sort.name)#}
                                         {#                                            {% endfor %}#}
                                         {##}
-                                        {#                                            console.log(services_sort_var)#}
                                         {##}
                                         {#                                            var option;#}
                                         {##}

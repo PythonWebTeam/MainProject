@@ -391,7 +391,6 @@
                                                     }
 
                                                     if ($("#email-verifyRet").val().length !== 6) {
-                                                        console.log($("#email-verifyRet").val())
                                                         $("#email-verifyInfoRet").text("验证码为6位!")
                                                         xhr.abort()
                                                     } else {
@@ -399,7 +398,6 @@
                                                     }
                                                 },
                                                 success: function (return_data) {
-                                                    console.log(return_data)
                                                     if (return_data === "ok") {
                                                         alert("重置密码成功!")
                                                         location.href = "../../passport/login/"
