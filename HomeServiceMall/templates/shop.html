@@ -231,9 +231,9 @@
                         <h1 style="color: #ff7004"><b>{{ shop.name }}</b></h1>
                         <p><b>店铺创建时间: {{ shop.create_time }}</b></p>
                         {% if shop.status %}
-                            <p><b>店铺状态: 停业 </b></p>
-                        {% else %}
                             <p><b>店铺状态: 营业 </b></p>
+                        {% else %}
+                            <p><b>店铺状态: 停业 </b></p>
                         {% endif %}
                         <p><b>店铺评分: {{ shop.get_shop_star }}</b></p>
                     </div>
