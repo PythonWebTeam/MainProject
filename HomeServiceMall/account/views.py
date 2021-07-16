@@ -191,16 +191,13 @@ class DeleteServiceView(View):
     def post(self, request):
         data = request.POST.get
         service_name = data.get("service_name")
-        s_id = int(data.get("s_id"))
-        search_dict = dict()
-        search_dict["service_name"] = service_name
-        search_dict["s_id"] = s_id
-        service = Service.objects.filter(**search_dict)
-        if not service:
-            return HttpResponse("您要删除的服务不存在")
-        else:
-            Service.objects.get(**search_dict).delete()
-            return HttpResponse("ok")
+        shop_id = int(data.get("s_id"))
+        services = Service.objects.filter(name=service_name)
+        for service in services:
+            if service.shop_id == shop_id :
+                service.delete()
+                return HttpResponse("ok")
+        return HttpResponse("您要删除的服务不存在")
 
 
 class BusinessDataView(View):
@@ -295,6 +292,7 @@ class UploadServiceView(View):
         intro = data.get("service_detail")
         shop_id = data.get("shop_id")
         type_id = data.get("shop_type")
+        print(name)
         UploadServiceView.__service = Service.new_service(name, price, intro, shop_id, type_id)
 
         return HttpResponse("ok")
