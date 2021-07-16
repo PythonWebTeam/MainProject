@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <title>Let's购 信息修改</title>
+    <title>HANDY 信息修改</title>
     <meta name="description"
           content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world."/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -760,7 +760,7 @@
                                                         <div id="lg1" class="tab-pane active">
                                                             <div class="login-form-container">
                                                                 <div class="change-delete-form">
-                                                                    <input type="text" name="service_name"
+                                                                    <input type="text" name="service_name_add" id="service_name_add"
                                                                            maxlength="12" minlength="3"
                                                                            placeholder="服务名称"/>
                                                                     {#                                                                        <input type="checkbox" name="service_name"#}
@@ -769,32 +769,40 @@
                                                                     <div>
                                                                         <p style="font-size: 14px;position: relative;left: 20px">
                                                                             服务类型</p>
-                                                                        <select name="service_type"
-                                                                                id="service_type"
+                                                                        <select name="service_type_add"
+                                                                                id="service_type_add"
                                                                                 style="position: relative;left: 100px;top: -40px">
                                                                             {% for type in type_list %}
-                                                                                <option value="{{ type }}">{{ type }}</option>
+                                                                                <option value="{{ type.id }}">{{ type }}</option>
                                                                             {% endfor %}
                                                                         </select>
                                                                     </div>
-                                                                    <input type="text" name="service_price"
+                                                                    <input type="text" name="service_price_add" id="service_price_add"
                                                                            placeholder="服务价格"/>
-                                                                    <input type="text" name="service_detail"
+                                                                    <input type="text" name="service_detail_add" id="service_detail_add"
                                                                            maxlength="500" minlength="6"
                                                                            placeholder="简介（不超过五百字）"/>
-                                                                    <input hidden="hidden" name="shop_id"
+                                                                    <input hidden="hidden" name="shop_id_add" id="shop_id_add"
                                                                            value="{{ shop.id }}">
                                                                     <div class="button-box">
-                                                                        <script> function SendRequest() {
+                                                                        <script>
+                                                                            function SendRequest() {
                                                                             $.ajax({
                                                                                 url: "../../../account/vendors/shop_info_manage/append/",
-                                                                                type: "get",
+                                                                                type: "GET",
                                                                                 data: {
-                                                                                    "service_name": $("#service_name").val(),
-                                                                                    "service_type": $("#service_type").val(),
-                                                                                    "service_price": $("#service_price").val(),
-                                                                                    "service_detail": $("#service_detail").val(),
-                                                                                    "shop_id": $("#shop_id").val(),
+                                                                                    "service_name": $("#service_name_add").val(),
+                                                                                    "service_type": $("#service_type_add").val(),
+                                                                                    "service_price": $("#service_price_add").val(),
+                                                                                    "service_detail": $("#service_detail_add").val(),
+                                                                                    "shop_id":$("#shop_id_add").val(),
+                                                                                },
+                                                                                beforeSend: function (xhr) {
+                                                                                    console.log("service_name_add" +$("#service_name_add").val())
+                                                                                    console.log("service_type_add" +$("#service_type_add").val())
+                                                                                    console.log("service_price_add" +$("#service_price_add").val())
+                                                                                    console.log("service_detail_add" +$("#service_detail_add").val())
+                                                                                    console.log("shop_id_add"+$("#shop_id_add").val())
                                                                                 },
                                                                                 success: function (response_data) {
                                                                                     if (response_data === "ok") {
@@ -809,7 +817,7 @@
 
                                                                         }</script>
                                                                         <button type="submit"
-                                                                                onclick="SendRequest()"
+                                                                                onclick="SendRequest();"
                                                                                 style="position: relative;left: 135px">
                                                                             <span>确认提交</span>
                                                                         </button>
@@ -906,13 +914,15 @@
                                                         <div id="lg2" class="tab-pane">
                                                             <div class="login-form-container">
                                                                 <div class="change-delete-form">
-                                                                        <label>待删除的服务名称</label>
-                                                                        <input type="text" name="service_name" id="service_name"
-                                                                               placeholder="服务名称"/>
-                                                                        <div class="button-box">
-                                                                            <button type="submit" onclick="checkDelete()"><span>确认删除</span>
-                                                                            </button>
-                                                                        </div>
+                                                                    <label>待删除的服务名称</label>
+                                                                    <input type="text" name="service_name"
+                                                                           id="service_name"
+                                                                           placeholder="服务名称"/>
+                                                                    <div class="button-box">
+                                                                        <button type="submit" onclick="checkDelete()">
+                                                                            <span>确认删除</span>
+                                                                        </button>
+                                                                    </div>
                                                                     <script>
                                                                         function checkDelete() {
                                                                             $.ajax({
@@ -1280,7 +1290,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 text-left">
-                            <p class="copy-text">Copyright&copy; Let's购 2021. &nbsp;All rights reserved.</p>
+                            <p class="copy-text">Copyright&copy; HANDY 2021. &nbsp;All rights reserved.</p>
                         </div>
                     </div>
                 </div>

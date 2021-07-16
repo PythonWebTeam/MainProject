@@ -291,8 +291,9 @@ class UploadServiceView(View):
         price = data.get("service_price")
         intro = data.get("service_detail")
         shop_id = data.get("shop_id")
-        type_id = data.get("shop_type")
+        type_id = data.get("service_type")
         print(name)
+        print(type_id)
         UploadServiceView.__service = Service.new_service(name, price, intro, shop_id, type_id)
 
         return HttpResponse("ok")
