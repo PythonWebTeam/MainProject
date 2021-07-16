@@ -89,6 +89,7 @@
                         <div class="dropdown_search">
                             <form class="action-form" action="../../../services/" method="get">
                                 <input class="form-control" name="search" placeholder="输入要搜索的服务" type="text">
+                                <input hidden="hidden" name="page" value="1">
                                 <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
                             </form>
                         </div>
@@ -108,9 +109,9 @@
 
                                     <li>
 
-                                        <form action="../../../account/logout/" method="POST"><a name="logout"
+                                        <form action="../../../passport/logout/" method="POST"><a name="logout"
                                                                                                  class="dropdown-item"
-                                                                                                 href="../../../account/logout/"
+                                                                                                 href="../../../passport/logout/"
                                                                                                  onclick="logout()">注销</a>
                                         </form>
                                     </li>
@@ -538,18 +539,6 @@
                                             <div class="single-input">
                                                 <label>店铺名</label>
                                                 <input name="shop_name" type="text" value="{{ shop.name }}">
-                                            </div>
-                                            <div class="single-input">
-                                                <label>店铺状态</label>
-                                                <select disabled="disabled">
-                                                    {% if shop.status %}
-                                                        <option value="is_open" selected="true">运营</option>
-                                                        <option value="is_close">停业</option>
-                                                    {% else %}
-                                                        <option value="is_open">运营</option>
-                                                        <option value="is_close" selected="true">停业</option>
-                                                    {% endif %}
-                                                </select>
                                             </div>
                                             <div class="single-input">
                                                 <label>邮箱</label>
@@ -1236,6 +1225,7 @@
     </main>
     <!-- Main Content Area End Here -->
 
+
     <!-- Footer Area Start -->
     <div class="footer-area">
         <div class="footer-container">
@@ -1244,12 +1234,15 @@
                     <div class="row">
 
                         <!-- Start single blog -->
-                        <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up" data-aos-delay="200">
-                            <div class="single-wedge">
+                        <div class="col-md-6 col-lg-4 mb-md-30px mb-lm-30px" data-aos="fade-up" style="width: 600px"
+                             data-aos-delay="200">
+                            <div class="single-wedge" style="width: 590px">
                                 <form action="../../../other/about/" method="GET">
-                                    <li class="li"><a class="single-link" href="../../../other/about/">关于我们</a></li>
+                                    <li class="li"><a class="single-link" href="../../../other/about/" style="color: #ff7004">关于我们</a></li>
                                 </form>
-                                <p class="about-text"> 公司简介简介简介</p>
+                                <p class="about-text" style="width: 490px">”HANDY“是专业的家庭服务行业SAAS系统服务提供商，为全国家庭服务领域提供系统服务。
+                                    以家政公司内部管理为核心，集公司内务管理、业务管理、移动办公、家政员工作历史查询及 评价管理、雇主业务渠道等于一体;旨在打造一个完美的家政服务B2B2C平台，建设家政服务行业
+                                    的运营生态。</p>
 
                             </div>
                         </div>
@@ -1264,8 +1257,8 @@
                                     <div class="footer-row">
                                         <ul class="align-items-center">
                                             <form action="../../../other/Q&A/" method="GET">
-                                                <li class="li"><a class="single-link"
-                                                                  href="../../../other/Q&A/">常见问题</a></li>
+                                                <li class="li"><a class="single-link" href="../../../other/Q&A/">常见问题</a>
+                                                </li>
                                             </form>
                                             <!--                                            <li class="li"><a class="single-link" href="other/Q&A/">常见问题</a></li>-->
                                             <form action="../../../other/privacy_policy/" method="GET">
@@ -1275,8 +1268,7 @@
                                             </form>
                                             <!--                                            <li class="li"><a class="single-link" href="other/privacy-policy/">隐私政策</a></li>-->
                                             <form action="../../../admin/" method="GET">
-                                                <li class="li"><a class="single-link" href="../../../admin/">管理员登陆</a>
-                                                </li>
+                                                <li class="li"><a class="single-link" href="../../../admin/">管理员登陆</a></li>
                                             </form>
                                             <!--                                            <li class="li"><a class="single-link" href="admin/">管理员登陆</a></li>-->
                                         </ul>
@@ -1294,9 +1286,9 @@
                                     <div class="footer-row">
                                         <ul class="align-items-center">
                                             {% if is_login %}
-                                                <form action="../../../account/users/user_info_manage" method="GET">
+                                                <form action="../../../account/users/vendor_info_manage" method="GET">
                                                     <li class="li"><a class="single-link"
-                                                                      href="../../../account/users/user_info_manage">我的账户</a>
+                                                                      href="../account/users/user_info_manage">我的账户</a>
                                                     </li>
                                                 </form>
                                                 <form action="../../../account/users/shop_cart" method="GET">
@@ -1305,9 +1297,9 @@
                                                     </li>
                                                 </form>
                                                 <form action="../../../passport/logout" method="POST">
-                                                    <li class="li"><a class="single-link"
-                                                                      href="../../../passport/logout"
-                                                                      onclick="logout()">注销</a></li>
+                                                    <li class="li"><a class="single-link" href="../../../passport/logout"
+                                                                      onclick="logout()">注销</a>
+                                                    </li>
                                                 </form>
 
                                                 <!--                                        <script>-->
@@ -1317,8 +1309,8 @@
                                                 <!--                                        </script>-->
                                             {% else %}
                                                 <form action="../../../passport/login/" method="GET">
-                                                    <li class="li"><a class="single-link"
-                                                                      href="../../../passport/login/">登录</a></li>
+                                                    <li class="li"><a class="single-link" href="../../../passport/login/">登录</a>
+                                                    </li>
                                                 </form>
                                             {% endif %}
                                         </ul>
