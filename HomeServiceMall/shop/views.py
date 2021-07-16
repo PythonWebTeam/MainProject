@@ -70,7 +70,6 @@ class ShopView(View):
         username, services_sort, is_login = Util.get_basic_info(request)
         data = request.GET
         s_id = int(data.get("s_id"))
-        key = data.get("search")
         page_num = int(data.get("page"))
         shop = Shop.objects.get(id=s_id)
         services = Service.objects.filter(shop_id=s_id)
@@ -84,7 +83,6 @@ class ShopView(View):
             "shop": shop,
             "curr_page": curr_page,
             "paginator": paginator,
-            "key":key
         }
         return render(request, "shop.html", response_data)
 
@@ -102,7 +100,7 @@ class PayView(View):
             service = Service.objects.get(id=int(se_id))
             if not service.shop.status:
                 return HttpResponse("该店铺已停业")
-            services=[service]
+            services = [service]
             start_time = request.GET.get("starttime")
             end_time = request.GET.get("endtime")
             start_time_dec = datetime.datetime.strptime(start_time, "%Y-%m-%dT%H:%M")
