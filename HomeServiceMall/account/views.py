@@ -189,7 +189,7 @@ class VendorInfoManageView(View):
 
 class DeleteServiceView(View):
     def post(self, request):
-        data = request.POST.get
+        data = request.POST
         service_name = data.get("service_name")
         shop_id = int(data.get("s_id"))
         services = Service.objects.filter(name=service_name)
