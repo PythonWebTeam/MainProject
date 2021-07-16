@@ -1,7 +1,4 @@
-from django.shortcuts import render
-
 from account.models import Service, Type
-from utils.province import province
 
 
 class Util:
@@ -16,7 +13,3 @@ class Util:
         # 获取全部服务种类
         services_sort = Type.objects.all()
         return username, services_sort, is_login
-
-
-
-

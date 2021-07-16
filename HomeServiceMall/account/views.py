@@ -278,12 +278,12 @@ class BusinessDataView(View):
 
 class UploadServiceView(View):
     # 静态变量
-    __service = None
+    __service = Service()
 
     @csrf_exempt
     def post(self, request):
         UploadServiceView.__service.upload_service_img(request)
-        return redirect("")
+        return redirect("/account/vendors/vendor_info_manage/")
 
     def get(self, request):
         data = request.GET
@@ -292,8 +292,6 @@ class UploadServiceView(View):
         intro = data.get("service_detail")
         shop_id = data.get("shop_id")
         type_id = data.get("service_type")
-        print(name)
-        print(type_id)
         UploadServiceView.__service = Service.new_service(name, price, intro, shop_id, type_id)
 
         return HttpResponse("ok")

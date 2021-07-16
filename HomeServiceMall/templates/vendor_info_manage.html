@@ -760,7 +760,8 @@
                                                         <div id="lg1" class="tab-pane active">
                                                             <div class="login-form-container">
                                                                 <div class="change-delete-form">
-                                                                    <input type="text" name="service_name_add" id="service_name_add"
+                                                                    <input type="text" name="service_name_add"
+                                                                           id="service_name_add"
                                                                            maxlength="12" minlength="3"
                                                                            placeholder="服务名称"/>
                                                                     {#                                                                        <input type="checkbox" name="service_name"#}
@@ -777,123 +778,125 @@
                                                                             {% endfor %}
                                                                         </select>
                                                                     </div>
-                                                                    <input type="text" name="service_price_add" id="service_price_add"
+                                                                    <input type="text" name="service_price_add"
+                                                                           id="service_price_add"
                                                                            placeholder="服务价格"/>
-                                                                    <input type="text" name="service_detail_add" id="service_detail_add"
+                                                                    <input type="text" name="service_detail_add"
+                                                                           id="service_detail_add"
                                                                            maxlength="500" minlength="6"
                                                                            placeholder="简介（不超过五百字）"/>
-                                                                    <input hidden="hidden" name="shop_id_add" id="shop_id_add"
+                                                                    <input hidden="hidden" name="shop_id_add"
+                                                                           id="shop_id_add"
                                                                            value="{{ shop.id }}">
                                                                     <div class="button-box">
                                                                         <script>
                                                                             function SendRequest() {
-                                                                            $.ajax({
-                                                                                url: "../../../account/vendors/shop_info_manage/append/",
-                                                                                type: "GET",
-                                                                                data: {
-                                                                                    "service_name": $("#service_name_add").val(),
-                                                                                    "service_type": $("#service_type_add").val(),
-                                                                                    "service_price": $("#service_price_add").val(),
-                                                                                    "service_detail": $("#service_detail_add").val(),
-                                                                                    "shop_id":$("#shop_id_add").val(),
-                                                                                },
-                                                                                beforeSend: function (xhr) {
-                                                                                    console.log("service_name_add" +$("#service_name_add").val())
-                                                                                    console.log("service_type_add" +$("#service_type_add").val())
-                                                                                    console.log("service_price_add" +$("#service_price_add").val())
-                                                                                    console.log("service_detail_add" +$("#service_detail_add").val())
-                                                                                    console.log("shop_id_add"+$("#shop_id_add").val())
-                                                                                },
-                                                                                success: function (response_data) {
-                                                                                    if (response_data === "ok") {
-                                                                                        alert("服务信息已提交，请上传服务图片！")
-                                                                                        var uploadPic = document.getElementById("uploadPicture")
-                                                                                        uploadPic.setAttribute("hidden", "false")
-                                                                                    } else {
-                                                                                        alert(response_data)
+                                                                                $.ajax({
+                                                                                    url: "../../../account/vendors/shop_info_manage/append/",
+                                                                                    type: "GET",
+                                                                                    data: {
+                                                                                        "service_name": $("#service_name_add").val(),
+                                                                                        "service_type": $("#service_type_add").val(),
+                                                                                        "service_price": $("#service_price_add").val(),
+                                                                                        "service_detail": $("#service_detail_add").val(),
+                                                                                        "shop_id": $("#shop_id_add").val(),
+                                                                                    },
+                                                                                    beforeSend: function (xhr) {
+                                                                                        console.log("service_name_add" + $("#service_name_add").val())
+                                                                                        console.log("service_type_add" + $("#service_type_add").val())
+                                                                                        console.log("service_price_add" + $("#service_price_add").val())
+                                                                                        console.log("service_detail_add" + $("#service_detail_add").val())
+                                                                                        console.log("shop_id_add" + $("#shop_id_add").val())
+                                                                                    },
+                                                                                    success: function (response_data) {
+                                                                                        if (response_data === "ok") {
+                                                                                            alert("服务信息已提交，请上传服务图片！")
+                                                                                            var uploadPic = document.getElementById("uploadPicture")
+                                                                                            uploadPic.removeAttribute("hidden")
+                                                                                        } else {
+                                                                                            alert(response_data)
+                                                                                        }
                                                                                     }
-                                                                                }
-                                                                            })
+                                                                                })
 
-                                                                        }</script>
+                                                                            }</script>
                                                                         <button type="submit"
                                                                                 onclick="SendRequest();"
                                                                                 style="position: relative;left: 135px">
                                                                             <span>确认提交</span>
                                                                         </button>
                                                                         <div style="height: 20px"></div>
-                                                                        <div class="layui-form-item">
-                                                                            <form method="post"
-                                                                                  action="../../../account/vendors/shop_info_manage/append/"
-                                                                                  hidden="true" id="uploadPicture">
-                                                                                <label class="layui-form-label">上传服务图片</label>
-                                                                                <div style="height: 5px"></div>
-                                                                                <script>
-                                                                                    function previewImage(file) {
-                                                                                        {#var file = document.getElementById("img_id");#}
-                                                                                        fileName = $("#img_file").val();
-                                                                                        $("#imgName").attr("value", fileName);
+                                                                        <div class="layui-form-item" id="uploadPicture"
+                                                                             hidden="true">
+                                                                            <label class="layui-form-label">上传服务图片</label>
+                                                                            <div style="height: 5px"></div>
+                                                                            <script>
+                                                                                function previewImage(file) {
+                                                                                    {#var file = document.getElementById("img_id");#}
+                                                                                    fileName = $("#picture").val();
+                                                                                    $("#imgName").attr("value", fileName);
 
-                                                                                        var MAXWIDTH = 190;     //用来显示上传图片的宽度
-                                                                                        var MAXHEIGHT = 290;     //用来显示上传图片的高度
-                                                                                        var div = document.getElementById('img_id');
-                                                                                        if (file.files && file.files[0]) {
-                                                                                            div.innerHTML = '<img id=img_id>';
-                                                                                            var img = document.getElementById('img_id');
-                                                                                            img.onload = function () {
-                                                                                                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-                                                                                                img.width = rect.width;
-                                                                                                img.height = rect.height;
-                                                                                                img.style.marginLeft = rect.left + 'px';
-                                                                                                img.style.marginTop = rect.top + 'px';
-                                                                                            };
-                                                                                            var reader = new FileReader();
-                                                                                            reader.onload = function (evt) {
-                                                                                                img.src = evt.target.result;
-                                                                                            };
-                                                                                            reader.readAsDataURL(file.files[0]);
-                                                                                        } else {
-                                                                                            var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
-                                                                                            file.select();
-                                                                                            var src = document.selection.createRange().text;
-                                                                                            div.innerHTML = '<img id=img_id>';
-                                                                                            var img = document.getElementById('img_id');
-                                                                                            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+                                                                                    var MAXWIDTH = 190;     //用来显示上传图片的宽度
+                                                                                    var MAXHEIGHT = 290;     //用来显示上传图片的高度
+                                                                                    var div = document.getElementById('img_id');
+                                                                                    if (file.files && file.files[0]) {
+                                                                                        div.innerHTML = '<img id=img_id>';
+                                                                                        var img = document.getElementById('img_id');
+                                                                                        img.onload = function () {
                                                                                             var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-                                                                                            status = ('rect:' + rect.top + ',' + rect.left + ',' + rect.width + ',' + rect.height);
-                                                                                            div.innerHTML = "<div id=divhead style='width:" + rect.width + "px;height:" + rect.height + "px;margin-top:" + rect.top + "px;margin-left:" + rect.left + "px;" + sFilter + src + "\"'></div>";
-                                                                                        }
-                                                                                    }
-
-                                                                                    function clacImgZoomParam(maxWidth, maxHeight, width, height) {
-                                                                                        var param = {
-                                                                                            top: 0,
-                                                                                            left: 0,
-                                                                                            width: width,
-                                                                                            height: height
+                                                                                            img.width = rect.width;
+                                                                                            img.height = rect.height;
+                                                                                            img.style.marginLeft = rect.left + 'px';
+                                                                                            img.style.marginTop = rect.top + 'px';
                                                                                         };
-                                                                                        if (width > maxWidth || height > maxHeight) {
-                                                                                            rateWidth = width / maxWidth;
-                                                                                            rateHeight = height / maxHeight;
-                                                                                            if (rateWidth > rateHeight) {
-                                                                                                param.width = maxWidth;
-                                                                                                param.height = Math.round(height / rateWidth);
-                                                                                            } else {
-                                                                                                param.width = Math.round(width / rateHeight);
-                                                                                                param.height = maxHeight;
-                                                                                            }
-                                                                                        }
-                                                                                        param.left = Math.round((maxWidth - param.width) / 2);
-                                                                                        param.top = Math.round((maxHeight - param.height) / 2);
-                                                                                        return param;
+                                                                                        var reader = new FileReader();
+                                                                                        reader.onload = function (evt) {
+                                                                                            img.src = evt.target.result;
+                                                                                        };
+                                                                                        reader.readAsDataURL(file.files[0]);
+                                                                                    } else {
+                                                                                        var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+                                                                                        file.select();
+                                                                                        var src = document.selection.createRange().text;
+                                                                                        div.innerHTML = '<img id=img_id>';
+                                                                                        var img = document.getElementById('img_id');
+                                                                                        img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+                                                                                        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                                                                                        status = ('rect:' + rect.top + ',' + rect.left + ',' + rect.width + ',' + rect.height);
+                                                                                        div.innerHTML = "<div id=divhead style='width:" + rect.width + "px;height:" + rect.height + "px;margin-top:" + rect.top + "px;margin-left:" + rect.left + "px;" + sFilter + src + "\"'></div>";
                                                                                     }
-                                                                                </script>
+                                                                                }
 
+                                                                                function clacImgZoomParam(maxWidth, maxHeight, width, height) {
+                                                                                    var param = {
+                                                                                        top: 0,
+                                                                                        left: 0,
+                                                                                        width: width,
+                                                                                        height: height
+                                                                                    };
+                                                                                    if (width > maxWidth || height > maxHeight) {
+                                                                                        rateWidth = width / maxWidth;
+                                                                                        rateHeight = height / maxHeight;
+                                                                                        if (rateWidth > rateHeight) {
+                                                                                            param.width = maxWidth;
+                                                                                            param.height = Math.round(height / rateWidth);
+                                                                                        } else {
+                                                                                            param.width = Math.round(width / rateHeight);
+                                                                                            param.height = maxHeight;
+                                                                                        }
+                                                                                    }
+                                                                                    param.left = Math.round((maxWidth - param.width) / 2);
+                                                                                    param.top = Math.round((maxHeight - param.height) / 2);
+                                                                                    return param;
+                                                                                }
+                                                                            </script>
+                                                                            <form method="post"
+                                                                                  action="../../../account/vendors/shop_info_manage/append/" enctype="multipart/form-data">
                                                                                 <div class="layui-input-block">
                                                                                     <input type="file"
-                                                                                           name="img_file"
+                                                                                           name="picture"
                                                                                            onchange="previewImage(this)"
-                                                                                           id="img_file">
+                                                                                           id="picture">
                                                                                     <img src=""
                                                                                          alt=""
                                                                                          id="img_id"
