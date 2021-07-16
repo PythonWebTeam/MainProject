@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate
+from django.contrib.redirects.models import Redirect
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -249,13 +250,10 @@ class UploadServiceView(View):
         type_id = 2  # TODO:前端增加输入类别
         service = Service.new_service(name, price, intro, shop_id, type_id)
         service.upload_service_img(request)
-        return HttpResponse("post")
+        return Redirect("")
 
     def get(self, request):
         return HttpResponse("get")
-        # s = Service.objects.get(id=1)
-        # s.upload_service_img(request)
-        # return HttpResponse("fuck")
 
 
 def delete_order(request):

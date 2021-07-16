@@ -53,6 +53,11 @@ class User(AbstractUser):
         else:
             return HttpResponse("账号或密码错误!")
 
+    def change_username(self, request, new_username):
+        self.username = new_username
+        request.session["username"] = new_username
+        self.save()
+
     # 修改密码
     def change_password(self, new_password):
         self.set_password(new_password)
@@ -229,7 +234,7 @@ class Shop(models.Model):
         shop_services = self.get_shop_services()
         stars = 0
         service_num = len(shop_services)
-        if service_num==0:
+        if service_num == 0:
             return 5
         for service in shop_services:
             stars += service.get_service_star()
@@ -297,7 +302,7 @@ class Service(models.Model):
         orders = Order.objects.filter(service_id=self.id)
         stars = 0
         order_num = len(orders)
-        if order_num==0:
+        if order_num == 0:
             return 5
         for order in orders:
             if order.star is None:
