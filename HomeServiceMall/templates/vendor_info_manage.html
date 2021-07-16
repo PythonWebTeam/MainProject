@@ -580,11 +580,11 @@
                                                     function checkPhone() {
                                                         if ($("#phone").val().length !== 11) {
                                                             $("#phone-numberInfoReg").text("手机号为11位数字!")
-                                                            var setDisabled=document.getElementById("saveChange")
-                                                            setDisabled.setAttribute("disabled","true")
+                                                            var setDisabled = document.getElementById("saveChange")
+                                                            setDisabled.setAttribute("disabled", "true")
                                                         } else {
                                                             $("#phone-numberInfoReg").text("")
-                                                            var setDisabled=document.getElementById("saveChange")
+                                                            var setDisabled = document.getElementById("saveChange")
                                                             setDisabled.removeAttribute("disabled")
                                                         }
                                                     }
@@ -801,16 +801,30 @@
                                                                     </div>
                                                                     <input type="number" name="service_price_add"
                                                                            id="service_price_add"
-                                                                           placeholder="服务价格"/>
+                                                                           placeholder="服务价格" value="10"
+                                                                           oninput="value=value.replace(/[^\d]/g,'')"
+                                                                           onchange="checkPrice()"/>
                                                                     <input type="text" name="service_detail_add"
                                                                            id="service_detail_add"
                                                                            maxlength="500" minlength="6"
-                                                                           placeholder="简介（不超过五百字）"/>
+                                                                           placeholder="详情（不超过五百字）"/>
                                                                     <input hidden="hidden" name="shop_id_add"
                                                                            id="shop_id_add"
                                                                            value="{{ shop.id }}">
                                                                     <div class="button-box">
                                                                         <script>
+                                                                            function checkPrice() {
+                                                                                if ($("#service_price_add").val() <= 0) {
+                                                                                    alert("服务价格不能小于等于0！")
+                                                                                    var disableSubmit = document.getElementById("submitBtn");
+                                                                                    disableSubmit.setAttribute("disabled", "true")
+                                                                                } else {
+                                                                                    var disableSubmit = document.getElementById("submitBtn");
+                                                                                    disableSubmit.removeAttribute("disabled")
+                                                                                }
+                                                                            }
+
+
                                                                             function SendRequest() {
                                                                                 $.ajax({
                                                                                     url: "../../../account/vendors/shop_info_manage/append/",
@@ -828,8 +842,16 @@
                                                                                         console.log("service_price_add" + $("#service_price_add").val())
                                                                                         console.log("service_detail_add" + $("#service_detail_add").val())
                                                                                         console.log("shop_id_add" + $("#shop_id_add").val())
+                                                                                        if ($("#service_name_add").val().length===0) {
+                                                                                            alert("服务名称不能为空！")
+                                                                                            xhr.abort()
+                                                                                        }
+                                                                                        if ($("#service_detail_add").val().length===0) {
+                                                                                            alert("服务详情不能为空！")
+                                                                                            xhr.abort()
+                                                                                        }
                                                                                         if ($("#service_price_add").val() < 0) {
-                                                                                            alert("商品价格不能小于0！")
+                                                                                            alert("服务价格不能小于0！")
                                                                                             xhr.abort()
                                                                                         }
                                                                                     }
@@ -849,7 +871,8 @@
                                                                             }</script>
                                                                         <button type="submit"
                                                                                 onclick="SendRequest();"
-                                                                                style="position: relative;left: 135px">
+                                                                                style="position: relative;left: 135px"
+                                                                                id="submitBtn">
                                                                             <span>确认提交</span>
                                                                         </button>
                                                                         <div style="height: 20px"></div>

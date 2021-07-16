@@ -303,7 +303,7 @@ class Service(models.Model):
     price = models.DecimalField('服务价格', max_digits=10, decimal_places=2)
     status = models.BooleanField('服务状态')
     img = models.ImageField(upload_to="img", null=True)
-    intro = models.CharField('服务简介', max_length=255, unique=True, blank=True, null=True)
+    intro = models.CharField('服务简介', max_length=255, blank=True, null=True)
     sales = models.IntegerField("销量", default=0)
     shop = models.ForeignKey('Shop', on_delete=models.CASCADE)  # 联接Shop表
     sort = models.ForeignKey('Type', on_delete=models.CASCADE)  # 联接Type表
