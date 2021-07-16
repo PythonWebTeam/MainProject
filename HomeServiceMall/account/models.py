@@ -151,6 +151,7 @@ class Order(models.Model):
         return delta_hours * service_price
 
     # 支付订单
+
     def pay_order(self):
         if self.pay_status:
             msg = "您已经支付过该订单，请勿重新支付"
@@ -159,6 +160,7 @@ class Order(models.Model):
             self.pay_status = True
             self.save()
             self.service.sales += 1  # 订单对应服务的销量加1
+            self.service.save()
             msg = "支付成功"
 
 
